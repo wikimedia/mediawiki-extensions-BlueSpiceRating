@@ -11,30 +11,20 @@
  * @filesource
  */
 
-BsRatinI18n = {
-	ratingItemNotAllowed: 'Unfortunatley, you are not allowed to rate.'
-};
 /*
  * PW(17.09.2012) replaced all .data("value") with .attr("data-value") JQuery 1.4.2 does not support data attributes
  */
 BsRating = {
 	init: function() {
-		var oStateLink = $('#bs-rating-statelink');
-		if( oStateLink ){
-			oStateLink.unbind('click').bind('click', function() { //workaround: prevents from double click handler
-				$('#bs-statebar-view').slideToggle( 'fast' );
-				return false; //Prevent normal function of the anchor tag.
-			});
-		}
 		$('.bs-rating-item-notallowed').each( function() {
 			$(this).unbind('click').bind('click', function() { //workaround: prevents from double click handler
-				BlueSpice.alert( BsRatinI18n.ratingItemNotAllowed );
+				BlueSpice.alert( mw.message('bs-rating-not-allowed').plain() );
 			});
 		});
 
 		//handle all rating items
 		$('.bs-rating-item.bs-rating-stars').each( function(){
-			if( $(this).attr('data-votable') !== undefined && $(this).attr('data-votable') === "true") {
+			if( typeof $(this).attr('data-votable') !== 'undefined' && $(this).attr('data-votable') === "true") {
 				$(this).children('img').unbind('click').click( function() {
 					BsRating.vote($(this));
 				});
@@ -50,10 +40,10 @@ BsRating = {
 		$(document).trigger('BsRatingInitDone', []);
 	},
 	getItemData: function( inputObject, inputAsContainer ) {
-		if( inputObject.attr('data-value') === undefined ) return;
+		if( typeof inputObject.attr('data-value') === 'undefined' ) return;
 		var replaceID = '#' + inputObject.parent().attr('data-replace');
 
-		if( inputAsContainer === undefined || inputAsContainer === false) {
+		if( typeof inputAsContainer === 'undefined' || inputAsContainer === false) {
 			var container = inputObject.parent();
 		} else {
 			var container = inputObject;
@@ -78,14 +68,14 @@ BsRating = {
 		$(document).trigger('BsRatingItemRate', [ data ]);
 		if( data.preventDefault ) return;
 
-		if( callback === undefined || callback == '') {
+		if( typeof callback === 'undefined' || callback == '' || !callback ) {
 			callback = function( data ) {
 				return function( result ) {
 					if( result['success'] == true) {
 						if(data.refType == 'article') {
 							$('#sb-RatingState').replaceWith(result['view']);
 							var oSBBodyRItem = $('.bs-rating-item.bs-rating-stars.bs-statebar-body-itembody');
-							if( oSBBodyRItem !== undefined ) {
+							if( oSBBodyRItem.length > 0 ) {
 								BsRating.reload( oSBBodyRItem );
 							}
 						}
@@ -98,7 +88,7 @@ BsRating = {
 			}
 		}
 
-		inputObject.parent().html( '<div id="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/bluespice-core/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
+		inputObject.parent().html( '<div id="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
 		$.getJSON(
 			wgScriptPath + '/index.php',
 			{
@@ -133,7 +123,7 @@ BsRating = {
 			}
 		}
 
-		inputObject.html( '<div class="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/bluespice-core/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
+		inputObject.html( '<div class="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
 		$.getJSON(
 			wgScriptPath + '/index.php',
 			{
@@ -151,12 +141,12 @@ BsRating = {
 		);
 	},
 	starsMouseOut: function(currElement, currValue, siblings, value) {
-		if( value === undefined ) return;
+		if( typeof value === 'undefined' ) return;
 
 		var currValueF = 0;
 		var aCurVal = (currValue + "").split(".");
 		currValue = parseInt(aCurVal[0]);
-		if( aCurVal[1] != undefined) {
+		if( typeof aCurVal[1] != 'undefined') {
 			currValueF = parseInt(aCurVal[1]);
 		}
 
@@ -180,7 +170,7 @@ BsRating = {
 		}
 	},
 	starsMouseOver: function(currElement, value, siblings) {
-		if( value === undefined ) return;
+		if( typeof value === 'undefined' ) return;
 
 		currElement.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 		for(var i = 0; i <= siblings.length; i++) {
@@ -194,6 +184,10 @@ BsRating = {
 	}
 }
 
+$(document).bind( 'BsStateBarBodyLoadComplete', function(event, data) {
+	BsRating.init();
+});
+
 $(document).bind( 'BsRatingItemRate', function(event, data) {
 	if(data.view != 'ViewStateBarBodyElementRating') return;
 	data.preventDefault = true;
@@ -205,7 +199,7 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 			if( result['success'] == true) {
 				data.inputObject.replaceWith(result['view']);
 				var oHeadRItem = $('.bs-rating-item.bs-rating-stars.bs-statebar-top-icon, .bs-rating-item.bs-rating-stars.bs-headline-rating');
-				if( oHeadRItem !== undefined ) {
+				if( typeof oHeadRItem !== 'undefined' ) {
 					BsRating.reload( oHeadRItem );
 				}
 				//BsRating.init();
@@ -215,7 +209,7 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 		}
 	}
 
-	inputObject.html( '<div id="bs-rating-load" style="width:' + inputObject.width() + 'px;background:transparent url(' + wgScriptPath + '/bluespice-core/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
+	inputObject.html( '<div id="bs-rating-load" style="width:' + inputObject.width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
 	$.getJSON(
 		wgScriptPath + '/index.php',
 		{

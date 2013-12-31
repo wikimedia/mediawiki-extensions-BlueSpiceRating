@@ -37,8 +37,7 @@ $wgResourceModules['ext.bluespice.rating'] = array(
 	'scripts' => 'bluespice.rating.js',
 	'position' => 'bottom',
 	'messages' => array(
-		//'bs-flaggedrevsconnector-response-success',
-		//'bs-flaggedrevsconnector-response-failure',
+		'bs-rating-not-allowed',
 	),
 ) + $aResourceModuleTemplate;
 

@@ -64,10 +64,10 @@ class ViewHeadlineElementRating extends ViewBaseElement {
 			$oView->setAdditionalDivClasses('bs-headline-rating bs-rating-item-notallowed');
 
 			$aOut[] =		$oView->execute();
-			$aOut[] =		'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text bs-statebar-viewtoggler">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
+			$aOut[] =		'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
 		} else {
 			$aOut[] =	$oView->execute();
-			$aOut[] =	'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text bs-statebar-viewtoggler">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
+			$aOut[] =	'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
 		}
 
 		$aOut[] = '</div>';

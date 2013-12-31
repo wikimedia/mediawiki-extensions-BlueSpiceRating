@@ -233,6 +233,15 @@ class Rating extends BsExtensionMW {
 		
 		BsExtensionManager::setContext('MW::Rating');
 		
+		//PW TODO: find better way
+		//this always was loaded too late, no matter what dependency or position
+		$oOutputPage->addScript(
+			'<script>'.
+				"$(document).on( 'BsStateBarRegisterToggleClickElements', function(event, aRegisteredToggleClickElements) {".
+					"aRegisteredToggleClickElements.push($('#bs-rating-statelink'));".
+				"});".
+			'</script>'
+		);
 		$oOutputPage->addModules('ext.bluespice.rating');
 		$oOutputPage->addModuleStyles('ext.bluespice.rating.styles');
 		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'Rating', false, false, false, 'MW::Rating' );
@@ -313,7 +322,7 @@ class Rating extends BsExtensionMW {
 	public function onStateBarBeforeBodyViewAdd( $oStateBar, &$aBodyViews, $oUser, $oTitle ) {
 		wfProfileIn( 'BS::' . __METHOD__ );
 		
-		if(!BsExtensionManager::isContextActive("MW::Rating")) {
+		if( !$this->checkContext($oTitle) || BsConfig::get('MW::Rating::Position') !== 'statebar' ) {
 			wfProfileOut( 'BS::' . __METHOD__ );
 			return true;
 		}
@@ -323,6 +332,7 @@ class Rating extends BsExtensionMW {
 			return true;
 		}
 
+		$this->runRegisterCustomTypes();
 		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
 
 		$oBodyView = $oRatingItem->getView($oUser, 'ViewStateBarBodyElementRating' );
@@ -421,8 +431,10 @@ class Rating extends BsExtensionMW {
 	public function checkContext( $oTitle ) {
 		global $wgRequest;
 
-		if( $wgRequest->getVal('action', 'view') != 'view' )	return false;
-		if( !is_object( $oTitle ) )                     return false;
+		if( !in_array($wgRequest->getVal('action', 'view'), array('view', 'ajax')) )
+			return false;
+		if( !is_object( $oTitle ) ) 
+			return false;
 		if( $oTitle->isRedirect() )	{ 
 			//PW(16.01.2013): this method does not exist in 1.20.1
 			//- use later

@@ -43,6 +43,9 @@ $messages['en'] = array(
 
 	'bs-specialrating-err-permissiondenied' => 'Permission denied',
 	'bs-specialrating-err-invalidreftype'	=> 'Invalid rating type',
+
+	#client
+	'bs-rating-not-allowed'				=> 'Unfortunatley, you are not allowed to rate.',
 );
 
 $messages['de'] = array(
@@ -73,11 +76,17 @@ $messages['de'] = array(
 
 	'bs-specialrating-err-permissiondenied' => 'Zugriff verweigert',
 	'bs-specialrating-err-invalidreftype'	=> 'Ungültiger Bewertungs-Typ',
+
+	#client
+	'bs-rating-not-allowed'				=> 'Du bist leider nicht berechtigt, eine Bewertung abzugeben.',
 );
 
 $messages['de-formal'] = array(
 	'bs-rating-sb-yourrating' 			=> 'Geben Sie Ihre Bewertung ab',
 	'bs-rating-sbb-votetext' 			=> 'Ihre Bewertung',
+
+	#client
+	'bs-rating-not-allowed'				=> 'Sie sind leider nicht berechtigt, eine Bewertung abzugeben.',
 );
 
 $messages['qqq'] = array();

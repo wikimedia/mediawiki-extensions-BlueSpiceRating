@@ -66,11 +66,11 @@ class ViewStateBarTopElementRating extends ViewStateBarTopElement {
 
 			$aOut[] =		$oView->execute();
 			$aOut[] =	'<span class="bs-statebar-top-text" id="sb-'.$this->sKey.'-text">';
-			$aOut[] =		'<a title="'.wfMessage('bs-rating-sb-linktitle',$iCount)->parse().'" href="#" id="bs-rating-statelink" class="bs-statebar-viewtoggler">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
+			$aOut[] =		'<a title="'.wfMessage('bs-rating-sb-linktitle',$iCount)->parse().'" href="#" id="bs-rating-statelink">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
 		} else {
 			$aOut[] =	$oView->execute();
 			$aOut[] =	'<span class="bs-statebar-top-text" id="sb-'.$this->sKey.'-text">';
-			$aOut[] =		'<a title="'.wfMessage('bs-rating-sb-linktitle',$iCount)->parse().'" href="#" id="bs-rating-statelink" class="bs-statebar-viewtoggler">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
+			$aOut[] =		'<a title="'.wfMessage('bs-rating-sb-linktitle',$iCount)->parse().'" href="#" id="bs-rating-statelink">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
 		}
 
 		$aOut[] =	'</span>';
