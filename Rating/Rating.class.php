@@ -81,32 +81,15 @@ class Rating extends BsExtensionMW {
 		$this->setHook( 'BSBlueSpiceSkinBeforePrintArticleHeadline' );
 		$this->setHook( 'BSStateBarBeforeTopViewAdd', 'onStateBarBeforeTopViewAdd' );
 		$this->setHook( 'BSStateBarBeforeBodyViewAdd', 'onStateBarBeforeBodyViewAdd' );
-		$this->setHook( 'SpecialPage_initList' );
 
 		$this->setHook( 'LoadExtensionSchemaUpdates' );
 
 		$this->mCore->registerBehaviorSwitch( 'bs_norating' );
 
-		$this->registerView( 'ViewRatingItemStars' );
-		$this->registerView( 'ViewRatingItemLike' );
-		$this->registerView( 'ViewStateBarTopElementRating' );
-		$this->registerView( 'ViewStateBarBodyElementRating' );
-		$this->registerView( 'ViewHeadlineElementRating' );
-
-		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'Rating', false, false, false, 'MW::Rating' );
-		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'SpecialRating', false, false, false, 'MW::SpecialRating' );
-		//$this->registerStyleSheet( BsConfig::get('MW::ScriptPath') . '/bluespice-mw/ext/Rating/Rating.css', false, 'MW::Rating' );
-
-		//currently not in use
-		//$sExtensionLibDir = dirname(__FILE__) . DS . 'lib';
-		//BsCore::registerClass( 'RatingItem', $sExtensionLibDir, 'RatingItem.class.php' );
-
 		$this->mCore->registerPermission( 'rating-write',			array('user') );
 		$this->mCore->registerPermission( 'rating-read',			array('*') );
 		$this->mCore->registerPermission( 'rating-archive',			array('sysop') );
 		$this->mCore->registerPermission( 'rating-viewspecialpage', array('user') );
-
-		//$this->mAdapter->registerSpecialPage( 'SpecialRating', dirname( __FILE__ ).'/specialpages/', 'RatingAlias' );
 
 		wfProfileOut( 'BS::'.__METHOD__ );
 	}
@@ -124,7 +107,7 @@ class Rating extends BsExtensionMW {
 		$aRatingTypes['article'] = array(
 			'displaytitle'	=> wfMessage('bs-rating-types-page')->plain(),
 			'view'			=> 'ViewRatingItemStars',
-			'icon-path'		=> $this->getImagePath(),
+			'icon-path'		=> $this->getImagePath( true ),
 			'allowedvalues'	=> array(1,2,3,4,5),
 		);
 		$aSpecialRatingTypes[] = 'article';
@@ -249,6 +232,12 @@ class Rating extends BsExtensionMW {
 		if( $this->checkContext( $oOutputPage->getTitle() ) === false ) return true;
 		
 		BsExtensionManager::setContext('MW::Rating');
+		
+		$oOutputPage->addModules('ext.bluespice.rating');
+		$oOutputPage->addModuleStyles('ext.bluespice.rating.styles');
+		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'Rating', false, false, false, 'MW::Rating' );
+		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'SpecialRating', false, false, false, 'MW::SpecialRating' );
+		//$this->registerStyleSheet( BsConfig::get('MW::ScriptPath') . '/bluespice-mw/ext/Rating/Rating.css', false, 'MW::Rating' );
 		return true;
 	}
 
@@ -256,8 +245,8 @@ class Rating extends BsExtensionMW {
 		if( BsExtensionManager::isContextActive( 'MW::Rating' ) === false ) return true;
 		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') return true;
 
-		$oRequest = $this->mAdapter->get( 'Request' );
-		if( $oTitle->isRedirect() && $oRequest->getVal('redirect') != 'no' ) {
+		global $wgRequest;
+		if( $oTitle->isRedirect() && $wgRequest->getVal('redirect') != 'no' ) {
 			//TODO: Use DB Query? Or WikiPage::getRedirectTarget() in later versions.
 			//TODO: Use $this->mAdapter->getTitleFromRedirectRecurse( $oTitle );
 			$oArticle = new Article( $oTitle, 0 ); //New: current revision
@@ -369,16 +358,6 @@ class Rating extends BsExtensionMW {
 		$aSortBodyVars['statebarbodyrating'] = wfMsg( 'bs-rating-toc-statebarbodyrating' );
 		return true;
 	}
-	
-	/**
-	 * Hook-Handler for Hook 'SpecialPage_initList'
-	 * @param array $aList
-	 * @return boolean Always true to keep hook running
-	 */
-	public function onSpecialPage_initList( &$aList ) {
-		$aList['Rating'] = 'SpecialRating';
-		return true;
-	}
 
 	/**
 	 * Sets parameters for more complex options in preferences
@@ -400,15 +379,15 @@ class Rating extends BsExtensionMW {
 					$aExcludeNmsps[] = $iNsIndex;
 				}
 				$aPrefs['type']		= 'multiselectex';
-				$aPrefs['options']	= BsAdapterMW::getNamespacesForSelectOptions( $aExcludeNmsps );
+				$aPrefs['options']	= BsNamespaceHelper::getNamespacesForSelectOptions( $aExcludeNmsps );
 				break;
 			case 'Position':
 				$aPrefs['type']		= 'select';
 				$aPrefs['options']	= array(
-						wfMsg('bs-rating-pref-position-articletitle') => 'articletitle',
+						wfMessage('bs-rating-pref-position-articletitle')->plain() => 'articletitle',
 				);
 				if( $this->bStateBar ) {
-					$aPrefs['options'][wfMsg('prefs-StateBar')] = 'statebar';
+					$aPrefs['options'][wfMessage('prefs-StateBar')->plain()] = 'statebar';
 				}
 				break;
 			default:
@@ -426,7 +405,7 @@ class Rating extends BsExtensionMW {
 	public function onLoadExtensionSchemaUpdates( $updater ) {
 		global $wgExtNewTables, $wgExtNewFields;
 		
-		$sDir = dirname( __FILE__ ).DS;
+		$sDir = __DIR__.DS.'db'.DS;
 		$wgExtNewTables[] = array( 'bs_rating', $sDir . 'rating.sql' );
 		$wgExtNewFields[] = array( 'bs_rating', 'rat_subtype', $sDir . 'bs_rating.newfield.rat_subtype.sql');
 		
@@ -440,13 +419,14 @@ class Rating extends BsExtensionMW {
 	 * @return bool
 	 */
 	public function checkContext( $oTitle ) {
-		if( $this->mAdapter->getAction() != 'view' )	return false;
+		global $wgRequest;
+
+		if( $wgRequest->getVal('action', 'view') != 'view' )	return false;
 		if( !is_object( $oTitle ) )                     return false;
 		if( $oTitle->isRedirect() )	{ 
 			//PW(16.01.2013): this method does not exist in 1.20.1
 			//- use later
 			//$oTitle = $this->mAdapter->getTitleFromRedirectRecurse($oTitle);
-				global $wgRequest;
 				if( $wgRequest->getVal('redirect') != 'no' ) {
 					$oArticle = new Article( $oTitle, 0 ); //New: current revision
 					$sContent = $oArticle->fetchContent( 0 ); //Old: current revision

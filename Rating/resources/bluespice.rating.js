@@ -165,15 +165,15 @@ BsRating = {
 			var sibling = $(siblings[i]);
 
 			if( sibling.attr('data-value') <= currValue) {
-				sibling.attr("src", wgScriptPath + '/bluespice-mw/ext/Rating/images/star.png');
+				sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 			} else {
 				if(currValue == 0) {
-					sibling.attr("src", wgScriptPath + '/bluespice-mw/ext/Rating/images/star-notrated.png');
+					sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-notrated.png');
 				} else {
 					if( currValueF >= 5 && parseInt(sibling.attr('data-value')) - 1 == currValue) {
-						sibling.attr("src", wgScriptPath + '/bluespice-mw/ext/Rating/images/star-half.png');
+						sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png');
 					} else {
-						sibling.attr("src", wgScriptPath + '/bluespice-mw/ext/Rating/images/star-empty.png');
+						sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png');
 					}
 				}
 			}
@@ -182,13 +182,13 @@ BsRating = {
 	starsMouseOver: function(currElement, value, siblings) {
 		if( value === undefined ) return;
 
-		currElement.attr("src", wgScriptPath + '/bluespice-mw/ext/Rating/images/star.png');
+		currElement.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 		for(var i = 0; i <= siblings.length; i++) {
 			var sibling = $(siblings[i]);
 			if( sibling.attr('data-value') <= value) {
-				sibling.attr("src", wgScriptPath + '/bluespice-mw/ext/Rating/images/star.png');
+				sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 			} else { 
-				sibling.attr("src", wgScriptPath + '/bluespice-mw/ext/Rating/images/star-empty.png');
+				sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png');
 			}
 		}
 	}

@@ -14,6 +14,12 @@ $wgExtensionMessagesFiles['RatingAlias'] = "$sDir/languages/SpecialRating.alias.
 $wgAutoloadClasses['RatingItem'] = "$sDir/includes/RatingItem.class.php";
 $wgAutoloadClasses['SpecialRating'] = "$sDir/includes/specials/SpecialRating.class.php";
 
+$wgAutoloadClasses['ViewRatingItemLike'] = "$sDir/views/view.RatingItemLike.php";
+$wgAutoloadClasses['ViewRatingItemStars'] = "$sDir/views/view.RatingItemStars.php";
+$wgAutoloadClasses['ViewHeadlineElementRating'] = "$sDir/views/view.HeadlineElementRating.php";
+$wgAutoloadClasses['ViewStateBarTopElementRating'] = "$sDir/views/view.StateBarTopElementRating.php";
+$wgAutoloadClasses['ViewStateBarBodyElementRating'] = "$sDir/views/view.StateBarBodyElementRating.php";
+
 $wgSpecialPages['SpecialRating'] = 'SpecialRating';
 $wgSpecialPageGroups['SpecialRating'] = 'bluespice';
 
