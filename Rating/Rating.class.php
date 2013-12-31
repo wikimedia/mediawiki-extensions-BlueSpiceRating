@@ -22,8 +22,7 @@
  * For further information visit http://www.blue-spice.org
  *
  * @author     Patric Wirth <wirth@hallowelt.biz>
- * @version    1.20.0
- * @version    $Id: Rating.class.php 10349 2013-09-10 08:57:06Z pwirth $
+ * @version    2.22.0
  * @package    BlueSpice_Extensions
  * @subpackage Rating
  * @copyright  Copyright (C) 2011 Hallo Welt! - Medienwerkstatt GmbH, All rights reserved.
@@ -46,10 +45,7 @@ class Rating extends BsExtensionMW {
 	 */
 	public function __construct() {
 		wfProfileIn( 'BS::'.__METHOD__ );
-		//global $wgExtensionMessagesFiles;
-		//$wgExtensionMessagesFiles['Rating'] = dirname( __FILE__ ) . '/Rating.i18n.php';
-		//$wgExtensionMessagesFiles['RatingMagic'] = dirname( __FILE__ ) . '/Rating.i18n.magic.php';
-		
+
 		// Base settings
 		$this->mExtensionFile = __FILE__;
 		$this->mExtensionType = EXTTYPE::OTHER;
@@ -57,10 +53,10 @@ class Rating extends BsExtensionMW {
 			EXTINFO::NAME        => 'Rating',
 			EXTINFO::DESCRIPTION => 'Provides a rating system.',
 			EXTINFO::AUTHOR      => 'Patric Wirth',
-			EXTINFO::VERSION     => '1.22.0 ($Rev: 10349 $)',
-			EXTINFO::STATUS      => 'beta',
+			EXTINFO::VERSION     => '2.22.0',
+			EXTINFO::STATUS      => 'stable',
 			EXTINFO::URL         => 'http://www.hallowelt.biz',
-			EXTINFO::DEPS        => array( 'bluespice' => '1.22.0' )
+			EXTINFO::DEPS        => array( 'bluespice' => '2.22.0' )
 		);
 		$this->mExtensionKey = 'MW::Rating';
 		wfProfileOut( 'BS::'.__METHOD__ );
@@ -89,7 +85,7 @@ class Rating extends BsExtensionMW {
 
 		$this->setHook( 'LoadExtensionSchemaUpdates' );
 
-		$this->mAdapter->registerBehaviorSwitch( 'bs_norating' );
+		$this->mCore->registerBehaviorSwitch( 'bs_norating' );
 
 		$this->registerView( 'ViewRatingItemStars' );
 		$this->registerView( 'ViewRatingItemLike' );
@@ -97,27 +93,20 @@ class Rating extends BsExtensionMW {
 		$this->registerView( 'ViewStateBarBodyElementRating' );
 		$this->registerView( 'ViewHeadlineElementRating' );
 
-		$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'Rating', false, false, false, 'MW::Rating' );
-		$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'SpecialRating', false, false, false, 'MW::SpecialRating' );
-		$this->registerStyleSheet( BsConfig::get('MW::ScriptPath') . '/bluespice-mw/ext/Rating/Rating.css', false, 'MW::Rating' );
+		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'Rating', false, false, false, 'MW::Rating' );
+		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'SpecialRating', false, false, false, 'MW::SpecialRating' );
+		//$this->registerStyleSheet( BsConfig::get('MW::ScriptPath') . '/bluespice-mw/ext/Rating/Rating.css', false, 'MW::Rating' );
 
 		//currently not in use
-		$sExtensionLibDir = dirname(__FILE__) . DS . 'lib';
-		BsCore::registerClass( 'RatingItem', $sExtensionLibDir, 'RatingItem.class.php' );
+		//$sExtensionLibDir = dirname(__FILE__) . DS . 'lib';
+		//BsCore::registerClass( 'RatingItem', $sExtensionLibDir, 'RatingItem.class.php' );
 
-		global $wgAjaxExportList;
-		$wgAjaxExportList[] = 'Rating::ajaxVote';
-		$wgAjaxExportList[] = 'Rating::ajaxReloadRating';
+		$this->mCore->registerPermission( 'rating-write',			array('user') );
+		$this->mCore->registerPermission( 'rating-read',			array('*') );
+		$this->mCore->registerPermission( 'rating-archive',			array('sysop') );
+		$this->mCore->registerPermission( 'rating-viewspecialpage', array('user') );
 
-		$wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';
-		$wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';#
-
-		$this->mAdapter->registerPermission( 'rating-write' );
-		$this->mAdapter->registerPermission( 'rating-read' );
-		$this->mAdapter->registerPermission( 'rating-archive' );
-		$this->mAdapter->registerPermission( 'rating-viewspecialpage' );
-
-		$this->mAdapter->registerSpecialPage( 'SpecialRating', dirname( __FILE__ ).'/specialpages/', 'RatingAlias' );
+		//$this->mAdapter->registerSpecialPage( 'SpecialRating', dirname( __FILE__ ).'/specialpages/', 'RatingAlias' );
 
 		wfProfileOut( 'BS::'.__METHOD__ );
 	}
