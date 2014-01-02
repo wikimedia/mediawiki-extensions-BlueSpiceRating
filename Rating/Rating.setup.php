@@ -43,6 +43,8 @@ $wgResourceModules['ext.bluespice.rating'] = array(
 
 $wgAjaxExportList[] = 'Rating::ajaxVote';
 $wgAjaxExportList[] = 'Rating::ajaxReloadRating';
-
 $wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';
 $wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';
+
+unset($aResourceModuleTemplate);
+unset($sDir);
