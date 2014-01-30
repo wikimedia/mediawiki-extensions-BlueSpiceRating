@@ -44,9 +44,20 @@
 
 #he-RatingHeadline {
 	display: inline-block !important;
-    margin: 0 0 0 10px;
-    vertical-align: bottom;
+	margin: 0 0 0 10px;
+	vertical-align: bottom;
+	line-height: 26px;
 	font-size: 0px;
+}
+
+.bs-headline-rating {
+	line-height: 26px;
+	vertical-align: bottom;
+}
+
+#he-RatingHeadline-text {
+	line-height: 26px;
+	vertical-align: bottom;
 }
 
 .bs-headline-rating {
