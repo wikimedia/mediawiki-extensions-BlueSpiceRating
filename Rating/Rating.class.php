@@ -183,7 +183,7 @@ class Rating extends BsExtensionMW {
 	 * @param string $sViewName
 	 * @return string The JSON formatted response - view output
 	 */
-	public static function ajaxReloadRating( $sRefType, $sRef, $sViewName = '', $sVotable = "", $iUserID = 0) {
+	public static function ajaxReloadRating( $sRefType, $sRef, $sViewName = '', $sVotable = "", $iUserID = 0, $sSubType = "") {
 		global $wgUser;
 		if( !$wgUser->isAllowed('rating-read') ) {
 			return false;
@@ -195,7 +195,7 @@ class Rating extends BsExtensionMW {
 		$oInstance = BsExtensionManager::getExtension('Rating');
 		$oInstance->runRegisterCustomTypes();
 
-		$oRatingItem = RatingItem::getInstance( $sRefType, $sRef );
+		$oRatingItem = RatingItem::getInstance( $sRefType, $sRef, $sSubType );
 		$oRatingItemView = $oRatingItem->getView($oUserOnly, $sViewName);
 		if( $bVotable ) {
 			$oRatingItemView->setVotable( true );

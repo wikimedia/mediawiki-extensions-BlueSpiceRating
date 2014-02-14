@@ -88,7 +88,7 @@ class ViewRatingItemStars extends ViewBaseElement {
 	 * @param int $iMaxValue
 	 * @return string - output
 	 */
-	private function renderRatingItem( $iCount, $iTotal, $fAverage, $iMaxValue ) {
+	protected function renderRatingItem( $iCount, $iTotal, $fAverage, $iMaxValue ) {
 		$sOutput = '';
 
 		if( !empty( $iCount ) ) {
@@ -122,7 +122,7 @@ class ViewRatingItemStars extends ViewBaseElement {
 	 * @param string $sType
 	 * @return string
 	 */
-	private function createVoteItemImage( $iValue, $sType = '') {
+	protected function createVoteItemImage( $iValue, $sType = '') {
 		$aRatings = $this->oUser instanceof User
 					? $this->oRatingItem->getRatingOfSpecificUser($this->oUser)
 					: $this->oRatingItem->getRatings();
