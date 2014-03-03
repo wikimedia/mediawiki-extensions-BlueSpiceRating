@@ -41,6 +41,24 @@ $wgResourceModules['ext.bluespice.rating'] = array(
 	),
 ) + $aResourceModuleTemplate;
 
+$wgResourceModules['ext.bluespice.specialRating'] = array(
+	'scripts' => 'bluespice.specialRating.js',
+	'dependencies' => array(
+		'ext.bluespice.extjs',
+	),
+	'messages' => array(
+		'bs-rating-specialrating-cbRatingTypeLabel',
+	'bs-rating-specialrating-cbRatingTypeEmptyText',
+	'bs-rating-specialrating-titleTitle',
+	'bs-rating-specialrating-titleRating',
+	'bs-rating-specialrating-titleVotes',
+	'bs-rating-specialrating-ptbDisplayMsgText',
+	'bs-rating-specialrating-ptbEmptyMsgText',
+	'bs-rating-specialrating-ptbBeforePageText',
+	'bs-rating-specialrating-ptbAfterPageText',
+	)
+) + $aResourceModuleTemplate;
+
 $wgAjaxExportList[] = 'Rating::ajaxVote';
 $wgAjaxExportList[] = 'Rating::ajaxReloadRating';
 $wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';

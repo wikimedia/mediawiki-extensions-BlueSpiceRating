@@ -32,6 +32,10 @@ class SpecialRating extends BsSpecialPage {
 		$wgOut->setPageTitle( wfMsg( 'bs-rating-special-rating-heading' ) );
 
 		$wgOut->addHtml('<div id="bs-rating-grid"></div>');
+
+		$wgOut->addModules('ext.bluespice.rating');
+		$wgOut->addModules('ext.bluespice.specialRating');
+		$wgOut->addModuleStyles('ext.bluespice.rating.styles');
 	}
 
 	/**
@@ -39,7 +43,7 @@ class SpecialRating extends BsSpecialPage {
 	 * @return string The JSON formatted response
 	 */
 	public static function ajaxGetAllRatings( ) {
-		global $wgUser;
+		global $wgUser, $wgRequest;
 		$aResult = array(
 			'success' => false,
 			'message' => '',
@@ -53,11 +57,12 @@ class SpecialRating extends BsSpecialPage {
 			return json_encode( $aResult );
 		}
 
-		$iStart		= BsCore::getParam('start', 0, BsPARAM::REQUEST | BsPARAMTYPE::INT);
-		$iLimit		= BsCore::getParam('limit', 15, BsPARAM::REQUEST | BsPARAMTYPE::INT);
-		$sOrderBy	= BsCore::getParam('sort', 'vote', BsPARAM::REQUEST | BsPARAMTYPE::STRING);
-		$sDir		= BsCore::getParam('dir', 'DESC', BsPARAM::REQUEST | BsPARAMTYPE::STRING);
-		$sRefType	= BsCore::getParam('reftype', 'article', BsPARAM::REQUEST | BsPARAMTYPE::STRING);
+		$oStoreParams = BsExtJSStoreParams::newFromRequest();
+		$iLimit		= $oStoreParams->getLimit();
+		$iStart		= $oStoreParams->getStart();
+		$sOrderBy	= $oStoreParams->getSort('rat_ref');
+		$sDir		= $oStoreParams->getDirection();
+		$sRefType	= $wgRequest->getVal('reftype', 'article');
 
 		$aTables = array( 
 			'bs_rating' 

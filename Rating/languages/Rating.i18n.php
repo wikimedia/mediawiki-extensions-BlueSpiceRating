@@ -46,6 +46,16 @@ $messages['en'] = array(
 
 	#client
 	'bs-rating-not-allowed'				=> 'Unfortunatley, you are not allowed to rate.',
+
+	'bs-rating-specialrating-cbRatingTypeLabel'		=> 'Type',
+	'bs-rating-specialrating-cbRatingTypeEmptyText' => 'Choose the type',
+	'bs-rating-specialrating-titleTitle'			=> 'Title',
+	'bs-rating-specialrating-titleRating'			=> 'Rating',
+	'bs-rating-specialrating-titleVotes'			=> 'Number of ratings',
+	'bs-rating-specialrating-ptbDisplayMsgText'		=> 'Pages {0} - {1} of {2}',
+	'bs-rating-specialrating-ptbEmptyMsgText'		=> 'No ratings found.',
+	'bs-rating-specialrating-ptbBeforePageText'		=> 'Page',
+	'bs-rating-specialrating-ptbAfterPageText'		=> 'of {0}'
 );
 
 $messages['de'] = array(
@@ -79,6 +89,16 @@ $messages['de'] = array(
 
 	#client
 	'bs-rating-not-allowed'				=> 'Du bist leider nicht berechtigt, eine Bewertung abzugeben.',
+
+	'bs-rating-specialrating-cbRatingTypeLabel'		=> 'Typ',
+	'bs-rating-specialrating-cbRatingTypeEmptyText' => 'Typ auswählen',
+	'bs-rating-specialrating-titleTitle'			=> 'Seite',
+	'bs-rating-specialrating-titleRating'			=> 'Bewertung',
+	'bs-rating-specialrating-titleVotes'			=> 'Anzahl der Bewertungen',
+	'bs-rating-specialrating-ptbDisplayMsgText'		=> 'Seiten {0} - {1} von {2}',
+	'bs-rating-specialrating-ptbEmptyMsgText'		=> 'Keine Bewertungen gefunden',
+	'bs-rating-specialrating-ptbBeforePageText'		=> 'Seite',
+	'bs-rating-specialrating-ptbAfterPageText'		=> 'von {0}'
 );
 
 $messages['de-formal'] = array(

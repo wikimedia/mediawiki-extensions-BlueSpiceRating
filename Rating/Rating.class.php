@@ -244,9 +244,6 @@ class Rating extends BsExtensionMW {
 		);
 		$oOutputPage->addModules('ext.bluespice.rating');
 		$oOutputPage->addModuleStyles('ext.bluespice.rating.styles');
-		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'Rating', false, false, false, 'MW::Rating' );
-		//$this->registerScriptFiles( BsConfig::get('MW::ScriptPath').'/bluespice-mw/ext/Rating/js', 'SpecialRating', false, false, false, 'MW::SpecialRating' );
-		//$this->registerStyleSheet( BsConfig::get('MW::ScriptPath') . '/bluespice-mw/ext/Rating/Rating.css', false, 'MW::Rating' );
 		return true;
 	}
 
