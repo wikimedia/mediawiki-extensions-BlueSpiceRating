@@ -85,12 +85,18 @@ class SpecialRating extends SpecialPage {
 			'rat_reftype' => $sRefType,
 			'rat_archived' => '0', 
 		);
-		
+		if( $sOrderBy == 'ref' ) {
+			$aTables[] = 'page';
+			$aOptions['ORDER BY'] = 'page_title '.$sDir;
+			$aConditions[] = 'page_id = rat_ref';
+		}
 		if( !empty($aFilters) ) {
 			foreach($aFilters as $oFilter) {
 				if($oFilter->field != 'ref' || $sRefType != 'article') continue;
-				$aTables[] = 'page';
-				$aConditions[] = 'page_id = rat_ref';
+				if(!in_array('page',$aTables)) {
+					$aTables[] = 'page';
+					$aConditions[] = 'page_id = rat_ref';
+				}
 				$aConditions[] = "page_title LIKE '%".trim($oFilter->value)."%'";
 			}
 		}
