@@ -20,8 +20,8 @@ $wgAutoloadClasses['ViewHeadlineElementRating'] = "$sDir/views/view.HeadlineElem
 $wgAutoloadClasses['ViewStateBarTopElementRating'] = "$sDir/views/view.StateBarTopElementRating.php";
 $wgAutoloadClasses['ViewStateBarBodyElementRating'] = "$sDir/views/view.StateBarBodyElementRating.php";
 
-$wgSpecialPages['SpecialRating'] = 'SpecialRating';
-$wgSpecialPageGroups['SpecialRating'] = 'bluespice';
+$wgSpecialPages['Rating'] = 'SpecialRating';
+$wgSpecialPageGroups['Rating'] = 'bluespice';
 
 $aResourceModuleTemplate = array(
 	'dependencies' => 'ext.bluespice',

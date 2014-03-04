@@ -18,24 +18,24 @@
  * @package BlueSpice_Extensions
  * @subpackage Rating
  */
-class SpecialRating extends BsSpecialPage {
+class SpecialRating extends SpecialPage {
 
 	function __construct() {
-		parent::__construct( 'SpecialRating', 'rating-viewspecialpage' );
+		parent::__construct( 'Rating', 'rating-viewspecialpage', true );
 	}
 
 	function execute($sParam) {
-		parent::execute($sParam);
+		//parent::execute($sParam);
+		$this->checkPermissions();
 		BsExtensionManager::setContext('MW::SpecialRating');
-		global $wgOut;
 
-		$wgOut->setPageTitle( wfMsg( 'bs-rating-special-rating-heading' ) );
+		$this->getOutput()->setPageTitle( wfMsg( 'bs-rating-special-rating-heading' ) );
 
-		$wgOut->addHtml('<div id="bs-rating-grid"></div>');
+		$this->getOutput()->addHtml('<div id="bs-rating-grid"></div>');
 
-		$wgOut->addModules('ext.bluespice.rating');
-		$wgOut->addModules('ext.bluespice.specialRating');
-		$wgOut->addModuleStyles('ext.bluespice.rating.styles');
+		$this->getOutput()->addModules('ext.bluespice.rating');
+		$this->getOutput()->addModules('ext.bluespice.specialRating');
+		$this->getOutput()->addModuleStyles('ext.bluespice.rating.styles');
 	}
 
 	/**

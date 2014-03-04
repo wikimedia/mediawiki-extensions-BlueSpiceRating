@@ -3,15 +3,15 @@ $specialPageAliases = array();
 
 /** English */
 $specialPageAliases['en'] = array(
-    'SpecialRating' => array( 'Ratings' ),
+	'Rating' => array( 'Rating', 'Ratings' ),
 );
 
 /** German (Deutsch) */
 $specialPageAliases['de'] = array(
-	'SpecialRating' => array( 'Bewertungen' ),
+	'Rating' => array( 'Bewertungen' ),
 );
 
 /** German (Deutsch Formal) */
 $specialPageAliases['de-formal'] = array(
-	'SpecialRating' => array( 'Bewertungen' ),
+	'Rating' => array( 'Bewertungen' ),
 );

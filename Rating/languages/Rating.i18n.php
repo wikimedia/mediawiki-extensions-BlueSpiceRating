@@ -37,7 +37,7 @@ $messages['en'] = array(
 	'bs-rating-sbb-title' 				=> 'Rating',
 	'bs-rating-sbb-votetext' 			=> 'Your Rating',
 
-	'specialrating' 					=> 'Ratings',
+	'rating'							=> 'Ratings',
 	'bs-rating-special-rating-heading' 	=> 'Ratings',
 	'action-rating-viewspecialpage'		=> 'view pages which are protected with the "Rating-Viewspecialpage" right',
 
@@ -80,7 +80,7 @@ $messages['de'] = array(
 	'bs-rating-sbb-title' 				=> 'Bewertung',
 	'bs-rating-sbb-votetext' 			=> 'Deine Bewertung',
 
-	'specialrating' 					=> 'Bewertungen',
+	'rating'							=> 'Bewertungen',
 	'bs-rating-special-rating-heading' 	=> 'Bewertungen',
 	'action-rating-viewspecialpage'		=> 'Seiten, die durch das "Rating-Viewspecialpage" Recht geschützt sind, aufzurufen',
 
