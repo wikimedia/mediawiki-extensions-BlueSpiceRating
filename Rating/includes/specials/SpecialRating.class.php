@@ -62,6 +62,8 @@ class SpecialRating extends SpecialPage {
 		$iStart		= $oStoreParams->getStart();
 		$sOrderBy	= $oStoreParams->getSort('rat_ref');
 		$sDir		= $oStoreParams->getDirection();
+		$aFilters   = $oStoreParams->getFilter();
+
 		$sRefType	= $wgRequest->getVal('reftype', 'article');
 
 		$aTables = array( 
@@ -83,6 +85,15 @@ class SpecialRating extends SpecialPage {
 			'rat_reftype' => $sRefType,
 			'rat_archived' => '0', 
 		);
+		
+		if( !empty($aFilters) ) {
+			foreach($aFilters as $oFilter) {
+				if($oFilter->field != 'ref' || $sRefType != 'article') continue;
+				$aTables[] = 'page';
+				$aConditions[] = 'page_id = rat_ref';
+				$aConditions[] = "page_title LIKE '%".trim($oFilter->value)."%'";
+			}
+		}
 
 		$oRatingInstance = BsExtensionManager::getExtension('Rating');
 		$oRatingInstance->runRegisterCustomTypes();
@@ -102,12 +113,13 @@ class SpecialRating extends SpecialPage {
 		$dbr = wfGetDB( DB_SLAVE );
 
 		$total = $dbr->select( 
-			'bs_rating', 
+			$aTables, 
 			'COUNT(rat_ref) as total', 
 			$aConditions, 
 			__METHOD__, 
 			array( 'GROUP BY' => 'rat_reftype, rat_ref') 
 		);
+
 		if( !$total ) return json_encode( $aResult );
 
 		$aResult['success'] = true;

@@ -36,6 +36,10 @@ Ext.define( 'BS.Rating.Panel', {
 			},
 			autoLoad: true,
 			remoteSort: true,
+			sorters: [{
+				property: 'ref',
+				direction: 'ASC'
+			}],
 			fields: ['reftype', 'ref', 'vote', 'votes', 'refcontent' ]
 		});
 
@@ -78,7 +82,10 @@ Ext.define( 'BS.Rating.Panel', {
 				renderer: function(value, metaData, record, rowIndex, colIndex, store) {
 					return record.data.refcontent;
 				},
-				sortable: false
+				sortable: true,
+				filter: {
+					type: 'string'
+				}
 			},
 			{
 				header: mw.message('bs-rating-specialrating-titleRating').plain(),
@@ -118,7 +125,13 @@ Ext.define( 'BS.Rating.Panel', {
 		
 		//this.colModel = Ext.create('Ext.grid.ColumnModel', { columns: this.columns });
 
+		this.filters = Ext.create('Ext.ux.grid.FiltersFeature', {
+			encode: true,
+			local: false//,
+		});
+
 		this.gdpnlRatings = Ext.create('Ext.grid.GridPanel',{
+			features: [this.filters],
 			loadMask: true,
 			region: 'center',
 			store: this.strMain,
