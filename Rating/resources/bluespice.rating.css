@@ -58,6 +58,12 @@
 #he-RatingHeadline-text {
 	line-height: 26px;
 	vertical-align: bottom;
+	color: #000 !important;
+}
+#he-RatingHeadline-text:hover, #he-RatingHeadline-text:hover {
+	color: #000;
+	text-decoration: none !important;
+	cursor: default;
 }
 
 .bs-headline-rating {
