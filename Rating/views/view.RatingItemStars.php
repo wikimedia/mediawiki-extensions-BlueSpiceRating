@@ -130,8 +130,8 @@ class ViewRatingItemStars extends ViewBaseElement {
 		if( !empty($sType) ) $sType = '-'.$sType;
 
 		return '<img
-					title="'.wfMsg( (!empty($aRatings) ? 'bs-rating-sb-yourrating' : 'bs-rating-sb-vote' )).'"
-					alt="'.wfMsg( (!empty($aRatings) ? 'bs-sb-yourrating' : 'bs-rating-sb-vote' )).'"
+					title="'.wfMessage( (!empty($aRatings) ? 'bs-rating-sb-yourrating' : 'bs-rating-sb-vote' ))->plain().'"
+					alt="'.wfMessage( (!empty($aRatings) ? 'bs-sb-yourrating' : 'bs-rating-sb-vote' ))->plain().'"
 					src="'.$this->mOptions['icon-path'].'star'.$sType.'.png"
 					'.($this->bVotable ? 'data-value="'.$iValue : '').'"
 					'.($this->bVotable ? 'class="votable"' : '').'

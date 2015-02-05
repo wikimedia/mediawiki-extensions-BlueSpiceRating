@@ -23,7 +23,7 @@
  *
  * @author     Patric Wirth <wirth@hallowelt.biz>
  * @version    2.22.0
- * @package    BlueSpice_Extensions
+ * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2011 Hallo Welt! - Medienwerkstatt GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
@@ -32,31 +32,33 @@
 
 /**
  * Base class for Rating extension
- * @package BlueSpice_Extensions
+ * @package BlueSpiceRating
  * @subpackage Rating
  */
 class Rating extends BsExtensionMW {
 
 	private $bRatingTypesAlreadySet = false;
 	protected $bStateBar = false;
-	
+
 	/**
 	 * Contructor of the Rating class
 	 */
 	public function __construct() {
 		wfProfileIn( 'BS::'.__METHOD__ );
 
-		// Base settings
 		$this->mExtensionFile = __FILE__;
 		$this->mExtensionType = EXTTYPE::OTHER;
 		$this->mInfo = array(
 			EXTINFO::NAME        => 'Rating',
 			EXTINFO::DESCRIPTION => 'Provides a rating system.',
 			EXTINFO::AUTHOR      => 'Patric Wirth',
-			EXTINFO::VERSION     => '2.22.0',
+			EXTINFO::VERSION     => '2.23.0',
 			EXTINFO::STATUS      => 'stable',
+			EXTINFO::PACKAGE     => 'BlueSpiceRating',
 			EXTINFO::URL         => 'http://www.hallowelt.biz',
-			EXTINFO::DEPS        => array( 'bluespice' => '2.22.0' )
+			EXTINFO::DEPS        => array(
+				'bluespice' => '2.23.0'
+			)
 		);
 		$this->mExtensionKey = 'MW::Rating';
 		wfProfileOut( 'BS::'.__METHOD__ );
@@ -68,21 +70,41 @@ class Rating extends BsExtensionMW {
 	protected function initExt() {
 		wfProfileIn( 'BS::'.__METHOD__ );
 
-		BsConfig::registerVar( 'MW::Rating::enRatingNS', array( NS_MAIN ), BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_ARRAY_INT | BsConfig::USE_PLUGIN_FOR_PREFS, 'bs-rating-toc-enratingns', 'multiselectex' );
-		BsConfig::registerVar( 'MW::Rating::RatingTypes', array(  ), BsConfig::LEVEL_PRIVATE | BsConfig::TYPE_ARRAY_MIXED, 'bs-rating-ratingtypes' );
-		BsConfig::registerVar( 'MW::Rating::SpecialRatingTypes', array(  ), BsConfig::LEVEL_PRIVATE | BsConfig::TYPE_ARRAY_MIXED, 'bs-rating-specialratingtypes' );
-		BsConfig::registerVar( 'MW::Rating::Position', 'articletitle', BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_STRING | BsConfig::USE_PLUGIN_FOR_PREFS, 'bs-rating-pref-position', 'select' );
+		BsConfig::registerVar(
+			'MW::Rating::enRatingNS',
+			array( NS_MAIN ),
+			BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_ARRAY_INT | BsConfig::USE_PLUGIN_FOR_PREFS,
+			'bs-rating-toc-enratingns',
+			'multiselectex'
+		);
+		BsConfig::registerVar(
+			'MW::Rating::RatingTypes',
+			array(),
+			BsConfig::LEVEL_PRIVATE | BsConfig::TYPE_ARRAY_MIXED,
+			'bs-rating-ratingtypes'
+		);
+		BsConfig::registerVar(
+			'MW::Rating::SpecialRatingTypes',
+			array(),
+			BsConfig::LEVEL_PRIVATE | BsConfig::TYPE_ARRAY_MIXED,
+			'bs-rating-specialratingtypes'
+		);
+		BsConfig::registerVar(
+			'MW::Rating::Position',
+			'articletitle',
+			BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_STRING | BsConfig::USE_PLUGIN_FOR_PREFS,
+			'bs-rating-pref-position',
+			'select'
+		);
 
 		$this->setHook( 'BeforePageDisplay' );
 		$this->setHook( 'ParserFirstCallInit' );
 
 		$this->setHook( 'BSStateBarAddSortTopVars', 'onStatebarAddSortTopVars' );
 		$this->setHook( 'BSStateBarAddSortBodyVars', 'onStatebarAddSortBodyVars' );
-		$this->setHook( 'BSBlueSpiceSkinBeforePrintArticleHeadline' );
+
 		$this->setHook( 'BSStateBarBeforeTopViewAdd', 'onStateBarBeforeTopViewAdd' );
 		$this->setHook( 'BSStateBarBeforeBodyViewAdd', 'onStateBarBeforeBodyViewAdd' );
-
-		$this->setHook( 'LoadExtensionSchemaUpdates' );
 
 		$this->mCore->registerBehaviorSwitch( 'bs_norating' );
 
@@ -108,7 +130,7 @@ class Rating extends BsExtensionMW {
 			'displaytitle'	=> wfMessage('bs-rating-types-page')->plain(),
 			'view'			=> 'ViewRatingItemStars',
 			'icon-path'		=> $this->getImagePath( true ),
-			'allowedvalues'	=> array(1,2,3,4,5),
+			'allowedvalues'	=> range( 1, 5 ),
 		);
 		$aSpecialRatingTypes[] = 'article';
 
@@ -135,7 +157,7 @@ class Rating extends BsExtensionMW {
 		global $wgUser;
 		if( !$wgUser->isAllowed('rating-write') || !$wgUser->isAllowed('rating-read') ) return false;
 		if( empty($sRefType) || empty($sRef) || empty($iValue) ) return false;
-		
+
 		$aResult = array();
 
 		$bSuccess = false;
@@ -148,11 +170,13 @@ class Rating extends BsExtensionMW {
 		$oRatingItem = RatingItem::getInstance( $sRefType, $sRef, $sSubType );
 		wfRunHooks( 'BSRatingBeforeVote', array(&$oRatingItem) );
 
-		$bSuccess = $oRatingItem->setRating($sRef,
-											$iValue,
-											$sRefType,
-											$wgUser->getID(), 
-											$wgUser->getName() );
+		$bSuccess = $oRatingItem->setRating(
+			$sRef,
+			$iValue,
+			$sRefType,
+			$wgUser->getID(), 
+			$wgUser->getName()
+		);
 
 		$aResult['message'] = '';
 		$aResult['success'] = $bSuccess;
@@ -199,7 +223,6 @@ class Rating extends BsExtensionMW {
 		$oRatingItemView = $oRatingItem->getView($oUserOnly, $sViewName);
 		if( $bVotable ) {
 			$oRatingItemView->setVotable( true );
-			//$oRatingItem->setRevotable( false );
 		}
 
 		return json_encode(array(
@@ -215,9 +238,9 @@ class Rating extends BsExtensionMW {
 	 */
 	public function onParserFirstCallInit( &$parser ) {
 		wfProfileIn( 'BS::'.__METHOD__ );
-		
+
 		$this->runRegisterCustomTypes();
-		
+
 		wfProfileOut( 'BS::'.__METHOD__ );
 		return true;
 	}
@@ -230,9 +253,9 @@ class Rating extends BsExtensionMW {
 	 */
 	public function onBeforePageDisplay( &$oOutputPage, &$oSkin ) {
 		if( $this->checkContext( $oOutputPage->getTitle() ) === false ) return true;
-		
+
 		BsExtensionManager::setContext('MW::Rating');
-		
+
 		//PW TODO: find better way
 		//this always was loaded too late, no matter what dependency or position
 		$oOutputPage->addScript(
@@ -247,7 +270,17 @@ class Rating extends BsExtensionMW {
 		return true;
 	}
 
-	public function onBSBlueSpiceSkinBeforePrintArticleHeadline( $oTitle, $oSkinTemplate, &$aViews ) {
+	/**
+	 * Adds an link to the headline
+	 * NOT YET ENABLED BECAUSE LACK OF ICON!
+	 * @param Skin $skin
+	 * @param BaseTemplate $template
+	 * @return boolean always true
+	 */
+	/*public function onSkinTemplateOutputPageBeforeExec(&$skin, &$template){
+		global $wgOut;
+		$wgOut->addHTML('bla');
+	//public function onBSBlueSpiceSkinBeforePrintArticleHeadline( $oTitle, $oSkinTemplate, &$aViews ) {
 		if( BsExtensionManager::isContextActive( 'MW::Rating' ) === false ) return true;
 		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') return true;
 
@@ -275,8 +308,18 @@ class Rating extends BsExtensionMW {
 		if( is_null($oView) ) return true;
 
 		$aViews[ 'articletitle' ] = $aViews[ 'articletitle' ].$oView->execute();
+		
+		$aContentActions = array(
+			'id' => 'docx',
+			'href' => htmlspecialchars( $oSpecialPage->getLinkUrl( $aCurrentQueryParams ) ),
+			'title' => wfMessage( 'bs-uemoduledocx-widgetlink-single-title' )->plain(),
+			'text' => ''
+		);
+
+		$template->data['bs_title_actions'][] = $aContentActions;
 		return true;
-	}
+	}*/
+
 	/**
 	 * Hook-Handler for Hook 'BSStateBarBeforeTopViewAdd'
 	 * @param StateBar $oStateBar
@@ -295,17 +338,20 @@ class Rating extends BsExtensionMW {
 
 		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
 
-		$oTopView = $oRatingItem->getView(null, 'ViewStateBarTopElementRating' );
+		$oTopView = $oRatingItem->getView(
+			null,
+			'ViewStateBarTopElementRating'
+		);
 		$bUserCanVote = $oTitle->userCan( 'rating-write' );
 		if( $bUserCanVote ) {
 			$oTopView->setVotable( true );
-			//$oRatingItem->setRevotable( true );
 		}
 
 		wfRunHooks('BSRatingBeforeStateBarTopViewAdd', array(&$oRatingItem, &$oTopView, &$oTitle));
 		if( is_null($oTopView) ) return true;
 
 		$aTopViews[ 'statebartoprating' ] = $oTopView;
+
 		wfProfileOut( 'BS::' . __METHOD__ );
 		return true;
 	}
@@ -332,9 +378,11 @@ class Rating extends BsExtensionMW {
 		$this->runRegisterCustomTypes();
 		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
 
-		$oBodyView = $oRatingItem->getView($oUser, 'ViewStateBarBodyElementRating' );
+		$oBodyView = $oRatingItem->getView(
+			$oUser,
+			'ViewStateBarBodyElementRating'
+		);
 		$oBodyView->setVotable( true );
-		//$oBodyView->setRevotable( true );
 
 		wfRunHooks('BSRatingBeforeStateBarBodyViewAdd', array(&$oRatingItem, &$oBodyView, &$oTitle));
 		if( is_null($oBodyView) ) return true;
@@ -352,7 +400,7 @@ class Rating extends BsExtensionMW {
 	 */
 	public function onStatebarAddSortTopVars( &$aSortTopVars ) {
 		$this->bStateBar = true;
-		$aSortTopVars['statebartoprating'] = wfMsg( 'bs-rating-toc-statebartoprating' );
+		$aSortTopVars['statebartoprating'] = wfMessage( 'bs-rating-toc-statebartoprating' )->plain();
 		return true;
 	}
 	
@@ -362,7 +410,7 @@ class Rating extends BsExtensionMW {
 	 * @return boolean Always true to keep hook running
 	 */
 	public function onStatebarAddSortBodyVars( &$aSortBodyVars ) {
-		$aSortBodyVars['statebarbodyrating'] = wfMsg( 'bs-rating-toc-statebarbodyrating' );
+		$aSortBodyVars['statebarbodyrating'] = wfMessage( 'bs-rating-toc-statebarbodyrating' )->plain();
 		return true;
 	}
 
@@ -394,7 +442,7 @@ class Rating extends BsExtensionMW {
 						wfMessage('bs-rating-pref-position-articletitle')->plain() => 'articletitle',
 				);
 				if( $this->bStateBar ) {
-					$aPrefs['options'][wfMessage('prefs-StateBar')->plain()] = 'statebar';
+					$aPrefs['options'][wfMessage('prefs-statebar')->plain()] = 'statebar';
 				}
 				break;
 			default:
@@ -403,22 +451,28 @@ class Rating extends BsExtensionMW {
 		wfProfileOut( 'BS::' . __METHOD__ );
 		return $aPrefs;
 	}
-	
+
 	/**
-	 * Hook-Handler for Hook 'LoadExtensionSchemaUpdates'
-	 * @global array $wgExtNewTables
-	 * @return boolean Always true - Keeps the hooksystem running.
+	 * Adds the table to the database
+	 * @param DatabaseUpdater $oUpdater
+	 * @return boolean Always true to keep Hook running
 	 */
-	public function onLoadExtensionSchemaUpdates( $updater ) {
-		global $wgExtNewTables, $wgExtNewFields;
-		
+	public static function getSchemaUpdates( $oUpdater ) {
 		$sDir = __DIR__.DS.'db'.DS;
-		$wgExtNewTables[] = array( 'bs_rating', $sDir . 'rating.sql' );
-		$wgExtNewFields[] = array( 'bs_rating', 'rat_subtype', $sDir . 'bs_rating.newfield.rat_subtype.sql');
-		
+
+		$oUpdater->addExtensionTable(
+			'bs_rating',
+			$sDir.'rating.sql'
+		);
+		$oUpdater->addExtensionField(
+			'bs_rating',
+			'rat_subtype',
+			$sDir.'bs_rating.newfield.rat_subtype.sql'
+		);
+
 		return true;
 	}
-	
+
 	/**
 	 * Checks wether to set Context or not.
 	 * @param OutputPage $oOutputPage

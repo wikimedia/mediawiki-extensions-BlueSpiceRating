@@ -29,7 +29,7 @@ class SpecialRating extends SpecialPage {
 		$this->checkPermissions();
 		BsExtensionManager::setContext('MW::SpecialRating');
 
-		$this->getOutput()->setPageTitle( wfMsg( 'bs-rating-special-rating-heading' ) );
+		$this->getOutput()->setPageTitle( wfMessage( 'bs-rating-special-rating-heading' )->plain() );
 
 		$this->getOutput()->addHtml('<div id="bs-rating-grid"></div>');
 

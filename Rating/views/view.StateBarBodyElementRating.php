@@ -47,8 +47,8 @@ class ViewStateBarBodyElementRating extends ViewStateBarBodyElement {
 		$oView->setUser( $this->oUser );
 
 		$aOut[] = '<div class="bs-statebar-body-item" id="sbb-'.$this->sKey.'">';
-		$aOut[] =	'<h4 class="bs-statebar-body-itemheading" id="sbb-'.$this->sKey.'-heading">'.wfMsg('bs-rating-sbb-title').'</h4>';
-		$aOut[] =		'<p id="sbb-'.$this->sKey.'-vote">'.wfMsg('bs-rating-sbb-votetext').'</p>';
+		$aOut[] =	'<h4 class="bs-statebar-body-itemheading" id="sbb-'.$this->sKey.'-heading">'.wfMessage('bs-rating-sbb-title')->plain().'</h4>';
+		//$aOut[] =		'<p id="sbb-'.$this->sKey.'-vote">'.wfMessage('bs-rating-sbb-votetext')->plain().'</p>';
 		$aOut[] =		$oView->execute();
 		$aOut[] = '</div>';
 

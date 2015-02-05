@@ -5,8 +5,7 @@
  * Part of BlueSpice for MediaWiki
  *
  * @author     Patric Wirth <wirth@hallowelt.biz>
- * @version    $Id: Rating.i18n.php 9150 2013-04-15 12:31:16Z pwirth $
- * @package    BlueSpice_Extensions
+ * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2012 Hallo Welt! - Medienwerkstatt GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
@@ -34,8 +33,8 @@ $messages['en'] = array(
 	'bs-rating-sb-vote' 				=> 'Rating of this article',
 	'bs-rating-sb-linktitle' 			=> 'This Article was rated $1 times',
 
-	'bs-rating-sbb-title' 				=> 'Rating',
-	'bs-rating-sbb-votetext' 			=> 'Your Rating',
+	'bs-rating-sbb-title' 				=> 'Your Rating',
+	//'bs-rating-sbb-votetext' 			=> 'Your Rating',
 
 	'rating'							=> 'Ratings',
 	'bs-rating-special-rating-heading' 	=> 'Ratings',
@@ -77,8 +76,8 @@ $messages['de'] = array(
 	'bs-rating-sb-vote' 				=> 'Bewertung dieses Artikels',
 	'bs-rating-sb-linktitle' 			=> 'Dieser Artikel wurde $1 mal bewertet',
 
-	'bs-rating-sbb-title' 				=> 'Bewertung',
-	'bs-rating-sbb-votetext' 			=> 'Deine Bewertung',
+	'bs-rating-sbb-title' 				=> 'Deine Bewertung',
+	//'bs-rating-sbb-votetext' 			=> 'Deine Bewertung',
 
 	'rating'							=> 'Bewertungen',
 	'bs-rating-special-rating-heading' 	=> 'Bewertungen',
@@ -103,7 +102,8 @@ $messages['de'] = array(
 
 $messages['de-formal'] = array(
 	'bs-rating-sb-yourrating' 			=> 'Geben Sie Ihre Bewertung ab',
-	'bs-rating-sbb-votetext' 			=> 'Ihre Bewertung',
+	'bs-rating-sbb-title' 				=> 'Ihre Bewertung',
+	//'bs-rating-sbb-votetext' 			=> 'Ihre Bewertung',
 
 	#client
 	'bs-rating-not-allowed'				=> 'Sie sind leider nicht berechtigt, eine Bewertung abzugeben.',

@@ -64,5 +64,6 @@ $wgAjaxExportList[] = 'Rating::ajaxReloadRating';
 $wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';
 $wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';
 
+$wgHooks['LoadExtensionSchemaUpdates'][] = 'Rating::getSchemaUpdates';
 unset($aResourceModuleTemplate);
 unset($sDir);
