@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"    Patric Wirth <wirth@hallowelt.biz>\r"
+		]
+	},
+	"bs-rating-sb-yourrating": "Geben Sie Ihre Bewertung ab",
+	"bs-rating-sbb-title": "Ihre Bewertung",
+	"bs-rating-not-allowed": "Sie sind leider nicht berechtigt, eine Bewertung abzugeben."
+}

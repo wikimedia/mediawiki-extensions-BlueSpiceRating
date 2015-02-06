@@ -11,6 +11,8 @@ $wgExtensionMessagesFiles['Rating'] = "$sDir/languages/Rating.i18n.php";
 $wgExtensionMessagesFiles['RatingMagic'] = "$sDir/languages/Rating.i18n.magic.php";
 $wgExtensionMessagesFiles['RatingAlias'] = "$sDir/languages/SpecialRating.alias.php";
 
+$wgMessagesDirs['WatchList'] = "$sDir/i18n";
+
 $wgAutoloadClasses['RatingItem'] = "$sDir/includes/RatingItem.class.php";
 $wgAutoloadClasses['SpecialRating'] = "$sDir/includes/specials/SpecialRating.class.php";
 

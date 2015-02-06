@@ -1,0 +1,36 @@
+{
+	"@metadata": {
+		"authors": [
+			"    Patric Wirth <wirth@hallowelt.biz>\r"
+		]
+	},
+	"bs-rating-extension-description": "Stellt ein Bewertungssystem zur verfügung.",
+	"Rating": "Bewertung",
+	"prefs-Rating": "Bewertung",
+	"bs-rating-toc-enratingns": "Aktivieren für Namensräume",
+	"bs-rating-toc-statebartoprating": "Bewertung",
+	"bs-rating-toc-statebarbodyrating": "Bewertung",
+	"bs-rating-pref-position": "Position",
+	"bs-rating-pref-position-articletitle": "ArtikelTitel",
+	"bs-rating-types-page": "Artikel",
+	"bs-rating-sb-link": "$1 {{PLURAL:$1|Bewertung|Bewertungen}}",
+	"bs-rating-sb-yourrating": "Gib Deine Bewertung ab",
+	"bs-rating-sb-vote": "Bewertung dieses Artikels",
+	"bs-rating-sb-linktitle": "Dieser Artikel wurde $1 mal bewertet",
+	"bs-rating-sbb-title": "Deine Bewertung",
+	"rating": "Bewertungen",
+	"bs-rating-special-rating-heading": "Bewertungen",
+	"action-rating-viewspecialpage": "Seiten, die durch das \"Rating-Viewspecialpage\" Recht geschützt sind, aufzurufen",
+	"bs-specialrating-err-permissiondenied": "Zugriff verweigert",
+	"bs-specialrating-err-invalidreftype": "Ungültiger Bewertungs-Typ",
+	"bs-rating-not-allowed": "Du bist leider nicht berechtigt, eine Bewertung abzugeben.",
+	"bs-rating-specialrating-cbRatingTypeLabel": "Typ",
+	"bs-rating-specialrating-cbRatingTypeEmptyText": "Typ auswählen",
+	"bs-rating-specialrating-titleTitle": "Seite",
+	"bs-rating-specialrating-titleRating": "Bewertung",
+	"bs-rating-specialrating-titleVotes": "Anzahl der Bewertungen",
+	"bs-rating-specialrating-ptbDisplayMsgText": "Seiten {0} - {1} von {2}",
+	"bs-rating-specialrating-ptbEmptyMsgText": "Keine Bewertungen gefunden",
+	"bs-rating-specialrating-ptbBeforePageText": "Seite",
+	"bs-rating-specialrating-ptbAfterPageText": "von {0}"
+}

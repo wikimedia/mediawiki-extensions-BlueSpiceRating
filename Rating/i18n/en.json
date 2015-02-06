@@ -1,0 +1,36 @@
+{
+	"@metadata": {
+		"authors": [
+			"    Patric Wirth <wirth@hallowelt.biz>\r"
+		]
+	},
+	"bs-rating-extension-description": "Provides a rating system",
+	"Rating": "Rating",
+	"prefs-Rating": "Rating",
+	"bs-rating-toc-enratingns": "Activade in namespaces",
+	"bs-rating-toc-statebartoprating": "Rating",
+	"bs-rating-toc-statebarbodyrating": "Rating",
+	"bs-rating-pref-position": "Position",
+	"bs-rating-pref-position-articletitle": "Article title",
+	"bs-rating-types-page": "Article",
+	"bs-rating-sb-link": "$1 {{PLURAL:$1|Rating|Ratings}}",
+	"bs-rating-sb-yourrating": "Rate this article",
+	"bs-rating-sb-vote": "Rating of this article",
+	"bs-rating-sb-linktitle": "This Article was rated $1 times",
+	"bs-rating-sbb-title": "Your Rating",
+	"rating": "Ratings",
+	"bs-rating-special-rating-heading": "Ratings",
+	"action-rating-viewspecialpage": "view pages which are protected with the \"Rating-Viewspecialpage\" right",
+	"bs-specialrating-err-permissiondenied": "Permission denied",
+	"bs-specialrating-err-invalidreftype": "Invalid rating type",
+	"bs-rating-not-allowed": "Unfortunatley, you are not allowed to rate.",
+	"bs-rating-specialrating-cbRatingTypeLabel": "Type",
+	"bs-rating-specialrating-cbRatingTypeEmptyText": "Choose the type",
+	"bs-rating-specialrating-titleTitle": "Title",
+	"bs-rating-specialrating-titleRating": "Rating",
+	"bs-rating-specialrating-titleVotes": "Number of ratings",
+	"bs-rating-specialrating-ptbDisplayMsgText": "Pages {0} - {1} of {2}",
+	"bs-rating-specialrating-ptbEmptyMsgText": "No ratings found.",
+	"bs-rating-specialrating-ptbBeforePageText": "Page",
+	"bs-rating-specialrating-ptbAfterPageText": "of {0}"
+}

@@ -100,6 +100,8 @@ class Rating extends BsExtensionMW {
 		$this->setHook( 'BeforePageDisplay' );
 		$this->setHook( 'ParserFirstCallInit' );
 
+		$this->setHook( 'SkinTemplateOutputPageBeforeExec' );
+
 		$this->setHook( 'BSStateBarAddSortTopVars', 'onStatebarAddSortTopVars' );
 		$this->setHook( 'BSStateBarAddSortBodyVars', 'onStatebarAddSortBodyVars' );
 
@@ -271,16 +273,14 @@ class Rating extends BsExtensionMW {
 	}
 
 	/**
-	 * Adds an link to the headline
-	 * NOT YET ENABLED BECAUSE LACK OF ICON!
+	 * Adds an rating view after article title
 	 * @param Skin $skin
 	 * @param BaseTemplate $template
 	 * @return boolean always true
 	 */
-	/*public function onSkinTemplateOutputPageBeforeExec(&$skin, &$template){
-		global $wgOut;
-		$wgOut->addHTML('bla');
-	//public function onBSBlueSpiceSkinBeforePrintArticleHeadline( $oTitle, $oSkinTemplate, &$aViews ) {
+	public function onSkinTemplateOutputPageBeforeExec(&$skin, &$template){
+
+		$oTitle = $skin->getTitle();
 		if( BsExtensionManager::isContextActive( 'MW::Rating' ) === false ) return true;
 		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') return true;
 
@@ -301,24 +301,14 @@ class Rating extends BsExtensionMW {
 		$bUserCanVote = $oTitle->userCan( 'rating-write' );
 		if( $bUserCanVote ) {
 			$oView->setVotable( true );
-			//$oRatingItem->setRevotable( true );
 		}
 
 		wfRunHooks('BSRatingBeforeHeadlineViewAdd', array(&$oRatingItem, &$oView, &$oTitle));
 		if( is_null($oView) ) return true;
 
-		$aViews[ 'articletitle' ] = $aViews[ 'articletitle' ].$oView->execute();
-		
-		$aContentActions = array(
-			'id' => 'docx',
-			'href' => htmlspecialchars( $oSpecialPage->getLinkUrl( $aCurrentQueryParams ) ),
-			'title' => wfMessage( 'bs-uemoduledocx-widgetlink-single-title' )->plain(),
-			'text' => ''
-		);
-
-		$template->data['bs_title_actions'][] = $aContentActions;
+		$template->data['title'] .= $oView->execute();
 		return true;
-	}*/
+	}
 
 	/**
 	 * Hook-Handler for Hook 'BSStateBarBeforeTopViewAdd'
