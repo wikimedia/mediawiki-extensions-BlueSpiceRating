@@ -50,7 +50,7 @@ class Rating extends BsExtensionMW {
 		$this->mExtensionType = EXTTYPE::OTHER;
 		$this->mInfo = array(
 			EXTINFO::NAME        => 'Rating',
-			EXTINFO::DESCRIPTION => 'Provides a rating system.',
+			EXTINFO::DESCRIPTION => 'bs-rating-extension-description',
 			EXTINFO::AUTHOR      => 'Patric Wirth',
 			EXTINFO::VERSION     => '2.23.0',
 			EXTINFO::STATUS      => 'stable',
@@ -144,7 +144,7 @@ class Rating extends BsExtensionMW {
 		$this->bRatingTypesAlreadySet = true;
 		return $bRes;
 	}
-	
+
 	/**
 	 * AJAX interface for BlueSpice Rating dialog in StateBar
 	 * @global User $wgUser
@@ -176,7 +176,7 @@ class Rating extends BsExtensionMW {
 			$sRef,
 			$iValue,
 			$sRefType,
-			$wgUser->getID(), 
+			$wgUser->getID(),
 			$wgUser->getName()
 		);
 
@@ -246,7 +246,7 @@ class Rating extends BsExtensionMW {
 		wfProfileOut( 'BS::'.__METHOD__ );
 		return true;
 	}
-		
+
 	/**
 	 * Hook-Handler for 'BeforePageDisplay'. Sets context of Rating extension.
 	 * @param OutputPage $oOutputPage
@@ -314,7 +314,7 @@ class Rating extends BsExtensionMW {
 	 * Hook-Handler for Hook 'BSStateBarBeforeTopViewAdd'
 	 * @param StateBar $oStateBar
 	 * @param array $aTopViews
-	 * @return boolean Always true to keep hook running 
+	 * @return boolean Always true to keep hook running
 	 */
 	public function onStateBarBeforeTopViewAdd( $oStateBar, &$aTopViews, $oUser, $oTitle ) {
 		wfProfileIn( 'BS::' . __METHOD__ );
@@ -345,7 +345,7 @@ class Rating extends BsExtensionMW {
 		wfProfileOut( 'BS::' . __METHOD__ );
 		return true;
 	}
-	
+
 	/**
 	 * Hook-Handler for Hook 'BSStateBarBeforeBodyViewAdd'
 	 * @param StateBar $oStateBar
@@ -354,7 +354,7 @@ class Rating extends BsExtensionMW {
 	 */
 	public function onStateBarBeforeBodyViewAdd( $oStateBar, &$aBodyViews, $oUser, $oTitle ) {
 		wfProfileIn( 'BS::' . __METHOD__ );
-		
+
 		if( !$this->checkContext($oTitle) || BsConfig::get('MW::Rating::Position') !== 'statebar' ) {
 			wfProfileOut( 'BS::' . __METHOD__ );
 			return true;
@@ -393,7 +393,7 @@ class Rating extends BsExtensionMW {
 		$aSortTopVars['statebartoprating'] = wfMessage( 'bs-rating-toc-statebartoprating' )->plain();
 		return true;
 	}
-	
+
 	/**
 	 * Hook-Handler for Hook 'BSStatebarAddSortBodyVars'
 	 * @param array $aSortBodyVars
@@ -437,7 +437,7 @@ class Rating extends BsExtensionMW {
 				break;
 			default:
 		}
-		
+
 		wfProfileOut( 'BS::' . __METHOD__ );
 		return $aPrefs;
 	}
@@ -474,9 +474,9 @@ class Rating extends BsExtensionMW {
 
 		if( !in_array($wgRequest->getVal('action', 'view'), array('view', 'ajax')) )
 			return false;
-		if( !is_object( $oTitle ) ) 
+		if( !is_object( $oTitle ) )
 			return false;
-		if( $oTitle->isRedirect() )	{ 
+		if( $oTitle->isRedirect() )	{
 			//PW(16.01.2013): this method does not exist in 1.20.1
 			//- use later
 			//$oTitle = $this->mAdapter->getTitleFromRedirectRecurse($oTitle);
@@ -491,7 +491,7 @@ class Rating extends BsExtensionMW {
 		if( $oTitle->exists()          === false )      return false;
 		if( $oTitle->getNamespace()    === NS_SPECIAL ) return false;
 		if( $oTitle->userCan( 'rating-read' ) === false )		return false;
-		
+
 		if ( !in_array( $oTitle->getNamespace(), BsConfig::get( 'MW::Rating::enRatingNS' ) ) ) return false;
 		$vNoRating = BsArticleHelper::getInstance($oTitle)->getPageProp( 'bs_norating' );
 		if( $vNoRating === '' ) return false;
