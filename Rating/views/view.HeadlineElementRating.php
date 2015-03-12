@@ -59,15 +59,15 @@ class ViewHeadlineElementRating extends ViewBaseElement {
 			$aOut[] =	'<a title="'.wfMessage('bs-rating-he-linktitle',$iCount)->parse().'" href="'.$oSpecialPage->getFullURL('returnto='.$sReturnTo).'">';
 			$aOut[] =		$oView->execute();
 			$aOut[] =	'</a>';
-			$aOut[] =	'<a id="he-'.$this->sKey.'-text" href="'.$oSpecialPage->getFullURL('returnto='.$sReturnTo).'">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
+			$aOut[] =	'<a id="he-'.$this->sKey.'-text" href="'.$oSpecialPage->getFullURL('returnto='.$sReturnTo).'">'.wfMessage('bs-rating-pt-link',$iCount)->parse().'</a>';
 		} elseif( !$wgUser->isAllowed('rating-write') ) {
 			$oView->setAdditionalDivClasses('bs-headline-rating bs-rating-item-notallowed');
 
 			$aOut[] =		$oView->execute();
-			$aOut[] =		'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
+			$aOut[] =		'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text">'.wfMessage('bs-rating-pt-link',$iCount)->parse().'</a>';
 		} else {
 			$aOut[] =	$oView->execute();
-			$aOut[] =	'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text">'.wfMessage('bs-rating-sb-link',$iCount)->parse().'</a>';
+			$aOut[] =	'<a href="#" id="he-'.$this->sKey.'-text" class="bs-headline-top-text">'.wfMessage('bs-rating-pt-link',$iCount)->parse().'</a>';
 		}
 
 		$aOut[] = '</div>';
