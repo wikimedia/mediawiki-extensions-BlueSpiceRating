@@ -13,6 +13,7 @@
 	"bs-rating-pref-position": "Position",
 	"bs-rating-pref-position-articletitle": "ArtikelTitel",
 	"bs-rating-types-page": "Artikel",
+	"bs-rating-pt-link": "($1)",
 	"bs-rating-sb-link": "$1 {{PLURAL:$1|Bewertung|Bewertungen}}",
 	"bs-rating-sb-yourrating": "Gib Deine Bewertung ab",
 	"bs-rating-sb-vote": "Bewertung dieses Artikels",
