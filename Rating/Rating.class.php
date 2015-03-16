@@ -22,7 +22,7 @@
  * For further information visit http://www.blue-spice.org
  *
  * @author     Patric Wirth <wirth@hallowelt.biz>
- * @version    2.22.0
+ * @version    2.23.1
  * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2011 Hallo Welt! - Medienwerkstatt GmbH, All rights reserved.
@@ -52,10 +52,10 @@ class Rating extends BsExtensionMW {
 			EXTINFO::NAME        => 'Rating',
 			EXTINFO::DESCRIPTION => 'bs-rating-extension-description',
 			EXTINFO::AUTHOR      => 'Patric Wirth',
-			EXTINFO::VERSION     => '2.23.0',
-			EXTINFO::STATUS      => 'stable',
-			EXTINFO::PACKAGE     => 'BlueSpiceRating',
-			EXTINFO::URL         => 'http://www.hallowelt.biz',
+			EXTINFO::VERSION     => 'default',
+			EXTINFO::STATUS      => 'default',
+			EXTINFO::PACKAGE     => 'BlueSpice Enterprise',
+			EXTINFO::URL         => 'http://www.hallowelt.com',
 			EXTINFO::DEPS        => array(
 				'bluespice' => '2.23.0'
 			)
