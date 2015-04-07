@@ -23,7 +23,7 @@
  *
  * @author     Patric Wirth <wirth@hallowelt.biz>
  * @version    2.23.1
- * @package    BlueSpiceRating
+ * @package    BlueSpice_pro
  * @subpackage Rating
  * @copyright  Copyright (C) 2011 Hallo Welt! - Medienwerkstatt GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
@@ -32,7 +32,7 @@
 
 /**
  * Base class for Rating extension
- * @package BlueSpiceRating
+ * @package BlueSpice_pro
  * @subpackage Rating
  */
 class Rating extends BsExtensionMW {
@@ -54,7 +54,7 @@ class Rating extends BsExtensionMW {
 			EXTINFO::AUTHOR      => 'Patric Wirth',
 			EXTINFO::VERSION     => 'default',
 			EXTINFO::STATUS      => 'default',
-			EXTINFO::PACKAGE     => 'BlueSpice Enterprise',
+			EXTINFO::PACKAGE     => 'BlueSpice pro',
 			EXTINFO::URL         => 'http://www.hallowelt.com',
 			EXTINFO::DEPS        => array(
 				'bluespice' => '2.23.0'
