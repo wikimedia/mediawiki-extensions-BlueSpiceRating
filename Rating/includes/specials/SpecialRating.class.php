@@ -58,11 +58,11 @@ class SpecialRating extends SpecialPage {
 		}
 
 		$oStoreParams = BsExtJSStoreParams::newFromRequest();
-		$iLimit		= $oStoreParams->getLimit();
-		$iStart		= $oStoreParams->getStart();
-		$sOrderBy	= $oStoreParams->getSort('rat_ref');
-		$sDir		= $oStoreParams->getDirection();
-		$aFilters   = $oStoreParams->getFilter();
+		$iLimit = $oStoreParams->getLimit();
+		$iStart = $oStoreParams->getStart();
+		$sOrderBy = $oStoreParams->getSort('rat_ref');
+		$sDir = $oStoreParams->getDirection();
+		$aFilters = $oStoreParams->getFilter();
 
 		$sRefType	= $wgRequest->getVal('reftype', 'article');
 
@@ -85,11 +85,17 @@ class SpecialRating extends SpecialPage {
 			'rat_reftype' => $sRefType,
 			'rat_archived' => '0', 
 		);
+
 		if( $sOrderBy == 'ref' ) {
 			$aTables[] = 'page';
 			$aOptions['ORDER BY'] = 'page_title '.$sDir;
 			$aConditions[] = 'page_id = rat_ref';
+		} elseif( $sOrderBy == 'vote' ) {
+			$aOptions['ORDER BY'] = 'ROUND(AVG( rat_value ),1) '.$sDir;
+		} elseif( $sOrderBy == 'votes' ) {
+			$aOptions['ORDER BY'] = 'COUNT(rat_value) '.$sDir;
 		}
+
 		$aHaving = array();
 		if( !empty($aFilters) ) {
 			foreach($aFilters as $oFilter) {
