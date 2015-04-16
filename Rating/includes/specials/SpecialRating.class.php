@@ -90,17 +90,40 @@ class SpecialRating extends SpecialPage {
 			$aOptions['ORDER BY'] = 'page_title '.$sDir;
 			$aConditions[] = 'page_id = rat_ref';
 		}
+		$aHaving = array();
 		if( !empty($aFilters) ) {
 			foreach($aFilters as $oFilter) {
-				if($oFilter->field != 'ref' || $sRefType != 'article') continue;
-				if(!in_array('page',$aTables)) {
+				if( $sRefType == 'article' && !in_array('page', $aTables) ) {
 					$aTables[] = 'page';
 					$aConditions[] = 'page_id = rat_ref';
 				}
-				$aConditions[] = "page_title LIKE '%".trim($oFilter->value)."%'";
+				switch($oFilter->field) {
+					case 'ref':
+						$aConditions[] = "page_title LIKE '%".trim($oFilter->value)."%'";
+						break;
+					case 'vote':
+						if($oFilter->comparison == 'gt')
+							$aHaving[] = "ROUND(AVG( rat_value ),1) > '".trim($oFilter->value)."'";
+						if($oFilter->comparison == 'lt')
+							$aHaving[] = "ROUND(AVG( rat_value ),1) < '".trim($oFilter->value)."'";
+						if($oFilter->comparison == 'eq')
+							$aHaving[] = "ROUND(AVG( rat_value ),1) = '".trim($oFilter->value)."'";
+						break;
+					case 'votes':
+						if($oFilter->comparison == 'gt')
+							$aHaving[] = "COUNT(rat_value) > '".trim($oFilter->value)."'";
+						if($oFilter->comparison == 'lt')
+							$aHaving[] = "COUNT(rat_value) < '".trim($oFilter->value)."'";
+						if($oFilter->comparison == 'eq')
+							$aHaving[] = "COUNT(rat_value) = '".trim($oFilter->value)."'";
+						break;
+				}
 			}
 		}
 
+		if( !empty($aHaving) ) {
+			$aOptions['HAVING'] = implode( ' AND ', $aHaving );
+		}
 		$oRatingInstance = BsExtensionManager::getExtension('Rating');
 		$oRatingInstance->runRegisterCustomTypes();
 
@@ -123,7 +146,7 @@ class SpecialRating extends SpecialPage {
 			'COUNT(rat_ref) as total', 
 			$aConditions, 
 			__METHOD__, 
-			array( 'GROUP BY' => 'rat_reftype, rat_ref') 
+			$aOptions
 		);
 
 		if( !$total ) return json_encode( $aResult );
