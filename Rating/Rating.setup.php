@@ -13,6 +13,7 @@ $wgExtensionMessagesFiles['RatingAlias'] = "$sDir/languages/SpecialRating.alias.
 
 $wgMessagesDirs['WatchList'] = "$sDir/i18n";
 
+$wgAutoloadClasses['Rating'] = "$sDir/Rating.class.php";
 $wgAutoloadClasses['RatingItem'] = "$sDir/includes/RatingItem.class.php";
 $wgAutoloadClasses['SpecialRating'] = "$sDir/includes/specials/SpecialRating.class.php";
 
