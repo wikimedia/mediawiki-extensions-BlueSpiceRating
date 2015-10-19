@@ -1,5 +1,5 @@
 <?php
-$sDir = __DIR__;
+$sDir = $IP.DS.'extensions/BlueSpiceRating/Rating';
 BsExtensionManager::registerExtension( 
 	'Rating', 
 	BsRUNLEVEL::FULL|BsRUNLEVEL::REMOTE, 
