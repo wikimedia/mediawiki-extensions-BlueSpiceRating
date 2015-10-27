@@ -55,7 +55,7 @@ class Rating extends BsExtensionMW {
 			EXTINFO::VERSION     => 'default',
 			EXTINFO::STATUS      => 'default',
 			EXTINFO::PACKAGE     => 'BlueSpice pro',
-			EXTINFO::URL         => 'http://www.hallowelt.com',
+			EXTINFO::URL         => 'https://help.bluespice.com/index.php/Rating',
 			EXTINFO::DEPS        => array(
 				'bluespice' => '2.23.0'
 			)
