@@ -71,7 +71,7 @@ class RatingItem {
 			}
 		}
 
-		$aRegisteredRefTypes = BsConfig::get( 'MW::Rating::RatingTypes' );
+		$aRegisteredRefTypes = Rating::getRatingTypes();
 		if( !isset($aRegisteredRefTypes[$sRefType]) ) return null;
 
 		$oInstance = new RatingItem( $sRefType, $sRef, $sSubType, $aRegisteredRefTypes[$sRefType] );
@@ -370,7 +370,7 @@ class RatingItem {
 	}
 
 	public function getView($oUserOnly = null, $sForceThisView = '') {
-		$aRegisteredRefTypes = BsConfig::get( 'MW::Rating::RatingTypes' );
+		$aRegisteredRefTypes = Rating::getRatingTypes();
 		if( !isset($aRegisteredRefTypes[$this->sRefType]) ) {
 			return null;
 		}

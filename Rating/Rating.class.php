@@ -36,8 +36,10 @@
  * @subpackage Rating
  */
 class Rating extends BsExtensionMW {
+	private static $bRatingTypesLoaded = false;
+	private static $aRatingTypes = array();
+	private static $aSpecialRatingTypes = array();
 
-	private $bRatingTypesAlreadySet = false;
 	protected $bStateBar = false;
 
 	/**
@@ -78,18 +80,6 @@ class Rating extends BsExtensionMW {
 			'multiselectex'
 		);
 		BsConfig::registerVar(
-			'MW::Rating::RatingTypes',
-			array(),
-			BsConfig::LEVEL_PRIVATE | BsConfig::TYPE_ARRAY_MIXED,
-			'bs-rating-ratingtypes'
-		);
-		BsConfig::registerVar(
-			'MW::Rating::SpecialRatingTypes',
-			array(),
-			BsConfig::LEVEL_PRIVATE | BsConfig::TYPE_ARRAY_MIXED,
-			'bs-rating-specialratingtypes'
-		);
-		BsConfig::registerVar(
 			'MW::Rating::Position',
 			'articletitle',
 			BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_STRING | BsConfig::USE_PLUGIN_FOR_PREFS,
@@ -98,7 +88,6 @@ class Rating extends BsExtensionMW {
 		);
 
 		$this->setHook( 'BeforePageDisplay' );
-		$this->setHook( 'ParserFirstCallInit' );
 
 		$this->setHook( 'SkinTemplateOutputPageBeforeExec' );
 
@@ -122,129 +111,37 @@ class Rating extends BsExtensionMW {
 	 * registers rating types
 	 * @return boolean
 	 */
-	public function runRegisterCustomTypes() {
-		if( $this->bRatingTypesAlreadySet == true ) return false;
+	public static function runRegisterCustomTypes() {
+		if( self::$bRatingTypesLoaded === true ) return true;
 
-		$aRatingTypes = BsConfig::get( 'MW::Rating::RatingTypes' );
-		$aSpecialRatingTypes = BsConfig::get( 'MW::Rating::SpecialRatingTypes' );
-
-		$aRatingTypes['article'] = array(
+		self::$aRatingTypes['article'] = array(
 			'displaytitle'	=> wfMessage('bs-rating-types-page')->plain(),
 			'view'			=> 'ViewRatingItemStars',
-			'icon-path'		=> $this->getImagePath( true ),
+			//'icon-path'		=> $this->getImagePath( true ),
 			'allowedvalues'	=> range( 1, 5 ),
 		);
-		$aSpecialRatingTypes[] = 'article';
+		self::$aSpecialRatingTypes[] = 'article';
 
-		wfRunHooks( 'BSRatingRegisterCustomTypes', array(&$aRatingTypes, &$aSpecialRatingTypes) );
-
-		$bRes = BsConfig::set( 'MW::Rating::RatingTypes', $aRatingTypes );
-		$bRes = BsConfig::set( 'MW::Rating::SpecialRatingTypes', $aSpecialRatingTypes );
-
-		$this->bRatingTypesAlreadySet = true;
-		return $bRes;
-	}
-
-	/**
-	 * AJAX interface for BlueSpice Rating dialog in StateBar
-	 * @global User $wgUser
-	 * @param string $sRefType
-	 * @param string $sRef
-	 * @param int $iValue
-	 * @param string $sViewName
-	 * @param int $iArticleID
-	 * @return string The JSON formatted response
-	 */
-	public static function ajaxVote( $sRefType, $sRef, $iValue, $sViewName = '', $sVotable = "", $iUserID = 0, $iArticleID = 0, $sSubType = '' ) {
-		global $wgUser;
-		if( !$wgUser->isAllowed('rating-write') || !$wgUser->isAllowed('rating-read') ) return false;
-		if( empty($sRefType) || empty($sRef) || empty($iValue) ) return false;
-
-		$aResult = array();
-
-		$bSuccess = false;
-		$iVotable = $sVotable == "true" ? true : false;
-		$oUserOnly = empty( $iUserID ) ? null : User::newFromId( $iUserID );
-
-		$oInstance = BsExtensionManager::getExtension('Rating');
-		$oInstance->runRegisterCustomTypes();
-
-		$oRatingItem = RatingItem::getInstance( $sRefType, $sRef, $sSubType );
-		wfRunHooks( 'BSRatingBeforeVote', array(&$oRatingItem) );
-
-		$bSuccess = $oRatingItem->setRating(
-			$sRef,
-			$iValue,
-			$sRefType,
-			$wgUser->getID(),
-			$wgUser->getName()
-		);
-
-		$aResult['message'] = '';
-		$aResult['success'] = $bSuccess;
-
-		if( !$bSuccess ) return false;
-
-		$oView = $oRatingItem->getView($oUserOnly, $sViewName);
-		$oView->setVotable( $iVotable );
-
-		$oTitle = null;
-		if( !empty($iArticleID) ) {
-			$oTitle = Title::newFromID($iArticleID);
-			$oTitle->invalidateCache();
-		}
-
-		wfRunHooks( 'BSRatingVoteComplete', array($oRatingItem, $oView, $oTitle) );
-		$aResult['view'] = $oView->execute();
-
-		return json_encode( $aResult );
-	}
-
-	/**
-	 * AJAX interface for BlueSpice Rating dialog - reload view
-	 * @global User $wgUser
-	 * @param string $sRefType
-	 * @param string $sRef
-	 * @param int $iValue
-	 * @param string $sViewName
-	 * @return string The JSON formatted response - view output
-	 */
-	public static function ajaxReloadRating( $sRefType, $sRef, $sViewName = '', $sVotable = "", $iUserID = 0, $sSubType = "") {
-		global $wgUser;
-		if( !$wgUser->isAllowed('rating-read') ) {
-			return false;
-		}
-
-		$bVotable = $sVotable == "true" ? true : false;
-		$oUserOnly = empty( $iUserID ) ? null : User::newFromId( $iUserID );
-
-		$oInstance = BsExtensionManager::getExtension('Rating');
-		$oInstance->runRegisterCustomTypes();
-
-		$oRatingItem = RatingItem::getInstance( $sRefType, $sRef, $sSubType );
-		$oRatingItemView = $oRatingItem->getView($oUserOnly, $sViewName);
-		if( $bVotable ) {
-			$oRatingItemView->setVotable( true );
-		}
-
-		return json_encode(array(
-			'success' => true,
-			'view' => $oRatingItemView->execute(),
+		$b = wfRunHooks( 'BSRatingRegisterCustomTypes', array(
+			&self::$aRatingTypes,
+			&self::$aSpecialRatingTypes,
 		));
+		self::$bRatingTypesLoaded = true;
+		return $b;
 	}
 
-	/**
-	 * ParserFirstCallInit Hook is called when the parser initialises for the first time.
-	 * @param Parser $parser MediaWiki Parser object
-	 * @return bool allow other hooked methods to be executed. Always true.
-	 */
-	public function onParserFirstCallInit( &$parser ) {
-		wfProfileIn( 'BS::'.__METHOD__ );
+	public static function getRatingTypes() {
+		if( !self::runRegisterCustomTypes() ) {
+			return array();
+		}
+		return self::$aRatingTypes;
+	}
 
-		$this->runRegisterCustomTypes();
-
-		wfProfileOut( 'BS::'.__METHOD__ );
-		return true;
+	public static function getSpecialRatingTypes() {
+		if( !self::runRegisterCustomTypes() ) {
+			return array();
+		}
+		return self::$aSpecialRatingTypes;
 	}
 
 	/**
@@ -365,7 +262,6 @@ class Rating extends BsExtensionMW {
 			return true;
 		}
 
-		$this->runRegisterCustomTypes();
 		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
 
 		$oBodyView = $oRatingItem->getView(

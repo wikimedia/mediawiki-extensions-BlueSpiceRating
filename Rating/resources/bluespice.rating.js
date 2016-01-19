@@ -36,7 +36,7 @@ BsRating = {
 				});
 			}
 		});
-		
+
 		$(document).trigger('BsRatingInitDone', []);
 	},
 	getItemData: function( inputObject, inputAsContainer ) {
@@ -60,7 +60,7 @@ BsRating = {
 			userID    : container.attr('data-userid'),
 			replaceID : container.attr('data-replace'),
 			preventDefault : false
-		}
+		};
 		return data;
 	},
 	vote: function( inputObject, callback ) {
@@ -68,44 +68,45 @@ BsRating = {
 		$(document).trigger('BsRatingItemRate', [ data ]);
 		if( data.preventDefault ) return;
 
-		if( typeof callback === 'undefined' || callback == '' || !callback ) {
+		if( typeof callback === 'undefined' || callback === '' || !callback ) {
 			callback = function( data ) {
 				return function( result ) {
-					if( result['success'] == true) {
-						if(data.refType == 'article') {
-							$('#sb-RatingState').replaceWith(result['view']);
+					if( result.success === true) {
+						if(data.refType === 'article') {
+							$('#sb-RatingState').replaceWith(result.payload['view']);
 							var oSBBodyRItem = $('.bs-rating-item.bs-rating-stars.bs-statebar-body-itembody');
 							if( oSBBodyRItem.length > 0 ) {
 								BsRating.reload( oSBBodyRItem );
 							}
 						}
-						$('#' + data.replaceID).replaceWith(result['view']);
+						$('#' + data.replaceID).replaceWith(result.payload['view']);
 						BsRating.init();
 					} else {
-						//alert(result['msg']);
+						alert(result.message);
 					}
-				}
-			}
+				};
+			};
 		}
 
 		inputObject.parent().html( '<div id="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
-		$.getJSON(
-			wgScriptPath + '/index.php',
-			{
-				action:'ajax',
-				rs:'Rating::ajaxVote',
-				rsargs: [
-					data.refType,
-					data.ref,
-					data.value,
-					data.view,
-					data.votable,
-					data.userID,
-					wgArticleId
-				]
-			},
-			callback( data )
-		);
+
+		var Api = new mw.Api();
+		var taskdata = {};
+		for( var i in data ) {
+			if( i === 'container' || typeof data[i] === "undefined" ) {
+				continue;
+			}
+			taskdata[i] = data[i];
+		}
+
+		taskdata.articleID = wgArticleId;
+		Api.post({
+			action: 'rating',
+			task: 'vote',
+			taskData: Ext.encode(taskdata)
+		}, {
+			ok: callback(data)
+		});
 	},
 	reload: function( inputObject ) {
 		var data = BsRating.getItemData( inputObject, true );
@@ -114,31 +115,32 @@ BsRating = {
 
 		var callback = function( data ) {
 			return function( result ) {
-				if( result['success'] == true) {
+				if( result['success'] === true) {
 					$('#' + data.replaceID).replaceWith(result['view']);
 					BsRating.init();
 				} else {
 					//alert(result['msg']);
 				}
-			}
-		}
+			};
+		};
 
 		inputObject.html( '<div class="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
-		$.getJSON(
-			wgScriptPath + '/index.php',
-			{
-				action:'ajax',
-				rs:'Rating::ajaxReloadRating',
-				rsargs: [
-					data.refType,
-					data.ref,
-					data.view,
-					data.votable,
-					data.userID,
-				]
-			},
-			callback( data )
-		);
+		var Api = new mw.Api();
+		var taskdata = {};
+		for( var i in data ) {
+			if( i === 'container' || typeof data[i] === "undefined" ) {
+				continue;
+			}
+			taskdata[i] = data[i];
+		}
+
+		Api.post({
+			action: 'rating',
+			task: 'reloadRating',
+			taskData: Ext.encode( taskdata )
+		}, {
+			ok: callback(data)
+		});
 	},
 	starsMouseOut: function(currElement, currValue, siblings, value) {
 		if( typeof value === 'undefined' ) return;
@@ -146,7 +148,7 @@ BsRating = {
 		var currValueF = 0;
 		var aCurVal = (currValue + "").split(".");
 		currValue = parseInt(aCurVal[0]);
-		if( typeof aCurVal[1] != 'undefined') {
+		if( typeof aCurVal[1] !== 'undefined') {
 			currValueF = parseInt(aCurVal[1]);
 		}
 
@@ -157,10 +159,10 @@ BsRating = {
 			if( sibling.attr('data-value') <= currValue) {
 				sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 			} else {
-				if(currValue == 0) {
+				if(currValue === 0) {
 					sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-notrated.png');
 				} else {
-					if( currValueF >= 5 && parseInt(sibling.attr('data-value')) - 1 == currValue) {
+					if( currValueF >= 5 && parseInt(sibling.attr('data-value')) - 1 === currValue) {
 						sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png');
 					} else {
 						sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png');
@@ -182,21 +184,21 @@ BsRating = {
 			}
 		}
 	}
-}
+};
 
 $(document).bind( 'BsStateBarBodyLoadComplete', function(event, data) {
 	BsRating.init();
 });
 
 $(document).bind( 'BsRatingItemRate', function(event, data) {
-	if(data.view != 'ViewStateBarBodyElementRating') return;
+	if(data.view !== 'ViewStateBarBodyElementRating') return;
 	data.preventDefault = true;
 	var inputObject = $('.bs-rating-item.bs-rating-stars.bs-statebar-body-itembody').parent();
 	data.inputObject = inputObject;
 
 	var callback = function( data ) {
 		return function( result ) {
-			if( result['success'] == true) {
+			if( result['success'] === true) {
 				data.inputObject.replaceWith(result['view']);
 				var oHeadRItem = $('.bs-rating-item.bs-rating-stars.bs-statebar-top-icon, .bs-rating-item.bs-rating-stars.bs-headline-rating');
 				if( typeof oHeadRItem !== 'undefined' ) {
@@ -206,28 +208,27 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 			} else {
 				//alert(result['msg']);
 			}
-		}
-	}
+		};
+	};
 
 	inputObject.html( '<div id="bs-rating-load" style="width:' + inputObject.width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
-	$.getJSON(
-		wgScriptPath + '/index.php',
-		{
-			action:'ajax',
-			rs:'Rating::ajaxVote',
-			rsargs: [
-				data.refType,
-				data.ref,
-				data.value,
-				data.view,
-				data.votable,
-				data.userID,
-				wgArticleId,
-				data.subType,
-			]
-		},
-		callback( data )
-	);
+	var Api = new mw.Api();
+	var taskdata = {};
+	for( var i in data ) {
+		if( i === 'container' || typeof data[i] === "undefined" ) {
+			continue;
+		}
+		taskdata[i] = data[i];
+	}
+
+	taskdata.articleID = wgArticleId;
+	Api.post({
+		action: 'rating',
+		task: 'vote',
+		taskData: Ext.encode(taskdata)
+	}, {
+		ok: callback(data)
+	});
 });
 
 $(document).ready(function(){

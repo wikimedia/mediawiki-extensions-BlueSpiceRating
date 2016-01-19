@@ -130,11 +130,9 @@ class SpecialRating extends SpecialPage {
 		if( !empty($aHaving) ) {
 			$aOptions['HAVING'] = implode( ' AND ', $aHaving );
 		}
-		$oRatingInstance = BsExtensionManager::getExtension('Rating');
-		$oRatingInstance->runRegisterCustomTypes();
 
-		$aRatingTypes			= BsConfig::get( 'MW::Rating::RatingTypes' );
-		$aSpecialRatingTypes	= BsConfig::get( 'MW::Rating::SpecialRatingTypes' );
+		$aRatingTypes = Rating::getRatingTypes();
+		$aSpecialRatingTypes = Rating::getSpecialRatingTypes();
 
 		if( !in_array($sRefType, $aSpecialRatingTypes) || !array_key_exists($sRefType, $aRatingTypes) ) {
 			$aResult['message'] = wfMessage('bs-specialrating-err-invalidreftype')->plain();
@@ -198,9 +196,6 @@ class SpecialRating extends SpecialPage {
 			$aResult['message'] = wfMessage('bs-specialrating-err-permissiondenied')->plain();
 			return json_encode( $aResult );
 		}
-
-		$oRatingInstance = BsExtensionManager::getExtension('Rating');
-		$oRatingInstance->runRegisterCustomTypes();
 
 		$aRatingTypes = BsConfig::get( 'MW::Rating::RatingTypes' );
 		$aSpecialRatingTypes = BsConfig::get( 'MW::Rating::SpecialRatingTypes' );

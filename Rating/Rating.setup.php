@@ -15,6 +15,7 @@ $wgMessagesDirs['WatchList'] = "$sDir/i18n";
 
 $wgAutoloadClasses['Rating'] = "$sDir/Rating.class.php";
 $wgAutoloadClasses['RatingItem'] = "$sDir/includes/RatingItem.class.php";
+$wgAutoloadClasses['BSApiTasksRating'] = "$sDir/includes/api/BSApiTasksRating.php";
 $wgAutoloadClasses['SpecialRating'] = "$sDir/includes/specials/SpecialRating.class.php";
 
 $wgAutoloadClasses['ViewRatingItemLike'] = "$sDir/views/view.RatingItemLike.php";
@@ -62,10 +63,12 @@ $wgResourceModules['ext.bluespice.specialRating'] = array(
 	)
 ) + $aResourceModuleTemplate;
 
-$wgAjaxExportList[] = 'Rating::ajaxVote';
-$wgAjaxExportList[] = 'Rating::ajaxReloadRating';
+//$wgAjaxExportList[] = 'Rating::ajaxVote';
+//$wgAjaxExportList[] = 'Rating::ajaxReloadRating';
 $wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';
 $wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';
+
+$wgAPIModules['rating'] = 'BSApiTasksRating';
 
 $wgHooks['LoadExtensionSchemaUpdates'][] = 'Rating::getSchemaUpdates';
 unset($aResourceModuleTemplate);
