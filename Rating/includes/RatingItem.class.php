@@ -44,8 +44,6 @@ class RatingItem {
 	private $sSubType			= '';
 	private $sRef				= '';
 	private $aRatings			= array();
-	private $aUserRated			= array();
-	private $iTotal				= 0;
 	private $aAllowedValues		= array();
 
 	/**
@@ -58,7 +56,7 @@ class RatingItem {
 		$this->aAllowedValues = $aRegisteredRefType['allowedvalues'];
 		$this->loadRating();
 	}
-	
+
 	public static function getInstance( $sRefType, $sRef, $sSubType = '', $bForceReload = false ) {
 		if( empty($sRef) || empty($sRefType) ) return null;
 
@@ -86,7 +84,6 @@ class RatingItem {
 	 */
 	public function loadRating() {
 		$aRatings = array();
-		$aUserRated = array();
 
 		$sRef		= (string) $this->sRef;
 		$sRefType	= $this->sRefType;
@@ -114,34 +111,28 @@ class RatingItem {
 			$this->aRatings = $aRatings;
 			return true;
 		}
-		
-		$iTotal = 0;
+
 		while($row = $dbr->fetchObject($res)) {
 			$aRatings[$row->rat_id] = array(
-				'id'		=> $row->rat_id,
-				'reftype'	=> $row->rat_reftype,
-				'ref'		=> $row->rat_ref,
-				'userid'	=> $row->rat_userid,
-				'userip'	=> $row->rat_userip,
-				'value'		=> $row->rat_value,
-				'created'	=> $row->rat_created,
-				'touched'	=> $row->rat_touched,
-				'subtype'	=> $row->rat_subtype,
+				'id'      => $row->rat_id,
+				'reftype' => $row->rat_reftype,
+				'ref'     => $row->rat_ref,
+				'userid'  => $row->rat_userid,
+				'userip'  => $row->rat_userip,
+				'value'   => $row->rat_value,
+				'created' => $row->rat_created,
+				'touched' => $row->rat_touched,
+				'subtype' => $row->rat_subtype,
+				'context' => $row->rat_subtype,
 			);
-			$mUser = empty($row->rat_userid) ? $row->rat_userip : $row->rat_userid;
-			$aUserRated[$row->rat_id] = $mUser;
-			$iTotal += $row->rat_value;
 		}
 
-		$this->aUserRated = $aUserRated;
 		$this->aRatings = $aRatings;
-		$this->iTotal = $iTotal;
 		return true;
 	}
 
 	/**
 	 * inserts a single rating to the bs_rating table
-	 * @global User $wgUser
 	 * @param string $sRef
 	 * @param int $iValue
 	 * @param string $sRefType
@@ -149,13 +140,21 @@ class RatingItem {
 	 * @param string $sUserIP
 	 * @return boolean
 	 */
-	public function setRating( $sRef, $iValue, $notinuse = 'article', $iUserID = 0, $sUserIP = '') {
+	public function setRating( $sRef, $iValue, $notinuse = 'article', $iUserID = 0, $sUserIP = '', $iContext = 0 ) {
 		$sRef = $this->sRef;
 		$sRefType = $this->sRefType;
 		$sSubType = $this->sSubType;
 		$oUserVote = null;
 
-		wfRunHooks( 'BSRatingCustomTypSetRating', array(&$sRef, &$iValue, $sRefType, $iUserID, $sUserIP, &$sSubType));
+		wfRunHooks( 'BSRatingCustomTypSetRating', array(
+			&$sRef,
+			&$iValue,
+			$sRefType,
+			$iUserID,
+			$sUserIP,
+			&$sSubType,
+			&$iContext,
+		));
 
 		if( empty($iValue) || empty($sRef)) return false;
 		if( empty($iUserID) && empty($sUserIP) ) return false;
@@ -177,6 +176,9 @@ class RatingItem {
 		}
 		else {
 			$aConditions['rat_userip'] = $sUserIP;
+		}
+		if( !empty($iContext) ) {
+			$aConditions['rat_context'] = $iContext;
 		}
 
 		$dbw = wfGetDB( DB_MASTER );
@@ -203,19 +205,20 @@ class RatingItem {
 		if( !empty($sUserIP) ) {
 			$aInsertFields['rat_userip'] = $sUserIP;
 		}
-		$aInsertFields['rat_value']		= $iValue;
-		$aInsertFields['rat_ref']		= $sRef;
-		$aInsertFields['rat_reftype']	= $sRefType;
-		$aInsertFields['rat_created']	= wfTimestampNow();
-		$aInsertFields['rat_touched']	= wfTimestampNow();
-		$aInsertFields['rat_subtype']	= $sSubType;
+		$aInsertFields['rat_value']   = $iValue;
+		$aInsertFields['rat_ref']     = $sRef;
+		$aInsertFields['rat_reftype'] = $sRefType;
+		$aInsertFields['rat_created'] = wfTimestampNow();
+		$aInsertFields['rat_touched'] = wfTimestampNow();
+		$aInsertFields['rat_subtype'] = $sSubType;
+		$aInsertFields['rat_context'] = $iContext;
 
 		$b = $dbw->insert( 'bs_rating', $aInsertFields);
 
 		$res = $dbw->select( 'bs_rating', '*', $aConditions );
 		if(!$res) return false;
 		$oUserVote = $dbw->fetchObject($res);
-		
+
 		$this->addRating( $oUserVote );
 		return $b;
 	}
@@ -223,13 +226,18 @@ class RatingItem {
 	/**
 	 * Archives this RatingItem - When User given: Archives rating of given user in this RatingItem
 	 * @param User $oUser
+	 * @param integer $iContext
 	 * @return Boolean - true or false
 	 */
-	public function archiveRating($oUser = null) {
+	public function archiveRating($oUser = null, $iContext = 0) {
 		$aConditions = array(
 			'rat_ref' => $this->sRef,
 			'rat_reftype' => $this->sRefType,
 		);
+
+		if( !empty($iContext) ) {
+			$aConditions['rat_context'] = $iContext;
+		}
 
 		if( !is_null($oUser) ) {
 			if( $oUser->getId() === 0 ) {
@@ -255,8 +263,7 @@ class RatingItem {
 	 * @return boolean
 	 */
 	private function addRating( $oUserVote ) {
-		$aRatings = $this->aRatings;
-		$aRatings[$oUserVote->rat_id] = array(
+		return $this->aRatings[$oUserVote->rat_id] = array(
 			'id'		=> $oUserVote->rat_id,
 			'reftype'	=> $oUserVote->rat_reftype,
 			'ref'		=> $oUserVote->rat_ref,
@@ -266,24 +273,35 @@ class RatingItem {
 			'created'	=> $oUserVote->rat_created,
 			'touched'	=> $oUserVote->rat_touched,
 			'subtype'	=> $oUserVote->rat_subtype,
+			'context'	=> $oUserVote->rat_context,
 		);
-		$this->aRatings = $aRatings;
-		
-		$aUserRated = $this->aUserRated;
-		$mUser = empty($oUserVote->rat_userid) ? $oUserVote->rat_userip : $oUserVote->rat_userid;
-		$aUserRated[$oUserVote->rat_id] = $mUser;
-		$this->aUserRated = $aUserRated;
-		
-		$iTotal = 0;
-		foreach($aRatings as $aRating) {
-			$iTotal += $aRating['value'];
-		}
-		$this->iTotal = $iTotal;
-		return true;
 	}
 
-	public function getRatings() {
-		return $this->aRatings;
+	protected function filterRating( $a = array() ) {
+		if( empty($a) ) {
+			return $this->aRatings;
+		}
+		return array_filter($this->aRatings, function($e) use($a) {
+			foreach( $a as $sKey => $mValue ) {
+				if( !isset($e[$sKey]) ) {
+					return false;
+				}
+				if( $e[$sKey] == $mValue ) {
+					continue;
+				}
+				return false;
+			}
+			return true;
+		});
+	}
+
+	public function getRatings( $iContext = 0 ) {
+		if( empty($iContext) ) {
+			return $this->filterRating();
+		}
+		return $this->filterRating(array(
+			'context' => $iContext
+		));
 	}
 
 	public function getRefType() {
@@ -298,14 +316,26 @@ class RatingItem {
 		return $this->sRef;
 	}
 
-	public function countRatings() {
-		return count($this->getRatings());
+	public function countRatings( $iContext = 0 ) {
+		return count($this->getRatings( $iContext ));
 	}
-	
-	public function getTotal() {
-		return $this->iTotal;
+
+	public function getTotal( $iContext = 0 ) {
+		$aFilter = array();
+		$iTotal = 0;
+		if( !empty($iContext) ) {
+			$aFilter['context'] = $iContext;
+		}
+		$aRatings = $this->filterRating( $aFilter );
+		if( empty( $aRatings )) {
+			return $iTotal;
+		}
+		foreach( $aRatings as $iID => $aRating ) {
+			$iTotal += $aRating['value'];
+		}
+		return $iTotal;
 	}
-	
+
 	public function getAllowedValues() {
 		return $this->aAllowedValues;
 	}
@@ -316,57 +346,83 @@ class RatingItem {
 	 * @param boolean $return
 	 * @return boolean - true or false
 	 */
-	public function hasUserRated( $oUser, $return = false ) {
+	public function hasUserRated( User $oUser, $return = false, $iContext = 0 ) {
 		if( !is_object($oUser) ) return $return;
 		$iUserID = $oUser->getId();
 		//use name as ip for anonymous
 		if( empty($iUserID) ) {
 			$iUserID = $oUser->getName();
 		}
-		if( in_array($iUserID, $this->aUserRated) ) {
+		$aRatedUserIDs = $this->getRatedUserIDs( $iContext );
+		if( in_array($iUserID, $aRatedUserIDs) ) {
 			$return = true;
 		}
 		return $return;
 	}
-	
-	public function getRatedUserIDs() {
-		$aUserRated = $this->aUserRated;
-		
-		$aReturn = array();
-		foreach($aUserRated as $key => $value) {
-			$aReturn[] = $value;
+
+	public function getRatedUserIDs( $iContext = 0 ) {
+		$aUserIDs = $aFilter = array();
+		if( !empty($iContext) ) {
+			$aFilter['context'] = $iContext;
 		}
-		
-		return $aReturn;
+		$aRatings = $this->filterRating( $aFilter );
+		if( empty($aRatings) ) {
+			return $aUserIDs;
+		}
+
+		foreach( $aRatings as $iID => $aRating ) {
+			$aUserIDs[] = empty($aRating['userid'])
+				? $aRating['userip']
+				: $aRating['userid']
+			;
+		}
+		return $aUserIDs;
 	}
 
-	public function getRatingOfSpecificUser( $oUser, $return = array() ) {
-		if( !is_object($oUser) ) return $return;
+	/**
+	 * DEPRECATED single rating return
+	 * @deprecated backward compatibility - use getRatingsOfSpecificUser instead
+	 * @param User $oUser
+	 * @param integer $iContext
+	 * @return array
+	 */
+	public function getRatingOfSpecificUser( User $oUser, $iContext = 0 ) {
+		$aRatings = $this->getRatingsOfSpecificUser( $oUser, $iContext );
+		if( empty($aRatings) ) {
+			return $aRatings;
+		}
+		$aRatings = array_values($aRatings);
+		return $aRatings[0];
+	}
+
+	public function getRatingsOfSpecificUser( User $oUser, $iContext = 0 ) {
+		$aFilter = array();
 		$iUserID = $oUser->getId();
-		if( empty($iUserID) ) {
-			$iUserID = $oUser->getName();
+		if( !empty($iUserID) ) {
+			$aFilter['userid'] = $iUserID;
+		} else {
+			$aFilter['userip'] = $oUser->getName();
 		}
-		if( in_array($iUserID, $this->aUserRated) ) {
-			$return = $this->aRatings[
-				array_search(
-					$iUserID,
-					$this->aUserRated
-				)
-			];
+		if( !empty($iContext) ) {
+			$aFilter['context'] = $iContext;
 		}
-		return $return;
+		$aRatings = $this->filterRating( $aFilter );
+
+		return $aRatings;
 	}
-	
-	public function getValueFilteredRatings( $iValue = 0, $return = array() ) {
-		if( !in_array($iValue, $this->getAllowedValues()) ) return $return;
 
-		$aFilteredRatings = array();
-		foreach( $this->getRatings() as $iKey => $aRating) {
-			if($aRating['value'] != $iValue) continue;
-			$aFilteredRatings[$iKey] = $aRating;
+	public function getValueFilteredRatings( $iValue = 0, $iContext = 0  ) {
+		if( !in_array($iValue, $this->getAllowedValues()) ) {
+			return array();
 		}
 
-		return $aFilteredRatings;
+		$aFilter = array(
+			'value' => $iValue,
+		);
+		if( !empty($iContext) ) {
+			$aFilter['context'] = $iContext;
+		}
+		return $this->filterRating( $aFilter );
 	}
 
 	public function getView($oUserOnly = null, $sForceThisView = '') {
