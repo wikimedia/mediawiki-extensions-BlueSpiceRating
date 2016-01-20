@@ -3,12 +3,10 @@
  *
  * @author     Patric Wirth <wirth@hallowelt.biz>
  * @version    1.0.0 beta
- * @version    $Id: Rating.js 10349 2013-09-10 08:57:06Z pwirth $
  * @package    Bluespice_Extensions
  * @subpackage Rating
  * @copyright  Copyright (C) 2011 Hallo Welt! - Medienwerkstatt GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
- * @filesource
  */
 
 /*
@@ -56,7 +54,7 @@ BsRating = {
 			subType   : container.attr('data-subtype'),
 			view      : container.attr('data-view'),
 			value     : inputObject.attr('data-value'),
-			votable	  : container.attr('data-votable'),
+			votable   : container.attr('data-votable'),
 			userID    : container.attr('data-userid'),
 			replaceID : container.attr('data-replace'),
 			preventDefault : false
@@ -115,8 +113,8 @@ BsRating = {
 
 		var callback = function( data ) {
 			return function( result ) {
-				if( result['success'] === true) {
-					$('#' + data.replaceID).replaceWith(result['view']);
+				if( result.success === true ) {
+					$('#' + data.replaceID).replaceWith(result.payload['view']);
 					BsRating.init();
 				} else {
 					//alert(result['msg']);
@@ -198,8 +196,8 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 
 	var callback = function( data ) {
 		return function( result ) {
-			if( result['success'] === true) {
-				data.inputObject.replaceWith(result['view']);
+			if( result.success === true) {
+				data.inputObject.replaceWith(result.payload['view']);
 				var oHeadRItem = $('.bs-rating-item.bs-rating-stars.bs-statebar-top-icon, .bs-rating-item.bs-rating-stars.bs-headline-rating');
 				if( typeof oHeadRItem !== 'undefined' ) {
 					BsRating.reload( oHeadRItem );
@@ -215,7 +213,7 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 	var Api = new mw.Api();
 	var taskdata = {};
 	for( var i in data ) {
-		if( i === 'container' || typeof data[i] === "undefined" ) {
+		if( i === 'container' || typeof data[i] === "undefined" || i === 'inputObject' ) {
 			continue;
 		}
 		taskdata[i] = data[i];

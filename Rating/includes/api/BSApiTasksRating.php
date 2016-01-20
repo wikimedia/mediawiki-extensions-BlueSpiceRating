@@ -124,6 +124,10 @@ class BSApiTasksRating extends BSApiTasksBase {
 			isset( $vTaskData->subType ) ? $vTaskData->subType : ''
 		);
 
+		if( $oRatingItem ) {
+			$oResult->success = true;
+		}
+
 		$sViewName = '';
 		if( !empty($vTaskData->view) ) {
 			$sViewName = $vTaskData->view;
