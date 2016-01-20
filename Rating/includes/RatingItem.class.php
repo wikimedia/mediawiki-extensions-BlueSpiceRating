@@ -82,7 +82,7 @@ class RatingItem {
 	 * loads the ratings from the bs_rating table
 	 * @return boolean
 	 */
-	public function loadRating() {
+	protected function loadRating() {
 		$aRatings = array();
 
 		$sRef		= (string) $this->sRef;
@@ -262,7 +262,7 @@ class RatingItem {
 	 * @param stdClass $oUserVote
 	 * @return boolean
 	 */
-	private function addRating( $oUserVote ) {
+	protected function addRating( $oUserVote ) {
 		return $this->aRatings[$oUserVote->rat_id] = array(
 			'id'		=> $oUserVote->rat_id,
 			'reftype'	=> $oUserVote->rat_reftype,

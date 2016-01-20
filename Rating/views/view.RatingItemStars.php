@@ -162,4 +162,13 @@ class ViewRatingItemStars extends ViewBaseElement {
 		$this->bVotable = $bVotable;
 		return $this;
 	}
+
+	/**
+	 * Does nothing - not supported by default
+	 * @param integer $iCOntext
+	 * @return \ViewRatingItemLike
+	 */
+	public function setContext( $iCOntext ) {
+		return $this;
+	}
 }
