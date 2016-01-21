@@ -123,7 +123,7 @@ class RatingItem {
 				'created' => $row->rat_created,
 				'touched' => $row->rat_touched,
 				'subtype' => $row->rat_subtype,
-				'context' => $row->rat_subtype,
+				'context' => $row->rat_context,
 			);
 		}
 
