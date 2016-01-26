@@ -57,6 +57,7 @@ BsRating = {
 			votable   : container.attr('data-votable'),
 			userID    : container.attr('data-userid'),
 			replaceID : container.attr('data-replace'),
+			context   : container.attr('data-context'),
 			preventDefault : false
 		};
 		return data;

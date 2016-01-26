@@ -60,12 +60,18 @@ class BSApiTasksRating extends BSApiTasksBase {
 		);
 		wfRunHooks( 'BSRatingBeforeVote', array(&$oRatingItem) );
 
+		$iContext = empty( $vTaskData->context )
+			? 0
+			: $vTaskData->context
+		;
+
 		$oResult->success = $oRatingItem->setRating(
 			$vTaskData->ref,
 			$vTaskData->value,
 			$vTaskData->refType,
 			$this->getUser()->getID(),
-			$this->getUser()->getName()
+			$this->getUser()->getName(),
+			$iContext
 		);
 
 		$sViewName = '';
@@ -86,6 +92,7 @@ class BSApiTasksRating extends BSApiTasksBase {
 				? true
 				: false
 		);
+		$oView->setContext( $iContext );
 
 		$oTitle = null;
 		if( !empty($vTaskData->articleID) ) {
@@ -146,6 +153,11 @@ class BSApiTasksRating extends BSApiTasksBase {
 				? true
 				: false
 		);
+		$iContext = empty( $vTaskData->context )
+			? 0
+			: $vTaskData->context
+		;
+		$oView->setContext( $iContext );
 
 		$oResult->payload['view'] = $oView->execute();
 

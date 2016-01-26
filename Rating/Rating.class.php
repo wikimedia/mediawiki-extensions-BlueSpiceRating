@@ -355,6 +355,11 @@ class Rating extends BsExtensionMW {
 			'rat_subtype',
 			$sDir.'bs_rating.newfield.rat_subtype.sql'
 		);
+		$oUpdater->addExtensionField(
+			'bs_rating',
+			'rat_context',
+			$sDir.'bs_rating.newfield.rat_context.sql'
+		);
 
 		return true;
 	}
