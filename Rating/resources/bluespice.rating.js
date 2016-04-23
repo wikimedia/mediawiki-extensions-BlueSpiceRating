@@ -102,6 +102,7 @@ BsRating = {
 		Api.post({
 			action: 'rating',
 			task: 'vote',
+			token: mw.user.tokens.get( 'editToken' ),
 			taskData: Ext.encode(taskdata)
 		}, {
 			ok: callback(data)
@@ -136,6 +137,7 @@ BsRating = {
 		Api.post({
 			action: 'rating',
 			task: 'reloadRating',
+			token: mw.user.tokens.get( 'editToken' ),
 			taskData: Ext.encode( taskdata )
 		}, {
 			ok: callback(data)
@@ -224,6 +226,7 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 	Api.post({
 		action: 'rating',
 		task: 'vote',
+		token: mw.user.tokens.get( 'editToken' ),
 		taskData: Ext.encode(taskdata)
 	}, {
 		ok: callback(data)
