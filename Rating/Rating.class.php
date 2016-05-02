@@ -97,6 +97,8 @@ class Rating extends BsExtensionMW {
 		$this->setHook( 'BSStateBarBeforeTopViewAdd', 'onStateBarBeforeTopViewAdd' );
 		$this->setHook( 'BSStateBarBeforeBodyViewAdd', 'onStateBarBeforeBodyViewAdd' );
 
+		$this->setHook( 'BSUserSidebarGlobalActionsWidgetGlobalActions' );
+
 		$this->mCore->registerBehaviorSwitch( 'bs_norating' );
 
 		$this->mCore->registerPermission( 'rating-write',			array('user') );
@@ -297,6 +299,33 @@ class Rating extends BsExtensionMW {
 	 */
 	public function onStatebarAddSortBodyVars( &$aSortBodyVars ) {
 		$aSortBodyVars['statebarbodyrating'] = wfMessage( 'bs-rating-toc-statebarbodyrating' )->plain();
+		return true;
+	}
+
+	/**
+	 * Adds Special:Rating link to wiki wide widget
+	 * @param UserSidebar $oUserSidebar
+	 * @param User $oUser
+	 * @param array $aLinks
+	 * @param string $sWidgetTitle
+	 * @return boolean
+	 */
+	public function onBSUserSidebarGlobalActionsWidgetGlobalActions( UserSidebar $oUserSidebar, User $oUser, &$aLinks, &$sWidgetTitle ) {
+		$oSpecialResponsibleEditors = SpecialPageFactory::getPage(
+			'Rating'
+		);
+		if( !$oSpecialResponsibleEditors ) {
+			return true;
+		}
+		$aLinks[] = array(
+			'target' => $oSpecialResponsibleEditors->getPageTitle(),
+			'text' => $oSpecialResponsibleEditors->getDescription(),
+			'attr' => array(),
+			'position' => 700,
+			'permissions' => array(
+				'read'
+			),
+		);
 		return true;
 	}
 
