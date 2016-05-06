@@ -99,14 +99,14 @@ Ext.define( 'BS.Rating.Panel', {
 					}
 
 					for(var i = 0; i < value; i++) {
-						stars = stars + '<img src="' + wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png" />';
+						stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star.png" />';
 					}
 					if(valuef >= 5) {
 						value++;
-						stars = stars + '<img src="' + wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png" />';
+						stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png" />';
 					}
 					for(var i = 0; i < 5-value; i++) {
-						stars = stars + '<img src="' + wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png" />';
+						stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png" />';
 					}
 
 					var content = stars + ' '+'('+gvalue+')';

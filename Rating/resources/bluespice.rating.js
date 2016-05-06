@@ -87,7 +87,7 @@ BsRating = {
 			};
 		}
 
-		inputObject.parent().html( '<div id="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
+		inputObject.parent().html( '<div id="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
 
 		var Api = new mw.Api();
 		var taskdata = {};
@@ -124,7 +124,7 @@ BsRating = {
 			};
 		};
 
-		inputObject.html( '<div class="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
+		inputObject.html( '<div class="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
 		var Api = new mw.Api();
 		var taskdata = {};
 		for( var i in data ) {
@@ -158,15 +158,15 @@ BsRating = {
 			var sibling = $(siblings[i]);
 
 			if( sibling.attr('data-value') <= currValue) {
-				sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
+				sibling.attr("src", mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 			} else {
 				if(currValue === 0) {
-					sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-notrated.png');
+					sibling.attr("src", mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-notrated.png');
 				} else {
 					if( currValueF >= 5 && parseInt(sibling.attr('data-value')) - 1 === currValue) {
-						sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png');
+						sibling.attr("src", mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png');
 					} else {
-						sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png');
+						sibling.attr("src", mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png');
 					}
 				}
 			}
@@ -175,13 +175,13 @@ BsRating = {
 	starsMouseOver: function(currElement, value, siblings) {
 		if( typeof value === 'undefined' ) return;
 
-		currElement.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
+		currElement.attr("src", mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 		for(var i = 0; i <= siblings.length; i++) {
 			var sibling = $(siblings[i]);
 			if( sibling.attr('data-value') <= value) {
-				sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
+				sibling.attr("src", mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star.png');
 			} else { 
-				sibling.attr("src", wgScriptPath + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png');
+				sibling.attr("src", mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png');
 			}
 		}
 	}
@@ -212,7 +212,7 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 		};
 	};
 
-	inputObject.html( '<div id="bs-rating-load" style="width:' + inputObject.width() + 'px;background:transparent url(' + wgScriptPath + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
+	inputObject.html( '<div id="bs-rating-load" style="width:' + inputObject.width() + 'px;background:transparent url(' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
 	var Api = new mw.Api();
 	var taskdata = {};
 	for( var i in data ) {
