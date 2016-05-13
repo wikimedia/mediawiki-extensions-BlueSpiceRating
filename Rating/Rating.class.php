@@ -400,31 +400,40 @@ class Rating extends BsExtensionMW {
 	 * @return bool
 	 */
 	public function checkContext( $oTitle ) {
-		global $wgRequest;
-
-		if( !in_array($wgRequest->getVal('action', 'view'), array('view', 'ajax')) )
+		$oRequest = $this->getRequest();
+		$sAction = $oRequest->getVal('action', 'view');
+		if( !$sAction = ('view' || 'submit') ) {
 			return false;
-		if( !is_object( $oTitle ) )
-			return false;
-		if( $oTitle->isRedirect() )	{
-			//PW(16.01.2013): this method does not exist in 1.20.1
-			//- use later
-			//$oTitle = $this->mAdapter->getTitleFromRedirectRecurse($oTitle);
-				if( $wgRequest->getVal('redirect') != 'no' ) {
-					$oArticle = new Article( $oTitle, 0 ); //New: current revision
-					$sContent = $oArticle->fetchContent( 0 ); //Old: current revision
-					$oTitle = Title::newFromRedirectRecurse( $sContent );
-				}
-			//
-			if( $oTitle->isRedirect() )	return false;
 		}
-		if( $oTitle->exists()          === false )      return false;
-		if( $oTitle->getNamespace()    === NS_SPECIAL ) return false;
-		if( $oTitle->userCan( 'rating-read' ) === false )		return false;
+		if( !is_object( $oTitle ) ) {
+			return false;
+		}
+		if( $oTitle->isRedirect() ) {
+			if( $oRequest->getVal('redirect') != 'no' ) {
+				$oTitle = BsArticleHelper::getInstance( $oTitle )
+					->getTitleFromRedirectRecurse();
+			}
+			if( !$oTitle || $oTitle->exists() || $oTitle->isRedirect() ) {
+				return false;
+			}
+		}
+		if( $oTitle->getNamespace() === NS_SPECIAL ) {
+			return false;
+		}
+		if( $oTitle->userCan( 'rating-read' ) === false ) {
+			return false;
+		}
 
-		if ( !in_array( $oTitle->getNamespace(), BsConfig::get( 'MW::Rating::enRatingNS' ) ) ) return false;
-		$vNoRating = BsArticleHelper::getInstance($oTitle)->getPageProp( 'bs_norating' );
-		if( $vNoRating === '' ) return false;
+		$aEnabledNamespaces = BsConfig::get( 'MW::Rating::enRatingNS' );
+		if( !in_array( $oTitle->getNamespace(), $aEnabledNamespaces ) ) {
+			return false;
+		}
+		$vNoRating = BsArticleHelper::getInstance($oTitle)->getPageProp(
+			'bs_norating'
+		);
+		if( $vNoRating === '' ) {
+			return false;
+		}
 		return true;
 	}
 }
