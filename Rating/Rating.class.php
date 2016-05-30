@@ -169,19 +169,24 @@ class Rating extends BsExtensionMW {
 	 * @return boolean always true
 	 */
 	public function onSkinTemplateOutputPageBeforeExec(&$skin, &$template){
-
 		$oTitle = $skin->getTitle();
-		if( BsExtensionManager::isContextActive( 'MW::Rating' ) === false ) return true;
-		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') return true;
+		if( BsExtensionManager::isContextActive( 'MW::Rating' ) === false ) {
+			return true;
+		}
+		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') {
+			return true;
+		}
 
-		global $wgRequest;
-		if( $this->getRequest()->getVal('redirect') != 'no' ) {
+		if( $oTitle->isRedirect() ) {
+			if( $this->getRequest()->getVal('redirect') != 'no' ) {
 				$oTitle = BsArticleHelper::getInstance( $oTitle )
 					->getTitleFromRedirectRecurse();
 			}
-		if( $oTitle == null || $oTitle->isRedirect() || !$oTitle->exists() ){
-			return true;
+			if( !$oTitle || !$oTitle->exists() || $oTitle->isRedirect() ) {
+				return false;
+			}
 		}
+
 		if( !$oTitle->userCan( 'rating-read' ) ) return true;
 
 		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
@@ -403,7 +408,7 @@ class Rating extends BsExtensionMW {
 				$oTitle = BsArticleHelper::getInstance( $oTitle )
 					->getTitleFromRedirectRecurse();
 			}
-			if( !$oTitle || $oTitle->exists() || $oTitle->isRedirect() ) {
+			if( !$oTitle || !$oTitle->exists() || $oTitle->isRedirect() ) {
 				return false;
 			}
 		}
