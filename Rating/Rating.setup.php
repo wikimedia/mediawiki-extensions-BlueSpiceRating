@@ -39,6 +39,9 @@ $wgResourceModules['ext.bluespice.rating.styles'] = array(
 
 $wgResourceModules['ext.bluespice.rating'] = array(
 	'scripts' => 'bluespice.rating.js',
+	'dependencies' => array(
+		'ext.bluespice',
+	),
 	'position' => 'bottom',
 	'messages' => array(
 		'bs-rating-not-allowed',
