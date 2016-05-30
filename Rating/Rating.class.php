@@ -175,14 +175,13 @@ class Rating extends BsExtensionMW {
 		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') return true;
 
 		global $wgRequest;
-		if( $oTitle->isRedirect() && $wgRequest->getVal('redirect') != 'no' ) {
-			//TODO: Use DB Query? Or WikiPage::getRedirectTarget() in later versions.
-			//TODO: Use $this->mAdapter->getTitleFromRedirectRecurse( $oTitle );
-			$oArticle = new Article( $oTitle, 0 ); //New: current revision
-			$sContent = $oArticle->fetchContent( 0 ); //Old: current revision
-			$oTitle = Title::newFromRedirectRecurse( $sContent );
+		if( $this->getRequest()->getVal('redirect') != 'no' ) {
+				$oTitle = BsArticleHelper::getInstance( $oTitle )
+					->getTitleFromRedirectRecurse();
+			}
+		if( $oTitle == null || $oTitle->isRedirect() || !$oTitle->exists() ){
+			return true;
 		}
-		if ( $oTitle == null || $oTitle->exists() == false ) return true;
 		if( !$oTitle->userCan( 'rating-read' ) ) return true;
 
 		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
