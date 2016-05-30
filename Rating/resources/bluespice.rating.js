@@ -89,7 +89,6 @@ BsRating = {
 
 		inputObject.parent().html( '<div id="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
 
-		var Api = new mw.Api();
 		var taskdata = {};
 		for( var i in data ) {
 			if( i === 'container' || typeof data[i] === "undefined" ) {
@@ -97,15 +96,20 @@ BsRating = {
 			}
 			taskdata[i] = data[i];
 		}
+		taskdata.articleID = mw.config.get( "wgArticleId" );
 
-		taskdata.articleID = wgArticleId;
-		Api.post({
-			action: 'rating',
-			task: 'vote',
-			token: mw.user.tokens.get( 'editToken' ),
-			taskData: Ext.encode(taskdata)
-		}, {
-			ok: callback(data)
+		$.ajax({
+			dataType: "json",
+			type: 'post',
+			url: mw.util.wikiScript( 'api' ),
+			data: {
+				action: 'rating',
+				task: 'vote',
+				format: 'json',
+				token: mw.user.tokens.get( 'editToken', '' ),
+				taskData: Ext.encode( taskdata )
+			},
+			success: callback(data)
 		});
 	},
 	reload: function( inputObject ) {
@@ -125,7 +129,6 @@ BsRating = {
 		};
 
 		inputObject.html( '<div class="bs-rating-load" style="width:' + inputObject.parent().width() + 'px;background:transparent url(' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceFoundation/resources/bluespice/images/bs-ajax-loader-bar-squere-blue.gif) center center no-repeat" >&nbsp;</div>');
-		var Api = new mw.Api();
 		var taskdata = {};
 		for( var i in data ) {
 			if( i === 'container' || typeof data[i] === "undefined" ) {
@@ -134,13 +137,18 @@ BsRating = {
 			taskdata[i] = data[i];
 		}
 
-		Api.post({
-			action: 'rating',
-			task: 'reloadRating',
-			token: mw.user.tokens.get( 'editToken' ),
-			taskData: Ext.encode( taskdata )
-		}, {
-			ok: callback(data)
+		$.ajax({
+			dataType: "json",
+			type: 'post',
+			url: mw.util.wikiScript( 'api' ),
+			data: {
+				action: 'rating',
+				task: 'reloadRating',
+				format: 'json',
+				token: mw.user.tokens.get( 'editToken', '' ),
+				taskData: Ext.encode( taskdata )
+			},
+			success: callback(data)
 		});
 	},
 	starsMouseOut: function(currElement, currValue, siblings, value) {
@@ -222,17 +230,27 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 		taskdata[i] = data[i];
 	}
 
-	taskdata.articleID = wgArticleId;
-	Api.post({
-		action: 'rating',
-		task: 'vote',
-		token: mw.user.tokens.get( 'editToken' ),
-		taskData: Ext.encode(taskdata)
-	}, {
-		ok: callback(data)
+	taskdata.articleID = mw.config.get( "wgArticleId" );
+
+	$.ajax({
+		dataType: "json",
+		type: 'post',
+		url: mw.util.wikiScript( 'api' ),
+		data: {
+			action: 'rating',
+			task: 'vote',
+			format: 'json',
+			token: mw.user.tokens.get( 'editToken', '' ),
+			taskData: Ext.encode( taskdata )
+		},
+		success: callback(data)
 	});
 });
 
 $(document).ready(function(){
 	BsRating.init();
+});
+
+$(document).on( 'BsStateBarRegisterToggleClickElements', function(event, elements) {
+	elements.push( $('#bs-rating-statelink') );
 });

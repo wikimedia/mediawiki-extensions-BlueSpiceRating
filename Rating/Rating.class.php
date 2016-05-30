@@ -157,15 +157,6 @@ class Rating extends BsExtensionMW {
 
 		BsExtensionManager::setContext('MW::Rating');
 
-		//PW TODO: find better way
-		//this always was loaded too late, no matter what dependency or position
-		$oOutputPage->addScript(
-			'<script>'.
-				"$(document).on( 'BsStateBarRegisterToggleClickElements', function(event, aRegisteredToggleClickElements) {".
-					"aRegisteredToggleClickElements.push($('#bs-rating-statelink'));".
-				"});".
-			'</script>'
-		);
 		$oOutputPage->addModules('ext.bluespice.rating');
 		$oOutputPage->addModuleStyles('ext.bluespice.rating.styles');
 		return true;
