@@ -6,7 +6,7 @@
 -- @version    $Id: rating.sql 10349 2013-09-10 08:57:06Z pwirth $
 -- @package    BlueSpice_Extensions
 -- @subpackage Rating
--- @copyright  Copyright (C) 2011 Hallo Welt! - Medienwerkstatt GmbH, All rights reserved.
+-- @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
 -- @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
 -- @filesource
 
