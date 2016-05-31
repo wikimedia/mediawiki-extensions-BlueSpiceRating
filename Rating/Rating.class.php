@@ -183,13 +183,16 @@ class Rating extends BsExtensionMW {
 					->getTitleFromRedirectRecurse();
 			}
 			if( !$oTitle || !$oTitle->exists() || $oTitle->isRedirect() ) {
-				return false;
+				return true;
 			}
 		}
 
 		if( !$oTitle->userCan( 'rating-read' ) ) return true;
 
 		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
+		if( !$oRatingItem ) {
+			return true;
+		}
 
 		$oView = $oRatingItem->getView( null, 'ViewHeadlineElementRating' );
 		$bUserCanVote = $oTitle->userCan( 'rating-write' );
