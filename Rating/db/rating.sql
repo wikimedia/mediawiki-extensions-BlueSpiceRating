@@ -2,7 +2,7 @@
 --
 -- Part of BlueSpice for MediaWiki
 --
--- @author     Patric Wirth <pwirth@hallowelt.biz>
+-- @author     Patric Wirth <pwirth@hallowelt.com>
 -- @version    $Id: rating.sql 10349 2013-09-10 08:57:06Z pwirth $
 -- @package    BlueSpice_Extensions
 -- @subpackage Rating

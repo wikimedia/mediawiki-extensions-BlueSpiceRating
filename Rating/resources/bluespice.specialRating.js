@@ -1,7 +1,7 @@
 /**
  * Js for Rating special page
  *
- * @author     Patric Wirth <wirth@hallowelt.biz>
+ * @author     Patric Wirth <wirth@hallowelt.com>
  * @version    1.0.0 beta
  * @version    $Id: SpecialRating.js 9041 2013-03-27 13:08:24Z pwirth $
  * @package    Bluespice_Extensions

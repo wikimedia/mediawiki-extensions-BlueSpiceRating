@@ -1,7 +1,7 @@
 /**
  * Js for Rating extension
  *
- * @author     Patric Wirth <wirth@hallowelt.biz>
+ * @author     Patric Wirth <wirth@hallowelt.com>
  * @version    1.0.0 beta
  * @package    Bluespice_Extensions
  * @subpackage Rating

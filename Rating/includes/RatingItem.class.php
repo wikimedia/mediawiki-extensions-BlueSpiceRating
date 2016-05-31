@@ -21,7 +21,7 @@
  * This file is part of BlueSpice for MediaWiki
  * For further information visit http://www.blue-spice.org
  *
- * @author     Patric Wirth <wirth@hallowelt.biz>
+ * @author     Patric Wirth <wirth@hallowelt.com>
  * @version    0.9.2
  * @version    $Id: Rating.class.php 7033 2012-10-26 16:22:58Z pwirth $
  * @package    BlueSpice_Extensions

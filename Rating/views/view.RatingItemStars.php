@@ -4,7 +4,7 @@
  *
  * Part of BlueSpice for MediaWiki
  *
- * @author     Patric Wirth <wirth@hallowelt.biz>
+ * @author     Patric Wirth <wirth@hallowelt.com>
  * @version    $Id: view.RatingItemStars.php 10349 2013-09-10 08:57:06Z pwirth $
  * @package    BlueSpice_Extensions
  * @subpackage Rating
