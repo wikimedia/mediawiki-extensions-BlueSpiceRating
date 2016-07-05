@@ -134,7 +134,7 @@ class ViewRatingItemStars extends ViewBaseElement {
 					title="'.wfMessage( (!empty($aRatings) ? 'bs-rating-sb-yourrating' : 'bs-rating-sb-vote' ))->plain().'"
 					alt="'.wfMessage( (!empty($aRatings) ? 'bs-sb-yourrating' : 'bs-rating-sb-vote' ))->plain().'"
 					src="'.$wgScriptPath.'/extensions/BlueSpiceRating/Rating/resources/images/star'.$sType.'.png"
-					'.($this->bVotable ? 'data-value="'.$iValue : '').'"
+					'.($this->bVotable ? 'data-value="'.$iValue.'"' : '').'
 					'.($this->bVotable ? 'class="votable"' : '').'
 				/>';
 	}
