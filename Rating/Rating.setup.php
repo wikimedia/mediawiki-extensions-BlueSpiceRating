@@ -7,11 +7,10 @@ BsExtensionManager::registerExtension(
 	$sDir 
 );
 
-$wgExtensionMessagesFiles['Rating'] = "$sDir/languages/Rating.i18n.php";
 $wgExtensionMessagesFiles['RatingMagic'] = "$sDir/languages/Rating.i18n.magic.php";
 $wgExtensionMessagesFiles['RatingAlias'] = "$sDir/languages/SpecialRating.alias.php";
 
-$wgMessagesDirs['WatchList'] = "$sDir/i18n";
+$wgMessagesDirs['Rating'] = "$sDir/i18n";
 
 $wgAutoloadClasses['Rating'] = "$sDir/Rating.class.php";
 $wgAutoloadClasses['RatingItem'] = "$sDir/includes/RatingItem.class.php";
