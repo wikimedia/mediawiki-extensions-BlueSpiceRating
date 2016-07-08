@@ -38,6 +38,10 @@ class SpecialRating extends SpecialPage {
 		$this->getOutput()->addModuleStyles('ext.bluespice.rating.styles');
 	}
 
+	protected function getGroupName() {
+		return 'bluespice';
+	}
+
 	/**
 	 * AJAX interface for BlueSpice Rating dialog on SpecialRating
 	 * @return string The JSON formatted response

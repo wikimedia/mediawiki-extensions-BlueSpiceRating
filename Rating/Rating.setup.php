@@ -25,7 +25,6 @@ $wgAutoloadClasses['ViewStateBarTopElementRating'] = "$sDir/views/view.StateBarT
 $wgAutoloadClasses['ViewStateBarBodyElementRating'] = "$sDir/views/view.StateBarBodyElementRating.php";
 
 $wgSpecialPages['Rating'] = 'SpecialRating';
-$wgSpecialPageGroups['Rating'] = 'bluespice';
 
 $aResourceModuleTemplate = array(
 	'dependencies' => 'ext.bluespice',
