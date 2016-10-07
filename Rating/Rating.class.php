@@ -43,27 +43,13 @@ class Rating extends BsExtensionMW {
 	protected $bStateBar = false;
 
 	/**
-	 * Contructor of the Rating class
+	 * extension.json callback
+	 * @global array $wgAjaxExportList
 	 */
-	public function __construct() {
-		wfProfileIn( 'BS::'.__METHOD__ );
-
-		$this->mExtensionFile = __FILE__;
-		$this->mExtensionType = EXTTYPE::OTHER;
-		$this->mInfo = array(
-			EXTINFO::NAME        => 'Rating',
-			EXTINFO::DESCRIPTION => 'bs-rating-extension-description',
-			EXTINFO::AUTHOR      => 'Patric Wirth',
-			EXTINFO::VERSION     => 'default',
-			EXTINFO::STATUS      => 'default',
-			EXTINFO::PACKAGE     => 'BlueSpice pro',
-			EXTINFO::URL         => 'https://help.bluespice.com/index.php/Rating',
-			EXTINFO::DEPS        => array(
-				'bluespice' => '2.23.0'
-			)
-		);
-		$this->mExtensionKey = 'MW::Rating';
-		wfProfileOut( 'BS::'.__METHOD__ );
+	public static function onRegistration() {
+		global $wgAjaxExportList;
+		$wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';
+		$wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';
 	}
 
 	/**

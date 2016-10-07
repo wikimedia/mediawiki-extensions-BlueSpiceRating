@@ -1,0 +1,84 @@
+{
+	"name": "Rating",
+	"version": "2.27.0",
+	"url": "https://help.bluespice.com/index.php/Rating",
+	"author": "Patric Wirth",
+	"descriptionmsg": "bs-rating-desc",
+	"type": "bluespice",
+	"bsgExtensions": {
+		"Rating": {
+			"className": "Rating",
+			"extPath": "/BlueSpiceRating/Rating",
+			"package": "BlueSpiceRating"
+		}
+	},
+	"callback": "Rating::onRegistration",
+	"SpecialPages": {
+		"Rating": "SpecialRating"
+	},
+	"APIModules": {
+		"rating": "BSApiTasksRating"
+	},
+	"MessagesDirs": {
+		"Rating": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"RatingMagic": "languages/Rating.i18n.magic.php",
+		"RatingAlias": "languages/SpecialRating.alias.php"
+	},
+	"AutoloadClasses": {
+		"Rating": "Rating.class.php",
+		"RatingItem": "includes/RatingItem.class.php",
+		"BSApiTasksRating": "includes/api/BSApiTasksRating.php",
+		"SpecialRating": "includes/specials/SpecialRating.class.php",
+		"ViewRatingItemLike": "views/view.RatingItemLike.php",
+		"ViewRatingItemStars": "views/view.RatingItemStars.php",
+		"ViewHeadlineElementRating": "views/view.HeadlineElementRating.php",
+		"ViewStateBarTopElementRating": "views/view.StateBarTopElementRating.php",
+		"ViewStateBarBodyElementRating": "views/view.StateBarBodyElementRating.php"
+	},
+	"ResourceModules": {
+		"ext.bluespice.rating.styles": {
+			"styles": "bluespice.rating.css",
+			"position": "top",
+			"dependencies": "ext.bluespice"
+		},
+		"ext.bluespice.rating": {
+			"scripts": "bluespice.rating.js",
+			"dependencies": [
+				"ext.bluespice"
+			],
+			"position": "bottom",
+			"messages": [
+				"bs-rating-not-allowed"
+			]
+		},
+		"ext.bluespice.specialRating": {
+			"scripts": "bluespice.specialRating.js",
+			"dependencies": [
+				"ext.bluespice.extjs"
+			],
+			"messages": [
+				"bs-rating-specialrating-cbRatingTypeLabel",
+				"bs-rating-specialrating-cbRatingTypeEmptyText",
+				"bs-rating-specialrating-titleTitle",
+				"bs-rating-specialrating-titleRating",
+				"bs-rating-specialrating-titleVotes",
+				"bs-rating-specialrating-ptbDisplayMsgText",
+				"bs-rating-specialrating-ptbEmptyMsgText",
+				"bs-rating-specialrating-ptbBeforePageText",
+				"bs-rating-specialrating-ptbAfterPageText"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "BlueSpiceRating/Rating/resources"
+	},
+	"Hooks": {
+		"LoadExtensionSchemaUpdates": "Rating::getSchemaUpdates"
+	},
+	"manifest_version": 1
+}
