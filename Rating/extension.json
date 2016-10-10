@@ -9,7 +9,7 @@
 		"Rating": {
 			"className": "Rating",
 			"extPath": "/BlueSpiceRating/Rating",
-			"package": "BlueSpiceRating"
+			"package": "BlueSpice Pro"
 		}
 	},
 	"callback": "Rating::onRegistration",
