@@ -3,7 +3,7 @@
 	"version": "2.27.0",
 	"url": "https://help.bluespice.com/index.php/Rating",
 	"author": "Patric Wirth",
-	"descriptionmsg": "bs-rating-desc",
+	"descriptionmsg": "bs-rating-extension-description",
 	"type": "bluespice",
 	"bsgExtensions": {
 		"Rating": {
