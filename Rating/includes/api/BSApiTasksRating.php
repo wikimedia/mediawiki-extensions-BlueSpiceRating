@@ -40,6 +40,18 @@ class BSApiTasksRating extends BSApiTasksBase {
 		'reloadRating',
 	);
 
+	/**
+	 * Returns an array of tasks and their required permissions
+	 * array('taskname' => array('read', 'edit'))
+	 * @return type
+	 */
+	protected function getRequiredTaskPermissions() {
+		return array(
+			'vote' => array( 'rating-write' ),
+			'reloadRating' => array( 'rating-read' ),
+		);
+	}
+
 	public function task_vote( $vTaskData, $aParams ) {
 		$oResult = $this->makeStandardReturn();
 		$this->checkPermissions();
