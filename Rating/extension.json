@@ -17,7 +17,8 @@
 		"Rating": "SpecialRating"
 	},
 	"APIModules": {
-		"rating": "BSApiTasksRating"
+		"rating": "BSApiTasksRating",
+		"bs-rating-store": "BSApiRatingStore"
 	},
 	"MessagesDirs": {
 		"Rating": [
@@ -32,6 +33,7 @@
 		"Rating": "Rating.class.php",
 		"RatingItem": "includes/RatingItem.class.php",
 		"BSApiTasksRating": "includes/api/BSApiTasksRating.php",
+		"BSApiRatingStore": "includes/api/BSApiRatingStore.php",
 		"SpecialRating": "includes/specials/SpecialRating.class.php",
 		"ViewRatingItemLike": "views/view.RatingItemLike.php",
 		"ViewRatingItemStars": "views/view.RatingItemStars.php",
@@ -61,8 +63,6 @@
 				"ext.bluespice.extjs"
 			],
 			"messages": [
-				"bs-rating-specialrating-cbRatingTypeLabel",
-				"bs-rating-specialrating-cbRatingTypeEmptyText",
 				"bs-rating-specialrating-titleTitle",
 				"bs-rating-specialrating-titleRating",
 				"bs-rating-specialrating-titleVotes",

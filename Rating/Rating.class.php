@@ -48,7 +48,6 @@ class Rating extends BsExtensionMW {
 	 */
 	public static function onRegistration() {
 		global $wgAjaxExportList;
-		$wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';
 		$wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';
 	}
 

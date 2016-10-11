@@ -61,19 +61,6 @@ Ext.define( 'BS.Rating.Panel', {
 			fields: ['reftype', 'reftypei18n']
 		});
 
-		this.cbRatingTypeFilter = Ext.create('Ext.form.ComboBox', {
-			fieldLabel   : mw.message('bs-rating-specialrating-cbRatingTypeLabel').plain(),
-			emptyText    : mw.message('bs-rating-specialrating-cbRatingTypeEmptyText').plain(),
-			displayField : 'reftypei18n',
-			valueField   : 'reftype',
-			typeAhead    : true,
-			triggerAction: 'all',
-			store: this.strTypes,
-			tpl: '<tpl for="."><div class="x-combo-list-item">{reftypei18n}</div><tpl if="xindex == 1"><hr /></tpl></tpl>'
-		});
-
-		//this.cbRatingTypeFilter.on( 'select', this.cbRatingTypeFilterSelectionChanged, this );
-		
 		this.columns = [
 			{
 				id: 'reftype', 
@@ -168,12 +155,7 @@ Ext.define( 'BS.Rating.Panel', {
 				emptyMsg      : mw.message('bs-rating-specialrating-ptbEmptyMsgText').plain(),
 				beforePageText: mw.message('bs-rating-specialrating-ptbBeforePageText').plain(),
 				afterPageText : mw.message('bs-rating-specialrating-ptbAfterPageText').plain()
-			}),
-			tbar: {
-				items: [
-					//this.cbRatingTypeFilter, not needed
-				]
-			}
+			})
 		});
 
 		this.items = [

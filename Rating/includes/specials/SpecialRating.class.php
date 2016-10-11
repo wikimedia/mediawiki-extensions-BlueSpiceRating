@@ -68,7 +68,7 @@ class SpecialRating extends SpecialPage {
 		$sDir = $oStoreParams->getDirection();
 		$aFilters = $oStoreParams->getFilter();
 
-		$sRefType	= $wgRequest->getVal('reftype', 'article');
+		$sRefType	= 'article';//hardcoded
 
 		$aTables = array( 
 			'bs_rating' 

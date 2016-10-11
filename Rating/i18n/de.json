@@ -25,8 +25,6 @@
 	"bs-specialrating-err-permissiondenied": "Zugriff verweigert",
 	"bs-specialrating-err-invalidreftype": "Ungültiger Bewertungs-Typ",
 	"bs-rating-not-allowed": "Du bist leider nicht berechtigt, eine Bewertung abzugeben.",
-	"bs-rating-specialrating-cbRatingTypeLabel": "Typ",
-	"bs-rating-specialrating-cbRatingTypeEmptyText": "Typ auswählen",
 	"bs-rating-specialrating-titleTitle": "Seite",
 	"bs-rating-specialrating-titleRating": "Bewertung",
 	"bs-rating-specialrating-titleVotes": "Anzahl der Bewertungen",
