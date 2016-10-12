@@ -98,19 +98,11 @@ BsRating = {
 		}
 		taskdata.articleID = mw.config.get( "wgArticleId" );
 
-		$.ajax({
-			dataType: "json",
-			type: 'post',
-			url: mw.util.wikiScript( 'api' ),
-			data: {
-				action: 'rating',
-				task: 'vote',
-				format: 'json',
-				token: mw.user.tokens.get( 'editToken', '' ),
-				taskData: Ext.encode( taskdata )
-			},
-			success: callback(data)
-		});
+		bs.api.tasks.execSilent(
+			'rating',
+			'vote',
+			taskdata
+		).done( callback(data) );
 	},
 	reload: function( inputObject ) {
 		var data = BsRating.getItemData( inputObject, true );
@@ -137,19 +129,11 @@ BsRating = {
 			taskdata[i] = data[i];
 		}
 
-		$.ajax({
-			dataType: "json",
-			type: 'post',
-			url: mw.util.wikiScript( 'api' ),
-			data: {
-				action: 'rating',
-				task: 'reloadRating',
-				format: 'json',
-				token: mw.user.tokens.get( 'editToken', '' ),
-				taskData: Ext.encode( taskdata )
-			},
-			success: callback(data)
-		});
+		bs.api.tasks.execSilent(
+			'rating',
+			'reloadRating',
+			taskdata
+		).done( callback(data) );
 	},
 	starsMouseOut: function(currElement, currValue, siblings, value) {
 		if( typeof value === 'undefined' ) return;
@@ -232,19 +216,11 @@ $(document).bind( 'BsRatingItemRate', function(event, data) {
 
 	taskdata.articleID = mw.config.get( "wgArticleId" );
 
-	$.ajax({
-		dataType: "json",
-		type: 'post',
-		url: mw.util.wikiScript( 'api' ),
-		data: {
-			action: 'rating',
-			task: 'vote',
-			format: 'json',
-			token: mw.user.tokens.get( 'editToken', '' ),
-			taskData: Ext.encode( taskdata )
-		},
-		success: callback(data)
-	});
+	bs.api.tasks.execSilent(
+		'rating',
+		'vote',
+		taskdata
+	).done( callback(data) );
 });
 
 $(document).ready(function(){

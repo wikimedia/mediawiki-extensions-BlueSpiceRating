@@ -12,122 +12,65 @@
  */
 
 Ext.define( 'BS.Rating.Panel', {
-	extend: 'BS.Panel',
-	height: '600px',
+	extend: 'BS.CRUDGridPanel',
+	requires: [ 'BS.store.BSApi' ],
+	id: 'bs-specialrating-extgrid',
+	features: [],
 
 	initComponent: function() {
-
-		this.callParent( arguments );
-	},
-
-	afterInitComponent: function() {
-		this.strMain = Ext.create( 'Ext.data.JsonStore', {
-			proxy: {
-				type: 'ajax',
-				url : bs.util.getAjaxDispatcherUrl( 
-					'SpecialRating::ajaxGetAllRatings'
-				),
-				reader: {
-					type: 'json',
-					root: 'ratings',
-					totalProperty: 'total',
-					idProperty: 'ref'
-				}
-			},
-			autoLoad: true,
-			remoteSort: true,
-			sorters: [{
-				property: 'ref',
-				direction: 'ASC'
-			}],
-			fields: ['reftype', 'ref', 'vote', 'votes', 'refcontent' ]
+		this.strMain = new BS.store.BSApi( {
+			apiAction: 'bs-rating-store',
+			fields: [ 'page_title', 'rat_reftype', 'rat_ref', 'vote', 'votes', 'refcontent' ]
 		});
 
-		this.strTypes = Ext.create( 'Ext.data.JsonStore', {
-			proxy: {
-				type: 'ajax',
-				url : bs.util.getAjaxDispatcherUrl( 
-					'SpecialRating::ajaxGetRatingTypes'
-				),
-				reader: {
-					type: 'json',
-					root: 'types',
-					totalProperty: 'total',
-					idProperty: 'reftype'
+		this.columns = [{
+			id: 'reftype', 
+			header: mw.message('bs-rating-specialrating-titleTitle').plain(), 
+			dataIndex: 'page_title',
+			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+				return record.data.refcontent;
+			},
+			sortable: true
+		},{
+			header: mw.message('bs-rating-specialrating-titleRating').plain(),
+			sortable: true,
+			dataIndex: 'vote',
+			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+				var stars = '';
+				var gvalue = value;
+				var valuef = 0;
+				var aCurVal = (value + "").split(".");
+				value = parseInt(aCurVal[0]);
+				if( aCurVal[1] != undefined) {
+					valuef = parseInt(aCurVal[1]);
 				}
-			},
-			autoLoad: true,
-			remoteSort: true,
-			fields: ['reftype', 'reftypei18n']
-		});
 
-		this.cbRatingTypeFilter = Ext.create('Ext.form.ComboBox', {
-			fieldLabel   : mw.message('bs-rating-specialrating-cbRatingTypeLabel').plain(),
-			emptyText    : mw.message('bs-rating-specialrating-cbRatingTypeEmptyText').plain(),
-			displayField : 'reftypei18n',
-			valueField   : 'reftype',
-			typeAhead    : true,
-			triggerAction: 'all',
-			store: this.strTypes,
-			tpl: '<tpl for="."><div class="x-combo-list-item">{reftypei18n}</div><tpl if="xindex == 1"><hr /></tpl></tpl>'
-		});
-
-		//this.cbRatingTypeFilter.on( 'select', this.cbRatingTypeFilterSelectionChanged, this );
-		
-		this.columns = [
-			{
-				id: 'reftype', 
-				header: mw.message('bs-rating-specialrating-titleTitle').plain(), 
-				dataIndex: 'ref',
-				renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-					return record.data.refcontent;
-				},
-				sortable: true
-			},
-			{
-				header: mw.message('bs-rating-specialrating-titleRating').plain(),
-				sortable: true,
-				dataIndex: 'vote',
-				renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-					var stars = '';
-					var gvalue = value;
-					var valuef = 0;
-					var aCurVal = (value + "").split(".");
-					value = parseInt(aCurVal[0]);
-					if( aCurVal[1] != undefined) {
-						valuef = parseInt(aCurVal[1]);
-					}
-
-					for(var i = 0; i < value; i++) {
-						stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star.png" />';
-					}
-					if(valuef >= 5) {
-						value++;
-						stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png" />';
-					}
-					for(var i = 0; i < 5-value; i++) {
-						stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png" />';
-					}
-
-					var content = stars + ' '+'('+gvalue+')';
-					return content;
+				for(var i = 0; i < value; i++) {
+					stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star.png" />';
 				}
-			},
-			{
-				id: 'votes', 
-				header:mw.message('bs-rating-specialrating-titleVotes').plain(), 
-				dataIndex: 'votes'
+				if(valuef >= 5) {
+					value++;
+					stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png" />';
+				}
+				for(var i = 0; i < 5-value; i++) {
+					stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png" />';
+				}
+
+				var content = stars + ' '+'('+gvalue+')';
+				return content;
 			}
-		];
-		
-		//this.colModel = Ext.create('Ext.grid.ColumnModel', { columns: this.columns });
+		},{
+			id: 'votes', 
+			header:mw.message('bs-rating-specialrating-titleVotes').plain(), 
+			dataIndex: 'votes'
+		}];
 
 		this.filters = Ext.create('Ext.ux.grid.FiltersFeature', {
 			encode: true,
 			local: false,
 			filters: [{
 				type: 'string',
-				dataIndex: 'ref',
+				dataIndex: 'page_title',
 				menuItems: ['ct']
 			}, {
 				type: 'numeric',
@@ -140,49 +83,16 @@ Ext.define( 'BS.Rating.Panel', {
 			}]
 		});
 
-		this.gdpnlRatings = Ext.create('Ext.grid.GridPanel',{
-			features: [this.filters],
-			loadMask: true,
-			region: 'center',
-			store: this.strMain,
-			autoHeight: true,
-			sm: Ext.create( 'Ext.selection.RowModel', {
-				mode: "SINGLE"
-			}),
-			viewConfig: {
-				forceFit: true
-			},
-			//colModel: this.colModel,
-			columns: { 
-				items: this.columns,
-				defaults: {
-					flex: 1
-				}
-			},
-			stripeRows: true,
-			bbar: Ext.create('Ext.PagingToolbar', {
-				pageSize      : 15,
-				store         : this.strMain,
-				displayInfo   : true,
-				displayMsg    : mw.message('bs-rating-specialrating-ptbDisplayMsgText').plain(),
-				emptyMsg      : mw.message('bs-rating-specialrating-ptbEmptyMsgText').plain(),
-				beforePageText: mw.message('bs-rating-specialrating-ptbBeforePageText').plain(),
-				afterPageText : mw.message('bs-rating-specialrating-ptbAfterPageText').plain()
-			}),
-			tbar: {
-				items: [
-					//this.cbRatingTypeFilter, not needed
-				]
-			}
-		});
+		this.gpMainConf.features = [this.filters];
 
-		this.items = [
-			this.gdpnlRatings
-		];
+		this.colMainConf.columns = this.columns;
+		this.callParent( arguments );
 	},
 
-	cbRatingTypeFilterSelectionChanged: function ( oComboBox, oSelectedRecord, iSelectedIndex ) {
-		this.jstrRatingData.setBaseParam( 'reftype', oSelectedRecord.get( 'reftype' ) );
-		this.jstrRatingData.load();
+	makeActionColumn: function( cols ) {
+		return false;
+	},
+	makeTbar : function() {
+		return false;
 	}
 });

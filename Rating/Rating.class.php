@@ -48,7 +48,6 @@ class Rating extends BsExtensionMW {
 	 */
 	public static function onRegistration() {
 		global $wgAjaxExportList;
-		$wgAjaxExportList[] = 'SpecialRating::ajaxGetRatingTypes';
 		$wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';
 	}
 
@@ -357,21 +356,21 @@ class Rating extends BsExtensionMW {
 	 * @return boolean Always true to keep Hook running
 	 */
 	public static function getSchemaUpdates( $oUpdater ) {
-		$sDir = __DIR__.DS.'db'.DS;
+		$sDir = __DIR__.'/db';
 
 		$oUpdater->addExtensionTable(
 			'bs_rating',
-			$sDir.'rating.sql'
+			"$sDir/rating.sql"
 		);
 		$oUpdater->addExtensionField(
 			'bs_rating',
 			'rat_subtype',
-			$sDir.'bs_rating.newfield.rat_subtype.sql'
+			"$sDir/bs_rating.newfield.rat_subtype.sql"
 		);
 		$oUpdater->addExtensionField(
 			'bs_rating',
 			'rat_context',
-			$sDir.'bs_rating.newfield.rat_context.sql'
+			"$sDir/bs_rating.newfield.rat_context.sql"
 		);
 
 		return true;
