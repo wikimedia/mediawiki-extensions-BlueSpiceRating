@@ -2,6 +2,10 @@
 
 class BSApiRatingStore extends BSApiExtJSStoreBase {
 
+	protected function getRequiredPermissions() {
+		return array( 'rating-read' );
+	}
+
 	protected function makeData($sQuery = '') {
 		$aData = array();
 
