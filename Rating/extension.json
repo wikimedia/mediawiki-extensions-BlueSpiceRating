@@ -18,8 +18,7 @@
 	},
 	"APIModules": {
 		"bs-rating-tasks": "BSApiTasksRating",
-		"bs-rating-store": "BSApiRatingStore"
-	},
+		"bs-rating-store": "BSApiRatingStore"	},
 	"MessagesDirs": {
 		"Rating": [
 			"i18n"
