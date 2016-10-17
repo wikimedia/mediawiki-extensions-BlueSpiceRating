@@ -12,7 +12,6 @@
 			"package": "BlueSpice Pro"
 		}
 	},
-	"callback": "Rating::onRegistration",
 	"SpecialPages": {
 		"Rating": "SpecialRating"
 	},

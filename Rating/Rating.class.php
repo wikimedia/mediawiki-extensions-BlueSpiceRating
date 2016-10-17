@@ -43,15 +43,6 @@ class Rating extends BsExtensionMW {
 	protected $bStateBar = false;
 
 	/**
-	 * extension.json callback
-	 * @global array $wgAjaxExportList
-	 */
-	public static function onRegistration() {
-		global $wgAjaxExportList;
-		$wgAjaxExportList[] = 'SpecialRating::ajaxGetAllRatings';
-	}
-
-	/**
 	 * Initialization of Rating extension
 	 */
 	protected function initExt() {
