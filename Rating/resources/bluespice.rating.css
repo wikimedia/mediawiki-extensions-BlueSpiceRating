@@ -20,7 +20,7 @@
 
 #sbb-RatingVote-vote {
 	display:inline-block;
-	/* 
+	/*
 	IE8 fix
 	*/
 	margin-right:1px;
@@ -72,7 +72,11 @@
 .bs-headline-top-text {
 	font-size: 10px;
 	display: inline-block;
-	vertical-align: bottom;	
+	vertical-align: bottom;
 	padding-bottom: 2px;
 	margin: 0 0 0 6px;
+}
+.bs-globalaction-ns_special-specialrating::before{
+	content: '\e9d7';
+	font-family: 'icomoon';
 }
