@@ -285,15 +285,13 @@ class Rating extends BsExtensionMW {
 	 * @return boolean
 	 */
 	public function onBSUserSidebarGlobalActionsWidgetGlobalActions( UserSidebar $oUserSidebar, User $oUser, &$aLinks, &$sWidgetTitle ) {
-		$oSpecialResponsibleEditors = SpecialPageFactory::getPage(
-			'Rating'
-		);
-		if( !$oSpecialResponsibleEditors ) {
+		$oSpecialRating = SpecialPageFactory::getPage( 'Rating' );
+		if( !$oSpecialRating ) {
 			return true;
 		}
 		$aLinks[] = array(
-			'target' => $oSpecialResponsibleEditors->getPageTitle(),
-			'text' => $oSpecialResponsibleEditors->getDescription(),
+			'target' => $oSpecialRating->getPageTitle(),
+			'text' => $oSpecialRating->getDescription(),
 			'attr' => array(),
 			'position' => 700,
 			'permissions' => array(

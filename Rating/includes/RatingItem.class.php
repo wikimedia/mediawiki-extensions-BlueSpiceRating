@@ -22,9 +22,8 @@
  * For further information visit http://bluespice.com
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    0.9.2
- * @version    $Id: Rating.class.php 7033 2012-10-26 16:22:58Z pwirth $
- * @package    BlueSpice_Extensions
+ * @version    2.27.0
+ * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
@@ -33,49 +32,109 @@
 
 /**
  * RatingItem class for Rating extension
- * @package BlueSpice_Extensions
+ * @package BlueSpiceRating
  * @subpackage Rating
  */
-class RatingItem {
+abstract class RatingItem {
+	const REFTYPE = '';
+	protected static $aRatingItems = array();
 
-	private static $aRatingItems = array();
-
-	private $sRefType			= 'article';
-	private $sSubType			= '';
-	private $sRef				= '';
-	private $aRatings			= array();
-	private $aAllowedValues		= array();
+	protected $oConfig = null;
+	protected $sRefType = '';
+	protected $sSubType = '';
+	protected $sRef = '';
+	protected $aRatings = array();
 
 	/**
 	 * Contructor of the Rating class
 	 */
-	private function __construct( $sRefType, $sRef, $sSubType, $aRegisteredRefType ) {
-		$this->sRefType = $sRefType;
-		$this->sRef = $sRef;
-		$this->sSubType = $sSubType;
-		$this->aAllowedValues = $aRegisteredRefType['allowedvalues'];
+	private function __construct( stdClass $oData, RatingConfig $oConfig ) {
+		$this->sRefType = $oData->reftype;
+		$this->sRef = $oData->ref;
+		$this->sSubType = $oData->subtype;
 		$this->loadRating();
 	}
 
-	public static function getInstance( $sRefType, $sRef, $sSubType = '', $bForceReload = false ) {
-		if( empty($sRef) || empty($sRefType) ) return null;
-
-		$aRatingItems = self::$aRatingItems;
-		if( !$bForceReload && key_exists($sRefType, $aRatingItems) ) {
-			if( key_exists($sRef, $aRatingItems[$sRefType]) ) {
-				if( key_exists($sSubType, $aRatingItems[$sRefType][$sRef]) ) {
-					return self::$aRatingItems[$sRefType][$sRef][$sSubType];
-				}
-			}
+	protected static function factory( $sType, $oData ) {
+		$oConfig = RatingConfig::factory( $sType );
+		if( !$oConfig instanceof RatingConfig ) {
+			//TODO: Return a DummyEntity instead of null.
+			return null;
 		}
 
-		$aRegisteredRefTypes = Rating::getRatingTypes();
-		if( !isset($aRegisteredRefTypes[$sRefType]) ) return null;
+		$sItemClass = $oConfig->get( 'RatingClass' );
+		$oInstance = new $sItemClass( $oData, $oConfig );
+		return static::appendCache( $oInstance );
+	}
 
-		$oInstance = new RatingItem( $sRefType, $sRef, $sSubType, $aRegisteredRefTypes[$sRefType] );
-		self::$aRatingItems[$sRefType][$sRef][$sSubType] = $oInstance;
+	/**
+	 * @param stdClass $oData
+	 * @return Status
+	 */
+	protected static function ensureBasicParams( stdClass $oData = null ) {
+		if( is_null($oData) ) {
+			return Status::newFatal( 'No Data Given' ); //TODO
+		}
+		if( empty($oData->ref) ) {
+			return Status::newFatal( 'No reference Given' ); //TODO
+		}
+		if( empty($oData->reftype) ) {
+			return Status::newFatal( 'No reference type Given' ); //TODO
+		}
+		if( empty($oData->subtype) ) {
+			$oData->subtype = 'default';
+		}
+		return Status::newGood( $oData );
+	}
 
+	/**
+	 * TODO: real object cache!
+	 * @param stdClass $oData
+	 * @return RatingItem - or null
+	 */
+	protected static function getInstanceFromCache( stdClass $oData ) {
+		$aItems = static::$aRatingItems;
+		if( !isset($aItems) ) {
+			return null;
+		}
+		if( !isset($aItems[$oData->reftype]) ) {
+			return null;
+		}
+		if( !isset($aItems[$oData->reftype][$oData->ref]) ) {
+			return null;
+		}
+		if( !isset($aItems[$oData->reftype][$oData->ref][$oData->subtype]) ) {
+			return null;
+		}
+		return $aItems[$oData->reftype][$oData->ref][$oData->subtype];
+	}
+
+	protected static function appendCache( RatingItem $oInstance ) {
+		static::$aRatingItems
+			[$oInstance->getRefType()]
+			[$oInstance->getRef()]
+			[$oInstance->getSubType()]
+		= $oInstance;
 		return $oInstance;
+	}
+
+	/**
+	 * RatingItem from a set of data
+	 * @param stdClass $oData
+	 * @return \RatingItem
+	 */
+	public static function newFromObject( stdClass $oData ) {
+		$oStatus = static::ensureBasicParams( $oData );
+		if( !$oStatus->isOK() ) {
+			return $oStatus;
+		}
+		$oInstance = self::getInstanceFromCache(
+			$oStatus->getValue()
+		);
+		if( $oInstance instanceof RatingItem ) {
+			return $oInstance;
+		}
+		return static::factory( $oData->reftype, $oData );
 	}
 
 	/**
@@ -83,37 +142,37 @@ class RatingItem {
 	 * @return boolean
 	 */
 	protected function loadRating() {
-		$aRatings = array();
-
-		$sRef		= (string) $this->sRef;
-		$sRefType	= $this->sRefType;
-		$sSubType	= $this->sSubType;
-
 		$aConditions = array( 
-			'rat_reftype' => $sRefType,
-			'rat_subtype' => $sSubType,
+			'rat_reftype' => $this->getRefType(),
+			'rat_subtype' => $this->getSubType(),
+			'rat_ref' => $this->getRef(),
 			'rat_archived' => '0'
 		);
 
-		if( !empty($sRef) ) {
-			$aConditions['rat_ref'] = $sRef;
-		}
-
 		//Abort query when hook-handler returns false
-		if( !wfRunHooks('BSRatingBeforeLoadRatingQuery', array($sRef, $sRefType, &$aConditions)) ) {
+		$bReturn = wfRunHooks('BSRatingBeforeLoadRatingQuery', array(
+			$this->getRef(),
+			$this->getRefType(),
+			&$aConditions
+		));
+		if( !$bReturn ) {
 			return true;
 		}
 
 		$dbr = wfGetDB( DB_SLAVE );
 
-		$res = $dbr->select( 'bs_rating', '*', $aConditions );
+		$res = $dbr->select(
+			'bs_rating',
+			'*',
+			$aConditions,
+			__METHOD__
+		);
 		if( !$res ) {
-			$this->aRatings = $aRatings;
-			return true;
+			return $this->aRatings;
 		}
 
 		while($row = $dbr->fetchObject($res)) {
-			$aRatings[$row->rat_id] = array(
+			$this->aRatings[$row->rat_id] = array(
 				'id'      => $row->rat_id,
 				'reftype' => $row->rat_reftype,
 				'ref'     => $row->rat_ref,
@@ -127,8 +186,7 @@ class RatingItem {
 			);
 		}
 
-		$this->aRatings = $aRatings;
-		return true;
+		return $this->aRatings;
 	}
 
 	/**
@@ -305,7 +363,7 @@ class RatingItem {
 	}
 
 	public function getRefType() {
-		return $this->sRefType;
+		return static::REFTYPE;
 	}
 
 	public function getSubType() {
