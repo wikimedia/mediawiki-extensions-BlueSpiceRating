@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"    Patric Wirth <wirth@hallowelt.biz>\r"
+		]
+	},
+	"bs-ratedcomments-givecommentlink": "Bewerten Sie diesen Artikel",
+	"bs-ratedcomments-mycommentlink": "Ihre Bewertung dieses Artikels",
+	"bs-ratedcomments-form-legendrating": "Ihre Bewertung",
+	"bs-ratedcomments-form-legendtitle": "Ihre Kommentarüberschrift",
+	"bs-ratedcomments-form-legendtext": "Ihr Kommentar",
+	"bs-ratedcomments-helpful-rated": "Sie fanden diese Bewertung $1",
+	"bs-sb-ratedcomments-notloggedin": "Um bewerten zu können, müssen Sie sich anmelden:",
+	"bs-ratedcomments-err-enterrating": "Bitte geben Sie eine Bewertung ab.",
+	"bs-ratedcomments-err-entertitle": "Bitte geben Sie eine Überschrift ein.",
+	"bs-ratedcomments-err-entermessage": "Bitte geben Sie einen Kommentar ein."
+}

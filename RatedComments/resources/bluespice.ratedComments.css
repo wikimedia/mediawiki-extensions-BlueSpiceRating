@@ -1,0 +1,140 @@
+/**
+ * Stylesheet for RatedComments
+ *
+ * Part of BlueSpice for MediaWiki
+ *
+ * @author     Patric Wirth <wirth@hallowelt.com>
+ * @package    BlueSpice_Extensions
+ * @subpackage RatedComments
+ * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
+ * @filesource
+ */
+
+#bs-sb-content {
+	width: 100% !important;
+}
+
+.bs-ratedcomments-sb-message-title {
+	color: #000;
+	font-size: 0.9em;
+	line-height: 0.6em !important;
+}
+
+#bs-ratedcomments {
+	background: #ddd;
+	padding: 3px 8px 3px 8px;
+	min-height: 16px;
+	width: 99%;
+}
+
+#bs-ratedcomments-edit {
+	background: #ddd;
+	padding: 3px 8px 3px 8px;
+	min-height: 16px;
+	width: 99%;
+}
+
+#bs-users-ratedcomment {
+	margin-top: 3px;
+	background: #f3f3f3;
+	display:none;
+	border-top: 1px solid #D1D1D1;
+	border-bottom: 1px solid #D1D1D1;
+	margin-bottom: 5px;
+}
+
+#bs-users-ratedcomment-edit {
+	margin-top: 3px;
+	background: #f3f3f3;
+	border-top: 1px solid #D1D1D1;
+	border-bottom: 1px solid #D1D1D1;
+	margin-bottom: 5px;
+}
+
+#bs-ratedcomments-form {
+	width: 96%;
+	margin-left: 8px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+#bs-ratedcomments-form-edit {
+	width: 96%;
+	margin-left: 8px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+}
+
+#bs-sb-loading {
+	display: none;
+}
+
+.bs-ratedcomments-viewtoggler {
+	cursor: pointer;
+}
+
+#bs-ratedcomments-toogle-link {
+	cursor: pointer;
+}
+
+#bs-ratedcomments-viewtoggler {
+	font-size: 8px;
+	color: #999;
+	float: right;
+	margin-top: 6px;
+	margin-right: 2px;
+	cursor: pointer;
+}
+.bs-ratedcomments-helpful-button {
+	font-size: 9px;
+	padding: 1px !important;
+	display: inline-block;
+}
+.bs-ratedcomments-helpful-text {
+	display: inline-block;
+}
+#bs-ratedcomments-sbtitle {
+	width:100% !important;
+	margin-left: 0px !important;
+}
+
+.bs-sb-ratingitem {
+	display:inline-block;
+}
+
+.bs-rc-archive {
+	width: 14px;
+	height: 14px;
+	float:right;
+	cursor: pointer;
+	margin-left: 8px;
+	/*@embed*/
+	background-image: url("images/bs-archive.png");
+}
+
+.bs-rc-edit {
+	float:right;
+	cursor: pointer;
+	margin-left: 8px;
+}
+
+#he-RatingHeadline-text {
+	color: #3E5389 !important;
+}
+#he-RatingHeadline-text:hover, #he-RatingHeadline-text:hover {
+	color: #3E5389 !important;
+	text-decoration: underline !important;
+	cursor: pointer !important;
+}
+#bs-ratedcomments-toogle-button, #bs-ratedcomments-form-submit,
+.bs-ratedcomments-helpful-button, .bs-ratedcomments-helpful-all,
+.bs-ratedcomments-helpful-text, #bs-ratedcomments-form-edit-submit {
+	font-family: Verdana,Arial,sans-serif !important;
+	font-size: 0.7em !important;
+}
+
+.bs-sb-message-foot {
+	font-family: Verdana,Arial,sans-serif !important;
+	font-size: 0.6em !important;
+}

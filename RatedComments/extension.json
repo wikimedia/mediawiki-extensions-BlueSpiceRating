@@ -1,0 +1,67 @@
+{
+	"name": "RatedComments",
+	"version": "2.27.0",
+	"url": "https://help.bluespice.com/index.php/RatedComments",
+	"author": [
+		"Patric Wirth"
+	],
+	"descriptionmsg": "bs-ratedcomments-extension-description",
+	"type": "bluespice",
+	"bsgExtensions": {
+		"RatedComments": {
+			"className": "RatedComments",
+			"extPath": "/BlueSpiceRatedComments/RatedComments",
+			"package": "BlueSpice Pro"
+		}
+	},
+	"APIModules": {
+		"bs-ratedcomments-tasks": "BSApiTasksRatedComments"
+	},
+	"MessagesDirs": {
+		"RatedComments": [
+			"i18n"
+		]
+	},
+	"AutoloadClasses": {
+		"RatedComments": "RatedComments.class.php",
+		"BSApiTasksRatedComments": "includes/api/BSApiTasksRatedComments.php",
+		"ViewRatedCommentsShoutBox": "views/view.RatedCommentsShoutBox.php",
+		"ViewRatedCommentsShoutBoxMessage": "views/view.RatedCommentsShoutBoxMessage.php",
+		"ViewHeadlineElementRatedComments": "views/view.HeadlineElementRatedComments.php",
+		"ViewRatedCommentsRatingItemHelpful": "views/view.RatedCommentsRatingItemHelpful.php",
+		"ViewStateBarTopElementRatedComments": "views/view.StateBarTopElementRatedComments.php",
+		"ViewRatedCommentsShoutBoxMessageForm": "views/view.RatedCommentsShoutBoxMessageForm.php",
+		"ViewShoutBoxMessageListRatedComments": "views/view.ShoutBoxMessageListRatedComments.php"
+	},
+	"ResourceModules": {
+		"ext.bluespice.yRatedComments.styles": {
+			"styles": "bluespice.ratedComments.css",
+			"position": "top",
+			"dependencies": [
+				"ext.bluespice",
+				"ext.bluespice.rating"
+			]
+		},
+		"ext.bluespice.ratedComments": {
+			"scripts": "bluespice.ratedComments.js",
+			"position": "bottom",
+			"messages": [
+				"bs-ratedcomments-err-enterrating",
+				"bs-ratedcomments-err-entertitle",
+				"bs-ratedcomments-err-entermessage"
+			],
+			"dependencies": [
+				"ext.bluespice",
+				"ext.bluespice.rating"
+			]
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "resources",
+		"remoteExtPath": "BlueSpiceRatedComments/RatedComments/resources"
+	},
+	"Hooks": {
+		"BSRatingRegisterCustomTypes": "RatedComments::onBSRatingRegisterCustomTypes"
+	},
+	"manifest_version": 1
+}

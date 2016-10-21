@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"    Patric Wirth <wirth@hallowelt.biz>\r"
+		]
+	},
+	"bs-ratedcomments-extension-description": "Combines Rating and Shoutbox.",
+	"RatedComments": "RatedComments",
+	"prefs-ratedcomments": "Rated comments",
+	"bs-ratedcomments-pref-NumberOfComments": "Number of comments",
+	"bs-ratedcomments-pref-MaxTitleLength": "Maximum length of a message title",
+	"bs-ratedcomments-pref-MaxMessageLength": "Maximum length of a message",
+	"bs-ratedcomments-toc-enratedcommentsns": "Activade in namespaces",
+	"bs-ratedcomments-givecommentlink": "Rate this article",
+	"bs-ratedcomments-mycommentlink": "My Rating of this article",
+	"bs-ratedcomments-sb-message-archive": "delete",
+	"bs-ratedcomments-sb-message-edit": "edit",
+	"bs-ratedcomments-title": "Ratings of this article",
+	"bs-ratedcomments-form-legendrating": "Your rating",
+	"bs-ratedcomments-form-legendtitle": "Your comment title",
+	"bs-ratedcomments-form-legendtext": "Your comment",
+	"bs-ratedcomments-form-submit": "Submit comment",
+	"bs-ratedcomments-form-preview": "Preview",
+	"bs-ratedcomments-form-default-message": "",
+	"bs-ratedcomments-sb-message-from": "from $1",
+	"bs-ratedcomments-helpful": "Was this rating useful?",
+	"bs-ratedcomments-helpful-all": "$1 from $2 {{PLURAL:$2|user|users}} found this rating useful",
+	"bs-ratedcomments-helpful-yes": "Yes",
+	"bs-ratedcomments-helpful-no": "No",
+	"bs-ratedcomments-helpful-rated": "You found this rating $1",
+	"bs-ratedcomments-helpful-helpfull": "useful",
+	"bs-ratedcomments-helpful-nothelpfull": "not useful",
+	"bs-sb-ratedcomments-notloggedin": "You have to log in in order to be able to rate:",
+	"bs-ratedcomments-err-permission": "Permission denied",
+	"bs-ratedcomments-err-enterrating": "Please enter a rating.",
+	"bs-ratedcomments-err-entertitle": "Please enter a title.",
+	"bs-ratedcomments-err-entermessage": "Please enter a message."
+}

@@ -1,0 +1,38 @@
+{
+	"@metadata": {
+		"authors": [
+			"    Patric Wirth <wirth@hallowelt.biz>\r"
+		]
+	},
+	"bs-ratedcomments-extension-description": "Vereint Rating und Shoutbox.",
+	"RatedComments": "RatedComments",
+	"prefs-ratedcomments": "Bewertete Kommentare",
+	"bs-ratedcomments-pref-NumberOfComments": "Anzahl der dargestellten Kommentare",
+	"bs-ratedcomments-pref-MaxTitleLength": "Maximale Länge des Kommentartitles",
+	"bs-ratedcomments-pref-MaxMessageLength": "Maximale Länge der Kommentare",
+	"bs-ratedcomments-toc-enratedcommentsns": "Aktivieren für Namensräume",
+	"bs-ratedcomments-givecommentlink": "Bewerte diesen Artikel",
+	"bs-ratedcomments-mycommentlink": "Deine Bewertung dieses Artikels",
+	"bs-ratedcomments-sb-message-archive": "löschen",
+	"bs-ratedcomments-sb-message-edit": "bearbeiten",
+	"bs-ratedcomments-title": "Bewertungen dieses Artikels",
+	"bs-ratedcomments-form-legendrating": "Deine Bewertung",
+	"bs-ratedcomments-form-legendtitle": "Deine Kommentarüberschrift",
+	"bs-ratedcomments-form-legendtext": "Dein Kommentar",
+	"bs-ratedcomments-form-submit": "Bewertung abgeben",
+	"bs-ratedcomments-form-preview": "Vorschau",
+	"bs-ratedcomments-form-default-message": "",
+	"bs-ratedcomments-sb-message-from": "von '''$1'''",
+	"bs-ratedcomments-helpful": "War diese Bewertung hilfreich?",
+	"bs-ratedcomments-helpful-all": "$1 von $2 {{PLURAL:$2|Nutzer|Nutzern}} fanden diese Bewertung hilfreich",
+	"bs-ratedcomments-helpful-yes": "Ja",
+	"bs-ratedcomments-helpful-no": "Nein",
+	"bs-ratedcomments-helpful-rated": "Du fandest diese Bewertung $1",
+	"bs-ratedcomments-helpful-helpful": "hilfreich",
+	"bs-ratedcomments-helpful-nothelpful": "nicht hilfreich",
+	"bs-sb-ratedcomments-notloggedin": "Um bewerten zu können, musst du dich anmelden:",
+	"bs-ratedcomments-err-permission": "Zugriff verweigert",
+	"bs-ratedcomments-err-enterrating": "Bitte gib eine Bewertung ab.",
+	"bs-ratedcomments-err-entertitle": "Bitte gib eine Überschrift ein.",
+	"bs-ratedcomments-err-entermessage": "Bitte gib einen Kommentar ein."
+}
