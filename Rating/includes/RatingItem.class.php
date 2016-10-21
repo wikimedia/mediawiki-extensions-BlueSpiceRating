@@ -35,8 +35,7 @@
  * @package BlueSpiceRating
  * @subpackage Rating
  */
-abstract class RatingItem {
-	const REFTYPE = '';
+class RatingItem {
 	protected static $aRatingItems = array();
 
 	protected $oConfig = null;
@@ -55,7 +54,12 @@ abstract class RatingItem {
 		$this->loadRating();
 	}
 
-	protected static function factory( $sType, $oData ) {
+	/**
+	 * @param string $sType
+	 * @param stdClass $oData
+	 * @return \RatingItem
+	 */
+	protected static function factory( $sType, stdClass $oData ) {
 		$oConfig = RatingConfig::factory( $sType );
 		if( !$oConfig instanceof RatingConfig ) {
 			//TODO: Return a DummyEntity instead of null.
@@ -109,6 +113,10 @@ abstract class RatingItem {
 		return $aItems[$oData->reftype][$oData->ref][$oData->subtype];
 	}
 
+	/**
+	 * @param RatingItem $oInstance
+	 * @return \RatingItem
+	 */
 	protected static function appendCache( RatingItem $oInstance ) {
 		static::$aRatingItems
 			[$oInstance->getRefType()]
@@ -135,6 +143,49 @@ abstract class RatingItem {
 			return $oInstance;
 		}
 		return static::factory( $oData->reftype, $oData );
+	}
+
+	/**
+	 * @param mixed $mValue
+	 * @return Status
+	 */
+	public function isAllowedValue( $mValue = false ) {
+		if( $mValue === false ) {
+			return Status::newGood( $mValue );
+		}
+		$aAllowedValues = $this->getConfig()->get( 'AllowedValues' );
+		return in_array( $mValue, $aAllowedValues )
+			? Status::newGood( $mValue )
+			: Status::newFatal( 'Value not allowed' ) //TODO
+		;
+	}
+
+	/**
+	 * @param mixed $mValue
+	 * @return boolean false
+	 */
+	public function supportsMultiValue() {
+		return false;
+	}
+
+	/**
+	 * @param User $oUser
+	 * @return Status
+	 */
+	public function userCanRemoveVote( User $oUser ) {
+		$bUserCanRemove = $this->getConfig()->get( 'UserCanRemoveVote' );
+		if( !$bUserCanRemove ) {
+			return Status::newFatal( 'User can not remove vote' ); //TODO
+		}
+		$bRemovePermission = $this->getConfig()->get( 'UserRemovePermission' );
+		return Status::newGood( $oUser );
+	}
+
+	/**
+	 * @return Message
+	 */
+	public function getTypeMessage() {
+		return Message::newFromKey( $this->getConfig()->get( 'TypeMsgKey' ) );
 	}
 
 	/**
@@ -187,6 +238,16 @@ abstract class RatingItem {
 		}
 
 		return $this->aRatings;
+	}
+
+	public function vote( User $oUser, $mValue, $iContext = 0 ) {
+		$oStatus = $this->isAllowedValue( $mValue );
+		if( !$oStatus->isOK() ) {
+			return $oStatus;
+		}
+		if( $mValue === false ) {
+			$oStatus = $this->userCanRemoveVote( $oUser );
+		}
 	}
 
 	/**
@@ -363,7 +424,7 @@ abstract class RatingItem {
 	}
 
 	public function getRefType() {
-		return static::REFTYPE;
+		return $this->sRefType;
 	}
 
 	public function getSubType() {
@@ -372,6 +433,13 @@ abstract class RatingItem {
 
 	public function getRef() {
 		return $this->sRef;
+	}
+
+	/**
+	 * @return RatingConfig
+	 */
+	public function getConfig() {
+		return $this->oConfig;
 	}
 
 	public function countRatings( $iContext = 0 ) {

@@ -84,8 +84,12 @@ abstract class RatingConfig {
 
 	protected function addGetterDefaults() {}
 	abstract protected function get_RatingClass();
+	abstract protected function get_TypeMsgKey();
 
 	protected function get_AllowedValues() {
 		return array( 1 ); // basic like
+	}
+	protected function get_UserCanRemoveVote() {
+		return true;
 	}
 }

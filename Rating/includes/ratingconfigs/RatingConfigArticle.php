@@ -36,8 +36,15 @@ class RatingConfigArticle extends RatingConfig {
 	protected function get_RatingClass() {
 		return "RatingItemArticle";
 	}
+	protected function get_TypeMsgKey() {
+		return "bs-rating-types-page";
+	}
 
 	protected function get_AllowedValues() {
 		return range( 1, 5 ); // basic 5 stars
+	}
+
+	protected function get_UserCanRemoveVote() {
+		return false;
 	}
 }

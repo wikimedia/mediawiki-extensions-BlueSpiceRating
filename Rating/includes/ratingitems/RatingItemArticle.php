@@ -36,8 +36,7 @@
  * @subpackage Rating
  */
 class RatingItemArticle extends RatingItem {
-	const REFTYPE = "article";
-	protected $sRefType = 'article'; // TODO: remove!
+	protected $sRefType = 'article';
 
 	/**
 	 * RatingItemArticle from a Title object
@@ -46,7 +45,7 @@ class RatingItemArticle extends RatingItem {
 	 */
 	public static function newFromTitle( Title $oTitle ) {
 		return static::newFromObject((object) array(
-			'reftype' => static::REFTYPE,
+			'reftype' => 'article',
 			'ref' => $oTitle->getArticleID(), //check this, omg
 			//no subtype?
 		));
