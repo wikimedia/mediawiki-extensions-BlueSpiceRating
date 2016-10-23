@@ -42,7 +42,7 @@ class RatingItem {
 	protected $sRefType = '';
 	protected $sSubType = '';
 	protected $sRef = '';
-	protected $aRatings = array();
+	protected $aRatings = null;
 
 	/**
 	 * Contructor of the Rating class
@@ -126,6 +126,10 @@ class RatingItem {
 		return $oInstance;
 	}
 
+	protected function invalidateCache() {
+		return static::detachFromCache( $this );
+	}
+
 	/**
 	 * RatingItem from a set of data
 	 * @param stdClass $oData
@@ -149,6 +153,26 @@ class RatingItem {
 	 * @param mixed $mValue
 	 * @return Status
 	 */
+	public function checkValue( $mValue = false, $iContext = 0 ) {
+		if( $this->getConfig()->get( 'MultiValue' ) && empty( $iContext ) ) {
+			return Status::newFatal(
+				'Context cannot be empty when multivalue!'
+			);
+		}
+		if( $mValue === false ) {
+			//stands for a delete
+			return Status::newGood( $mValue );
+		}
+		if( !$this->isAllowedValue( $mValue ) ) {
+			return Status::newFatal( 'Value not allowed' ); //TODO
+		}
+		return Status::newGood( $mValue );
+	}
+
+	/**
+	 * @param mixed $mValue
+	 * @return Status
+	 */
 	public function isAllowedValue( $mValue = false ) {
 		if( $mValue === false ) {
 			return Status::newGood( $mValue );
@@ -160,25 +184,26 @@ class RatingItem {
 		;
 	}
 
-	/**
-	 * @param mixed $mValue
-	 * @return boolean false
-	 */
-	public function supportsMultiValue() {
-		return false;
+	protected function checkPermission( $sAction, User $oUser, Title $oTitle = null ) {
+		$sAction = ucfirst( $sAction );//...
+		$sPermission = $this->getConfig()->get( "{$sAction}Permission" );
+		if( !$sPermission ) {
+			return false;
+		}
+		if( $oTitle instanceof Title ) {
+			return $oTitle->userCan( $sPermission, $oUser );
+		}
+		return $oUser->isAllowed( $sPermission );
 	}
 
 	/**
 	 * @param User $oUser
 	 * @return Status
 	 */
-	public function userCanRemoveVote( User $oUser ) {
-		$bUserCanRemove = $this->getConfig()->get( 'UserCanRemoveVote' );
-		if( !$bUserCanRemove ) {
-			return Status::newFatal( 'User can not remove vote' ); //TODO
+	public function userCan( User $oUser, $sAction = 'read', Title $oTitle = null ) {
+		if( !$this->checkPermission( $sAction, $oUser, $oTitle ) ) {
+			return Status::newFatal( "User is not Allowed $sAction" ); //TODO
 		}
-		$bRemovePermission = $this->getConfig()->get( 'UserRemovePermission' );
-		return Status::newGood( $oUser );
 	}
 
 	/**
@@ -240,14 +265,80 @@ class RatingItem {
 		return $this->aRatings;
 	}
 
-	public function vote( User $oUser, $mValue, $iContext = 0 ) {
-		$oStatus = $this->isAllowedValue( $mValue );
+	/**
+	 * CRUD votes from the rating item. Use $mValue = false to delete
+	 * @param User $oUser - User, that initiated this action
+	 * @param mixed $mValue - use false to delete
+	 * @param User $oOwner - User, that the vote is related to
+	 * @param integer $iContext - context for multi value
+	 * @param Title $oTitle - for permission check!
+	 * @return type
+	 */
+	public function vote( User $oUser, $mValue, User $oOwner = null, $iContext = 0, Title $oTitle = null ) {
+		if( !$oOwner instanceof User ) {
+			$oOwner = $oUser;
+		}
+		$oStatus = $this->checkValue( $mValue, $iContext );
 		if( !$oStatus->isOK() ) {
 			return $oStatus;
 		}
+		$aRatings = $this->getRatingsOfSpecificUser( $oOwner, $iContext );
 		if( $mValue === false ) {
-			$oStatus = $this->userCanRemoveVote( $oUser );
+			$oStatus = $this->userCan( $oUser, 'delete', $oTitle );
+			if( !$oStatus->isOK() ) {
+				return $oStatus;
+			}
+			if( empty($aRatings) ) {
+				return Status::newFatal( 'Nothing to delete!' ); //TODO!
+			}
+			return $this->deleteRating( $oOwner, $iContext);
 		}
+		if( empty($aRatings) ) {
+			return $this->insertRating( $oOwner, $mValue, $iContext );
+		}
+		return $this->updateRating(
+			$oOwner,
+			$mValue,
+			array_values( $aRatings ),
+			$iContext
+		);
+	}
+
+	protected function insertRating( User $oOwner, $mValue, $iContext = 0 ) {
+		$aValues = array(
+			'rat_value' => $mValue,
+			'rat_ref' => $this->getRef(),
+			'rat_reftype' => $this->getRefType(),
+			'rat_userid'  => (int) $oOwner->getId(),
+			'rat_userip'  => $oOwner->getName(),
+			'rat_created' => wfTimestampNow(),
+			'rat_touched' => wfTimestampNow(),
+			'rat_subtype' => $this->getSubType(),
+			'rat_context' => $iContext,
+		);
+		$bSuccess = wfGetDB( DB_WRITE )->insert(
+			'rating',
+			$aValues,
+			__METHOD__
+		);
+		if( !$bSuccess ) {
+			return Status::newFatal( 'insert database error' ); //TODO
+		}
+		return Status::newGood( $this->invalidateCache() );
+	}
+
+	protected function updateRating( User $oOwner, $mValue, stdClass $oRow, $iContext = 0 ) {
+		$aValues = (array) $oRow;
+		$bSuccess = wfGetDB( DB_WRITE )->update(
+			'rating',
+			array( 'rat_value' => $mValue ),
+			array( 'rat_id' => $oRow->rat_id ),
+			__METHOD__
+		);
+		if( !$bSuccess ) {
+			return Status::newFatal( 'insert database error' ); //TODO
+		}
+		return Status::newGood( $this->invalidateCache() );
 	}
 
 	/**
@@ -341,14 +432,22 @@ class RatingItem {
 		$this->addRating( $oUserVote );
 		return $b;
 	}
-	
+
+	/**
+	 * Deletes the RatingItem and archives all user ratings
+	 * @return Status
+	 */
+	public function deleteRatingItem() {
+		return $this->deleteRating();
+	}
+
 	/**
 	 * Archives this RatingItem - When User given: Archives rating of given user in this RatingItem
 	 * @param User $oUser
 	 * @param integer $iContext
 	 * @return Boolean - true or false
 	 */
-	public function archiveRating($oUser = null, $iContext = 0) {
+	protected function deleteRating( User $oUser = null, $iContext = 0 ) {
 		$aConditions = array(
 			'rat_ref' => $this->sRef,
 			'rat_reftype' => $this->sRefType,
@@ -358,7 +457,7 @@ class RatingItem {
 			$aConditions['rat_context'] = $iContext;
 		}
 
-		if( !is_null($oUser) ) {
+		if( $oUser instanceof User ) {
 			if( $oUser->getId() === 0 ) {
 				$aConditions['rat_userip'] = $oUser->getName();
 			} else {
@@ -373,7 +472,7 @@ class RatingItem {
 			array('rat_archived' => '1', 'rat_touched' => wfTimestampNow()), 
 			$aConditions 
 		);
-		return $b;
+		return Status::newGood( $this );
 	}
 
 	/**
@@ -462,10 +561,6 @@ class RatingItem {
 		return $iTotal;
 	}
 
-	public function getAllowedValues() {
-		return $this->aAllowedValues;
-	}
-
 	/**
 	 * returns if the user has already rated
 	 * @param User $oUser
@@ -473,7 +568,6 @@ class RatingItem {
 	 * @return boolean - true or false
 	 */
 	public function hasUserRated( User $oUser, $return = false, $iContext = 0 ) {
-		if( !is_object($oUser) ) return $return;
 		$iUserID = $oUser->getId();
 		//use name as ip for anonymous
 		if( empty($iUserID) ) {
@@ -505,22 +599,6 @@ class RatingItem {
 		return $aUserIDs;
 	}
 
-	/**
-	 * DEPRECATED single rating return
-	 * @deprecated backward compatibility - use getRatingsOfSpecificUser instead
-	 * @param User $oUser
-	 * @param integer $iContext
-	 * @return array
-	 */
-	public function getRatingOfSpecificUser( User $oUser, $iContext = 0 ) {
-		$aRatings = $this->getRatingsOfSpecificUser( $oUser, $iContext );
-		if( empty($aRatings) ) {
-			return $aRatings;
-		}
-		$aRatings = array_values($aRatings);
-		return $aRatings[0];
-	}
-
 	public function getRatingsOfSpecificUser( User $oUser, $iContext = 0 ) {
 		$aFilter = array();
 		$iUserID = $oUser->getId();
@@ -537,13 +615,13 @@ class RatingItem {
 		return $aRatings;
 	}
 
-	public function getValueFilteredRatings( $iValue = 0, $iContext = 0  ) {
-		if( !in_array($iValue, $this->getAllowedValues()) ) {
-			return array();
+	public function getValueFilteredRatings( $mValue = false, $iContext = 0  ) {
+		if( $oStatus = $this->checkValue( $mValue, $iContext ) ) {
+			
 		}
 
 		$aFilter = array(
-			'value' => $iValue,
+			'value' => $mValue,
 		);
 		if( !empty($iContext) ) {
 			$aFilter['context'] = $iContext;

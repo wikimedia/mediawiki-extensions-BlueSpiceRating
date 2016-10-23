@@ -92,4 +92,22 @@ abstract class RatingConfig {
 	protected function get_UserCanRemoveVote() {
 		return true;
 	}
+	protected function get_MultiValue() {
+		return false;
+	}
+	protected function get_ReadPermission() {
+		return 'rating-read';
+	}
+	protected function get_UpdatePermission() {
+		return 'rating-write';
+	}
+	protected function get_DeletePermission() {
+		return 'rating-write';
+	}
+	protected function get_DeleteOthersPermission() {
+		return 'rating-archive';
+	}
+	protected function get_UpdateOthersPermission() {
+		return 'rating-archive';
+	}
 }

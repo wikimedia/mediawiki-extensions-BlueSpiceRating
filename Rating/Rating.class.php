@@ -162,11 +162,10 @@ class Rating extends BsExtensionMW {
 				return true;
 			}
 		}
-
-		if( !$oTitle->userCan( 'rating-read' ) ) return true;
-
-		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
-		if( !$oRatingItem ) {
+		if( !$oRatingItem = RatingItemArticle::newFromTitle( $oTitle ) ) {
+			return true;
+		}
+		if( !$oRatingItem->userCan( $this->getUser(), 'read', $oTitle ) ) {
 			return true;
 		}
 
