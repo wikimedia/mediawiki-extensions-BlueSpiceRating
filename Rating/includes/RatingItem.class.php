@@ -51,6 +51,7 @@ class RatingItem {
 		$this->sRefType = $oData->reftype;
 		$this->sRef = $oData->ref;
 		$this->sSubType = $oData->subtype;
+		$this->oConfig = $oConfig;
 		$this->loadRating();
 	}
 
@@ -204,6 +205,7 @@ class RatingItem {
 		if( !$this->checkPermission( $sAction, $oUser, $oTitle ) ) {
 			return Status::newFatal( "User is not Allowed $sAction" ); //TODO
 		}
+		return Status::newGood( $oUser );
 	}
 
 	/**

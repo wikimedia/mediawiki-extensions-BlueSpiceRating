@@ -32,7 +32,7 @@
 		"RatingItem": "includes/RatingItem.class.php",
 		"RatingItemArticle": "includes/ratingitems/RatingItemArticle.php",
 		"RatingConfig": "includes/RatingConfig.php",
-		"RatingConfigArticle": "includes/RatingConfigArticle.php",
+		"RatingConfigArticle": "includes/ratingconfigs/RatingConfigArticle.php",
 		"RatingRegistry": "includes/RatingRegistry.php",
 		"BSApiTasksRating": "includes/api/BSApiTasksRating.php",
 		"BSApiRatingStore": "includes/api/BSApiRatingStore.php",

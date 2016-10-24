@@ -52,7 +52,7 @@ class ViewRatingItemStars extends ViewBaseElement {
 			$iTotal = $this->oRatingItem->getTotal();
 			$iCount = $this->oRatingItem->countRatings();
 		}
-		$iMaxValue = max( $this->oRatingItem->getAllowedValues() );
+		$iMaxValue = max( $this->oRatingItem->getConfig()->get('AllowedValues') );
 		$fAverage = !empty($iTotal) && !empty($iCount) 
 			? round( $iTotal/$iCount, 1 )
 			: 0;

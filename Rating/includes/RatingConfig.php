@@ -30,7 +30,7 @@
  * RatingConfig class for Rating extension
  * @package BlueSpiceFoundation
  */
-abstract class RatingConfig {
+abstract class RatingConfig implements JsonSerializable {
 	protected static $aRatingConfigs = null;
 	protected static $aDefaults = array();
 	protected $sType = '';
@@ -68,6 +68,10 @@ abstract class RatingConfig {
 		return static::$aDefaults[$sMethod];
 	}
 
+	public function getType() {
+		return $this->sType;
+	}
+
 	/**
 	 * Getter for config methods
 	 * @param string $sMethod
@@ -82,7 +86,24 @@ abstract class RatingConfig {
 		return $this->$sMethod();
 	}
 
-	protected function addGetterDefaults() {}
+	public function jsonSerialize() {
+		$aConfig = array();
+		foreach( get_class_methods( $this ) as $sMethod ) {
+			if( strpos($sMethod, 'get_') !== 0 ) {
+				continue;
+			}
+			$sVarName = substr( $sMethod, 4 );
+			$aConfig[$sVarName] = $this->$sMethod();
+		}
+		return array_merge(
+			static::$aDefaults,
+			$aConfig
+		);
+	}
+
+	protected function addGetterDefaults() {
+		return array();
+	}
 	abstract protected function get_RatingClass();
 	abstract protected function get_TypeMsgKey();
 

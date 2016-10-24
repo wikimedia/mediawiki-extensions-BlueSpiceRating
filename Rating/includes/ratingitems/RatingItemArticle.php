@@ -47,7 +47,7 @@ class RatingItemArticle extends RatingItem {
 		return static::newFromObject((object) array(
 			'reftype' => 'article',
 			'ref' => $oTitle->getArticleID(), //check this, omg
-			//no subtype?
+			'subtype' => '',
 		));
 	}
 }

@@ -63,6 +63,8 @@ class Rating extends BsExtensionMW {
 			'select'
 		);
 
+		$this->setHook( 'RatingRegister' );
+
 		$this->setHook( 'BeforePageDisplay' );
 
 		$this->setHook( 'SkinTemplateOutputPageBeforeExec' );
@@ -85,6 +87,10 @@ class Rating extends BsExtensionMW {
 		wfProfileOut( 'BS::'.__METHOD__ );
 	}
 
+	public function onRatingRegister( &$aRatings ) {
+		$aRatings['article'] = 'RatingConfigArticle';
+		return true;
+	}
 	/**
 	 * registers rating types
 	 * @return boolean
