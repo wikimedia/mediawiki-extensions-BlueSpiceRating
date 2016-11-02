@@ -129,6 +129,8 @@ class Rating extends BsExtensionMW {
 	 * @return boolean alway true. Keeps the hook system running.
 	 */
 	public function onBeforePageDisplay( &$oOutputPage, &$oSkin ) {
+		$oOutputPage->addModuleStyles( 'ext.bluespice.rating.icons' );
+
 		if( $this->checkContext( $oOutputPage->getTitle() ) === false ) return true;
 
 		BsExtensionManager::setContext('MW::Rating');

@@ -69,6 +69,11 @@
 				"bs-rating-specialrating-ptbBeforePageText",
 				"bs-rating-specialrating-ptbAfterPageText"
 			]
+		},
+		"ext.bluespice.rating.icons": {
+			"styles": "bluespice.rating.icons.less",
+			"position": "top",
+			"dependencies": "ext.bluespice"
 		}
 	},
 	"ResourceFileModulePaths": {
