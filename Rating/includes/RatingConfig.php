@@ -107,6 +107,14 @@ abstract class RatingConfig implements JsonSerializable {
 	abstract protected function get_RatingClass();
 	abstract protected function get_TypeMsgKey();
 
+	protected function get_ModuleScripts() {
+		return array( 'ext.bluespice.rating' );
+	}
+
+	protected function get_ModuleStyles() {
+		return array( 'ext.bluespice.rating.styles' );
+	}
+
 	protected function get_AllowedValues() {
 		return array( 1 ); // basic like
 	}
@@ -130,5 +138,15 @@ abstract class RatingConfig implements JsonSerializable {
 	}
 	protected function get_UpdateOthersPermission() {
 		return 'rating-archive';
+	}
+
+	protected function get_HTMLTag() {
+		return 'div';
+	}
+	protected function get_HTMLTagOptions() {
+		return array(
+			'class' => array('bs-rating'),
+			'data-type' => $this->sType,
+		);
 	}
 }

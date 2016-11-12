@@ -40,11 +40,30 @@ class RatingConfigArticle extends RatingConfig {
 		return "bs-rating-types-page";
 	}
 
+	protected function get_ModuleScripts() {
+		return array_merge(
+			parent::get_ModuleScripts(),
+			array( 'ext.rating.starRatingSvg' )
+		);
+	}
+	protected function get_ModuleStyles() {
+		return array_merge(
+			parent::get_ModuleStyles(),
+			array( 'ext.rating.starRatingSvg.styles' )
+		);
+	}
+
 	protected function get_AllowedValues() {
 		return range( 1, 5 ); // basic 5 stars
 	}
 
 	protected function get_UserCanRemoveVote() {
 		return false;
+	}
+
+	protected function get_HTMLTagOptions() {
+		return array_merge_recursive( parent::get_HTMLTagOptions(), array(
+			'class' => array( 'bs-rating-article' ),
+		));
 	}
 }

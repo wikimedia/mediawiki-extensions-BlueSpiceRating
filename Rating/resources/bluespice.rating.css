@@ -80,3 +80,38 @@
 	content: '\e9d7';
 	font-family: 'icomoon';
 }
+.bs-rating {
+	position: relative;
+}
+.bs-rating-article {
+	display: inline-block;
+	width: 80px;
+}
+.bs-rating-loader {
+	border: 2px solid #3e5389;
+	border-right: 2px dotted #ffae00;
+	border-left: 2px dotted #ffae00;
+	border-radius: 50%;
+	width: 12px;
+	height: 12px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: auto;
+	margin-bottom: auto;
+	animation: spinratingloader 2s linear infinite;
+}
+@keyframes spinratingloader {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+}
+.bs-rating-loading-overlay {
+	position: absolute; z-index: 1;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: white;
+	opacity: 0.75;
+	text-align: center;
+	vertical-align: middle;
+}

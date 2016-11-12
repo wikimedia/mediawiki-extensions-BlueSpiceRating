@@ -73,6 +73,12 @@
 				"bs-rating-specialrating-ptbBeforePageText",
 				"bs-rating-specialrating-ptbAfterPageText"
 			]
+		},
+		"ext.rating.starRatingSvg.styles": {
+			"styles": "star-rating-svg/src/css/star-rating-svg.css"
+		},
+		"ext.rating.starRatingSvg": {
+			"scripts": "star-rating-svg/src/jquery.star-rating-svg.js"
 		}
 	},
 	"ResourceFileModulePaths": {
@@ -80,7 +86,8 @@
 		"remoteExtPath": "BlueSpiceRating/Rating/resources"
 	},
 	"Hooks": {
-		"LoadExtensionSchemaUpdates": "Rating::getSchemaUpdates"
+		"LoadExtensionSchemaUpdates": "Rating::getSchemaUpdates",
+		"BeforePageDisplay": "Rating::onBeforePageDisplay"
 	},
 	"manifest_version": 1
 }

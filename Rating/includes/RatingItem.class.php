@@ -35,7 +35,7 @@
  * @package BlueSpiceRating
  * @subpackage Rating
  */
-class RatingItem {
+class RatingItem implements JsonSerializable {
 	protected static $aRatingItems = array();
 
 	protected $oConfig = null;
@@ -53,6 +53,15 @@ class RatingItem {
 		$this->sSubType = $oData->subtype;
 		$this->oConfig = $oConfig;
 		$this->loadRating();
+	}
+
+	public function jsonSerialize() {
+		return [
+			'reftype' => $this->getRefType(),
+			'ref' => $this->getRef(),
+			'subtype' => $this->getSubType(),
+			'ratings' => $this->getRatings(),
+		];
 	}
 
 	/**
@@ -220,6 +229,7 @@ class RatingItem {
 	 * @return boolean
 	 */
 	protected function loadRating() {
+		$this->aRatings = array();
 		$aConditions = array( 
 			'rat_reftype' => $this->getRefType(),
 			'rat_subtype' => $this->getSubType(),
@@ -629,6 +639,25 @@ class RatingItem {
 			$aFilter['context'] = $iContext;
 		}
 		return $this->filterRating( $aFilter );
+	}
+
+	public function getTagData() {
+		return array(
+			'data-ref' => $this->getRef(),
+			'data-subtype' => $this->getSubType(),
+			'data-item' => json_encode( $this ),
+		);
+	}
+
+	public function getTag() {
+		$aOptions = array_merge_recursive(
+			$this->getConfig()->get('HTMLTagOptions'),
+			$this->getTagData()
+		);
+		return HTML::element(
+			$this->getConfig()->get('HTMLTag'),
+			$aOptions
+		);
 	}
 
 	public function getView($oUserOnly = null, $sForceThisView = '') {

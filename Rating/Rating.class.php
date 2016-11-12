@@ -65,8 +65,6 @@ class Rating extends BsExtensionMW {
 
 		$this->setHook( 'RatingRegister' );
 
-		$this->setHook( 'BeforePageDisplay' );
-
 		$this->setHook( 'SkinTemplateOutputPageBeforeExec' );
 
 		$this->setHook( 'BSStateBarAddSortTopVars', 'onStatebarAddSortTopVars' );
@@ -129,22 +127,6 @@ class Rating extends BsExtensionMW {
 	}
 
 	/**
-	 * Hook-Handler for 'BeforePageDisplay'. Sets context of Rating extension.
-	 * @param OutputPage $oOutputPage
-	 * @param Skin $oSkin
-	 * @return boolean alway true. Keeps the hook system running.
-	 */
-	public function onBeforePageDisplay( &$oOutputPage, &$oSkin ) {
-		if( $this->checkContext( $oOutputPage->getTitle() ) === false ) return true;
-
-		BsExtensionManager::setContext('MW::Rating');
-
-		$oOutputPage->addModules('ext.bluespice.rating');
-		$oOutputPage->addModuleStyles('ext.bluespice.rating.styles');
-		return true;
-	}
-
-	/**
 	 * Adds an rating view after article title
 	 * @param Skin $skin
 	 * @param BaseTemplate $template
@@ -152,9 +134,7 @@ class Rating extends BsExtensionMW {
 	 */
 	public function onSkinTemplateOutputPageBeforeExec(&$skin, &$template){
 		$oTitle = $skin->getTitle();
-		if( BsExtensionManager::isContextActive( 'MW::Rating' ) === false ) {
-			return true;
-		}
+		
 		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') {
 			return true;
 		}
@@ -174,6 +154,8 @@ class Rating extends BsExtensionMW {
 		if( !$oRatingItem->userCan( $this->getUser(), 'read', $oTitle ) ) {
 			return true;
 		}
+
+		$template->data['title'] .= $oRatingItem->getTag();
 
 		$oView = $oRatingItem->getView( null, 'ViewHeadlineElementRating' );
 		$bUserCanVote = $oTitle->userCan( 'rating-write' );
@@ -197,7 +179,7 @@ class Rating extends BsExtensionMW {
 	public function onStateBarBeforeTopViewAdd( $oStateBar, &$aTopViews, $oUser, $oTitle ) {
 		wfProfileIn( 'BS::' . __METHOD__ );
 
-		if(!BsExtensionManager::isContextActive("MW::Rating") || BsConfig::get('MW::Rating::Position') !== 'statebar') {
+		if( BsConfig::get('MW::Rating::Position') !== 'statebar') {
 			wfProfileOut( 'BS::' . __METHOD__ );
 			return true;
 		}
@@ -412,5 +394,32 @@ class Rating extends BsExtensionMW {
 			return false;
 		}
 		return true;
+	}
+
+	/**
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 */
+	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+		$aConfig = $aScripts = $aStyles = [];
+		foreach( RatingRegistry::getRegisterdTypeKeys() as $sKey ) {
+			$oConfig = RatingConfig::factory( $sKey );
+			$aConfig[$sKey] = $oConfig->jsonSerialize();
+			if( $a = $oConfig->get('ModuleStyles') ) {
+				$aStyles = array_merge( $aStyles, $a );
+			}
+			if( $a = $oConfig->get('ModuleScripts') ) {
+				$aScripts = array_merge( $aScripts, $a );
+			}
+		}
+		if( !empty($aScripts) ) {
+			$out->addModuleScripts( $aScripts );
+		}
+		if( !empty($aStyles) ) {
+			$out->addModuleStyles( $aStyles );
+		}
+		if( !empty($aConfig) ) {
+			$out->addJsConfigVars( 'BSRatingConfig', $aConfig );
+		}
 	}
 }

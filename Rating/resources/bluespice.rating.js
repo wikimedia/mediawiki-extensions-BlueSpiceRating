@@ -2,16 +2,58 @@
  * Js for Rating extension
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    1.0.0 beta
- * @package    Bluespice_Extensions
+ * @version    2.27.0
+ * @package    BluespiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  */
 
-/*
- * PW(17.09.2012) replaced all .data("value") with .attr("data-value") JQuery 1.4.2 does not support data attributes
- */
+BSRating = {};
+BSRatingItem = {};
+BSRating.config = mw.config.get('BSRatingConfig', {});
+BSRating.init = function(){
+	$(".bs-rating").each( function() {
+		console.log(this);
+		var $rating = $(this).starRating({
+			starSize: 14,
+			useFullStars: true,
+			disableAfterRate: false,
+			strokeWidth: 9,
+			strokeColor: 'black',
+			initialRating: 0,
+			starGradient: {
+				start: '#93BFE2',
+				end: '#105694'
+			},
+			callback: function(currentRating, $el){
+				$el.starRating( 'setReadOnly', true );
+				BSRating.addLoadingMask( $el );
+				bs.api.tasks.execSilent(
+					'rating',
+					'vome',
+					{}
+				).done( function( result ) {
+					console.log(result);
+					$el.starRating( 'setReadOnly', false );
+					BSRating.removeLoadingMask( $el );
+				});
+			}
+		});
+	});
+};
+BSRating.addLoadingMask = function( $el ) {
+	$el.append(
+		'<div class="bs-rating-loading-overlay">'
+		+ '<div class="bs-rating-loader"></div>'
+		+ '</div>'
+	);
+};
+BSRating.removeLoadingMask = function( $el ) {
+	$el.find('.bs-rating-loading-overlay').remove();
+};
+
+
 BsRating = {
 	init: function() {
 		$('.bs-rating-item-notallowed').each( function() {
