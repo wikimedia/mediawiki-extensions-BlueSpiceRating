@@ -148,7 +148,7 @@ class RatingItem implements JsonSerializable {
 	public static function newFromObject( stdClass $oData ) {
 		$oStatus = static::ensureBasicParams( $oData );
 		if( !$oStatus->isOK() ) {
-			return $oStatus;
+			return null;
 		}
 		$oInstance = self::getInstanceFromCache(
 			$oStatus->getValue()
@@ -628,10 +628,6 @@ class RatingItem implements JsonSerializable {
 	}
 
 	public function getValueFilteredRatings( $mValue = false, $iContext = 0  ) {
-		if( $oStatus = $this->checkValue( $mValue, $iContext ) ) {
-			
-		}
-
 		$aFilter = array(
 			'value' => $mValue,
 		);
@@ -658,35 +654,5 @@ class RatingItem implements JsonSerializable {
 			$this->getConfig()->get('HTMLTag'),
 			$aOptions
 		);
-	}
-
-	public function getView($oUserOnly = null, $sForceThisView = '') {
-		$aRegisteredRefTypes = Rating::getRatingTypes();
-		if( !isset($aRegisteredRefTypes[$this->sRefType]) ) {
-			return null;
-		}
-
-		$sViewName = $sForceThisView;
-		if( empty($sViewName) ) {
-			if( empty($aRegisteredRefTypes[$this->sRefType]['view']) ) {
-				return null;
-			}
-			$sViewName = $aRegisteredRefTypes[$this->sRefType]['view'];
-		}
-
-		$oView = new $sViewName();
-		$oView->setOptions( $aRegisteredRefTypes[$this->sRefType] );
-		$oView->setRatingItem( $this );
-
-		if( is_object($oUserOnly) ){
-			$oView->setUser( $oUserOnly );
-		}
-
-		return $oView;
-	}
-
-	public function renderView( $oUserOnly = null, $sForceThisView = '' ) {
-		$oView = $this->getView( $oUserOnly, $sForceThisView );
-		return $oView->execute();
 	}
 }
