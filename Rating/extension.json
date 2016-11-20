@@ -36,12 +36,7 @@
 		"RatingRegistry": "includes/RatingRegistry.php",
 		"BSApiTasksRating": "includes/api/BSApiTasksRating.php",
 		"BSApiRatingStore": "includes/api/BSApiRatingStore.php",
-		"SpecialRating": "includes/specials/SpecialRating.class.php",
-		"ViewRatingItemLike": "views/view.RatingItemLike.php",
-		"ViewRatingItemStars": "views/view.RatingItemStars.php",
-		"ViewHeadlineElementRating": "views/view.HeadlineElementRating.php",
-		"ViewStateBarTopElementRating": "views/view.StateBarTopElementRating.php",
-		"ViewStateBarBodyElementRating": "views/view.StateBarBodyElementRating.php"
+		"SpecialRating": "includes/specials/SpecialRating.class.php"
 	},
 	"ResourceModules": {
 		"ext.bluespice.rating.styles": {
@@ -87,7 +82,8 @@
 	},
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "Rating::getSchemaUpdates",
-		"BeforePageDisplay": "Rating::onBeforePageDisplay"
+		"BeforePageDisplay": "Rating::onBeforePageDisplay",
+		"RatingRegister": "Rating::onRatingRegister"
 	},
 	"manifest_version": 1
 }

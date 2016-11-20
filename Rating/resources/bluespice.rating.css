@@ -4,78 +4,13 @@
  * Part of BlueSpice for MediaWiki
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    $Id: Rating.css 9176 2013-04-17 08:50:35Z pwirth $
- * @package    BlueSpice_Extensions
+ * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  * @filesource
  */
 
-
-#sb-RatingState-icon img.votable {
-	display:inline;
-	cursor: pointer;
-}
-
-#sbb-RatingVote-vote {
-	display:inline-block;
-	/*
-	IE8 fix
-	*/
-	margin-right:1px;
-}
-#sbb-RatingVote-text p {
-	display:inline-block;
-	margin-right: 4px;
-}
-.bs-statebar-body-itembody {
-	display:inline-block;
-}
-.sbb-RatingVote-img {
-	display:inline;
-	cursor: pointer;
-	margin-left: -2px;
-	margin-right: -2px;
-}
-.votable {
-	cursor: pointer;
-}
-
-#he-RatingHeadline {
-	display: inline-block !important;
-	margin: 0 0 0 10px;
-	vertical-align: bottom;
-	line-height: 26px;
-	font-size: 0px;
-}
-
-.bs-headline-rating {
-	line-height: 26px;
-	vertical-align: bottom;
-}
-
-#he-RatingHeadline-text {
-	line-height: 26px;
-	vertical-align: bottom;
-	color: #000 !important;
-}
-#he-RatingHeadline-text:hover, #he-RatingHeadline-text:hover {
-	color: #000;
-	text-decoration: none !important;
-	cursor: default;
-}
-
-.bs-headline-rating {
-	display: inline-block;
-}
-.bs-headline-top-text {
-	font-size: 10px;
-	display: inline-block;
-	vertical-align: bottom;
-	padding-bottom: 2px;
-	margin: 0 0 0 6px;
-}
 .bs-globalaction-ns_special-specialrating::before{
 	content: '\e9d7';
 	font-family: 'icomoon';
