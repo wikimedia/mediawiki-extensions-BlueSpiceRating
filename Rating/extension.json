@@ -45,8 +45,12 @@
 			"dependencies": "ext.bluespice"
 		},
 		"ext.bluespice.rating": {
-			"scripts": "bluespice.rating.js",
+			"scripts": [
+				"bluespice.rating.js",
+				"bluespice.rating.namespace.js"
+			],
 			"dependencies": [
+				"oojs-ui",
 				"ext.bluespice"
 			],
 			"position": "bottom",
@@ -57,6 +61,7 @@
 		"ext.bluespice.specialRating": {
 			"scripts": "bluespice.specialRating.js",
 			"dependencies": [
+				"oojs-ui",
 				"ext.bluespice.extjs"
 			],
 			"messages": [

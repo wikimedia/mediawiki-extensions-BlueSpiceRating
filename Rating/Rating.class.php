@@ -263,7 +263,7 @@ class Rating extends BsExtensionMW {
 			}
 		}
 		if( !empty($aScripts) ) {
-			$out->addModuleScripts( $aScripts );
+			$out->addModules( $aScripts );
 		}
 		if( !empty($aStyles) ) {
 			$out->addModuleStyles( $aStyles );
