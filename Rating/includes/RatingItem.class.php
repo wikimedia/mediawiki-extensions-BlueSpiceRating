@@ -85,7 +85,7 @@ class RatingItem implements JsonSerializable {
 	 * @param stdClass $oData
 	 * @return Status
 	 */
-	protected static function ensureBasicParams( stdClass $oData = null ) {
+	public static function ensureBasicParams( stdClass $oData = null ) {
 		if( is_null($oData) ) {
 			return Status::newFatal( 'No Data Given' ); //TODO
 		}
@@ -141,6 +141,19 @@ class RatingItem implements JsonSerializable {
 	}
 
 	/**
+	 * @param RatingItem $oInstance
+	 * @return \RatingItem
+	 */
+	protected static function detachFromCache( RatingItem $oInstance ) {
+		unset( static::$aRatingItems
+			[$oInstance->getRefType()]
+			[$oInstance->getRef()]
+			[$oInstance->getSubType()]
+		);
+		return $oInstance;
+	}
+
+	/**
 	 * RatingItem from a set of data
 	 * @param stdClass $oData
 	 * @return \RatingItem
@@ -150,7 +163,7 @@ class RatingItem implements JsonSerializable {
 		if( !$oStatus->isOK() ) {
 			return null;
 		}
-		$oInstance = self::getInstanceFromCache(
+		$oInstance = static::getInstanceFromCache(
 			$oStatus->getValue()
 		);
 		if( $oInstance instanceof RatingItem ) {
@@ -211,6 +224,10 @@ class RatingItem implements JsonSerializable {
 	 * @return Status
 	 */
 	public function userCan( User $oUser, $sAction = 'read', Title $oTitle = null ) {
+		$bTitleRequired = $this->getConfig()->get( 'PermissionTitleRequired' );
+		if( $bTitleRequired && !$oTitle instanceof Title ) {
+			return Status::newFatal( "Title Required" ); //TODO
+		}
 		if( !$this->checkPermission( $sAction, $oUser, $oTitle ) ) {
 			return Status::newFatal( "User is not Allowed $sAction" ); //TODO
 		}
@@ -284,7 +301,7 @@ class RatingItem implements JsonSerializable {
 	 * @param User $oOwner - User, that the vote is related to
 	 * @param integer $iContext - context for multi value
 	 * @param Title $oTitle - for permission check!
-	 * @return type
+	 * @return Status
 	 */
 	public function vote( User $oUser, $mValue, User $oOwner = null, $iContext = 0, Title $oTitle = null ) {
 		if( !$oOwner instanceof User ) {
@@ -300,18 +317,35 @@ class RatingItem implements JsonSerializable {
 			if( !$oStatus->isOK() ) {
 				return $oStatus;
 			}
+			if( $oOwner->getId() != $oUser ) {
+				$oStatus = $this->userCan( $oUser, 'deleteOthers', $oTitle );
+				if( !$oStatus->isOK() ) {
+					return $oStatus;
+				}
+			}
 			if( empty($aRatings) ) {
 				return Status::newFatal( 'Nothing to delete!' ); //TODO!
 			}
 			return $this->deleteRating( $oOwner, $iContext);
 		}
+		$oStatus = $this->userCan( $oUser, 'update', $oTitle );
+		if( !$oStatus->isOK() ) {
+			return $oStatus;
+		}
+		if( $oOwner->getId() != $oUser->getId() ) {
+			$oStatus = $this->userCan( $oUser, 'updateOthers', $oTitle );
+			if( !$oStatus->isOK() ) {
+				return $oStatus;
+			}
+		}
 		if( empty($aRatings) ) {
 			return $this->insertRating( $oOwner, $mValue, $iContext );
 		}
+		$aRatings = array_values( $aRatings );
 		return $this->updateRating(
 			$oOwner,
 			$mValue,
-			array_values( $aRatings ),
+			$aRatings[0],
 			$iContext
 		);
 	}
@@ -329,7 +363,7 @@ class RatingItem implements JsonSerializable {
 			'rat_context' => $iContext,
 		);
 		$bSuccess = wfGetDB( DB_WRITE )->insert(
-			'rating',
+			'bs_rating',
 			$aValues,
 			__METHOD__
 		);
@@ -339,16 +373,15 @@ class RatingItem implements JsonSerializable {
 		return Status::newGood( $this->invalidateCache() );
 	}
 
-	protected function updateRating( User $oOwner, $mValue, stdClass $oRow, $iContext = 0 ) {
-		$aValues = (array) $oRow;
+	protected function updateRating( User $oOwner, $mValue, $iID, $iContext = 0 ) {
 		$bSuccess = wfGetDB( DB_WRITE )->update(
-			'rating',
+			'bs_rating',
 			array( 'rat_value' => $mValue ),
-			array( 'rat_id' => $oRow->rat_id ),
+			array( 'rat_id' => $iID ),
 			__METHOD__
 		);
 		if( !$bSuccess ) {
-			return Status::newFatal( 'insert database error' ); //TODO
+			return Status::newFatal( 'update database error' ); //TODO
 		}
 		return Status::newGood( $this->invalidateCache() );
 	}
@@ -553,10 +586,20 @@ class RatingItem implements JsonSerializable {
 		return $this->oConfig;
 	}
 
+	/**
+	 * Total number of votes
+	 * @param integer $iContext
+	 * @return integer
+	 */
 	public function countRatings( $iContext = 0 ) {
 		return count($this->getRatings( $iContext ));
 	}
 
+	/**
+	 * Total sum of all rating. Note that this only works for integers!
+	 * @param integer $iContext
+	 * @return integer
+	 */
 	public function getTotal( $iContext = 0 ) {
 		$aFilter = array();
 		$iTotal = 0;
@@ -571,6 +614,15 @@ class RatingItem implements JsonSerializable {
 			$iTotal += $aRating['value'];
 		}
 		return $iTotal;
+	}
+
+	/**
+	 * Average vote value. Note that this only works for integers!
+	 * @param integer $iContext
+	 * @return float
+	 */
+	public function getAverage( $iContext ) {
+		return $this->getTotal( $iContext ) / $this->countRatings( $iContext );
 	}
 
 	/**

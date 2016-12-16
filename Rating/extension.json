@@ -46,16 +46,28 @@
 		},
 		"ext.bluespice.rating": {
 			"scripts": [
-				"bluespice.rating.js",
-				"bluespice.rating.namespace.js"
+				"bluespice.rating.js"
 			],
 			"dependencies": [
 				"oojs-ui",
 				"ext.bluespice"
+			]
+		},
+		"ext.bluespice.ratingItem": {
+			"scripts": [
+				"bluespice.ratingItem.js"
 			],
-			"position": "bottom",
-			"messages": [
-				"bs-rating-not-allowed"
+			"dependencies": [
+				"ext.bluespice.rating"
+			]
+		},
+		"ext.bluespice.ratingItemArticle": {
+			"scripts": [
+				"bluespice.ratingItemArticle.js"
+			],
+			"dependencies": [
+				"ext.bluespice.rating",
+				"ext.bluespice.ratingItem"
 			]
 		},
 		"ext.bluespice.specialRating": {

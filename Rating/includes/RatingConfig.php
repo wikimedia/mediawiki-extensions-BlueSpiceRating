@@ -102,21 +102,21 @@ abstract class RatingConfig implements JsonSerializable {
 	}
 
 	protected function addGetterDefaults() {
-		return array();
+		return [];
 	}
 	abstract protected function get_RatingClass();
 	abstract protected function get_TypeMsgKey();
 
 	protected function get_ModuleScripts() {
-		return array( 'ext.bluespice.rating' );
+	return [ 'ext.bluespice.rating', 'ext.bluespice.ratingItem' ];
 	}
 
 	protected function get_ModuleStyles() {
-		return array( 'ext.bluespice.rating.styles' );
+		return [ 'ext.bluespice.rating.styles' ];
 	}
 
 	protected function get_AllowedValues() {
-		return array( 1 ); // basic like
+		return [ 1 ]; // basic like
 	}
 	protected function get_UserCanRemoveVote() {
 		return true;
@@ -139,14 +139,17 @@ abstract class RatingConfig implements JsonSerializable {
 	protected function get_UpdateOthersPermission() {
 		return 'rating-archive';
 	}
+	protected function get_PermissionTitleRequired() {
+		return false;
+	}
 
 	protected function get_HTMLTag() {
 		return 'div';
 	}
 	protected function get_HTMLTagOptions() {
-		return array(
-			'class' => array('bs-rating'),
+		return [
+			'class' => ['bs-rating'],
 			'data-type' => $this->sType,
-		);
+		];
 	}
 }

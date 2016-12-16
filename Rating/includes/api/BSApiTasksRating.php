@@ -37,7 +37,6 @@ class BSApiTasksRating extends BSApiTasksBase {
 	 */
 	protected $aTasks = array(
 		'vote',
-		'reloadRating',
 	);
 
 	/**
@@ -47,131 +46,45 @@ class BSApiTasksRating extends BSApiTasksBase {
 	 */
 	protected function getRequiredTaskPermissions() {
 		return array(
-			'vote' => array( 'rating-write' ),
-			'reloadRating' => array( 'rating-read' ),
+			'vote' => array( 'read' ),
 		);
 	}
 
-	public function task_vote( $vTaskData, $aParams ) {
+	public function task_vote( $oTaskData, $aParams ) {
 		$oResult = $this->makeStandardReturn();
 		$this->checkPermissions();
 
-		if( !$this->getUser()->isAllowed('rating-write') || !$this->getUser()->isAllowed('rating-read') ) {
-			$oResult->message = wfMessage( 'badaccess-groups' );
+		$oStatus = RatingItem::ensureBasicParams( $oTaskData );
+		if( !$oStatus->isOK() ) {
+			$oResult->message = $oStatus->getHTML();
 			return $oResult;
 		}
-		if( empty($vTaskData->refType) || empty($vTaskData->ref) || !isset($vTaskData->value) ) {
-			//$oResult->message = wfMessage( 'badaccess-groups' );
-			return $oResult;
-		}
-
-		$oRatingItem = RatingItem::getInstance(
-			$vTaskData->refType,
-			$vTaskData->ref,
-			isset( $vTaskData->subType ) ? $vTaskData->subType : ''
-		);
-		wfRunHooks( 'BSRatingBeforeVote', array(&$oRatingItem) );
-
-		$iContext = empty( $vTaskData->context )
-			? 0
-			: $vTaskData->context
-		;
-
-		$oResult->success = $oRatingItem->setRating(
-			$vTaskData->ref,
-			$vTaskData->value,
-			$vTaskData->refType,
-			$this->getUser()->getID(),
-			$this->getUser()->getName(),
-			$iContext
-		);
-
-		$sViewName = '';
-		if( !empty($vTaskData->view) ) {
-			$sViewName = $vTaskData->view;
-		}
-
-		$oView = $oRatingItem->getView(
-			empty( $vTaskData->userID )
-				? null
-				: User::newFromId( $vTaskData->userID ),
-			empty( $vTaskData->view )
-				? ''
-				: $vTaskData->view
-		);
-		$oView->setVotable(
-			isset( $vTaskData->votable ) && $vTaskData->votable == "true"
-				? true
-				: false
-		);
-		$oView->setContext( $iContext );
-
+		$oRatingItem = RatingItem::newFromObject( $oTaskData );
 		$oTitle = null;
-		if( !empty($vTaskData->articleID) ) {
-			$oTitle = Title::newFromID( $vTaskData->articleID );
-			$oTitle->invalidateCache();
+		if( !isset($oTaskData->value) ) {
+			$oTaskData->value = false;
+		}
+		if( !empty($oTaskData->articleid) ) {
+			$oTitle = Title::newFromID( $oTaskData->articleid );
+		}
+		if( !empty($oTaskData->titletext) ) {
+			$oTitle = Title::newFromText( $oTaskData->titletext );
 		}
 
-		wfRunHooks( 'BSRatingVoteComplete', array(
-			$oRatingItem,
-			$oView,
+		$oStatus = $oRatingItem->vote(
+			$this->getUser(),
+			$oTaskData->value,
+			$this->getUser(),
+			0,
 			$oTitle
-		));
-		$oResult->payload['view'] = $oView->execute();
-
-		return $oResult;
-	}
-
-	public function task_reloadRating( $vTaskData, $aParams) {
-		//$sRefType, $sRef, $sViewName = '', $sVotable = "", $iUserID = 0, $sSubType = ""
-		$oResult = $this->makeStandardReturn();
-		$this->checkPermissions();
-
-		if( !$this->getUser()->isAllowed('rating-read') ) {
-			$oResult->message = wfMessage( 'badaccess-groups' );
+		);
+		if( !$oStatus->isOK() ) {
+			$oResult->message = $oStatus->getHTML();
 			return $oResult;
 		}
 
-		if( empty($vTaskData->refType) || empty($vTaskData->ref) || !isset($vTaskData->value) ) {
-			//$oResult->message = wfMessage( 'badaccess-groups' );
-			return $oResult;
-		}
-
-		$oRatingItem = RatingItem::getInstance(
-			$vTaskData->refType,
-			$vTaskData->ref,
-			isset( $vTaskData->subType ) ? $vTaskData->subType : ''
-		);
-
-		if( $oRatingItem ) {
-			$oResult->success = true;
-		}
-
-		$sViewName = '';
-		if( !empty($vTaskData->view) ) {
-			$sViewName = $vTaskData->view;
-		}
-
-		$oView = $oRatingItem->getView(
-			empty( $vTaskData->userID )
-				? null
-				: User::newFromId( $vTaskData->userID ),
-			empty( $vTaskData->view )
-				? ''
-				: $vTaskData->view
-		);
-		$oView->setVotable(
-			isset( $vTaskData->votable ) && $vTaskData->votable == "true"
-				? true
-				: false
-		);
-		$iContext = empty( $vTaskData->context )
-			? 0
-			: $vTaskData->context
-		;
-		$oView->setContext( $iContext );
-
-		$oResult->payload['view'] = $oView->execute();
+		$oResult->success = true;
+		$oResult->payload['data'] = json_encode( $oRatingItem );
 
 		return $oResult;
 	}

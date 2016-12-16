@@ -42,14 +42,16 @@ class RatingConfigArticle extends RatingConfig {
 
 	protected function get_ModuleScripts() {
 		return array_merge(
-			parent::get_ModuleScripts(),
-			array( 'ext.rating.starRatingSvg' )
+			parent::get_ModuleScripts(), [
+				'ext.rating.starRatingSvg',
+				'ext.bluespice.ratingItemArticle'
+			]
 		);
 	}
 	protected function get_ModuleStyles() {
 		return array_merge(
 			parent::get_ModuleStyles(),
-			array( 'ext.rating.starRatingSvg.styles' )
+			['ext.rating.starRatingSvg.styles']
 		);
 	}
 
@@ -61,9 +63,13 @@ class RatingConfigArticle extends RatingConfig {
 		return false;
 	}
 
+	protected function get_PermissionTitleRequired() {
+		return true;
+	}
+
 	protected function get_HTMLTagOptions() {
-		return array_merge_recursive( parent::get_HTMLTagOptions(), array(
-			'class' => array( 'bs-rating-article' ),
-		));
+		return array_merge_recursive( parent::get_HTMLTagOptions(), [
+			'class' => ['bs-rating-article'],
+		]);
 	}
 }
