@@ -86,6 +86,10 @@
 				"bs-rating-specialrating-ptbAfterPageText"
 			]
 		},
+		"ext.bluespice.rating.icons": {
+			"styles": "bluespice.rating.icons.less",
+			"position": "top"
+		},
 		"ext.rating.starRatingSvg.styles": {
 			"styles": "star-rating-svg/src/css/star-rating-svg.css"
 		},

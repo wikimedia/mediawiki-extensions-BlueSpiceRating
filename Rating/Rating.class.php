@@ -251,6 +251,8 @@ class Rating extends BsExtensionMW {
 	 * @param Skin $skin
 	 */
 	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+		$out->addModuleStyles( 'ext.bluespice.rating.icons' );
+
 		$aConfig = $aScripts = $aStyles = [];
 		foreach( RatingRegistry::getRegisterdTypeKeys() as $sKey ) {
 			$oConfig = RatingConfig::factory( $sKey );
