@@ -137,7 +137,9 @@ class RatingItem implements JsonSerializable {
 	}
 
 	protected function invalidateCache() {
-		return static::detachFromCache( $this );
+		$oInstance = static::detachFromCache( $this );
+		$oInstance->loadRating();
+		return $oInstance;
 	}
 
 	/**
@@ -384,98 +386,6 @@ class RatingItem implements JsonSerializable {
 			return Status::newFatal( 'update database error' ); //TODO
 		}
 		return Status::newGood( $this->invalidateCache() );
-	}
-
-	/**
-	 * inserts a single rating to the bs_rating table
-	 * @param string $sRef
-	 * @param int $iValue
-	 * @param string $sRefType
-	 * @param int $iUserID
-	 * @param string $sUserIP
-	 * @return boolean
-	 */
-	public function setRating( $sRef, $iValue, $notinuse = 'article', $iUserID = 0, $sUserIP = '', $iContext = 0 ) {
-		$sRef = $this->sRef;
-		$sRefType = $this->sRefType;
-		$sSubType = $this->sSubType;
-		$oUserVote = null;
-
-		wfRunHooks( 'BSRatingCustomTypSetRating', array(
-			&$sRef,
-			&$iValue,
-			$sRefType,
-			$iUserID,
-			$sUserIP,
-			&$sSubType,
-			&$iContext,
-		));
-
-		if( empty($iValue) || empty($sRef)) return false;
-		if( empty($iUserID) && empty($sUserIP) ) return false;
-
-		$sRef = (string) $sRef;
-		$iValue = (int) $iValue;
-
-		if( !in_array($iValue, $this->aAllowedValues) ) return false;
-
-		$aConditions = array(
-			'rat_ref' => $sRef, 
-			'rat_reftype' => $sRefType, 
-			'rat_archived' => '0',
-			'rat_subtype' => $sSubType,
-		);
-
-		if( !empty($iUserID) ) {
-			$aConditions['rat_userid'] = $iUserID;
-		}
-		else {
-			$aConditions['rat_userip'] = $sUserIP;
-		}
-		if( !empty($iContext) ) {
-			$aConditions['rat_context'] = $iContext;
-		}
-
-		$dbw = wfGetDB( DB_MASTER );
-		$res = $dbw->select( 'bs_rating', '*', $aConditions );
-
-		if(!$res) return false;
-
-		$oUserVote = $dbw->fetchObject($res);
-
-		if( is_object( $oUserVote ) ) {
-			$b = $dbw->update( 
-				'bs_rating', 
-				array('rat_value' => $iValue, 'rat_touched'	=> wfTimestampNow()), 
-				array('rat_id' => $oUserVote->rat_id) 
-			);
-			$oUserVote->rat_value = $iValue;
-			$this->addRating( $oUserVote );
-			return $b;
-		}
-
-		$aInsertFields = array();
-
-		$aInsertFields['rat_userid'] = $iUserID;
-		if( !empty($sUserIP) ) {
-			$aInsertFields['rat_userip'] = $sUserIP;
-		}
-		$aInsertFields['rat_value']   = $iValue;
-		$aInsertFields['rat_ref']     = $sRef;
-		$aInsertFields['rat_reftype'] = $sRefType;
-		$aInsertFields['rat_created'] = wfTimestampNow();
-		$aInsertFields['rat_touched'] = wfTimestampNow();
-		$aInsertFields['rat_subtype'] = $sSubType;
-		$aInsertFields['rat_context'] = $iContext;
-
-		$b = $dbw->insert( 'bs_rating', $aInsertFields);
-
-		$res = $dbw->select( 'bs_rating', '*', $aConditions );
-		if(!$res) return false;
-		$oUserVote = $dbw->fetchObject($res);
-
-		$this->addRating( $oUserVote );
-		return $b;
 	}
 
 	/**

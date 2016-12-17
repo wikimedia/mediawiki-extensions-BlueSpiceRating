@@ -20,7 +20,7 @@
 }
 .bs-rating-article {
 	display: inline-block;
-	width: 80px;
+	width: 100px;
 }
 .bs-rating-loader {
 	border: 2px solid #3e5389;
@@ -49,4 +49,12 @@
 	opacity: 0.75;
 	text-align: center;
 	vertical-align: middle;
+}
+
+.bs-rating-article.bs-rating-uservoted::after{
+	content: '\ea10';
+	font-family: 'icomoon';
+	font-size: 14px;
+	color: green;
+	padding-left: 6px;
 }

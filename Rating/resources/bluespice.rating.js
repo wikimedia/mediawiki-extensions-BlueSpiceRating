@@ -36,7 +36,6 @@ bs.rating.init = function(){
 			type,
 			data
 		);
-		console.log(ratingitem);
 	});
 };
 

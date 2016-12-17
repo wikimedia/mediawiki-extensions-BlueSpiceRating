@@ -18,6 +18,7 @@ bs.rating.ItemArticle = function( $el, type, data ) {
 		disableAfterRate: false,
 		strokeWidth: 9,
 		strokeColor: 'black',
+		readOnly: !me.data.get( 'usercanmodify', false ),
 		initialRating: me.getVoteAverage(),
 		starGradient: {
 			start: '#93BFE2',
@@ -38,10 +39,16 @@ bs.rating.ItemArticle = function( $el, type, data ) {
 			});
 		}
 	});
+
+	if( me.userVoted( mw.config.get('wgUserId', 0) ) ) {
+		me.getEl().addClass( 'bs-rating-uservoted' );
+	}
 };
 OO.inheritClass( bs.rating.ItemArticle, bs.rating.Item );
 bs.rating.register( 'article', 'RatingItemArticle', bs.rating.ItemArticle );
-
+bs.rating.ItemArticle.prototype.getStarRating = function() {
+	return this.$starRating;
+};
 bs.rating.ItemArticle.prototype.getData = function() {
 	//well, thats a way to implement parrent calls ^^
 	var data = bs.rating.ItemArticle.super.prototype.getData.apply( this );
@@ -50,5 +57,14 @@ bs.rating.ItemArticle.prototype.getData = function() {
 };
 bs.rating.ItemArticle.prototype.reset = function( data ) {
 	bs.rating.ItemArticle.super.prototype.reset.apply( this, [data] );
-	this.$starRating.starSize = 100;
+	this.getEl().starRating(
+		'setRating',
+		this.getVoteAverage(),
+		false
+	);
+	if( this.userVoted( mw.config.get('wgUserId', 0) ) ) {
+		this.getEl().addClass( 'bs-rating-uservoted' );
+	} else {
+		this.getEl().removeClass( 'bs-rating-uservoted' );
+	}
 };

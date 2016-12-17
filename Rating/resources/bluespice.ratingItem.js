@@ -55,6 +55,14 @@ bs.rating.Item.prototype.filterRatings = function( field, value ) {
 		return e[field] === value;
 	});
 };
+bs.rating.Item.prototype.userVoted = function( sID ) {
+	sID = ""+sID; //needs to be string -.-
+	var ratings = this.filterRatings(
+		'userid',
+		sID
+	);
+	return ratings.length > 0;
+};
 bs.rating.Item.prototype.getVoteCount = function() {
 	var ratings = this.filterRatings(
 		'context',

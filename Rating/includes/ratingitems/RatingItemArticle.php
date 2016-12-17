@@ -50,4 +50,15 @@ class RatingItemArticle extends RatingItem {
 			'subtype' => '',
 		));
 	}
+
+	public function jsonSerialize() {
+		$aData = parent::jsonSerialize();
+		$oStatus = $this->userCan(
+			RequestContext::getMain()->getUser(),
+			'update',
+			Title::newFromID( $this->getRef() )
+		);
+		$aData['usercanmodify'] = $oStatus->isOK();
+		return $aData;
+	}
 }
