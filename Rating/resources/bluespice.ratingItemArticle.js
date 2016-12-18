@@ -40,8 +40,26 @@ bs.rating.ItemArticle = function( $el, type, data ) {
 		}
 	});
 
+	me.$numVotes = $(
+		'<span class="bs-rating-article-numvotes">('
+		+ me.getVoteCount()
+		+ ')</span>'
+	);
+
+	me.getEl().append( me.$numVotes );
+	me.$userVoted = $(
+		'<span class="bs-rating-article-uservoted"></span>'
+	).hide();
+	me.getEl().append( me.$userVoted );
+	var aUserVotes = me.getUserVotes( mw.config.get('wgUserId', 0) );
+	if( aUserVotes.length > 0 ) {
+		me.$userVoted.attr(
+			'title',
+			mw.message( 'bs-rating-yourrating', aUserVotes[0].value )
+		);
+	}
 	if( me.userVoted( mw.config.get('wgUserId', 0) ) ) {
-		me.getEl().addClass( 'bs-rating-uservoted' );
+		me.$userVoted.show();
 	}
 };
 OO.inheritClass( bs.rating.ItemArticle, bs.rating.Item );
@@ -63,8 +81,16 @@ bs.rating.ItemArticle.prototype.reset = function( data ) {
 		false
 	);
 	if( this.userVoted( mw.config.get('wgUserId', 0) ) ) {
-		this.getEl().addClass( 'bs-rating-uservoted' );
+		this.$userVoted.show();
 	} else {
-		this.getEl().removeClass( 'bs-rating-uservoted' );
+		this.$userVoted.hide();
+	}
+	this.$numVotes.html('(' + this.getVoteCount() + ')');
+	var aUserVotes = this.getUserVotes( mw.config.get('wgUserId', 0) );
+	if( aUserVotes.length > 0 ) {
+		this.$userVoted.attr(
+			'title',
+			mw.message( 'bs-rating-yourrating', aUserVotes[0].value )
+		);
 	}
 };

@@ -68,6 +68,9 @@
 			"dependencies": [
 				"ext.bluespice.rating",
 				"ext.bluespice.ratingItem"
+			],
+			"messages": [
+				"bs-rating-yourrating"
 			]
 		},
 		"ext.bluespice.specialRating": {

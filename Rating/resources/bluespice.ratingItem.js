@@ -41,11 +41,13 @@ bs.rating.Item.prototype.getData = function() {
 		context: this.data.get( 'context', 0 )
 	};
 };
-bs.rating.Item.prototype.filterRatings = function( field, value ) {
-	var ratings = [];
-	var oRatings = this.data.get( 'ratings', {});
-	for( var k in oRatings ) {
-		ratings.push( oRatings[k] );
+bs.rating.Item.prototype.filterRatings = function( field, value, ratings ) {
+	ratings = ratings || [];
+	if( ratings.length < 1 ) {
+		var oRatings = this.data.get( 'ratings', {});
+		for( var k in oRatings ) {
+			ratings.push( oRatings[k] );
+		}
 	}
 
 	return $.grep( ratings, function( e, i ) {
@@ -55,13 +57,27 @@ bs.rating.Item.prototype.filterRatings = function( field, value ) {
 		return e[field] === value;
 	});
 };
-bs.rating.Item.prototype.userVoted = function( sID ) {
-	sID = ""+sID; //needs to be string -.-
-	var ratings = this.filterRatings(
-		'userid',
-		sID
+bs.rating.Item.prototype.userVoted = function( sID, context ) {
+	context = context || 0;
+	var ratings = this.getUserVotes(
+		sID,
+		context
 	);
 	return ratings.length > 0;
+};
+bs.rating.Item.prototype.getUserVotes = function( sID, context ) {
+	context = context || 0;
+	sID = ""+sID; //needs to be string -.-
+	var ratings = this.filterRatings(
+		'context',
+		context
+	);
+	var ratings = this.filterRatings(
+		'userid',
+		sID,
+		ratings
+	);
+	return ratings;
 };
 bs.rating.Item.prototype.getVoteCount = function() {
 	var ratings = this.filterRatings(
