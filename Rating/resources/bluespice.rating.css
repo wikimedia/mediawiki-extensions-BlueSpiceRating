@@ -16,7 +16,8 @@
 }
 .bs-rating-article {
 	display: inline-block;
-	width: 100px;
+	width: 90px;
+	line-height: 0;
 }
 .bs-rating-loader {
 	border: 2px solid #3e5389;
