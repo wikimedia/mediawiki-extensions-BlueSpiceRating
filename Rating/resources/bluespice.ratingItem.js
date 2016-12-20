@@ -28,7 +28,7 @@ bs.rating.Item.prototype.getEl = function() {
 	return this.$el;
 };
 bs.rating.Item.prototype.getConfig = function() {
-	return bs.rating.config.get( this.getType() );
+	return bs.rating.config[ this.getType() ];
 };
 bs.rating.Item.prototype.getType = function() {
 	return this.type;
@@ -41,13 +41,26 @@ bs.rating.Item.prototype.getData = function() {
 		context: this.data.get( 'context', 0 )
 	};
 };
+bs.rating.Item.prototype.getRatings = function() {
+	var res = [];
+	var ratings = this.data.get( 'ratings', {});
+	for( var i in ratings ) {
+		res.push( ratings[i] );
+	}
+	return res;
+};
+bs.rating.Item.prototype.getCurrentUserRatings = function() {
+	var res = [];
+	var ratings = this.data.get( 'userratings', {});
+	for( var i in ratings ) {
+		res.push( ratings[i] );
+	}
+	return res;
+};
 bs.rating.Item.prototype.filterRatings = function( field, value, ratings ) {
 	ratings = ratings || [];
 	if( ratings.length < 1 ) {
-		var oRatings = this.data.get( 'ratings', {});
-		for( var k in oRatings ) {
-			ratings.push( oRatings[k] );
-		}
+		ratings = this.getRatings();
 	}
 
 	return $.grep( ratings, function( e, i ) {
@@ -57,21 +70,27 @@ bs.rating.Item.prototype.filterRatings = function( field, value, ratings ) {
 		return e[field] === value;
 	});
 };
-bs.rating.Item.prototype.userVoted = function( sID, context ) {
-	context = context || 0;
-	var ratings = this.getUserVotes(
-		sID,
-		context
+bs.rating.Item.prototype.userVoted = function( context ) {
+	context = context || this.data.get( 'context', '0' );
+	context = ""+context;
+	var ratings = this.filterRatings(
+		'context',
+		context,
+		this.getCurrentUserRatings()
 	);
 	return ratings.length > 0;
 };
 bs.rating.Item.prototype.getUserVotes = function( sID, context ) {
-	context = context || 0;
+	context = context || this.data.get( 'context', '0' );
+	context = ""+context;
 	sID = ""+sID; //needs to be string -.-
 	var ratings = this.filterRatings(
 		'context',
 		context
 	);
+	if( this.getConfig().IsAnonymous ) {
+		return ratings;
+	}
 	var ratings = this.filterRatings(
 		'userid',
 		sID,
@@ -79,18 +98,22 @@ bs.rating.Item.prototype.getUserVotes = function( sID, context ) {
 	);
 	return ratings;
 };
-bs.rating.Item.prototype.getVoteCount = function() {
+bs.rating.Item.prototype.getVoteCount = function( context ) {
+	context = context || this.data.get( 'context', '0' );
+	context = ""+context;
 	var ratings = this.filterRatings(
 		'context',
-		this.data.get( 'context', '0' )
+		context
 	);
 	return ratings.length;
 };
-bs.rating.Item.prototype.getVoteTotal = function() {
+bs.rating.Item.prototype.getVoteTotal = function( context ) {
+	context = context || this.data.get( 'context', '0' );
+	context = ""+context;
 	var total = 0;
 	var ratings = this.filterRatings(
 		'context',
-		this.data.get( 'context', '0' )
+		context
 	);
 	for( var i = 0; i < ratings.length; i++ ) {
 		total = total + parseInt( ratings[i].value );

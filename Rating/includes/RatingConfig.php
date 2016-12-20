@@ -142,6 +142,9 @@ abstract class RatingConfig implements JsonSerializable {
 	protected function get_PermissionTitleRequired() {
 		return false;
 	}
+	protected function get_IsAnonymous() {
+		return true;
+	}
 
 	protected function get_HTMLTag() {
 		return 'div';

@@ -56,11 +56,20 @@ class RatingItem implements JsonSerializable {
 	}
 
 	public function jsonSerialize() {
+		$aRatings = $this->getRatings();
+		if( $this->getConfig()->get( 'IsAnonymous' ) ) {
+			$aRatings = $this->getAnonRatings( $aRatings );
+		}
+		$aUserRatings = $this->getRatingsOfSpecificUser(
+			RequestContext::getMain()->getUser()
+		);
+
 		return [
 			'reftype' => $this->getRefType(),
 			'ref' => $this->getRef(),
 			'subtype' => $this->getSubType(),
-			'ratings' => $this->getRatings(),
+			'ratings' => $aRatings,
+			'userratings' => $aUserRatings,
 		];
 	}
 
@@ -430,26 +439,6 @@ class RatingItem implements JsonSerializable {
 		return Status::newGood( $this );
 	}
 
-	/**
-	 * updates additional class variables
-	 * @param stdClass $oUserVote
-	 * @return boolean
-	 */
-	protected function addRating( $oUserVote ) {
-		return $this->aRatings[$oUserVote->rat_id] = array(
-			'id'		=> $oUserVote->rat_id,
-			'reftype'	=> $oUserVote->rat_reftype,
-			'ref'		=> $oUserVote->rat_ref,
-			'userid'	=> $oUserVote->rat_userid,
-			'userip'	=> $oUserVote->rat_userip,
-			'value'		=> $oUserVote->rat_value,
-			'created'	=> $oUserVote->rat_created,
-			'touched'	=> $oUserVote->rat_touched,
-			'subtype'	=> $oUserVote->rat_subtype,
-			'context'	=> $oUserVote->rat_context,
-		);
-	}
-
 	protected function filterRating( $a = array() ) {
 		if( empty($a) ) {
 			return $this->aRatings;
@@ -468,6 +457,29 @@ class RatingItem implements JsonSerializable {
 		});
 	}
 
+	/**
+	 * Make given ratings anon by removing userid and userip or request ratings
+	 * with context and make the result anon.
+	 * @param array $aRatings
+	 * @param integer $iContext
+	 * @return array
+	 */
+	public function getAnonRatings( $aRatings = false, $iContext = 0 ) {
+		if( !$aRatings ) {
+			$aRatings = $this->getRatings( $iContext );
+		}
+		array_walk( $aRatings, function( &$e ) {
+			$e['userid'] = 0;
+			$e['userip'] = '';
+		});
+		return $aRatings;
+	}
+
+	/**
+	 * Returns an array containing all ratings row arrays filtered by context.
+	 * @param integer $iContext
+	 * @return array
+	 */
 	public function getRatings( $iContext = 0 ) {
 		if( empty($iContext) ) {
 			return $this->filterRating();

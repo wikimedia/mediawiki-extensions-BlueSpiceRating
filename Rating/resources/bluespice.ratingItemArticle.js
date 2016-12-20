@@ -51,14 +51,14 @@ bs.rating.ItemArticle = function( $el, type, data ) {
 		'<span class="bs-rating-article-uservoted"></span>'
 	).hide();
 	me.getEl().append( me.$userVoted );
-	var aUserVotes = me.getUserVotes( mw.config.get('wgUserId', 0) );
+	var aUserVotes = me.getCurrentUserRatings();
 	if( aUserVotes.length > 0 ) {
 		me.$userVoted.attr(
 			'title',
 			mw.message( 'bs-rating-yourrating', aUserVotes[0].value )
 		);
 	}
-	if( me.userVoted( mw.config.get('wgUserId', 0) ) ) {
+	if( me.userVoted() ) {
 		me.$userVoted.show();
 	}
 };
@@ -80,13 +80,13 @@ bs.rating.ItemArticle.prototype.reset = function( data ) {
 		this.getVoteAverage(),
 		false
 	);
-	if( this.userVoted( mw.config.get('wgUserId', 0) ) ) {
+	if( this.userVoted() ) {
 		this.$userVoted.show();
 	} else {
 		this.$userVoted.hide();
 	}
 	this.$numVotes.html('(' + this.getVoteCount() + ')');
-	var aUserVotes = this.getUserVotes( mw.config.get('wgUserId', 0) );
+	var aUserVotes = this.getCurrentUserRatings();
 	if( aUserVotes.length > 0 ) {
 		this.$userVoted.attr(
 			'title',
