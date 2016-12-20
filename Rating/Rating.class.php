@@ -22,8 +22,8 @@
  * For further information visit http://bluespice.com
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.23.1
- * @package    BlueSpice_pro
+ * @version    2.27.0
+ * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
@@ -36,12 +36,6 @@
  * @subpackage Rating
  */
 class Rating extends BsExtensionMW {
-	private static $bRatingTypesLoaded = false;
-	private static $aRatingTypes = array();
-	private static $aSpecialRatingTypes = array();
-
-	protected $bStateBar = false;
-
 	/**
 	 * Initialization of Rating extension
 	 */
@@ -55,88 +49,39 @@ class Rating extends BsExtensionMW {
 			'bs-rating-toc-enratingns',
 			'multiselectex'
 		);
-		BsConfig::registerVar(
-			'MW::Rating::Position',
-			'articletitle',
-			BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_STRING | BsConfig::USE_PLUGIN_FOR_PREFS,
-			'bs-rating-pref-position',
-			'select'
-		);
-
-		$this->setHook( 'BeforePageDisplay' );
 
 		$this->setHook( 'SkinTemplateOutputPageBeforeExec' );
-
-		$this->setHook( 'BSStateBarAddSortTopVars', 'onStatebarAddSortTopVars' );
-		$this->setHook( 'BSStateBarAddSortBodyVars', 'onStatebarAddSortBodyVars' );
-
-		$this->setHook( 'BSStateBarBeforeTopViewAdd', 'onStateBarBeforeTopViewAdd' );
-		$this->setHook( 'BSStateBarBeforeBodyViewAdd', 'onStateBarBeforeBodyViewAdd' );
 
 		$this->setHook( 'BSUserSidebarGlobalActionsWidgetGlobalActions' );
 
 		$this->mCore->registerBehaviorSwitch( 'bs_norating' );
 
-		$this->mCore->registerPermission( 'rating-write',			array('user') );
-		$this->mCore->registerPermission( 'rating-read',			array('*') );
-		$this->mCore->registerPermission( 'rating-archive',			array('sysop') );
-		$this->mCore->registerPermission( 'rating-viewspecialpage', array('user') );
+		$this->mCore->registerPermission(
+			'rating-write',
+			['user']
+		);
+		$this->mCore->registerPermission(
+			'rating-read',
+			['*']
+		);
+		$this->mCore->registerPermission(
+			'rating-archive',
+			['sysop']
+		);
+		$this->mCore->registerPermission(
+			'rating-viewspecialpage',
+			['user']
+		);
 
 		wfProfileOut( 'BS::'.__METHOD__ );
 	}
 
 	/**
-	 * registers rating types
+	 * @param array $aRatings
 	 * @return boolean
 	 */
-	public static function runRegisterCustomTypes() {
-		if( self::$bRatingTypesLoaded === true ) return true;
-
-		self::$aRatingTypes['article'] = array(
-			'displaytitle'	=> wfMessage('bs-rating-types-page')->plain(),
-			'view'			=> 'ViewRatingItemStars',
-			//'icon-path'		=> $this->getImagePath( true ),
-			'allowedvalues'	=> range( 1, 5 ),
-		);
-		self::$aSpecialRatingTypes[] = 'article';
-
-		$b = wfRunHooks( 'BSRatingRegisterCustomTypes', array(
-			&self::$aRatingTypes,
-			&self::$aSpecialRatingTypes,
-		));
-		self::$bRatingTypesLoaded = true;
-		return $b;
-	}
-
-	public static function getRatingTypes() {
-		if( !self::runRegisterCustomTypes() ) {
-			return array();
-		}
-		return self::$aRatingTypes;
-	}
-
-	public static function getSpecialRatingTypes() {
-		if( !self::runRegisterCustomTypes() ) {
-			return array();
-		}
-		return self::$aSpecialRatingTypes;
-	}
-
-	/**
-	 * Hook-Handler for 'BeforePageDisplay'. Sets context of Rating extension.
-	 * @param OutputPage $oOutputPage
-	 * @param Skin $oSkin
-	 * @return boolean alway true. Keeps the hook system running.
-	 */
-	public function onBeforePageDisplay( &$oOutputPage, &$oSkin ) {
-		$oOutputPage->addModuleStyles( 'ext.bluespice.rating.icons' );
-
-		if( $this->checkContext( $oOutputPage->getTitle() ) === false ) return true;
-
-		BsExtensionManager::setContext('MW::Rating');
-
-		$oOutputPage->addModules('ext.bluespice.rating');
-		$oOutputPage->addModuleStyles('ext.bluespice.rating.styles');
+	public static function onRatingRegister( &$aRatings ) {
+		$aRatings['article'] = 'RatingConfigArticle';
 		return true;
 	}
 
@@ -147,134 +92,12 @@ class Rating extends BsExtensionMW {
 	 * @return boolean always true
 	 */
 	public function onSkinTemplateOutputPageBeforeExec(&$skin, &$template){
-		$oTitle = $skin->getTitle();
-		if( BsExtensionManager::isContextActive( 'MW::Rating' ) === false ) {
-			return true;
-		}
-		if( $this->bStateBar && BsConfig::get('MW::Rating::Position') === 'statebar') {
+		if( !$oATitle = $this->getArticleContext( $skin->getTitle() ) ) {
 			return true;
 		}
 
-		if( $oTitle->isRedirect() ) {
-			if( $this->getRequest()->getVal('redirect') != 'no' ) {
-				$oTitle = BsArticleHelper::getInstance( $oTitle )
-					->getTitleFromRedirectRecurse();
-			}
-			if( !$oTitle || !$oTitle->exists() || $oTitle->isRedirect() ) {
-				return true;
-			}
-		}
-
-		if( !$oTitle->userCan( 'rating-read' ) ) return true;
-
-		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
-		if( !$oRatingItem ) {
-			return true;
-		}
-
-		$oView = $oRatingItem->getView( null, 'ViewHeadlineElementRating' );
-		$bUserCanVote = $oTitle->userCan( 'rating-write' );
-		if( $bUserCanVote ) {
-			$oView->setVotable( true );
-		}
-
-		wfRunHooks('BSRatingBeforeHeadlineViewAdd', array(&$oRatingItem, &$oView, &$oTitle));
-		if( is_null($oView) ) return true;
-
-		$template->data['title'] .= $oView->execute();
-		return true;
-	}
-
-	/**
-	 * Hook-Handler for Hook 'BSStateBarBeforeTopViewAdd'
-	 * @param StateBar $oStateBar
-	 * @param array $aTopViews
-	 * @return boolean Always true to keep hook running
-	 */
-	public function onStateBarBeforeTopViewAdd( $oStateBar, &$aTopViews, $oUser, $oTitle ) {
-		wfProfileIn( 'BS::' . __METHOD__ );
-
-		if(!BsExtensionManager::isContextActive("MW::Rating") || BsConfig::get('MW::Rating::Position') !== 'statebar') {
-			wfProfileOut( 'BS::' . __METHOD__ );
-			return true;
-		}
-
-		if( !$oTitle->userCan( 'rating-read' ) ) return true;
-
-		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
-
-		$oTopView = $oRatingItem->getView(
-			null,
-			'ViewStateBarTopElementRating'
-		);
-		$bUserCanVote = $oTitle->userCan( 'rating-write' );
-		if( $bUserCanVote ) {
-			$oTopView->setVotable( true );
-		}
-
-		wfRunHooks('BSRatingBeforeStateBarTopViewAdd', array(&$oRatingItem, &$oTopView, &$oTitle));
-		if( is_null($oTopView) ) return true;
-
-		$aTopViews[ 'statebartoprating' ] = $oTopView;
-
-		wfProfileOut( 'BS::' . __METHOD__ );
-		return true;
-	}
-
-	/**
-	 * Hook-Handler for Hook 'BSStateBarBeforeBodyViewAdd'
-	 * @param StateBar $oStateBar
-	 * @param array $aBodyViews
-	 * @return boolean Always true to keep hook running
-	 */
-	public function onStateBarBeforeBodyViewAdd( $oStateBar, &$aBodyViews, $oUser, $oTitle ) {
-		wfProfileIn( 'BS::' . __METHOD__ );
-
-		if( !$this->checkContext($oTitle) || BsConfig::get('MW::Rating::Position') !== 'statebar' ) {
-			wfProfileOut( 'BS::' . __METHOD__ );
-			return true;
-		}
-
-		if( !$oTitle->userCan( 'rating-read' ) || !$oTitle->userCan( 'rating-write' ) ) {
-			wfProfileOut( 'BS::' . __METHOD__ );
-			return true;
-		}
-
-		$oRatingItem = RatingItem::getInstance( 'article', $oTitle->getArticleID() );
-
-		$oBodyView = $oRatingItem->getView(
-			$oUser,
-			'ViewStateBarBodyElementRating'
-		);
-		$oBodyView->setVotable( true );
-
-		wfRunHooks('BSRatingBeforeStateBarBodyViewAdd', array(&$oRatingItem, &$oBodyView, &$oTitle));
-		if( is_null($oBodyView) ) return true;
-
-		$aBodyViews[ 'statebarbodyrating' ] = $oBodyView;
-
-		wfProfileOut( 'BS::' . __METHOD__ );
-		return true;
-	}
-
-	/**
-	 * Hook-Handler for Hook 'BSStatebarAddSortTopVars'
-	 * @param array $aSortTopVars
-	 * @return boolean Always true to keep hook running
-	 */
-	public function onStatebarAddSortTopVars( &$aSortTopVars ) {
-		$this->bStateBar = true;
-		$aSortTopVars['statebartoprating'] = wfMessage( 'bs-rating-toc-statebartoprating' )->plain();
-		return true;
-	}
-
-	/**
-	 * Hook-Handler for Hook 'BSStatebarAddSortBodyVars'
-	 * @param array $aSortBodyVars
-	 * @return boolean Always true to keep hook running
-	 */
-	public function onStatebarAddSortBodyVars( &$aSortBodyVars ) {
-		$aSortBodyVars['statebarbodyrating'] = wfMessage( 'bs-rating-toc-statebarbodyrating' )->plain();
+		$template->data['title'] .= RatingItemArticle::newFromTitle( $oATitle )
+			->getTag();
 		return true;
 	}
 
@@ -287,15 +110,13 @@ class Rating extends BsExtensionMW {
 	 * @return boolean
 	 */
 	public function onBSUserSidebarGlobalActionsWidgetGlobalActions( UserSidebar $oUserSidebar, User $oUser, &$aLinks, &$sWidgetTitle ) {
-		$oSpecialResponsibleEditors = SpecialPageFactory::getPage(
-			'Rating'
-		);
-		if( !$oSpecialResponsibleEditors ) {
+		$oSpecialRating = SpecialPageFactory::getPage( 'Rating' );
+		if( !$oSpecialRating ) {
 			return true;
 		}
 		$aLinks[] = array(
-			'target' => $oSpecialResponsibleEditors->getPageTitle(),
-			'text' => $oSpecialResponsibleEditors->getDescription(),
+			'target' => $oSpecialRating->getPageTitle(),
+			'text' => $oSpecialRating->getDescription(),
 			'attr' => array(),
 			'position' => 700,
 			'permissions' => array(
@@ -327,15 +148,6 @@ class Rating extends BsExtensionMW {
 				$aPrefs['type']		= 'multiselectex';
 				$aPrefs['options']	= BsNamespaceHelper::getNamespacesForSelectOptions( $aExcludeNmsps );
 				break;
-			case 'Position':
-				$aPrefs['type']		= 'select';
-				$aPrefs['options']	= array(
-						wfMessage('bs-rating-pref-position-articletitle')->plain() => 'articletitle',
-				);
-				if( $this->bStateBar ) {
-					$aPrefs['options'][wfMessage('prefs-statebar')->plain()] = 'statebar';
-				}
-				break;
 			default:
 		}
 
@@ -349,7 +161,7 @@ class Rating extends BsExtensionMW {
 	 * @return boolean Always true to keep Hook running
 	 */
 	public static function getSchemaUpdates( $oUpdater ) {
-		$sDir = __DIR__.'/db';
+		$sDir = __DIR__.'/maintenance/db';
 
 		$oUpdater->addExtensionTable(
 			'bs_rating',
@@ -370,22 +182,29 @@ class Rating extends BsExtensionMW {
 	}
 
 	/**
-	 * Checks wether to set Context or not.
-	 * @param OutputPage $oOutputPage
-	 * @param Skin $oSkin
-	 * @return bool
+	 * Checks wether to set Context or not and returns the context Title.
+	 * @param Title $oTitle
+	 * @param string $sCheckRatingPermission
+	 * @return Title - or false
 	 */
-	public function checkContext( $oTitle ) {
+	public function getArticleContext( Title $oTitle = null, $sCheckRatingPermission = 'read') {
+		if( !RatingRegistry::isRegisteredType( 'article' ) ) {
+			return true;
+		}
+
+		if( !$oTitle instanceof Title ) {
+			return false;
+		}
+
 		$oRequest = $this->getRequest();
-		$sAction = $oRequest->getVal('action', 'view');
-		if( !$sAction = ('view' || 'submit') ) {
+		$sAction = $oRequest->getVal( 'action', 'view' );
+
+		if( !in_array( $sAction, ['view', 'submit', 'bs-statebar-tasks'] ) ) {
 			return false;
 		}
-		if( !is_object( $oTitle ) ) {
-			return false;
-		}
+
 		if( $oTitle->isRedirect() ) {
-			if( $oRequest->getVal('redirect') != 'no' ) {
+			if( $oRequest->getVal( 'redirect' ) != 'no' ) {
 				$oTitle = BsArticleHelper::getInstance( $oTitle )
 					->getTitleFromRedirectRecurse();
 			}
@@ -396,20 +215,68 @@ class Rating extends BsExtensionMW {
 		if( $oTitle->getNamespace() === NS_SPECIAL ) {
 			return false;
 		}
-		if( $oTitle->userCan( 'rating-read' ) === false ) {
-			return false;
-		}
 
 		$aEnabledNamespaces = BsConfig::get( 'MW::Rating::enRatingNS' );
 		if( !in_array( $oTitle->getNamespace(), $aEnabledNamespaces ) ) {
 			return false;
 		}
-		$vNoRating = BsArticleHelper::getInstance($oTitle)->getPageProp(
+		$vNoRating = BsArticleHelper::getInstance( $oTitle )->getPageProp(
 			'bs_norating'
 		);
-		if( $vNoRating === '' ) {
+		if( !is_null($vNoRating) ) {
 			return false;
 		}
+
+		if( empty($sCheckRatingPermission) ) {
+			return $oTitle;
+		}
+		if( !$oRatingItem = RatingItemArticle::newFromTitle( $oTitle ) ) {
+			return false;
+		}
+		$oStatus = $oRatingItem->userCan(
+			$this->getUser(),
+			$sCheckRatingPermission,
+			$oTitle
+		);
+
+		if( !$oStatus->isOK() ) {
+			return false;
+		}
+
+		return $oTitle;
+	}
+
+	/**
+	 * @param OutputPage $out
+	 * @param Skin $skin
+	 */
+	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
+		$out->addModuleStyles( 'ext.bluespice.rating.icons' );
+
+		$aConfig = $aScripts = $aStyles = [];
+		foreach( RatingRegistry::getRegisterdTypeKeys() as $sKey ) {
+			$oConfig = RatingConfig::factory( $sKey );
+			$aConfig[$sKey] = $oConfig->jsonSerialize();
+			if( $a = $oConfig->get('ModuleStyles') ) {
+				$aStyles = array_merge( $aStyles, $a );
+			}
+			if( $a = $oConfig->get('ModuleScripts') ) {
+				$aScripts = array_merge( $aScripts, $a );
+			}
+		}
+		if( !empty($aScripts) ) {
+			$out->addModules( $aScripts );
+		}
+		if( !empty($aStyles) ) {
+			$out->addModuleStyles( $aStyles );
+		}
+		if( !empty($aConfig) ) {
+			$out->addJsConfigVars( 'BSRatingConfig', $aConfig );
+		}
+		$out->addJsConfigVars(
+			'BSRatingModules',
+			array_unique( $aScripts )
+		);
 		return true;
 	}
 }

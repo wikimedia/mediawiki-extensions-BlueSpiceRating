@@ -36,28 +36,7 @@ Ext.define( 'BS.Rating.Panel', {
 			sortable: true,
 			dataIndex: 'vote',
 			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
-				var stars = '';
-				var gvalue = value;
-				var valuef = 0;
-				var aCurVal = (value + "").split(".");
-				value = parseInt(aCurVal[0]);
-				if( aCurVal[1] != undefined) {
-					valuef = parseInt(aCurVal[1]);
-				}
-
-				for(var i = 0; i < value; i++) {
-					stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star.png" />';
-				}
-				if(valuef >= 5) {
-					value++;
-					stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-half.png" />';
-				}
-				for(var i = 0; i < 5-value; i++) {
-					stars = stars + '<img src="' + mw.config.get( 'wgScriptPath') + '/extensions/BlueSpiceRating/Rating/resources/images/star-empty.png" />';
-				}
-
-				var content = stars + ' '+'('+gvalue+')';
-				return content;
+				return value;
 			}
 		},{
 			id: 'votes', 

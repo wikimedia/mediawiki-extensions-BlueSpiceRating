@@ -22,9 +22,8 @@
  * For further information visit http://bluespice.com
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    0.9.2
- * @version    $Id: Rating.class.php 7033 2012-10-26 16:22:58Z pwirth $
- * @package    BlueSpice_Extensions
+ * @version    2.27.0
+ * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
@@ -33,49 +32,224 @@
 
 /**
  * RatingItem class for Rating extension
- * @package BlueSpice_Extensions
+ * @package BlueSpiceRating
  * @subpackage Rating
  */
-class RatingItem {
+class RatingItem implements JsonSerializable {
+	protected static $aRatingItems = array();
 
-	private static $aRatingItems = array();
-
-	private $sRefType			= 'article';
-	private $sSubType			= '';
-	private $sRef				= '';
-	private $aRatings			= array();
-	private $aAllowedValues		= array();
+	protected $oConfig = null;
+	protected $sRefType = '';
+	protected $sSubType = '';
+	protected $sRef = '';
+	protected $aRatings = null;
 
 	/**
 	 * Contructor of the Rating class
 	 */
-	private function __construct( $sRefType, $sRef, $sSubType, $aRegisteredRefType ) {
-		$this->sRefType = $sRefType;
-		$this->sRef = $sRef;
-		$this->sSubType = $sSubType;
-		$this->aAllowedValues = $aRegisteredRefType['allowedvalues'];
+	private function __construct( stdClass $oData, RatingConfig $oConfig ) {
+		$this->sRefType = $oData->reftype;
+		$this->sRef = $oData->ref;
+		$this->sSubType = $oData->subtype;
+		$this->oConfig = $oConfig;
 		$this->loadRating();
 	}
 
-	public static function getInstance( $sRefType, $sRef, $sSubType = '', $bForceReload = false ) {
-		if( empty($sRef) || empty($sRefType) ) return null;
+	public function jsonSerialize() {
+		$aRatings = $this->getRatings();
+		if( $this->getConfig()->get( 'IsAnonymous' ) ) {
+			$aRatings = $this->getAnonRatings( $aRatings );
+		}
+		$aUserRatings = $this->getRatingsOfSpecificUser(
+			RequestContext::getMain()->getUser()
+		);
 
-		$aRatingItems = self::$aRatingItems;
-		if( !$bForceReload && key_exists($sRefType, $aRatingItems) ) {
-			if( key_exists($sRef, $aRatingItems[$sRefType]) ) {
-				if( key_exists($sSubType, $aRatingItems[$sRefType][$sRef]) ) {
-					return self::$aRatingItems[$sRefType][$sRef][$sSubType];
-				}
-			}
+		return [
+			'reftype' => $this->getRefType(),
+			'ref' => $this->getRef(),
+			'subtype' => $this->getSubType(),
+			'ratings' => $aRatings,
+			'userratings' => $aUserRatings,
+		];
+	}
+
+	/**
+	 * @param string $sType
+	 * @param stdClass $oData
+	 * @return \RatingItem
+	 */
+	protected static function factory( $sType, stdClass $oData ) {
+		$oConfig = RatingConfig::factory( $sType );
+		if( !$oConfig instanceof RatingConfig ) {
+			//TODO: Return a DummyEntity instead of null.
+			return null;
 		}
 
-		$aRegisteredRefTypes = Rating::getRatingTypes();
-		if( !isset($aRegisteredRefTypes[$sRefType]) ) return null;
+		$sItemClass = $oConfig->get( 'RatingClass' );
+		$oInstance = new $sItemClass( $oData, $oConfig );
+		return static::appendCache( $oInstance );
+	}
 
-		$oInstance = new RatingItem( $sRefType, $sRef, $sSubType, $aRegisteredRefTypes[$sRefType] );
-		self::$aRatingItems[$sRefType][$sRef][$sSubType] = $oInstance;
+	/**
+	 * @param stdClass $oData
+	 * @return Status
+	 */
+	public static function ensureBasicParams( stdClass $oData = null ) {
+		if( is_null($oData) ) {
+			return Status::newFatal( 'No Data Given' ); //TODO
+		}
+		if( empty($oData->ref) ) {
+			return Status::newFatal( 'No reference Given' ); //TODO
+		}
+		if( empty($oData->reftype) ) {
+			return Status::newFatal( 'No reference type Given' ); //TODO
+		}
+		if( empty($oData->subtype) ) {
+			$oData->subtype = 'default';
+		}
+		return Status::newGood( $oData );
+	}
 
+	/**
+	 * TODO: real object cache!
+	 * @param stdClass $oData
+	 * @return RatingItem - or null
+	 */
+	protected static function getInstanceFromCache( stdClass $oData ) {
+		$aItems = static::$aRatingItems;
+		if( !isset($aItems) ) {
+			return null;
+		}
+		if( !isset($aItems[$oData->reftype]) ) {
+			return null;
+		}
+		if( !isset($aItems[$oData->reftype][$oData->ref]) ) {
+			return null;
+		}
+		if( !isset($aItems[$oData->reftype][$oData->ref][$oData->subtype]) ) {
+			return null;
+		}
+		return $aItems[$oData->reftype][$oData->ref][$oData->subtype];
+	}
+
+	/**
+	 * @param RatingItem $oInstance
+	 * @return \RatingItem
+	 */
+	protected static function appendCache( RatingItem $oInstance ) {
+		static::$aRatingItems
+			[$oInstance->getRefType()]
+			[$oInstance->getRef()]
+			[$oInstance->getSubType()]
+		= $oInstance;
 		return $oInstance;
+	}
+
+	protected function invalidateCache() {
+		$oInstance = static::detachFromCache( $this );
+		$oInstance->loadRating();
+		return $oInstance;
+	}
+
+	/**
+	 * @param RatingItem $oInstance
+	 * @return \RatingItem
+	 */
+	protected static function detachFromCache( RatingItem $oInstance ) {
+		unset( static::$aRatingItems
+			[$oInstance->getRefType()]
+			[$oInstance->getRef()]
+			[$oInstance->getSubType()]
+		);
+		return $oInstance;
+	}
+
+	/**
+	 * RatingItem from a set of data
+	 * @param stdClass $oData
+	 * @return \RatingItem
+	 */
+	public static function newFromObject( stdClass $oData ) {
+		$oStatus = static::ensureBasicParams( $oData );
+		if( !$oStatus->isOK() ) {
+			return null;
+		}
+		$oInstance = static::getInstanceFromCache(
+			$oStatus->getValue()
+		);
+		if( $oInstance instanceof RatingItem ) {
+			return $oInstance;
+		}
+		return static::factory( $oData->reftype, $oData );
+	}
+
+	/**
+	 * @param mixed $mValue
+	 * @return Status
+	 */
+	public function checkValue( $mValue = false, $iContext = 0 ) {
+		if( $this->getConfig()->get( 'MultiValue' ) && empty( $iContext ) ) {
+			return Status::newFatal(
+				'Context cannot be empty when multivalue!'
+			);
+		}
+		if( $mValue === false ) {
+			//stands for a delete
+			return Status::newGood( $mValue );
+		}
+		if( !$this->isAllowedValue( $mValue ) ) {
+			return Status::newFatal( 'Value not allowed' ); //TODO
+		}
+		return Status::newGood( $mValue );
+	}
+
+	/**
+	 * @param mixed $mValue
+	 * @return Status
+	 */
+	public function isAllowedValue( $mValue = false ) {
+		if( $mValue === false ) {
+			return Status::newGood( $mValue );
+		}
+		$aAllowedValues = $this->getConfig()->get( 'AllowedValues' );
+		return in_array( $mValue, $aAllowedValues )
+			? Status::newGood( $mValue )
+			: Status::newFatal( 'Value not allowed' ) //TODO
+		;
+	}
+
+	protected function checkPermission( $sAction, User $oUser, Title $oTitle = null ) {
+		$sAction = ucfirst( $sAction );//...
+		$sPermission = $this->getConfig()->get( "{$sAction}Permission" );
+		if( !$sPermission ) {
+			return false;
+		}
+		if( $oTitle instanceof Title ) {
+			return $oTitle->userCan( $sPermission, $oUser );
+		}
+		return $oUser->isAllowed( $sPermission );
+	}
+
+	/**
+	 * @param User $oUser
+	 * @return Status
+	 */
+	public function userCan( User $oUser, $sAction = 'read', Title $oTitle = null ) {
+		$bTitleRequired = $this->getConfig()->get( 'PermissionTitleRequired' );
+		if( $bTitleRequired && !$oTitle instanceof Title ) {
+			return Status::newFatal( "Title Required" ); //TODO
+		}
+		if( !$this->checkPermission( $sAction, $oUser, $oTitle ) ) {
+			return Status::newFatal( "User is not Allowed $sAction" ); //TODO
+		}
+		return Status::newGood( $oUser );
+	}
+
+	/**
+	 * @return Message
+	 */
+	public function getTypeMessage() {
+		return Message::newFromKey( $this->getConfig()->get( 'TypeMsgKey' ) );
 	}
 
 	/**
@@ -83,37 +257,38 @@ class RatingItem {
 	 * @return boolean
 	 */
 	protected function loadRating() {
-		$aRatings = array();
-
-		$sRef		= (string) $this->sRef;
-		$sRefType	= $this->sRefType;
-		$sSubType	= $this->sSubType;
-
+		$this->aRatings = array();
 		$aConditions = array( 
-			'rat_reftype' => $sRefType,
-			'rat_subtype' => $sSubType,
+			'rat_reftype' => $this->getRefType(),
+			'rat_subtype' => $this->getSubType(),
+			'rat_ref' => $this->getRef(),
 			'rat_archived' => '0'
 		);
 
-		if( !empty($sRef) ) {
-			$aConditions['rat_ref'] = $sRef;
-		}
-
 		//Abort query when hook-handler returns false
-		if( !wfRunHooks('BSRatingBeforeLoadRatingQuery', array($sRef, $sRefType, &$aConditions)) ) {
+		$bReturn = wfRunHooks('BSRatingBeforeLoadRatingQuery', array(
+			$this->getRef(),
+			$this->getRefType(),
+			&$aConditions
+		));
+		if( !$bReturn ) {
 			return true;
 		}
 
 		$dbr = wfGetDB( DB_SLAVE );
 
-		$res = $dbr->select( 'bs_rating', '*', $aConditions );
+		$res = $dbr->select(
+			'bs_rating',
+			'*',
+			$aConditions,
+			__METHOD__
+		);
 		if( !$res ) {
-			$this->aRatings = $aRatings;
-			return true;
+			return $this->aRatings;
 		}
 
 		while($row = $dbr->fetchObject($res)) {
-			$aRatings[$row->rat_id] = array(
+			$this->aRatings[$row->rat_id] = array(
 				'id'      => $row->rat_id,
 				'reftype' => $row->rat_reftype,
 				'ref'     => $row->rat_ref,
@@ -127,109 +302,116 @@ class RatingItem {
 			);
 		}
 
-		$this->aRatings = $aRatings;
-		return true;
+		return $this->aRatings;
 	}
 
 	/**
-	 * inserts a single rating to the bs_rating table
-	 * @param string $sRef
-	 * @param int $iValue
-	 * @param string $sRefType
-	 * @param int $iUserID
-	 * @param string $sUserIP
-	 * @return boolean
+	 * CRUD votes from the rating item. Use $mValue = false to delete
+	 * @param User $oUser - User, that initiated this action
+	 * @param mixed $mValue - use false to delete
+	 * @param User $oOwner - User, that the vote is related to
+	 * @param integer $iContext - context for multi value
+	 * @param Title $oTitle - for permission check!
+	 * @return Status
 	 */
-	public function setRating( $sRef, $iValue, $notinuse = 'article', $iUserID = 0, $sUserIP = '', $iContext = 0 ) {
-		$sRef = $this->sRef;
-		$sRefType = $this->sRefType;
-		$sSubType = $this->sSubType;
-		$oUserVote = null;
-
-		wfRunHooks( 'BSRatingCustomTypSetRating', array(
-			&$sRef,
-			&$iValue,
-			$sRefType,
-			$iUserID,
-			$sUserIP,
-			&$sSubType,
-			&$iContext,
-		));
-
-		if( empty($iValue) || empty($sRef)) return false;
-		if( empty($iUserID) && empty($sUserIP) ) return false;
-
-		$sRef = (string) $sRef;
-		$iValue = (int) $iValue;
-
-		if( !in_array($iValue, $this->aAllowedValues) ) return false;
-
-		$aConditions = array(
-			'rat_ref' => $sRef, 
-			'rat_reftype' => $sRefType, 
-			'rat_archived' => '0',
-			'rat_subtype' => $sSubType,
+	public function vote( User $oUser, $mValue, User $oOwner = null, $iContext = 0, Title $oTitle = null ) {
+		if( !$oOwner instanceof User ) {
+			$oOwner = $oUser;
+		}
+		$oStatus = $this->checkValue( $mValue, $iContext );
+		if( !$oStatus->isOK() ) {
+			return $oStatus;
+		}
+		$aRatings = $this->getRatingsOfSpecificUser( $oOwner, $iContext );
+		if( $mValue === false ) {
+			$oStatus = $this->userCan( $oUser, 'delete', $oTitle );
+			if( !$oStatus->isOK() ) {
+				return $oStatus;
+			}
+			if( $oOwner->getId() != $oUser ) {
+				$oStatus = $this->userCan( $oUser, 'deleteOthers', $oTitle );
+				if( !$oStatus->isOK() ) {
+					return $oStatus;
+				}
+			}
+			if( empty($aRatings) ) {
+				return Status::newFatal( 'Nothing to delete!' ); //TODO!
+			}
+			return $this->deleteRating( $oOwner, $iContext);
+		}
+		$oStatus = $this->userCan( $oUser, 'update', $oTitle );
+		if( !$oStatus->isOK() ) {
+			return $oStatus;
+		}
+		if( $oOwner->getId() != $oUser->getId() ) {
+			$oStatus = $this->userCan( $oUser, 'updateOthers', $oTitle );
+			if( !$oStatus->isOK() ) {
+				return $oStatus;
+			}
+		}
+		if( empty($aRatings) ) {
+			return $this->insertRating( $oOwner, $mValue, $iContext );
+		}
+		$aRatings = array_values( $aRatings );
+		return $this->updateRating(
+			$oOwner,
+			$mValue,
+			$aRatings[0],
+			$iContext
 		);
-
-		if( !empty($iUserID) ) {
-			$aConditions['rat_userid'] = $iUserID;
-		}
-		else {
-			$aConditions['rat_userip'] = $sUserIP;
-		}
-		if( !empty($iContext) ) {
-			$aConditions['rat_context'] = $iContext;
-		}
-
-		$dbw = wfGetDB( DB_MASTER );
-		$res = $dbw->select( 'bs_rating', '*', $aConditions );
-
-		if(!$res) return false;
-
-		$oUserVote = $dbw->fetchObject($res);
-
-		if( is_object( $oUserVote ) ) {
-			$b = $dbw->update( 
-				'bs_rating', 
-				array('rat_value' => $iValue, 'rat_touched'	=> wfTimestampNow()), 
-				array('rat_id' => $oUserVote->rat_id) 
-			);
-			$oUserVote->rat_value = $iValue;
-			$this->addRating( $oUserVote );
-			return $b;
-		}
-
-		$aInsertFields = array();
-
-		$aInsertFields['rat_userid'] = $iUserID;
-		if( !empty($sUserIP) ) {
-			$aInsertFields['rat_userip'] = $sUserIP;
-		}
-		$aInsertFields['rat_value']   = $iValue;
-		$aInsertFields['rat_ref']     = $sRef;
-		$aInsertFields['rat_reftype'] = $sRefType;
-		$aInsertFields['rat_created'] = wfTimestampNow();
-		$aInsertFields['rat_touched'] = wfTimestampNow();
-		$aInsertFields['rat_subtype'] = $sSubType;
-		$aInsertFields['rat_context'] = $iContext;
-
-		$b = $dbw->insert( 'bs_rating', $aInsertFields);
-
-		$res = $dbw->select( 'bs_rating', '*', $aConditions );
-		if(!$res) return false;
-		$oUserVote = $dbw->fetchObject($res);
-
-		$this->addRating( $oUserVote );
-		return $b;
 	}
-	
+
+	protected function insertRating( User $oOwner, $mValue, $iContext = 0 ) {
+		$aValues = array(
+			'rat_value' => $mValue,
+			'rat_ref' => $this->getRef(),
+			'rat_reftype' => $this->getRefType(),
+			'rat_userid'  => (int) $oOwner->getId(),
+			'rat_userip'  => $oOwner->getName(),
+			'rat_created' => wfTimestampNow(),
+			'rat_touched' => wfTimestampNow(),
+			'rat_subtype' => $this->getSubType(),
+			'rat_context' => $iContext,
+		);
+		$bSuccess = wfGetDB( DB_WRITE )->insert(
+			'bs_rating',
+			$aValues,
+			__METHOD__
+		);
+		if( !$bSuccess ) {
+			return Status::newFatal( 'insert database error' ); //TODO
+		}
+		return Status::newGood( $this->invalidateCache() );
+	}
+
+	protected function updateRating( User $oOwner, $mValue, $iID, $iContext = 0 ) {
+		$bSuccess = wfGetDB( DB_WRITE )->update(
+			'bs_rating',
+			array( 'rat_value' => $mValue ),
+			array( 'rat_id' => $iID ),
+			__METHOD__
+		);
+		if( !$bSuccess ) {
+			return Status::newFatal( 'update database error' ); //TODO
+		}
+		return Status::newGood( $this->invalidateCache() );
+	}
+
+	/**
+	 * Deletes the RatingItem and archives all user ratings
+	 * @return Status
+	 */
+	public function deleteRatingItem() {
+		return $this->deleteRating();
+	}
+
 	/**
 	 * Archives this RatingItem - When User given: Archives rating of given user in this RatingItem
 	 * @param User $oUser
 	 * @param integer $iContext
 	 * @return Boolean - true or false
 	 */
-	public function archiveRating($oUser = null, $iContext = 0) {
+	protected function deleteRating( User $oUser = null, $iContext = 0 ) {
 		$aConditions = array(
 			'rat_ref' => $this->sRef,
 			'rat_reftype' => $this->sRefType,
@@ -239,7 +421,7 @@ class RatingItem {
 			$aConditions['rat_context'] = $iContext;
 		}
 
-		if( !is_null($oUser) ) {
+		if( $oUser instanceof User ) {
 			if( $oUser->getId() === 0 ) {
 				$aConditions['rat_userip'] = $oUser->getName();
 			} else {
@@ -254,27 +436,7 @@ class RatingItem {
 			array('rat_archived' => '1', 'rat_touched' => wfTimestampNow()), 
 			$aConditions 
 		);
-		return $b;
-	}
-
-	/**
-	 * updates additional class variables
-	 * @param stdClass $oUserVote
-	 * @return boolean
-	 */
-	protected function addRating( $oUserVote ) {
-		return $this->aRatings[$oUserVote->rat_id] = array(
-			'id'		=> $oUserVote->rat_id,
-			'reftype'	=> $oUserVote->rat_reftype,
-			'ref'		=> $oUserVote->rat_ref,
-			'userid'	=> $oUserVote->rat_userid,
-			'userip'	=> $oUserVote->rat_userip,
-			'value'		=> $oUserVote->rat_value,
-			'created'	=> $oUserVote->rat_created,
-			'touched'	=> $oUserVote->rat_touched,
-			'subtype'	=> $oUserVote->rat_subtype,
-			'context'	=> $oUserVote->rat_context,
-		);
+		return Status::newGood( $this );
 	}
 
 	protected function filterRating( $a = array() ) {
@@ -295,6 +457,29 @@ class RatingItem {
 		});
 	}
 
+	/**
+	 * Make given ratings anon by removing userid and userip or request ratings
+	 * with context and make the result anon.
+	 * @param array $aRatings
+	 * @param integer $iContext
+	 * @return array
+	 */
+	public function getAnonRatings( $aRatings = false, $iContext = 0 ) {
+		if( !$aRatings ) {
+			$aRatings = $this->getRatings( $iContext );
+		}
+		array_walk( $aRatings, function( &$e ) {
+			$e['userid'] = 0;
+			$e['userip'] = '';
+		});
+		return $aRatings;
+	}
+
+	/**
+	 * Returns an array containing all ratings row arrays filtered by context.
+	 * @param integer $iContext
+	 * @return array
+	 */
 	public function getRatings( $iContext = 0 ) {
 		if( empty($iContext) ) {
 			return $this->filterRating();
@@ -316,10 +501,27 @@ class RatingItem {
 		return $this->sRef;
 	}
 
+	/**
+	 * @return RatingConfig
+	 */
+	public function getConfig() {
+		return $this->oConfig;
+	}
+
+	/**
+	 * Total number of votes
+	 * @param integer $iContext
+	 * @return integer
+	 */
 	public function countRatings( $iContext = 0 ) {
 		return count($this->getRatings( $iContext ));
 	}
 
+	/**
+	 * Total sum of all rating. Note that this only works for integers!
+	 * @param integer $iContext
+	 * @return integer
+	 */
 	public function getTotal( $iContext = 0 ) {
 		$aFilter = array();
 		$iTotal = 0;
@@ -336,8 +538,13 @@ class RatingItem {
 		return $iTotal;
 	}
 
-	public function getAllowedValues() {
-		return $this->aAllowedValues;
+	/**
+	 * Average vote value. Note that this only works for integers!
+	 * @param integer $iContext
+	 * @return float
+	 */
+	public function getAverage( $iContext ) {
+		return $this->getTotal( $iContext ) / $this->countRatings( $iContext );
 	}
 
 	/**
@@ -347,7 +554,6 @@ class RatingItem {
 	 * @return boolean - true or false
 	 */
 	public function hasUserRated( User $oUser, $return = false, $iContext = 0 ) {
-		if( !is_object($oUser) ) return $return;
 		$iUserID = $oUser->getId();
 		//use name as ip for anonymous
 		if( empty($iUserID) ) {
@@ -379,22 +585,6 @@ class RatingItem {
 		return $aUserIDs;
 	}
 
-	/**
-	 * DEPRECATED single rating return
-	 * @deprecated backward compatibility - use getRatingsOfSpecificUser instead
-	 * @param User $oUser
-	 * @param integer $iContext
-	 * @return array
-	 */
-	public function getRatingOfSpecificUser( User $oUser, $iContext = 0 ) {
-		$aRatings = $this->getRatingsOfSpecificUser( $oUser, $iContext );
-		if( empty($aRatings) ) {
-			return $aRatings;
-		}
-		$aRatings = array_values($aRatings);
-		return $aRatings[0];
-	}
-
 	public function getRatingsOfSpecificUser( User $oUser, $iContext = 0 ) {
 		$aFilter = array();
 		$iUserID = $oUser->getId();
@@ -411,13 +601,9 @@ class RatingItem {
 		return $aRatings;
 	}
 
-	public function getValueFilteredRatings( $iValue = 0, $iContext = 0  ) {
-		if( !in_array($iValue, $this->getAllowedValues()) ) {
-			return array();
-		}
-
+	public function getValueFilteredRatings( $mValue = false, $iContext = 0  ) {
 		$aFilter = array(
-			'value' => $iValue,
+			'value' => $mValue,
 		);
 		if( !empty($iContext) ) {
 			$aFilter['context'] = $iContext;
@@ -425,33 +611,22 @@ class RatingItem {
 		return $this->filterRating( $aFilter );
 	}
 
-	public function getView($oUserOnly = null, $sForceThisView = '') {
-		$aRegisteredRefTypes = Rating::getRatingTypes();
-		if( !isset($aRegisteredRefTypes[$this->sRefType]) ) {
-			return null;
-		}
-
-		$sViewName = $sForceThisView;
-		if( empty($sViewName) ) {
-			if( empty($aRegisteredRefTypes[$this->sRefType]['view']) ) {
-				return null;
-			}
-			$sViewName = $aRegisteredRefTypes[$this->sRefType]['view'];
-		}
-
-		$oView = new $sViewName();
-		$oView->setOptions( $aRegisteredRefTypes[$this->sRefType] );
-		$oView->setRatingItem( $this );
-
-		if( is_object($oUserOnly) ){
-			$oView->setUser( $oUserOnly );
-		}
-
-		return $oView;
+	public function getTagData() {
+		return array(
+			'data-ref' => $this->getRef(),
+			'data-subtype' => $this->getSubType(),
+			'data-item' => json_encode( $this ),
+		);
 	}
 
-	public function renderView( $oUserOnly = null, $sForceThisView = '' ) {
-		$oView = $this->getView( $oUserOnly, $sForceThisView );
-		return $oView->execute();
+	public function getTag() {
+		$aOptions = array_merge_recursive(
+			$this->getConfig()->get('HTMLTagOptions'),
+			$this->getTagData()
+		);
+		return HTML::element(
+			$this->getConfig()->get('HTMLTag'),
+			$aOptions
+		);
 	}
 }
