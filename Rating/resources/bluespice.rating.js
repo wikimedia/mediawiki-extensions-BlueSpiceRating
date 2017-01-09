@@ -39,6 +39,6 @@ bs.rating.init = function(){
 	});
 };
 
-mw.loader.using( mw.config.get('BSSocialModuleScripts', []) ).done( function() {
+mw.loader.using( mw.config.get('BSRatingModules', []) ).done( function() {
 	bs.rating.init();
 });
