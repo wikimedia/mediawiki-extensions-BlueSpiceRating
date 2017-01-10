@@ -13,13 +13,22 @@ bs.rating.Item = function( $el, type, data ) {
 	OO.EventEmitter.call( this );
 	this.$el = $el;
 	this.type = type;
-	this.task = 'vote';
+	this.votetask = 'vote';
+	this.reloadtask = 'reload';
 	this.taskApi = 'rating';
 	this.data = new mw.Map( data );
 };
 OO.initClass( bs.rating.Item );
 OO.mixinClass( bs.rating.Item, OO.EventEmitter );
 
+bs.rating.Item.prototype.makeUiID = function() {
+	var uiID = bs.rating.getUiID( this.$el );
+	if( uiID ) {
+		return uiID;
+	}
+	this.$el.uniqueId();
+	return bs.rating.getUiID( this.$el );
+};
 bs.rating.Item.prototype.reset = function( data ) {
 	this.getEl().attr( 'data-item', data );
 	this.data = new mw.Map( JSON.parse( data ) );
@@ -131,8 +140,11 @@ bs.rating.Item.prototype.getVoteAverage = function() {
 	}
 	return total / count;
 };
-bs.rating.Item.prototype.getTask = function() {
-	return this.task;
+bs.rating.Item.prototype.getVoteTask = function() {
+	return this.voteTask || 'vote';
+};
+bs.rating.Item.prototype.getReloadTask = function() {
+	return this.reloadTask || 'reload';
 };
 bs.rating.Item.prototype.getTaskApi = function() {
 	return this.taskApi;
@@ -143,9 +155,25 @@ bs.rating.Item.prototype.vote = function( rating ) {
 	data.value = rating;
 	return bs.api.tasks.execSilent(
 		this.getTaskApi(),
-		this.getTask(),
+		this.getVoteTask(),
 		data
 	);
+};
+bs.rating.Item.prototype.reload = function() {
+	var data = this.getData();
+	var me = this;
+	me.addLoadingMask();
+	return bs.api.tasks.execSilent(
+		me.getTaskApi(),
+		me.getReloadTask(),
+		data
+	).done( function( result ) {
+		if( !result.success ) {
+			return;
+		}
+		me.reset( result.payload.data );
+		me.removeLoadingMask();
+	});
 };
 bs.rating.Item.prototype.addLoadingMask = function() {
 	this.getEl().append(

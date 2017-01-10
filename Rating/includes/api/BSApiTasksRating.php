@@ -37,6 +37,7 @@ class BSApiTasksRating extends BSApiTasksBase {
 	 */
 	protected $aTasks = array(
 		'vote',
+		'reload',
 	);
 
 	/**
@@ -47,6 +48,7 @@ class BSApiTasksRating extends BSApiTasksBase {
 	protected function getRequiredTaskPermissions() {
 		return array(
 			'vote' => array( 'read' ),
+			'reload' => array( 'read' ),
 		);
 	}
 
@@ -82,6 +84,23 @@ class BSApiTasksRating extends BSApiTasksBase {
 			$oResult->message = $oStatus->getHTML();
 			return $oResult;
 		}
+
+		$oResult->success = true;
+		$oResult->payload['data'] = json_encode( $oRatingItem );
+
+		return $oResult;
+	}
+
+	public function task_reload( $oTaskData, $aParams ) {
+		$oResult = $this->makeStandardReturn();
+		$this->checkPermissions();
+
+		$oStatus = RatingItem::ensureBasicParams( $oTaskData );
+		if( !$oStatus->isOK() ) {
+			$oResult->message = $oStatus->getHTML();
+			return $oResult;
+		}
+		$oRatingItem = RatingItem::newFromObject( $oTaskData );
 
 		$oResult->success = true;
 		$oResult->payload['data'] = json_encode( $oRatingItem );
