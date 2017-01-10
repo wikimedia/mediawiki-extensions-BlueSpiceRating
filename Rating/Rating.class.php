@@ -264,18 +264,23 @@ class Rating extends BsExtensionMW {
 				$aScripts = array_merge( $aScripts, $a );
 			}
 		}
-		if( !empty($aScripts) ) {
+
+		//Make sure to have arrays in JS!
+		$aScripts = array_values( array_unique( $aScripts ) );
+		$aStyles = array_values( array_unique( $aStyles ) );
+
+		if( !empty( $aScripts ) ) {
 			$out->addModules( $aScripts );
 		}
-		if( !empty($aStyles) ) {
-			$out->addModuleStyles( $aStyles );
+		if( !empty( $aStyles ) ) {
+			$out->addModuleStyles(  $aStyles );
 		}
-		if( !empty($aConfig) ) {
+		if( !empty( $aConfig ) ) {
 			$out->addJsConfigVars( 'BSRatingConfig', $aConfig );
 		}
 		$out->addJsConfigVars(
 			'BSRatingModules',
-			array_unique( $aScripts )
+			$aScripts
 		);
 		return true;
 	}
