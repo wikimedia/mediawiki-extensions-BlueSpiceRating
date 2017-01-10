@@ -12,44 +12,10 @@
 bs.rating.ItemArticle = function( $el, type, data ) {
 	bs.rating.Item.call( this, $el, type, data );
 	var me = this;
-	me.$starRating = $el.starRating({
-		starSize: 14,
-		useFullStars: true,
-		disableAfterRate: false,
-		strokeWidth: 9,
-		strokeColor: 'black',
-		readOnly: !me.data.get( 'usercanmodify', false ),
-		initialRating: me.getVoteAverage(),
-		starGradient: {
-			start: '#93BFE2',
-			end: '#105694'
-		},
-		callback: function(currentRating, $el){
-			$el.starRating( 'setReadOnly', true );
-			me.addLoadingMask( $el );
-			me.vote( currentRating ).done( function( result ) {
-				if( !result.success ) {
-					currentRating = me.getVoteAverage();
-				}
-				$el.starRating( 'setReadOnly', false );
-				me.removeLoadingMask( $el );
-				if( result.payload.data ) {
-					me.reset( result.payload.data );
-				}
-			});
-		}
-	});
-
-	me.$numVotes = $(
-		'<span class="bs-rating-article-numvotes">('
-		+ me.getVoteCount()
-		+ ')</span>'
-	);
-
+	me.makeStarRating();
+	me.makeNumVotes();
+	me.makeUserVoted();
 	me.getEl().append( me.$numVotes );
-	me.$userVoted = $(
-		'<span class="bs-rating-article-uservoted"></span>'
-	).hide();
 	me.getEl().append( me.$userVoted );
 	var aUserVotes = me.getCurrentUserRatings();
 	if( aUserVotes.length > 0 ) {
@@ -93,4 +59,52 @@ bs.rating.ItemArticle.prototype.reset = function( data ) {
 			mw.message( 'bs-rating-yourrating', aUserVotes[0].value )
 		);
 	}
+};
+bs.rating.ItemArticle.prototype.makeStarRating = function( data ) {
+	var me = this;
+	var $el = me.$el;
+	me.$starRating = $el.starRating({
+		starSize: 14,
+		useFullStars: true,
+		disableAfterRate: false,
+		strokeWidth: 9,
+		strokeColor: 'black',
+		readOnly: !me.data.get( 'usercanmodify', false ),
+		initialRating: me.getVoteAverage(),
+		starGradient: {
+			start: '#93BFE2',
+			end: '#105694'
+		},
+		callback: function(currentRating, $el){
+			$el.starRating( 'setReadOnly', true );
+			me.addLoadingMask( $el );
+			me.vote( currentRating ).done( function( result ) {
+				if( !result.success ) {
+					currentRating = me.getVoteAverage();
+				}
+				$el.starRating( 'setReadOnly', false );
+				me.removeLoadingMask( $el );
+				if( result.payload.data ) {
+					me.reset( result.payload.data );
+				}
+			});
+		}
+	});
+};
+
+bs.rating.ItemArticle.prototype.makeNumVotes = function( data ) {
+	this.$numVotes = $(
+		'<span class="bs-rating-article-numvotes">('
+		+ this.getVoteCount()
+		+ ')</span>'
+	);
+};
+bs.rating.ItemArticle.prototype.makeUserVoted = function( data ) {
+	this.$userVoted = $(
+		'<span class="bs-rating-article-uservoted"></span>'
+	).hide();
+};
+
+bs.rating.ItemArticle.prototype.setReadOnly = function( value ) {
+	this.$el.starRating( 'setReadOnly', value || true );
 };

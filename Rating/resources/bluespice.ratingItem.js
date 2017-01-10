@@ -71,6 +71,9 @@ bs.rating.Item.prototype.filterRatings = function( field, value, ratings ) {
 	});
 };
 bs.rating.Item.prototype.userVoted = function( context ) {
+	if( mw.config.get('wgUserId', 0) === 0 ) {
+		return false;
+	}
 	context = context || this.data.get( 'context', '0' );
 	context = ""+context;
 	var ratings = this.filterRatings(
