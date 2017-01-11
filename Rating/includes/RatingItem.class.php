@@ -328,7 +328,7 @@ class RatingItem implements JsonSerializable {
 			if( !$oStatus->isOK() ) {
 				return $oStatus;
 			}
-			if( $oOwner->getId() != $oUser ) {
+			if( $oOwner->getId() != $oUser->getId() ) {
 				$oStatus = $this->userCan( $oUser, 'deleteOthers', $oTitle );
 				if( !$oStatus->isOK() ) {
 					return $oStatus;
