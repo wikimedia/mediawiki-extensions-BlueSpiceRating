@@ -260,7 +260,7 @@ class RatingItem implements JsonSerializable {
 		$this->aRatings = array();
 		$aConditions = array( 
 			'rat_reftype' => $this->getRefType(),
-			'rat_subtype' => $this->getSubType(),
+			'rat_subtype' => [$this->getSubType(), ''],
 			'rat_ref' => $this->getRef(),
 			'rat_archived' => '0'
 		);
@@ -287,7 +287,7 @@ class RatingItem implements JsonSerializable {
 			return $this->aRatings;
 		}
 
-		while($row = $dbr->fetchObject($res)) {
+		foreach( $res as $row ) {
 			$this->aRatings[$row->rat_id] = array(
 				'id'      => $row->rat_id,
 				'reftype' => $row->rat_reftype,
@@ -436,7 +436,7 @@ class RatingItem implements JsonSerializable {
 			array('rat_archived' => '1', 'rat_touched' => wfTimestampNow()), 
 			$aConditions 
 		);
-		return Status::newGood( $this );
+		return Status::newGood( $this->invalidateCache() );
 	}
 
 	protected function filterRating( $a = array() ) {

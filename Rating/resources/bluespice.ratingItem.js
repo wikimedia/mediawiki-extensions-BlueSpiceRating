@@ -67,9 +67,9 @@ bs.rating.Item.prototype.getCurrentUserRatings = function() {
 	return res;
 };
 bs.rating.Item.prototype.filterRatings = function( field, value, ratings ) {
-	ratings = ratings || [];
+	ratings = ratings || this.getRatings();
 	if( ratings.length < 1 ) {
-		ratings = this.getRatings();
+		return ratings;
 	}
 
 	return $.grep( ratings, function( e, i ) {
@@ -83,6 +83,7 @@ bs.rating.Item.prototype.userVoted = function( context ) {
 	if( mw.config.get('wgUserId', 0) === 0 ) {
 		return false;
 	}
+
 	context = context || this.data.get( 'context', '0' );
 	context = ""+context;
 	var ratings = this.filterRatings(
@@ -90,6 +91,7 @@ bs.rating.Item.prototype.userVoted = function( context ) {
 		context,
 		this.getCurrentUserRatings()
 	);
+
 	return ratings.length > 0;
 };
 bs.rating.Item.prototype.getUserVotes = function( sID, context ) {
