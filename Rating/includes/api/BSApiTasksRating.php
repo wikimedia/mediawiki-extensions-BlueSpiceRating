@@ -85,6 +85,10 @@ class BSApiTasksRating extends BSApiTasksBase {
 			return $oResult;
 		}
 
+		if( $oTitle ) {
+			$oTitle->invalidateCache();
+		}
+
 		$oResult->success = true;
 		$oResult->payload['data'] = json_encode( $oRatingItem );
 
