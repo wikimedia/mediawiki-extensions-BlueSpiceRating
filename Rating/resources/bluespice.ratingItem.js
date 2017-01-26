@@ -26,7 +26,9 @@ bs.rating.Item.prototype.makeUiID = function() {
 	if( uiID ) {
 		return uiID;
 	}
-	this.$el.uniqueId();
+	if( !this.$el.attr('id') || this.$el.attr('id').length < 1 ) {
+		this.$el.attr('id', bs.rating.generateUniqueId() );
+	}
 	return bs.rating.getUiID( this.$el );
 };
 bs.rating.Item.prototype.reset = function( data ) {

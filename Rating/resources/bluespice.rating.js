@@ -20,6 +20,10 @@ bs.rating.register = function( sType, sStaticName, oClass ) {
 	bs.rating.factory.register( oClass );
 	bs.rating.types[sType] = sStaticName;
 };
+bs.rating.uuid = 0;
+bs.rating.generateUniqueId = function() {
+	return "bsr-ui-" + ( ++bs.rating.uuid );
+};
 bs.rating.config = mw.config.get('BSRatingConfig', {});
 bs.rating.getUiID = function( $el ) {
 	if( $el.attr('id') && $el.attr('id').length > 0 ) {

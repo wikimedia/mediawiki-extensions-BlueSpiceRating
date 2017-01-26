@@ -42,12 +42,14 @@
 		"ext.bluespice.rating.styles": {
 			"styles": "bluespice.rating.css",
 			"position": "top",
-			"dependencies": "ext.bluespice"
+			"dependencies": "ext.bluespice",
+			"targets": [ "desktop", "mobile" ]
 		},
 		"ext.bluespice.rating": {
 			"scripts": [
 				"bluespice.rating.js"
 			],
+			"targets": [ "desktop", "mobile" ],
 			"dependencies": [
 				"oojs-ui",
 				"ext.bluespice"
@@ -57,6 +59,7 @@
 			"scripts": [
 				"bluespice.ratingItem.js"
 			],
+			"targets": [ "desktop", "mobile" ],
 			"dependencies": [
 				"ext.bluespice.rating"
 			]
@@ -65,6 +68,7 @@
 			"scripts": [
 				"bluespice.ratingItemArticle.js"
 			],
+			"targets": [ "desktop", "mobile" ],
 			"dependencies": [
 				"ext.bluespice.rating",
 				"ext.bluespice.ratingItem"
@@ -79,6 +83,7 @@
 				"oojs-ui",
 				"ext.bluespice.extjs"
 			],
+			"targets": [ "desktop", "mobile" ],
 			"messages": [
 				"bs-rating-specialrating-titleTitle",
 				"bs-rating-specialrating-titleRating",
@@ -91,12 +96,15 @@
 		},
 		"ext.bluespice.rating.icons": {
 			"styles": "bluespice.rating.icons.less",
+			"targets": [ "desktop", "mobile" ],
 			"position": "top"
 		},
 		"ext.rating.starRatingSvg.styles": {
+			"targets": [ "desktop", "mobile" ],
 			"styles": "star-rating-svg/src/css/star-rating-svg.css"
 		},
 		"ext.rating.starRatingSvg": {
+			"targets": [ "desktop", "mobile" ],
 			"scripts": "star-rating-svg/src/jquery.star-rating-svg.js"
 		}
 	},
