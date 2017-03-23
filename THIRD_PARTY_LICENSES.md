@@ -2,12 +2,12 @@ Third Party Licenses
 ====================
 This is an overview of all the 3rd party licenses used in this module.
 
-Images
-------
+Software
+--------
 
-| Image | Author | Version | License |
+| Software | Author | Version | License |
 |:--------|:-------|:--------|:-------|
-| [Famfamfam Silk Icon set 1.3](http://www.famfamfam.com/lab/icons/silk/) | Mark James | 1.3 | [CC-BY 3.0](https://creativecommons.org/licenses/by/3.0/) |
+| [star-rating-svg](https://github.com/nashio/star-rating-svg) | Ignacio Chavez | 1.2.0 | [MIT](https://opensource.org/licenses/MIT) |
 
 License texts
 =============
