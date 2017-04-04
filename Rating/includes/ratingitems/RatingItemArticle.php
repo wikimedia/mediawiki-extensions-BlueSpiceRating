@@ -22,7 +22,7 @@
  * For further information visit http://bluespice.com
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.0
+ * @version    2.27.1
  * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.

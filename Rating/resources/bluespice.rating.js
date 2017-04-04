@@ -2,8 +2,8 @@
  * Js for Rating extension
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.0
- * @package    BluespiceRating
+ * @version    2.27.1
+ * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
