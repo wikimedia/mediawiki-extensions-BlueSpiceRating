@@ -350,18 +350,40 @@ class RatingItem implements JsonSerializable {
 			}
 		}
 		if( empty($aRatings) ) {
-			return $this->insertRating( $oOwner, $mValue, $iContext );
+			$oStatus = $this->insertRating( $oOwner, $mValue, $iContext );
+		} else {
+			$aRatings = array_values( $aRatings );
+			$oStatus = $this->updateRating(
+				$oOwner,
+				$mValue,
+				$aRatings[0],
+				$iContext
+			);
 		}
-		$aRatings = array_values( $aRatings );
-		return $this->updateRating(
+		Hooks::run( 'BlueSpiceRatingItemVoteSaveComplete', [
+			$this,
 			$oOwner,
 			$mValue,
-			$aRatings[0],
-			$iContext
-		);
+			$iContext,
+		]);
+
+		return $oStatus;
 	}
 
 	protected function insertRating( User $oOwner, $mValue, $iContext = 0 ) {
+		$oStatus = Status::newGood( $this );
+		$iID = 0;
+		Hooks::run( 'BlueSpiceRatingItemVoteSave', [
+			$this,
+			$oOwner,
+			&$mValue,
+			&$iContext,
+			$oStatus,
+			$iID,
+		]);
+		if( !$oStatus->isOK() ) {
+			return $oStatus;
+		}
 		$aValues = array(
 			'rat_value' => $mValue,
 			'rat_ref' => $this->getRef(),
@@ -385,6 +407,18 @@ class RatingItem implements JsonSerializable {
 	}
 
 	protected function updateRating( User $oOwner, $mValue, $iID, $iContext = 0 ) {
+		$oStatus = Status::newGood( $this );
+		Hooks::run( 'BlueSpiceRatingItemVoteSave', [
+			$this,
+			$oOwner,
+			&$mValue,
+			&$iContext,
+			$oStatus,
+			$iID,
+		]);
+		if( !$oStatus->isOK() ) {
+			return $oStatus;
+		}
 		$bSuccess = wfGetDB( DB_WRITE )->update(
 			'bs_rating',
 			array( 'rat_value' => $mValue ),
