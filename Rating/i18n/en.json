@@ -25,5 +25,7 @@
 	"bs-rating-specialrating-ptbDisplayMsgText": "Pages {0} - {1} of {2}",
 	"bs-rating-specialrating-ptbEmptyMsgText": "No ratings found.",
 	"bs-rating-specialrating-ptbBeforePageText": "Page",
-	"bs-rating-specialrating-ptbAfterPageText": "of {0}"
+	"bs-rating-specialrating-ptbAfterPageText": "of {0}",
+	"apihelp-bs-rating-tasks-description": "Executes common tasks for extension Rating",
+	"apihelp-bs-rating-store-description": "Delivers ratings for articles"
 }

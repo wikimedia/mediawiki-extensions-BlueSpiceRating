@@ -3,5 +3,7 @@
 		"authors": [
 			"Patric Wirth <wirth@hallowelt.biz>"
 		]
-	}
+	},
+	"apihelp-bs-rating-tasks-description": "{{doc-apihelp-description|bs-rating-tasks}}",
+	"apihelp-bs-rating-store-description": "{{doc-apihelp-description|bs-rating-store}}"
 }
