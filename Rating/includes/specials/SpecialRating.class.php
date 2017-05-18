@@ -27,7 +27,6 @@ class SpecialRating extends SpecialPage {
 	function execute($sParam) {
 		//parent::execute($sParam);
 		$this->checkPermissions();
-		BsExtensionManager::setContext('MW::SpecialRating');
 
 		$this->getOutput()->setPageTitle( wfMessage( 'bs-rating-special-rating-heading' )->plain() );
 
