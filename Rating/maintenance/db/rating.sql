@@ -1,6 +1,6 @@
 -- Database definition for Rating
 --
--- Part of BlueSpice for MediaWiki
+-- Part of BlueSpice MediaWiki
 --
 -- @author     Patric Wirth <pwirth@hallowelt.com>
 -- @version    $Id: rating.sql 10349 2013-09-10 08:57:06Z pwirth $

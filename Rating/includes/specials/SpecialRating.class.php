@@ -2,7 +2,7 @@
 /**
  * Renders the Rating special page.
  *
- * Part of BlueSpice for MediaWiki
+ * Part of BlueSpice MediaWiki
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @version    $Id: SpecialRating.class.php 9041 2013-03-27 13:08:24Z pwirth $
