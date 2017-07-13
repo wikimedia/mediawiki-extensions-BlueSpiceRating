@@ -24,13 +24,14 @@ Ext.define( 'BS.Rating.Panel', {
 		});
 
 		this.columns = [{
-			id: 'reftype', 
-			header: mw.message('bs-rating-specialrating-titleTitle').plain(), 
+			id: 'reftype',
+			header: mw.message('bs-rating-specialrating-titleTitle').plain(),
 			dataIndex: 'page_title',
 			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
 				return record.data.refcontent;
 			},
-			sortable: true
+			sortable: true,
+			filterable: true
 		},{
 			header: mw.message('bs-rating-specialrating-titleRating').plain(),
 			sortable: true,
@@ -39,19 +40,16 @@ Ext.define( 'BS.Rating.Panel', {
 				return value;
 			}
 		},{
-			id: 'votes', 
-			header:mw.message('bs-rating-specialrating-titleVotes').plain(), 
-			dataIndex: 'votes'
+			id: 'votes',
+			header:mw.message('bs-rating-specialrating-titleVotes').plain(),
+			dataIndex: 'votes',
+			sortable: true
 		}];
 
 		this.filters = Ext.create('Ext.ux.grid.FiltersFeature', {
 			encode: true,
 			local: false,
 			filters: [{
-				type: 'string',
-				dataIndex: 'page_title',
-				menuItems: ['ct']
-			}, {
 				type: 'numeric',
 				dataIndex: 'vote',
 				menuItems: ['gt', 'lt', 'eq']
