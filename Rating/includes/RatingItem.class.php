@@ -395,7 +395,7 @@ class RatingItem implements JsonSerializable {
 			'rat_subtype' => $this->getSubType(),
 			'rat_context' => $iContext,
 		);
-		$bSuccess = wfGetDB( DB_WRITE )->insert(
+		$bSuccess = wfGetDB( DB_MASTER )->insert(
 			'bs_rating',
 			$aValues,
 			__METHOD__
@@ -419,7 +419,7 @@ class RatingItem implements JsonSerializable {
 		if( !$oStatus->isOK() ) {
 			return $oStatus;
 		}
-		$bSuccess = wfGetDB( DB_WRITE )->update(
+		$bSuccess = wfGetDB( DB_MASTER )->update(
 			'bs_rating',
 			array( 'rat_value' => $mValue ),
 			array( 'rat_id' => $iID ),
