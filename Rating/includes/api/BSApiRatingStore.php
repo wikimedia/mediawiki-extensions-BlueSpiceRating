@@ -31,7 +31,7 @@ class BSApiRatingStore extends BSApiExtJSStoreBase {
 		$aConditions['rat_reftype'] = 'article';
 		$aConditions['rat_context'] = '';
 
-		$oRes = $this->getDB( DB_READ )->select(
+		$oRes = $this->getDB( DB_SLAVE )->select(
 			$aTables,
 			$aFields,
 			$aConditions,
