@@ -92,7 +92,6 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 
 		$oRatings = $oData->ratings;
 		foreach( $oRatings as $oRating ) {
-			BSDebug::logVar($oRating);
 			$this->assertEquals( $iValue, $oRating->value );
 			$this->assertEquals( 1, $oRating->ref );
 		}
