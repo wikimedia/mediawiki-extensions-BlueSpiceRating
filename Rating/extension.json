@@ -138,7 +138,8 @@
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "Rating::getSchemaUpdates",
 		"BeforePageDisplay": "Rating::onBeforePageDisplay",
-		"RatingRegister": "Rating::onRatingRegister"
+		"RatingRegister": "Rating::onRatingRegister",
+		"UnitTestsList" : "Rating::onUnitTestsList"
 	},
 	"manifest_version": 1
 }

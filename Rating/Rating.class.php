@@ -347,4 +347,15 @@ class Rating extends BsExtensionMW {
 		);
 		return true;
 	}
+
+	/**
+	* Hook handler for UnitTestList
+	*
+	* @param array $paths
+	* @return boolean
+	*/
+	public static function onUnitTestsList( &$paths ) {
+		$paths[] = __DIR__ . '/tests/phpunit/';
+		return true;
+	}
 }
