@@ -49,6 +49,13 @@ class Rating extends BsExtensionMW {
 			'bs-rating-toc-enratingns',
 			'multiselectex'
 		);
+		BsConfig::registerVar(
+			'MW::Rating::enArticleLikeNS',
+			[],
+			BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_ARRAY_INT | BsConfig::USE_PLUGIN_FOR_PREFS,
+			'bs-rating-toc-enarticlelikens',
+			'multiselectex'
+		);
 
 		$this->setHook( 'SkinTemplateOutputPageBeforeExec' );
 
@@ -82,6 +89,7 @@ class Rating extends BsExtensionMW {
 	 */
 	public static function onRatingRegister( &$aRatings ) {
 		$aRatings['article'] = 'RatingConfigArticle';
+		$aRatings['articlelike'] = 'RatingConfigArticleLike';
 		return true;
 	}
 
@@ -92,12 +100,19 @@ class Rating extends BsExtensionMW {
 	 * @return boolean always true
 	 */
 	public function onSkinTemplateOutputPageBeforeExec(&$skin, &$template){
-		if( !$oATitle = $this->getArticleContext( $skin->getTitle() ) ) {
-			return true;
+		$oATitle = $this->getArticleContext( $skin->getTitle() );
+		if( $oATitle ) {
+			$template->data['title'] .= RatingItemArticle::newFromTitle(
+				$oATitle
+			)->getTag();
 		}
 
-		$template->data['title'] .= RatingItemArticle::newFromTitle( $oATitle )
-			->getTag();
+		$oALikeTitle = $this->getArticleLikeContext( $skin->getTitle() );
+		if( $oALikeTitle ) {
+			$template->data['title'] .= RatingItemArticleLike::newFromTitle(
+				$oALikeTitle
+			)->getTag();
+		}
 		return true;
 	}
 
@@ -137,6 +152,7 @@ class Rating extends BsExtensionMW {
 		$aPrefs = array();
 
 		switch ($oVariable->getName()) {
+			case 'enArticleLikeNS':
 			case 'enRatingNS':
 				global $wgContLang;
 				$aExcludeNmsps = array( NS_MEDIAWIKI, NS_SPECIAL, NS_MEDIA );
@@ -192,6 +208,74 @@ class Rating extends BsExtensionMW {
 			return true;
 		}
 
+		if( !$oTitle = $this->checkRequestTitle( $oTitle ) ) {
+			return false;
+		}
+
+		$aEnabledNamespaces = BsConfig::get( 'MW::Rating::enRatingNS' );
+		if( !in_array( $oTitle->getNamespace(), $aEnabledNamespaces ) ) {
+			return false;
+		}
+
+		if( empty($sCheckRatingPermission) ) {
+			return $oTitle;
+		}
+		if( !$oRatingItem = RatingItemArticle::newFromTitle( $oTitle ) ) {
+			return false;
+		}
+		$oStatus = $oRatingItem->userCan(
+			$this->getUser(),
+			$sCheckRatingPermission,
+			$oTitle
+		);
+
+		if( !$oStatus->isOK() ) {
+			return false;
+		}
+
+		return $oTitle;
+	}
+
+	/**
+	 * Checks wether to set Context or not and returns the context Title.
+	 * @param Title $oTitle
+	 * @param string $sCheckRatingPermission
+	 * @return Title - or false
+	 */
+	public function getArticleLikeContext( Title $oTitle = null, $sCheckRatingPermission = 'read') {
+		if( !RatingRegistry::isRegisteredType( 'articlelike' ) ) {
+			return true;
+		}
+
+		if( !$oTitle = $this->checkRequestTitle( $oTitle ) ) {
+			return false;
+		}
+
+		$aEnabledNamespaces = BsConfig::get( 'MW::Rating::enArticleLikeNS' );
+		if( !in_array( $oTitle->getNamespace(), $aEnabledNamespaces ) ) {
+			return false;
+		}
+
+		if( empty( $sCheckRatingPermission ) ) {
+			return $oTitle;
+		}
+		if( !$oRatingItem = RatingItemArticleLike::newFromTitle( $oTitle ) ) {
+			return false;
+		}
+		$oStatus = $oRatingItem->userCan(
+			$this->getUser(),
+			$sCheckRatingPermission,
+			$oTitle
+		);
+
+		if( !$oStatus->isOK() ) {
+			return false;
+		}
+
+		return $oTitle;
+	}
+
+	protected function checkRequestTitle( \Title $oTitle = null ) {
 		if( !$oTitle instanceof Title ) {
 			return false;
 		}
@@ -215,31 +299,10 @@ class Rating extends BsExtensionMW {
 		if( $oTitle->getNamespace() === NS_SPECIAL ) {
 			return false;
 		}
-
-		$aEnabledNamespaces = BsConfig::get( 'MW::Rating::enRatingNS' );
-		if( !in_array( $oTitle->getNamespace(), $aEnabledNamespaces ) ) {
-			return false;
-		}
 		$vNoRating = BsArticleHelper::getInstance( $oTitle )->getPageProp(
 			'bs_norating'
 		);
 		if( !is_null($vNoRating) ) {
-			return false;
-		}
-
-		if( empty($sCheckRatingPermission) ) {
-			return $oTitle;
-		}
-		if( !$oRatingItem = RatingItemArticle::newFromTitle( $oTitle ) ) {
-			return false;
-		}
-		$oStatus = $oRatingItem->userCan(
-			$this->getUser(),
-			$sCheckRatingPermission,
-			$oTitle
-		);
-
-		if( !$oStatus->isOK() ) {
 			return false;
 		}
 
