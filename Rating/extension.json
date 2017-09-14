@@ -31,8 +31,10 @@
 		"Rating": "Rating.class.php",
 		"RatingItem": "includes/RatingItem.class.php",
 		"RatingItemArticle": "includes/ratingitems/RatingItemArticle.php",
+		"RatingItemArticleLike": "includes/ratingitems/RatingItemArticleLike.php",
 		"RatingConfig": "includes/RatingConfig.php",
 		"RatingConfigArticle": "includes/ratingconfigs/RatingConfigArticle.php",
+		"RatingConfigArticleLike": "includes/ratingconfigs/RatingConfigArticleLike.php",
 		"RatingRegistry": "includes/RatingRegistry.php",
 		"BSApiTasksRating": "includes/api/BSApiTasksRating.php",
 		"BSApiRatingStore": "includes/api/BSApiRatingStore.php",
@@ -76,6 +78,27 @@
 			"messages": [
 				"bs-rating-yourrating"
 			]
+		},
+		"ext.bluespice.ratingItemArticleLike": {
+			"scripts": [
+				"bluespice.ratingItemArticleLike.js"
+			],
+			"targets": [ "desktop", "mobile" ],
+			"dependencies": [
+				"ext.bluespice.rating",
+				"ext.bluespice.ratingItem"
+			],
+			"messages": [
+				"bs-rating-yourrating"
+			]
+		},
+		"ext.bluespice.ratingItemArticleLike.styles": {
+			"styles": [
+				"bluespice.ratingarticlelike.css"
+			],
+			"position": "top",
+			"dependencies": "ext.bluespice",
+			"targets": [ "desktop", "mobile" ]
 		},
 		"ext.bluespice.specialRating": {
 			"scripts": "bluespice.specialRating.js",
