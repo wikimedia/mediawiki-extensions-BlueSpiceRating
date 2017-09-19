@@ -12,13 +12,16 @@ bs.rating.ItemArticleLike = function( $el, type, data ) {
 	var me = this;
 	me.makeVoteButton();
 	me.makeNumVotes();
+	me.makeUserVoted();
 
 	me.getEl().append( me.$voteButton );
 	me.getEl().append( me.$numVotes );
+	me.getEl().append( me.$userVoted );
 
 	if( me.userVoted() ) {
 		me.$voteButton.addClass( 'uservoted' );
 		me.$numVotes.addClass( 'uservoted' );
+		me.$userVoted.show();
 	}
 	$( me.getEl() ).on(
 		"click",
@@ -55,9 +58,11 @@ bs.rating.ItemArticleLike.prototype.reset = function( data ) {
 	if( me.userVoted() ) {
 		me.$voteButton.addClass( 'uservoted' );
 		me.$numVotes.addClass( 'uservoted' );
+		me.$userVoted.show();
 	} else {
 		me.$voteButton.removeClass( 'uservoted' );
 		me.$numVotes.removeClass( 'uservoted' );
+		me.$userVoted.hide();
 	}
 };
 
@@ -78,4 +83,10 @@ bs.rating.ItemArticleLike.prototype.makeNumVotes = function( data ) {
 		+ '</span>'
 	);
 	return this.$numVotes;
+};
+
+bs.rating.ItemArticleLike.prototype.makeUserVoted = function( data ) {
+	this.$userVoted = $(
+		'<span class="bs-rating-article-uservoted"></span>'
+	).hide();
 };
