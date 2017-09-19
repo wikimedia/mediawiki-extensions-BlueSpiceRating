@@ -89,7 +89,8 @@
 				"ext.bluespice.ratingItem"
 			],
 			"messages": [
-				"bs-rating-yourrating"
+				"bs-rating-yourrating",
+				"bs-rating-articlelike-ratingtext"
 			]
 		},
 		"ext.bluespice.ratingItemArticleLike.styles": {

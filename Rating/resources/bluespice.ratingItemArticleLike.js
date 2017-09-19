@@ -1,8 +1,8 @@
 /**
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @version    2.27.2
- * @package    BluespiceSocial
- * @subpackage BSSocialRating
+ * @package    BluespiceRating
+ * @subpackage Rating
  * @copyright  Copyright (C) 2017 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  */
@@ -12,13 +12,16 @@ bs.rating.ItemArticleLike = function( $el, type, data ) {
 	var me = this;
 	me.makeVoteButton();
 	me.makeNumVotes();
+	me.makeUserVoted();
 
 	me.getEl().append( me.$voteButton );
 	me.getEl().append( me.$numVotes );
+	me.getEl().append( me.$userVoted );
 
 	if( me.userVoted() ) {
 		me.$voteButton.addClass( 'uservoted' );
 		me.$numVotes.addClass( 'uservoted' );
+		me.$userVoted.show();
 	}
 	$( me.getEl() ).on(
 		"click",
@@ -55,9 +58,11 @@ bs.rating.ItemArticleLike.prototype.reset = function( data ) {
 	if( me.userVoted() ) {
 		me.$voteButton.addClass( 'uservoted' );
 		me.$numVotes.addClass( 'uservoted' );
+		me.$userVoted.show();
 	} else {
 		me.$voteButton.removeClass( 'uservoted' );
 		me.$numVotes.removeClass( 'uservoted' );
+		me.$userVoted.hide();
 	}
 };
 
@@ -72,10 +77,16 @@ bs.rating.ItemArticleLike.prototype.makeNumVotes = function( data ) {
 	this.$numVotes = $(
 		'<span class="bs-rating-articlelike-numvotes">'
 		+ mw.message(
-			'bs-socialrating-aftercontent-ratingtext',
+			'bs-rating-articlelike-ratingtext',
 			this.getVoteCount()
 		).parse()
 		+ '</span>'
 	);
 	return this.$numVotes;
+};
+
+bs.rating.ItemArticleLike.prototype.makeUserVoted = function( data ) {
+	this.$userVoted = $(
+		'<span class="bs-rating-articlelike-uservoted"></span>'
+	).hide();
 };
