@@ -87,6 +87,6 @@ bs.rating.ItemArticleLike.prototype.makeNumVotes = function( data ) {
 
 bs.rating.ItemArticleLike.prototype.makeUserVoted = function( data ) {
 	this.$userVoted = $(
-		'<span class="bs-rating-article-uservoted"></span>'
+		'<span class="bs-rating-articlelike-uservoted"></span>'
 	).hide();
 };
