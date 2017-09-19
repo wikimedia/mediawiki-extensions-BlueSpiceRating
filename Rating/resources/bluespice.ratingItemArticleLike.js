@@ -1,8 +1,8 @@
 /**
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @version    2.27.2
- * @package    BluespiceSocial
- * @subpackage BSSocialRating
+ * @package    BluespiceRating
+ * @subpackage Rating
  * @copyright  Copyright (C) 2017 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  */
@@ -77,7 +77,7 @@ bs.rating.ItemArticleLike.prototype.makeNumVotes = function( data ) {
 	this.$numVotes = $(
 		'<span class="bs-rating-articlelike-numvotes">'
 		+ mw.message(
-			'bs-socialrating-aftercontent-ratingtext',
+			'bs-rating-articlelike-ratingtext',
 			this.getVoteCount()
 		).parse()
 		+ '</span>'

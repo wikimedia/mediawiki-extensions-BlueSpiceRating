@@ -16,6 +16,7 @@
 	"rating": "Bewertungen",
 	"bs-rating-yourrating": "Deine Bewertung: $1",
 	"bs-rating-special-rating-heading": "Bewertungen",
+	"bs-rating-articlelike-ratingtext": "Empfehlen($1)",
 	"action-rating-viewspecialpage": "Seiten, die durch das \"Rating-Viewspecialpage\" Recht geschützt sind, aufzurufen",
 	"bs-specialrating-err-permissiondenied": "Zugriff verweigert",
 	"bs-specialrating-err-invalidreftype": "Ungültiger Bewertungs-Typ",

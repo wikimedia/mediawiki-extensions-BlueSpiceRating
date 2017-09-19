@@ -16,6 +16,7 @@
 	"rating": "Ratings",
 	"bs-rating-yourrating": "Your Rating: $1",
 	"bs-rating-special-rating-heading": "Ratings",
+	"bs-rating-articlelike-ratingtext": "Recommend($1)",
 	"action-rating-viewspecialpage": "view pages which are protected with the \"Rating-Viewspecialpage\" right",
 	"bs-specialrating-err-permissiondenied": "Permission denied",
 	"bs-specialrating-err-invalidreftype": "Invalid rating type",
