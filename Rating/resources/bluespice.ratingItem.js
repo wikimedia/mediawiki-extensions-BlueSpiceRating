@@ -16,13 +16,14 @@ bs.rating.Item = function( $el, type, data ) {
 	this.votetask = 'vote';
 	this.reloadtask = 'reload';
 	this.taskApi = 'rating';
-	this.data = new mw.Map( data );
+	this.data = new mw.Map();
+	this.data.set( data );
 };
 OO.initClass( bs.rating.Item );
-OO.mixinClass( bs.rating.Item, OO.EventEmitter );
+OO.inheritClass( bs.rating.Item, OO.EventEmitter );
 
 bs.rating.Item.prototype.makeUiID = function() {
-	var uiID = bs.rating.getUiID( this.$el );
+	var uiID = bs.rating.getUiID( this.getEl() );
 	if( uiID ) {
 		return uiID;
 	}
@@ -33,7 +34,8 @@ bs.rating.Item.prototype.makeUiID = function() {
 };
 bs.rating.Item.prototype.reset = function( data ) {
 	this.getEl().attr( 'data-item', data );
-	this.data = new mw.Map( JSON.parse( data ) );
+	this.data = new mw.Map();
+	this.data.set( JSON.parse( data ) );
 };
 bs.rating.Item.prototype.getEl = function() {
 	return this.$el;
