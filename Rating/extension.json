@@ -43,8 +43,6 @@
 	"ResourceModules": {
 		"ext.bluespice.rating.styles": {
 			"styles": "bluespice.rating.css",
-			"position": "top",
-			"dependencies": "ext.bluespice",
 			"targets": [ "desktop", "mobile" ]
 		},
 		"ext.bluespice.rating": {
@@ -97,8 +95,6 @@
 			"styles": [
 				"bluespice.ratingarticlelike.css"
 			],
-			"position": "top",
-			"dependencies": "ext.bluespice",
 			"targets": [ "desktop", "mobile" ]
 		},
 		"ext.bluespice.specialRating": {
