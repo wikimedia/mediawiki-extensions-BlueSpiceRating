@@ -20,7 +20,7 @@ bs.rating.Item = function( $el, type, data ) {
 	this.data.set( data );
 };
 OO.initClass( bs.rating.Item );
-OO.inheritClass( bs.rating.Item, OO.EventEmitter );
+OO.mixinClass( bs.rating.Item, OO.EventEmitter );
 
 bs.rating.Item.prototype.makeUiID = function() {
 	var uiID = bs.rating.getUiID( this.getEl() );
