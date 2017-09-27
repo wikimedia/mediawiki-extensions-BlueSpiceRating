@@ -1,0 +1,8 @@
+{
+  "name": "mediawiki/blue-spice-rating",
+  "type": "mediawiki-extension",
+  "description": "Provides a rating system",
+  "require": {
+    "composer/installers": "~1.0"
+  }
+}
