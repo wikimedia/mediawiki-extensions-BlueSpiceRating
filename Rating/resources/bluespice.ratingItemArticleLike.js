@@ -77,7 +77,9 @@ bs.rating.ItemArticleLike.prototype.makeNumVotes = function( data ) {
 	this.$numVotes = $(
 		'<span class="bs-rating-articlelike-numvotes">'
 		+ mw.message(
-			'bs-rating-articlelike-ratingtext',
+			this.userVoted()
+				? 'bs-rating-articlelike-uratingtextservoted'
+				: 'bs-rating-articlelike-ratingtext',
 			this.getVoteCount()
 		).parse()
 		+ '</span>'
