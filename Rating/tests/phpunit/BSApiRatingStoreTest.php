@@ -3,11 +3,18 @@
 /**
  * @group medium
  * @group api
+ * @group Database
  * @group BlueSpice
  * @group BlueSpiceRating
  */
 class BSApiRatingStoreTests extends BSApiExtJSStoreTestBase {
 	protected $iFixtureTotal = 2;
+
+	protected $tablesUsed = [ 'page', 'bs_rating' ];
+
+		protected function skipAssertTotal() {
+		return true;
+	}
 
 	protected function getStoreSchema() {
 		return [
@@ -32,7 +39,9 @@ class BSApiRatingStoreTests extends BSApiExtJSStoreTestBase {
 		];
 	}
 
-	protected function createStoreFixtureData() {
+	protected function createStoreFixtureData() {}
+
+	public function addDBData() {
 		$oTitle = Title::newFromId( 1 );
 
 		$oUserSysop = self::$users['sysop']->getUser();
