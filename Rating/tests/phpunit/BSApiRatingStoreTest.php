@@ -12,7 +12,7 @@ class BSApiRatingStoreTests extends BSApiExtJSStoreTestBase {
 
 	protected $tablesUsed = [ 'page', 'bs_rating' ];
 
-		protected function skipAssertTotal() {
+	protected function skipAssertTotal() {
 		return true;
 	}
 
