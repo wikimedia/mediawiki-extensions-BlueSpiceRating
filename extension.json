@@ -8,7 +8,7 @@
 	"bsgExtensions": {
 		"Rating": {
 			"className": "Rating",
-			"extPath": "/BlueSpiceRating/Rating",
+			"extPath": "/BlueSpiceRating",
 			"package": "BlueSpice Pro"
 		}
 	},
@@ -17,7 +17,8 @@
 	},
 	"APIModules": {
 		"bs-rating-tasks": "BSApiTasksRating",
-		"bs-rating-store": "BSApiRatingStore"	},
+		"bs-rating-store": "BSApiRatingStore"
+	},
 	"MessagesDirs": {
 		"Rating": [
 			"i18n"
@@ -130,7 +131,7 @@
 	},
 	"ResourceFileModulePaths": {
 		"localBasePath": "resources",
-		"remoteExtPath": "BlueSpiceRating/Rating/resources"
+		"remoteExtPath": "BlueSpiceRating/resources"
 	},
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "Rating::getSchemaUpdates",

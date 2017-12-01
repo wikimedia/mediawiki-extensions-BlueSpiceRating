@@ -22,9 +22,8 @@
  * For further information visit http://bluespice.com
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.1
- * @package    BlueSpiceRating
- * @subpackage Rating
+ * @package    BlueSpice Pro
+ * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  * @filesource
@@ -49,6 +48,7 @@ class Rating extends BsExtensionMW {
 			'bs-rating-toc-enratingns',
 			'multiselectex'
 		);
+
 		BsConfig::registerVar(
 			'MW::Rating::enArticleLikeNS',
 			[],
