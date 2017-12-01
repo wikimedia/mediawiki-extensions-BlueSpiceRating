@@ -26,77 +26,99 @@
  * @filesource
  */
 
+namespace BlueSpice\Rating;
+
 /**
  * RatingConfig class for Rating extension
  * @package BlueSpiceFoundation
  */
-abstract class RatingConfig implements JsonSerializable {
-	protected static $aRatingConfigs = null;
-	protected static $aDefaults = array();
-	protected $sType = '';
+abstract class RatingConfig implements \JsonSerializable {
+	protected $type = '';
+
+	/**
+	 *
+	 * @var \Config
+	 */
+	protected $config = null;
+
+	/**
+	 *
+	 * @var array
+	 */
+	protected $defaults = [];
+
+	/**
+	 *
+	 * @param type $config
+	 */
+	public function __construct( $config, $type, $defaults = [] ) {
+		$this->config = $config;
+		$this->type = $type;
+		$this->defaults = array_merge(
+			$this->addGetterDefaults(),
+			$defaults
+		);
+	}
 
 	/**
 	 * RatingConfig factory
-	 * @param string $sType - Rating type
+	 * @deprecated since version 3.0.0 - Use MediaWikiService
+	 * 'RatingConfigFactory' instead
+	 * @param string $type - Rating type
 	 * @return RatingConfig - or null
 	 */
-	public static function factory( $sType ) {
-		if( !is_null(static::$aRatingConfigs) ) {
-			if( !isset(static::$aRatingConfigs[$sType]) ) {
-				return null;
-			}
-			return static::$aRatingConfigs[$sType];
-		}
-		//TODO: Check params and classes
-		$aRegisteredEntities = RatingRegistry::getRegisteredRatings();
-		foreach( $aRegisteredEntities as $sKey => $sConfigClass ) {
-			static::$aRatingConfigs[$sKey] = new $sConfigClass();
-			static::$aRatingConfigs[$sKey]->sType = $sKey;
-			array_merge(
-				static::$aDefaults,
-				static::$aRatingConfigs[$sKey]->addGetterDefaults()
-			);
-		}
-		Hooks::run( 'RatingConfigDefaults', array( &static::$aDefaults ) );
-		return static::$aRatingConfigs[$sType];
+	public static function factory( $type ) {
+		wfDeprecated( __METHOD__, '3.0.0' );
+		$configFactory = MediaWikiServices::getInstance()->getService(
+			'BSRatingConfigFactory'
+		);
+		return $configFactory->newFromType( $type );
 	}
 
-	protected static function getDefault( $sMethod ) {
-		if( !isset(static::$aDefaults[$sMethod]) ) {
-			return false;
+	protected function getDefault( $sOption ) {
+		if( isset( $this->defaults[$sOption] ) ) {
+			return $this->defaults[$sOption];
 		}
-		return static::$aDefaults[$sMethod];
+		return $this->getConfig()->has( $sOption )
+			? $this->getConfig()->get( $sOption )
+			: false
+		;
 	}
 
 	public function getType() {
-		return $this->sType;
+		return $this->type;
 	}
 
 	/**
 	 * Getter for config methods
-	 * @param string $sMethod
+	 * @param string $method
 	 * @return mixed - The return value of the internaly called method or the
 	 * default
 	 */
-	public function get( $sMethod ) {
-		$sMethod = "get_$sMethod";
-		if( !is_callable( array($this, $sMethod) ) ) {
-			static::getDefault( $sMethod );
+	public function get( $method ) {
+		$method = "get_$method";
+		if( !is_callable( array($this, $method) ) ) {
+			$this->getDefault( $method );
 		}
-		return $this->$sMethod();
+		return $this->$method();
 	}
 
+	/**
+	 * Returns a json serializable object
+	 * @return stdClass
+	 */
 	public function jsonSerialize() {
 		$aConfig = array();
-		foreach( get_class_methods( $this ) as $sMethod ) {
-			if( strpos($sMethod, 'get_') !== 0 ) {
+		foreach( get_class_methods( $this ) as $method ) {
+			if( strpos($method, 'get_') !== 0 ) {
 				continue;
 			}
-			$sVarName = substr( $sMethod, 4 );
-			$aConfig[$sVarName] = $this->$sMethod();
+			//remove the get_
+			$sVarName = substr( $method, 4 );
+			$aConfig[$sVarName] = $this->$method();
 		}
-		return array_merge(
-			static::$aDefaults,
+		return (object) array_merge(
+			$this->defaults,
 			$aConfig
 		);
 	}
@@ -110,11 +132,9 @@ abstract class RatingConfig implements JsonSerializable {
 	protected function get_ModuleScripts() {
 		return [ 'ext.bluespice.rating', 'ext.bluespice.ratingItem' ];
 	}
-
 	protected function get_ModuleStyles() {
 		return [ 'ext.bluespice.rating.styles' ];
 	}
-
 	protected function get_AllowedValues() {
 		return [ 1 ]; // basic like
 	}
@@ -145,14 +165,13 @@ abstract class RatingConfig implements JsonSerializable {
 	protected function get_IsAnonymous() {
 		return true;
 	}
-
 	protected function get_HTMLTag() {
 		return 'div';
 	}
 	protected function get_HTMLTagOptions() {
 		return [
 			'class' => ['bs-rating'],
-			'data-type' => $this->sType,
+			'data-type' => $this->type,
 		];
 	}
 }

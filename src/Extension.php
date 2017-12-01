@@ -29,12 +29,38 @@
  * @filesource
  */
 
+namespace BlueSpice\Rating;
+
 /**
  * Base class for Rating extension
  * @package BlueSpice_pro
  * @subpackage Rating
  */
-class Rating extends BsExtensionMW {
+class Rating extends \BlueSpice\Extension {
+
+	public function __construct( array $definition, \IContextSource $context, \Config $config) {
+		parent::__construct( $definition, $context, $config );
+
+		$core = \BsCore::getInstance();
+		$core->registerBehaviorSwitch( 'bs_norating' );
+
+		$core->registerPermission(
+			'rating-write',
+			['user']
+		);
+		$core->registerPermission(
+			'rating-read',
+			['*']
+		);
+		$core->registerPermission(
+			'rating-archive',
+			['sysop']
+		);
+		$core->registerPermission(
+			'rating-viewspecialpage',
+			['user']
+		);
+	}
 	/**
 	 * Initialization of Rating extension
 	 */
@@ -61,36 +87,8 @@ class Rating extends BsExtensionMW {
 
 		$this->setHook( 'BSUserSidebarGlobalActionsWidgetGlobalActions' );
 
-		$this->mCore->registerBehaviorSwitch( 'bs_norating' );
-
-		$this->mCore->registerPermission(
-			'rating-write',
-			['user']
-		);
-		$this->mCore->registerPermission(
-			'rating-read',
-			['*']
-		);
-		$this->mCore->registerPermission(
-			'rating-archive',
-			['sysop']
-		);
-		$this->mCore->registerPermission(
-			'rating-viewspecialpage',
-			['user']
-		);
 
 		wfProfileOut( 'BS::'.__METHOD__ );
-	}
-
-	/**
-	 * @param array $aRatings
-	 * @return boolean
-	 */
-	public static function onRatingRegister( &$aRatings ) {
-		$aRatings['article'] = 'RatingConfigArticle';
-		$aRatings['articlelike'] = 'RatingConfigArticleLike';
-		return true;
 	}
 
 	/**
@@ -307,45 +305,6 @@ class Rating extends BsExtensionMW {
 		}
 
 		return $oTitle;
-	}
-
-	/**
-	 * @param OutputPage $out
-	 * @param Skin $skin
-	 */
-	public static function onBeforePageDisplay( OutputPage &$out, Skin &$skin ) {
-		$out->addModuleStyles( 'ext.bluespice.rating.icons' );
-
-		$aConfig = $aScripts = $aStyles = [];
-		foreach( RatingRegistry::getRegisterdTypeKeys() as $sKey ) {
-			$oConfig = RatingConfig::factory( $sKey );
-			$aConfig[$sKey] = $oConfig->jsonSerialize();
-			if( $a = $oConfig->get('ModuleStyles') ) {
-				$aStyles = array_merge( $aStyles, $a );
-			}
-			if( $a = $oConfig->get('ModuleScripts') ) {
-				$aScripts = array_merge( $aScripts, $a );
-			}
-		}
-
-		//Make sure to have arrays in JS!
-		$aScripts = array_values( array_unique( $aScripts ) );
-		$aStyles = array_values( array_unique( $aStyles ) );
-
-		if( !empty( $aScripts ) ) {
-			$out->addModules( $aScripts );
-		}
-		if( !empty( $aStyles ) ) {
-			$out->addModuleStyles(  $aStyles );
-		}
-		if( !empty( $aConfig ) ) {
-			$out->addJsConfigVars( 'BSRatingConfig', $aConfig );
-		}
-		$out->addJsConfigVars(
-			'BSRatingModules',
-			$aScripts
-		);
-		return true;
 	}
 
 	/**

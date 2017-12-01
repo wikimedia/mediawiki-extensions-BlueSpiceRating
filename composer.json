@@ -4,5 +4,11 @@
 	"description": "Provides a rating system",
 	"require": {
 		"composer/installers": "~1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"BlueSpice\\Rating\\" : "src",
+			"BlueSpice\\Rating\\Tests\\": "tests/phpunit"
+		}
 	}
 }

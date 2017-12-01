@@ -26,36 +26,55 @@
  * @filesource
  */
 
+namespace BlueSpice\Rating;
+
 /**
  * RatingRegistry class for Rating extension
  * @package BlueSpiceRating
  */
 class RatingRegistry {
-	private function __construct() {}
-	private static $bRatingsRegistered = false;
-	private static $aRatings = array();
+	protected $ratingDefinitions = null;
 
-	protected static function runRegister( $bForceReload = false ) {
-		if( static::$bRatingsRegistered && !$bForceReload ) {
+	/**
+	 *
+	 * @var \Config
+	 */
+	protected $config = null;
+
+	/**
+	 *
+	 * @param type $config
+	 */
+	public function __construct( $config ) {
+		$this->config = $config;
+	}
+
+	protected function runRegister( $forceReload = false ) {
+		if( $this->ratingDefinitions && !$forceReload ) {
 			return true;
 		}
 
-		$b = wfRunHooks( 'RatingRegister', array(
-			&self::$aRatings,
-		));
+		$extRegistry = \ExtensionRegistry::getInstance();
+		$this->ratingDefinitions = $extRegistry->getAttribute(
+			'BlueSpiceRatingRatingRegistry'
+		);
 
-		return $b ? static::$bRatingsRegistered = true : $b;
+		//This hook is deprecated - Use attributes mechanism in extension.json
+		//to register entities
+		\Hooks::run( 'RatingRegister', [ &$this->ratingDefinitions ] );
+
+		return true;
 	}
 
 	/**
 	 * Returns all registered entities ( type => RatingConfigClass )
 	 * @return array
 	 */
-	public static function getRegisteredRatings() {
-		if( !self::runRegister() ) {
-			return array();
+	public function getRatingDefinitions() {
+		if( !$this->runRegister() ) {
+			return [];
 		}
-		return self::$aRatings;
+		return $this->ratingDefinitions;
 	}
 
 	/**
@@ -63,10 +82,10 @@ class RatingRegistry {
 	 * @param string $sType
 	 * @return bool
 	 */
-	public static function isRegisteredType( $sType ) {
+	public function isRegisteredType( $sType ) {
 		return in_array(
 			$sType,
-			self::getRegisterdTypeKeys()
+			$this->getRegisterdTypeKeys()
 		);
 	}
 
@@ -75,20 +94,20 @@ class RatingRegistry {
 	 * @param string $sType
 	 * @return array
 	 */
-	public static function getRegisteredRatingByType( $sType ) {
-		if( !self::isRegisteredType($sType) ) {
-			return array();
+	public function getRegisteredRatingByType( $sType ) {
+		if( !$this->isRegisteredType($sType) ) {
+			return [];
 		}
-		return self::$aRatings[$sType];
+		return $this->ratingDefinitions[$sType];
 	}
 
 	/**
 	 * Returns all registered rating types
 	 * @return array
 	 */
-	public static function getRegisterdTypeKeys() {
+	public function getRegisterdTypeKeys() {
 		return array_keys(
-			self::getRegisteredRatings()
+			$this->getRatingDefinitions()
 		);
 	}
 }

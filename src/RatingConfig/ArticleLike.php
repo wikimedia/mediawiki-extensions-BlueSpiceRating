@@ -1,6 +1,6 @@
 <?php
 /**
- * RatingConfigArticle class for Rating extension
+ * ArticleLike class for Rating extension
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,42 +25,43 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  * @filesource
  */
+namespace BlueSpice\Rating\RatingConfig;
 
+use BlueSpice\Rating\RatingConfig;
 /**
- * RatingConfigArticle class for Rating extension
+ * ArticleLike class for Rating extension
  * @package BlueSpiceFoundation
  */
-class RatingConfigArticle extends RatingConfig {
-	protected $sType = 'article';
+class ArticleLike extends RatingConfig {
+	protected $type = 'articlelike';
 
 	protected function get_RatingClass() {
-		return "RatingItemArticle";
+		return "RatingItemArticleLike";
 	}
 	protected function get_TypeMsgKey() {
-		return "bs-rating-types-page";
+		return "bs-rating-types-pagelike";
 	}
 
 	protected function get_ModuleScripts() {
 		return array_merge(
 			parent::get_ModuleScripts(), [
-				'ext.rating.starRatingSvg',
-				'ext.bluespice.ratingItemArticle'
+				'ext.bluespice.ratingItemArticleLike'
 			]
 		);
 	}
 	protected function get_ModuleStyles() {
 		return array_merge(
 			parent::get_ModuleStyles(),
-			['ext.rating.starRatingSvg.styles']
+			['ext.bluespice.ratingItemArticleLike.styles']
 		);
 	}
 
 	protected function get_AllowedValues() {
-		return range( 1, 5 ); // basic 5 stars
+		return [ 1 ];
 	}
 
 	protected function get_UserCanRemoveVote() {
-		return false;
+		return true;
 	}
 
 	protected function get_PermissionTitleRequired() {
@@ -69,7 +70,7 @@ class RatingConfigArticle extends RatingConfig {
 
 	protected function get_HTMLTagOptions() {
 		return array_merge_recursive( parent::get_HTMLTagOptions(), [
-			'class' => ['bs-rating-article'],
+			'class' => ['bs-rating-articlelike'],
 		]);
 	}
 }

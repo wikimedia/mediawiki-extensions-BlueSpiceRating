@@ -1,6 +1,6 @@
 <?php
 /**
- * RatingItemArticleLike class for extension Rating
+ * Article class for extension Rating
  *
  * Provides a rating item.
  *
@@ -22,43 +22,44 @@
  * For further information visit http://bluespice.com
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.1
- * @package    BlueSpiceRating
- * @subpackage Rating
+ * @package    BlueSpice Pro
+ * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  * @filesource
  */
+namespace BlueSpice\Rating\RatingItem;
 
+use BlueSpice\Rating\RatingItem;
 /**
- * RatingItemArticleLike class for Rating extension
+ * Article class for Rating extension
  * @package BlueSpiceRating
  * @subpackage Rating
  */
-class RatingItemArticleLike extends RatingItem {
-	protected $sRefType = 'articlelike';
+class Article extends RatingItem {
+	protected $refType = 'article';
 
 	/**
-	 * RatingItemArticleLike from a Title object
-	 * @param Title $oTitle
-	 * @return \RatingItemArticleLike
+	 * Article from a \Title object
+	 * @param \Title $title
+	 * @return Article
 	 */
-	public static function newFromTitle( Title $oTitle ) {
+	public static function newFromTitle( \Title $title ) {
 		return static::newFromObject((object) array(
-			'reftype' => 'articlelike',
-			'ref' => $oTitle->getArticleID(), //check this, omg
+			'reftype' => 'article',
+			'ref' => $title->getArticleID(), //check this, omg
 			'subtype' => '',
 		));
 	}
 
 	public function jsonSerialize() {
-		$aData = parent::jsonSerialize();
-		$oStatus = $this->userCan(
-			RequestContext::getMain()->getUser(),
+		$data = parent::jsonSerialize();
+		$status = $this->userCan(
+			\RequestContext::getMain()->getUser(),
 			'update',
-			Title::newFromID( $this->getRef() )
+			\Title::newFromID( $this->getRef() )
 		);
-		$aData['usercanmodify'] = $oStatus->isOK();
-		return $aData;
+		$data['usercanmodify'] = $status->isOK();
+		return $data;
 	}
 }

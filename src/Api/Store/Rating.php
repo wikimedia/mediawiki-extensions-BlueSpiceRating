@@ -1,6 +1,8 @@
 <?php
 
-class BSApiRatingStore extends BSApiExtJSStoreBase {
+namespace BlueSpice\Rating\Api\Store;
+
+class Rating extends \BSApiExtJSStoreBase {
 
 	protected function getRequiredPermissions() {
 		return array( 'rating-read' );
@@ -55,12 +57,12 @@ class BSApiRatingStore extends BSApiExtJSStoreBase {
 	 * @return array
 	 */
 	protected function makeResultRow( $oRow ) {
-		$oTitle = Title::newFromID( $oRow->rat_ref );
+		$oTitle = \Title::newFromID( $oRow->rat_ref );
 		if( !$oTitle ) {
 			return false;
 		}
 		return (array) $oRow + array(
-			'refcontent' => Linker::link( $oTitle ),
+			'refcontent' => \Linker::link( $oTitle ),
 			'page_title' => $oTitle->getFullText(),
 		);
 	}

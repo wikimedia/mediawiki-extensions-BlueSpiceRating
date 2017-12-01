@@ -25,11 +25,12 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
  */
 
+namespace BlueSpice\Rating\Api\Task;
 /**
  * Api base class for simple tasks in BlueSpice
  * @package BlueSpice_pro
  */
-class BSApiTasksRating extends BSApiTasksBase {
+class Rating extends \BSApiTasksBase {
 
 	/**
 	 * Methods that can be called by task param
@@ -56,21 +57,23 @@ class BSApiTasksRating extends BSApiTasksBase {
 		$oResult = $this->makeStandardReturn();
 		$this->checkPermissions();
 
-		$oStatus = RatingItem::ensureBasicParams( $oTaskData );
+		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
+			->getService( 'BSRatingFactory' );
+		$oStatus = $ratingFactory->ensureBasicParams( $oTaskData );
 		if( !$oStatus->isOK() ) {
 			$oResult->message = $oStatus->getHTML();
 			return $oResult;
 		}
-		$oRatingItem = RatingItem::newFromObject( $oTaskData );
+		$oRatingItem = $ratingFactory->newFromObject( $oTaskData );
 		$oTitle = null;
 		if( !isset($oTaskData->value) ) {
 			$oTaskData->value = false;
 		}
 		if( !empty($oTaskData->articleid) ) {
-			$oTitle = Title::newFromID( $oTaskData->articleid );
+			$oTitle = \Title::newFromID( $oTaskData->articleid );
 		}
 		if( !empty($oTaskData->titletext) ) {
-			$oTitle = Title::newFromText( $oTaskData->titletext );
+			$oTitle = \Title::newFromText( $oTaskData->titletext );
 		}
 
 		$oStatus = $oRatingItem->vote(
@@ -90,7 +93,7 @@ class BSApiTasksRating extends BSApiTasksBase {
 		}
 
 		$oResult->success = true;
-		$oResult->payload['data'] = json_encode( $oRatingItem );
+		$oResult->payload['data'] = \FormatJson::encode( $oRatingItem );
 
 		return $oResult;
 	}
@@ -99,15 +102,17 @@ class BSApiTasksRating extends BSApiTasksBase {
 		$oResult = $this->makeStandardReturn();
 		$this->checkPermissions();
 
-		$oStatus = RatingItem::ensureBasicParams( $oTaskData );
+		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
+			->getService( 'BSRatingFactory' );
+		$oStatus = $ratingFactory->ensureBasicParams( $oTaskData );
 		if( !$oStatus->isOK() ) {
 			$oResult->message = $oStatus->getHTML();
 			return $oResult;
 		}
-		$oRatingItem = RatingItem::newFromObject( $oTaskData );
+		$oRatingItem = $ratingFactory->newFromObject( $oTaskData );
 
 		$oResult->success = true;
-		$oResult->payload['data'] = json_encode( $oRatingItem );
+		$oResult->payload['data'] = \FormatJson::encode( $oRatingItem );
 
 		return $oResult;
 	}
