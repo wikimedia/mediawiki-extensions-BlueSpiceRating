@@ -133,9 +133,26 @@
 		"localBasePath": "resources",
 		"remoteExtPath": "BlueSpiceRating/resources"
 	},
+	"config_prefix": "bsg",
+	"config": {
+		"RatingenRatingNS": {
+			"value": [ 0 ],
+			"descriptionmsg": "bs-rating-toc-enratingns",
+			"public": true
+		},
+		"RatingenArticleLikeNS": {
+			"value": [],
+			"descriptionmsg": "bs-rating-toc-enarticlelikens",
+			"public": true
+		}
+	},
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": "\\BlueSpice\\Rating\\Extension::getSchemaUpdates",
 		"BeforePageDisplay": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources::callback",
+		"SkinTemplateOutputPageBeforeExec": [
+			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleRating::callback",
+			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleLikeRating::callback"
+		],
 		"UnitTestsList" : "\\BlueSpice\\Rating\\Extension::onUnitTestsList"
 	},
 	"load_composer_autoloader": true,

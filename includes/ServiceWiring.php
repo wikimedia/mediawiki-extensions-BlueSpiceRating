@@ -18,7 +18,23 @@ return [
 	},
 
 	'BSRatingFactory' => function ( MediaWikiServices $services ) {
-		return new \BlueSpice\RatingFactory(
+		return new \BlueSpice\Rating\RatingFactory(
+			$services->getService( 'BSRatingRegistry' ),
+			$services->getService( 'BSRatingConfigFactory' ),
+			$services->getConfigFactory()->makeConfig( 'bsg' )
+		);
+	},
+
+	'BSRatingFactoryArticle' => function ( MediaWikiServices $services ) {
+		return new \BlueSpice\Rating\RatingFactory\Article(
+			$services->getService( 'BSRatingRegistry' ),
+			$services->getService( 'BSRatingConfigFactory' ),
+			$services->getConfigFactory()->makeConfig( 'bsg' )
+		);
+	},
+
+	'BSRatingFactoryArticleLike' => function ( MediaWikiServices $services ) {
+		return new \BlueSpice\Rating\RatingFactory\ArticleLike(
 			$services->getService( 'BSRatingRegistry' ),
 			$services->getService( 'BSRatingConfigFactory' ),
 			$services->getConfigFactory()->makeConfig( 'bsg' )
