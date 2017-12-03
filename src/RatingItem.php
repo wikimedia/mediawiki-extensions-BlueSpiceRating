@@ -30,6 +30,14 @@
  */
 
 namespace BlueSpice\Rating;
+use BlueSpice\Rating\Data\Rating\Store;
+use BlueSpice\Rating\Data\Rating\Record;
+use BlueSpice\Rating\Data\Rating\Schema;
+use BlueSpice\Data\ReaderParams;
+use BlueSpice\Data\Filter;
+use BlueSpice\Data\RecordSet;
+use BlueSpice\Context;
+
 /**
  * RatingItem class for Rating extension
  * @package BlueSpiceRating
@@ -156,54 +164,71 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
+	 * 
+	 * @return Store
+	 */
+	protected function getStore() {
+		$storeClass = $this->getConfig()->get( 'StoreClass' );
+		if( !class_exists( $storeClass ) ) {
+			return \Status::newFatal( "Store class '$storeClass' not found" );
+		}
+		return new $storeClass(
+			new Context( \RequestContext::getMain(), $this->getConfig() ),
+			\MediaWiki\MediaWikiServices::getInstance()->getDBLoadBalancer()
+		);
+	}
+
+	/**
+	 * 
+	 * @param Schema $schema
+	 */
+	protected function makeLoadRatingsFilter( $schema ) {
+		$filter = [];
+		$filter[] = [
+			Filter::KEY_FIELD => Record::REFTYPE,
+			Filter::KEY_VALUE => $this->getRefType(),
+			Filter::KEY_TYPE => 'string',
+			Filter::KEY_COMPARISON => Filter::COMPARISON_EQUALS
+		];
+		$filter[] = [
+			Filter::KEY_FIELD => Record::REF,
+			Filter::KEY_VALUE => $this->getRef(),
+			Filter::KEY_TYPE => 'string',
+			Filter::KEY_COMPARISON => Filter::COMPARISON_EQUALS
+		];
+		$filter[] = [
+			Filter::KEY_FIELD => Record::SUBTYPE,
+			Filter::KEY_VALUE => $this->getSubType(),
+			Filter::KEY_TYPE => 'string',
+			Filter::KEY_COMPARISON => Filter::COMPARISON_EQUALS
+		];
+		return $filter;
+	}
+
+	/**
 	 * loads the ratings from the bs_rating table
 	 * @return boolean
 	 */
 	protected function loadRating() {
 		$this->ratings = [];
-		$conditions = array( 
-			'rat_reftype' => $this->getRefType(),
-			'rat_subtype' => $this->getSubType(),
-			'rat_ref' => $this->getRef()
-		);
-
-		//Abort query when hook-handler returns false
-		$bReturn = \Hooks::run( 'BSRatingBeforeLoadRatingQuery', [
-			$this->getRef(),
-			$this->getRefType(),
-			&$conditions
-		]);
-		if( !$bReturn ) {
-			return true;
-		}
-
-		$dbr = wfGetDB( DB_SLAVE );
-
-		$res = $dbr->select(
-			'bs_rating',
-			'*',
-			$conditions,
-			__METHOD__
-		);
-		if( !$res ) {
-			return $this->ratings;
-		}
-
-		foreach( $res as $row ) {
-			$this->ratings[$row->rat_id] = [
-				'id'      => $row->rat_id,
-				'reftype' => $row->rat_reftype,
-				'ref'     => $row->rat_ref,
-				'userid'  => $row->rat_userid,
-				'userip'  => $row->rat_userip,
-				'value'   => $row->rat_value,
-				'created' => $row->rat_created,
-				'touched' => $row->rat_touched,
-				'subtype' => $row->rat_subtype,
-				'context' => $row->rat_context,
+		$reader = $this->getStore()->getReader();
+		$result = $reader->read( new ReaderParams([
+			'filter' => $this->makeLoadRatingsFilter( $reader->getSchema() ),
+		]));
+		foreach( $result->getRecords() as $record ) {
+			$this->ratings[$record->get( Record::ID )] = [
+				'id'      => $record->get( Record::ID ),
+				'reftype' => $record->get( Record::REFTYPE ),
+				'ref'     => $record->get( Record::REF ),
+				'userid'  => $record->get( Record::USERID ),
+				'userip'  => $record->get( Record::USERIP ),
+				'value'   => $record->get( Record::VALUE ),
+				'created' => $record->get( Record::CREATED ),
+				'touched' => $record->get( Record::TOUCHED ),
+				'subtype' => $record->get( Record::SUBTYPE ),
+				'context' => $record->get( Record::CONTEXT ),
 			];
 		}
-
 		return $this->ratings;
 	}
 
@@ -321,6 +346,21 @@ class RatingItem implements \JsonSerializable {
 		if( !$status->isOK() ) {
 			return $status;
 		}
+		$writer = $this->getStore()->getWriter();
+		$result = $writer->write( new RecordSet( [
+			new Record( (object) [
+				Record::ID => $id,
+				Record::VALUE => $value,
+				Record::TOUCHED => wfTimestampNow()
+			]),
+		]));
+		foreach( $result->getRecords() as $record ) {
+			if( $record->getStatus()->isOK() ) {
+				continue;
+			}
+			return \Status::newFatal( 'update database error' ); //TODO
+		}
+		return \Status::newGood( $this->invalidateCache() );
 		$success = wfGetDB( DB_MASTER )->update(
 			'bs_rating',
 			array( 'rat_value' => $value ),

@@ -32,7 +32,7 @@ namespace BlueSpice\Rating;
  * RatingConfig class for Rating extension
  * @package BlueSpiceFoundation
  */
-abstract class RatingConfig implements \JsonSerializable {
+abstract class RatingConfig implements \JsonSerializable, \Config {
 	protected $type = '';
 
 	/**
@@ -104,6 +104,22 @@ abstract class RatingConfig implements \JsonSerializable {
 	}
 
 	/**
+	 * check for config methods
+	 * @param string $method
+	 * @return bool
+	 */
+	public function has( $method ) {
+		$method = "get_$method";
+		if( is_callable( array($this, $method) ) ) {
+			return true;
+		}
+		if( isset( $this->defaults[$method] ) ) {
+			return true;
+		}
+		return $this->config->has( $method );
+	}
+
+	/**
 	 * Returns a json serializable object
 	 * @return stdClass
 	 */
@@ -129,6 +145,9 @@ abstract class RatingConfig implements \JsonSerializable {
 	abstract protected function get_RatingClass();
 	abstract protected function get_TypeMsgKey();
 
+	protected function get_StoreClass() {
+		return "\\BlueSpice\\Rating\\Data\\Rating\\Store";
+	}
 	protected function get_ModuleScripts() {
 		return [ 'ext.bluespice.rating', 'ext.bluespice.ratingItem' ];
 	}
