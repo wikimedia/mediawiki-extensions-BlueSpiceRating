@@ -38,7 +38,7 @@ class Article extends RatingConfig {
 	protected $type = 'article';
 
 	protected function get_RatingClass() {
-		return "RatingItemArticle";
+		return "\\BlueSpice\\Rating\\RatingItem\\Article";
 	}
 	protected function get_TypeMsgKey() {
 		return "bs-rating-types-page";

@@ -43,23 +43,6 @@ class Rating extends \BlueSpice\Extension {
 
 		$core = \BsCore::getInstance();
 		$core->registerBehaviorSwitch( 'bs_norating' );
-
-		$core->registerPermission(
-			'rating-write',
-			['user']
-		);
-		$core->registerPermission(
-			'rating-read',
-			['*']
-		);
-		$core->registerPermission(
-			'rating-archive',
-			['sysop']
-		);
-		$core->registerPermission(
-			'rating-viewspecialpage',
-			['user']
-		);
 	}
 	/**
 	 * Initialization of Rating extension
@@ -84,32 +67,6 @@ class Rating extends \BlueSpice\Extension {
 		);
 
 		wfProfileOut( 'BS::'.__METHOD__ );
-	}
-
-	/**
-	 * Adds the table to the database
-	 * @param DatabaseUpdater $updater
-	 * @return boolean Always true to keep Hook running
-	 */
-	public static function getSchemaUpdates( $updater ) {
-		$dir = __DIR__.'/maintenance/db';
-
-		$updater->addExtensionTable(
-			'bs_rating',
-			"$dir/rating.sql"
-		);
-		$updater->addExtensionField(
-			'bs_rating',
-			'rat_subtype',
-			"$dir/bs_rating.newfield.rat_subtype.sql"
-		);
-		$updater->addExtensionField(
-			'bs_rating',
-			'rat_context',
-			"$dir/bs_rating.newfield.rat_context.sql"
-		);
-
-		return true;
 	}
 
 	/**

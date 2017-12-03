@@ -2,7 +2,6 @@
  * Js for Rating extension
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.1
  * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
@@ -57,6 +56,7 @@ bs.rating.createFromEl = function( $el ) {
 	if( !type || type === '' || typeof type === 'undefined' ) {
 		type = 'base';
 	}
+	console.log(type);
 	if( typeof bs.rating.types[type] === "undefined" ) {
 		throw "Unregistered type: " + type;
 	}

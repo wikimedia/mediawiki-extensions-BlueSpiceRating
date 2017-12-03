@@ -39,7 +39,7 @@ class RatingItem implements \JsonSerializable {
 
 	protected $config = null;
 	protected $refType = '';
-	protected $subType = '';
+	protected $subType = 'default';
 	protected $sRef = '';
 	protected $ratings = null;
 
@@ -163,9 +163,8 @@ class RatingItem implements \JsonSerializable {
 		$this->ratings = [];
 		$conditions = array( 
 			'rat_reftype' => $this->getRefType(),
-			'rat_subtype' => [$this->getSubType(), ''],
-			'rat_ref' => $this->getRef(),
-			'rat_archived' => '0'
+			'rat_subtype' => $this->getSubType(),
+			'rat_ref' => $this->getRef()
 		);
 
 		//Abort query when hook-handler returns false
@@ -191,7 +190,7 @@ class RatingItem implements \JsonSerializable {
 		}
 
 		foreach( $res as $row ) {
-			$this->ratings[$row->rat_id] = array(
+			$this->ratings[$row->rat_id] = [
 				'id'      => $row->rat_id,
 				'reftype' => $row->rat_reftype,
 				'ref'     => $row->rat_ref,
@@ -202,7 +201,7 @@ class RatingItem implements \JsonSerializable {
 				'touched' => $row->rat_touched,
 				'subtype' => $row->rat_subtype,
 				'context' => $row->rat_context,
-			);
+			];
 		}
 
 		return $this->ratings;
@@ -335,7 +334,7 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
-	 * Deletes the RatingItem and archives all user ratings
+	 * Deletes all user ratings for this RatingItem
 	 * @return \Status
 	 */
 	public function deleteRatingItem() {
@@ -343,7 +342,7 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
-	 * Archives this RatingItem - When \User given: Archives rating of given user in this RatingItem
+	 * Deletes given \User rating or all ratings when no \User given
 	 * @param \User $user
 	 * @param integer $context
 	 * @return Boolean - true or false
@@ -368,9 +367,8 @@ class RatingItem implements \JsonSerializable {
 
 		$dbr = wfGetDB( DB_SLAVE );
 
-		$b = $dbr->update( 
+		$b = $dbr->delete( 
 			'bs_rating', 
-			array('rat_archived' => '1', 'rat_touched' => wfTimestampNow()), 
 			$conditions 
 		);
 		return \Status::newGood( $this->invalidateCache() );
@@ -492,11 +490,12 @@ class RatingItem implements \JsonSerializable {
 	 */
 	public function hasUserRated( \User $user, $return = false, $context = 0 ) {
 		//use name as ip for anonymous
-		if( empty( $user->getId() ) ) {
-			$user->getId() = $user->getName();
+		$userID = $user->getId();
+		if( empty( $userID ) ) {
+			$userID = $user->getName();
 		}
 		$aRatedUserIDs = $this->getRatedUserIDs( $context );
-		if( in_array( $user->getId(), $aRatedUserIDs ) ) {
+		if( in_array( $userID, $aRatedUserIDs ) ) {
 			$return = true;
 		}
 		return $return;
@@ -557,18 +556,18 @@ class RatingItem implements \JsonSerializable {
 
 	public function getTag() {
 		$aOptions = array_merge_recursive(
-			$this->getConfig()->get('HTMLTagOptions'),
+			$this->getConfig()->get( 'HTMLTagOptions' ),
 			$this->getTagData()
 		);
-		return HTML::element(
-			$this->getConfig()->get('HTMLTag'),
+		return \HTML::element(
+			$this->getConfig()->get( 'HTMLTag' ),
 			$aOptions
 		);
 	}
 
 	public function invalidateCache() {
 		\MediaWiki\MediaWikiServices::getInstance()
-			->getService('BSRatingFactory')
+			->getService( 'BSRatingFactory' )
 			->invalidateCache( $this );
 		$this->loadRating();
 		return $this;

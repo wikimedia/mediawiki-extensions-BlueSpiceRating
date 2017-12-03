@@ -2,7 +2,6 @@
  * Js for Rating extension
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.1
  * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
@@ -192,4 +191,4 @@ bs.rating.Item.prototype.removeLoadingMask = function() {
 	this.getEl().find('.bs-rating-loading-overlay').remove();
 };
 
-bs.rating.register( 'base', 'RatingItem', bs.rating.Item );
+bs.rating.register( 'base', "\\BlueSpice\\Rating\\RatingItem", bs.rating.Item );

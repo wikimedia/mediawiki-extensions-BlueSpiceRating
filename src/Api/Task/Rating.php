@@ -53,68 +53,68 @@ class Rating extends \BSApiTasksBase {
 		);
 	}
 
-	public function task_vote( $oTaskData, $aParams ) {
-		$oResult = $this->makeStandardReturn();
+	public function task_vote( $taskData, $aParams ) {
+		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
 
 		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
 			->getService( 'BSRatingFactory' );
-		$oStatus = $ratingFactory->ensureBasicParams( $oTaskData );
-		if( !$oStatus->isOK() ) {
-			$oResult->message = $oStatus->getHTML();
-			return $oResult;
+		$status = $ratingFactory->ensureBasicParams( $taskData );
+		if( !$status->isOK() ) {
+			$result->message = $status->getHTML();
+			return $result;
 		}
-		$oRatingItem = $ratingFactory->newFromObject( $oTaskData );
-		$oTitle = null;
-		if( !isset($oTaskData->value) ) {
-			$oTaskData->value = false;
+		$rating = $ratingFactory->newFromObject( $taskData );
+		$title = null;
+		if( !isset($taskData->value) ) {
+			$taskData->value = false;
 		}
-		if( !empty($oTaskData->articleid) ) {
-			$oTitle = \Title::newFromID( $oTaskData->articleid );
+		if( !empty($taskData->articleid) ) {
+			$title = \Title::newFromID( $taskData->articleid );
 		}
-		if( !empty($oTaskData->titletext) ) {
-			$oTitle = \Title::newFromText( $oTaskData->titletext );
+		if( !empty($taskData->titletext) ) {
+			$title = \Title::newFromText( $taskData->titletext );
 		}
 
-		$oStatus = $oRatingItem->vote(
+		$status = $rating->vote(
 			$this->getUser(),
-			$oTaskData->value,
+			$taskData->value,
 			$this->getUser(),
 			0,
-			$oTitle
+			$title
 		);
-		if( !$oStatus->isOK() ) {
-			$oResult->message = $oStatus->getHTML();
-			return $oResult;
+		if( !$status->isOK() ) {
+			$result->message = $status->getHTML();
+			return $result;
 		}
 
-		if( $oTitle ) {
-			$oTitle->invalidateCache();
+		if( $title ) {
+			$title->invalidateCache();
 		}
 
-		$oResult->success = true;
-		$oResult->payload['data'] = \FormatJson::encode( $oRatingItem );
+		$result->success = true;
+		$result->payload['data'] = \FormatJson::encode( $rating );
 
-		return $oResult;
+		return $result;
 	}
 
-	public function task_reload( $oTaskData, $aParams ) {
-		$oResult = $this->makeStandardReturn();
+	public function task_reload( $taskData, $aParams ) {
+		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
 
 		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
 			->getService( 'BSRatingFactory' );
-		$oStatus = $ratingFactory->ensureBasicParams( $oTaskData );
-		if( !$oStatus->isOK() ) {
-			$oResult->message = $oStatus->getHTML();
-			return $oResult;
+		$status = $ratingFactory->ensureBasicParams( $taskData );
+		if( !$status->isOK() ) {
+			$result->message = $status->getHTML();
+			return $result;
 		}
-		$oRatingItem = $ratingFactory->newFromObject( $oTaskData );
+		$rating = $ratingFactory->newFromObject( $taskData );
 
-		$oResult->success = true;
-		$oResult->payload['data'] = \FormatJson::encode( $oRatingItem );
+		$result->success = true;
+		$result->payload['data'] = \FormatJson::encode( $rating );
 
-		return $oResult;
+		return $result;
 	}
 
 	/**

@@ -1,6 +1,5 @@
 /**
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.2
  * @package    BluespiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2017 Hallo Welt! GmbH, All rights reserved.
@@ -41,7 +40,11 @@ bs.rating.ItemArticleLike = function( $el, type, data ) {
 	});
 };
 OO.inheritClass( bs.rating.ItemArticleLike, bs.rating.Item );
-bs.rating.register( 'articlelike', 'RatingItemArticleLike', bs.rating.ItemArticleLike );
+bs.rating.register(
+	'articlelike',
+	"\\BlueSpice\\Rating\\RatingItem\\ArticleLike",
+	bs.rating.ItemArticleLike
+);
 
 bs.rating.ItemArticleLike.prototype.getData = function() {
 	var data = bs.rating.ItemArticleLike.super.prototype.getData.apply( this );

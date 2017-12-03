@@ -79,7 +79,7 @@ class RatingFactory {
 	 * @param \stdClass $data
 	 * @return Status
 	 */
-	public static function ensureBasicParams( \stdClass $data = null ) {
+	public function ensureBasicParams( \stdClass $data = null ) {
 		if( is_null($data) ) {
 			return \Status::newFatal( 'No Data Given' ); //TODO
 		}
@@ -100,7 +100,7 @@ class RatingFactory {
 	 * @param \stdClass $data
 	 * @return \RatingItem
 	 */
-	public static function newFromObject( \stdClass $data ) {
+	public function newFromObject( \stdClass $data ) {
 		$status = $this->ensureBasicParams( $data );
 		if( !$status->isOK() ) {
 			return null;

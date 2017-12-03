@@ -2,7 +2,6 @@
  * Js for Rating extension
  *
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.1
  * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
@@ -29,7 +28,11 @@ bs.rating.ItemArticle = function( $el, type, data ) {
 	}
 };
 OO.inheritClass( bs.rating.ItemArticle, bs.rating.Item );
-bs.rating.register( 'article', 'RatingItemArticle', bs.rating.ItemArticle );
+bs.rating.register(
+	'article',
+	'\\BlueSpice\\Rating\\RatingItem\\Article',
+	bs.rating.ItemArticle
+);
 bs.rating.ItemArticle.prototype.getStarRating = function() {
 	return this.$starRating;
 };

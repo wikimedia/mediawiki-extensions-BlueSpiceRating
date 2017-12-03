@@ -23,9 +23,7 @@ class Rating extends \BSApiExtJSStoreBase {
 		$aOptions = array(
 			'GROUP BY' => 'rat_reftype, rat_ref',
 		);
-		$aConditions = array(
-			'rat_archived' => '0',
-		);
+		$aConditions = array();
 
 		//hard coded: only article ratings are supported :(
 		//$aTables[] = 'page';

@@ -36,7 +36,7 @@ class ArticleLike extends RatingConfig {
 	protected $type = 'articlelike';
 
 	protected function get_RatingClass() {
-		return "RatingItemArticleLike";
+		return "\\BlueSpice\\Rating\\RatingItem\\ArticleLike";
 	}
 	protected function get_TypeMsgKey() {
 		return "bs-rating-types-pagelike";

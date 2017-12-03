@@ -3,7 +3,6 @@
 -- Part of BlueSpice MediaWiki
 --
 -- @author     Patric Wirth <pwirth@hallowelt.com>
--- @version    $Id: rating.sql 10349 2013-09-10 08:57:06Z pwirth $
 -- @package    BlueSpice_Extensions
 -- @subpackage Rating
 -- @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
