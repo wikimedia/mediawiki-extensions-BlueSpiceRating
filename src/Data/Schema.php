@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Rating;
+namespace BlueSpice\Rating\Data;
 
 use BlueSpice\Data\FieldType;
 
@@ -20,7 +20,7 @@ class Schema extends \BlueSpice\Data\Schema {
 			Record::REF => [
 				self::FILTERABLE => true,
 				self::SORTABLE => true,
-				self::TYPE => FieldType::STRING
+				self::TYPE => FieldType::INT
 			],
 			Record::USERID => [
 				self::FILTERABLE => true,

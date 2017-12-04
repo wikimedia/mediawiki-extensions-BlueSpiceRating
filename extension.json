@@ -11,7 +11,11 @@
 				"BlueSpiceRating": {
 					"className": "\\BlueSpice\\Rating\\Extension",
 					"extPath": "/BlueSpiceRating",
-					"package": "BlueSpice Pro"
+					"package": "BlueSpice Pro",
+					"configDefinitions": {
+						"RatingenRatingNS": "\\BlueSpice\\Rating\\ConfigDefinition\\RatingenRatingNS::getInstance",
+						"RatingenArticleLikeNS": "\\BlueSpice\\Rating\\ConfigDefinition\\RatingenArticleLikeNS::getInstance"
+					}
 				}
 			}
 		},
@@ -30,7 +34,7 @@
 	},
 	"APIModules": {
 		"bs-rating-tasks": "\\BlueSpice\\Rating\\Api\\Task\\Rating",
-		"bs-rating-store": "\\BlueSpice\\Rating\\Api\\Store\\Rating"
+		"bs-ratingarticle-store": "\\BlueSpice\\Rating\\Api\\Store\\Article"
 	},
 	"MessagesDirs": {
 		"BlueSpiceRating": [

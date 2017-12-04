@@ -1,5 +1,6 @@
 <?php
 
+namespace BlueSpice\Rating\Tests;
 /**
  * @group medium
  * @group API
@@ -7,7 +8,7 @@
  * @group BlueSpice
  * @group BlueSpiceRating
  */
-class BSApiTasksRatingTest extends BSApiTasksTestBase {
+class BSApiTasksRatingTest extends \BSApiTasksTestBase {
 	protected function getModuleName() {
 		return 'bs-rating-tasks';
 	}
@@ -64,7 +65,7 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 	}
 
 	public function testReload() {
-		$oTitle = Title::newFromId( 1 );
+		$oTitle = \Title::newFromId( 1 );
 		$iRef = $oTitle->getArticleID();
 
 		$aData = array(

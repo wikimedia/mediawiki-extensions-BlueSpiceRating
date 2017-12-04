@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Rating;
+namespace BlueSpice\Rating\Data;
 use BlueSpice\Data\FieldType;
 use BlueSpice\Data\Filter;
 
@@ -30,26 +30,5 @@ class Writer extends \BlueSpice\Data\DatabaseWriter {
 
 	protected function getIdentifierFields() {
 		return [ Record::ID ];
-	}
-
-	/**
-	 *
-	 * @param BlueSpice\Data\Record $record
-	 */
-	protected function makeExistingRecordFilter( $record, $fieldName ) {
-		return [
-			Filter::KEY_FIELD => $fieldName,
-			Filter::KEY_VALUE => $record->get( $fieldName ),
-			Filter::KEY_TYPE => $this->getFilterFieldTypeMapping( $fieldName ),
-			Filter::KEY_COMPARISON => Filter::COMPARISON_EQUALS,
-		];
-	}
-	
-	protected function getFilterFieldTypeMapping( $fieldName ) {
-		$type = $this->getFieldType( $fieldName );
-		if( $type == FieldType::INT ) {
-			return 'numeric';
-		}
-		return $type;
 	}
 }

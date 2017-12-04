@@ -146,7 +146,10 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 	abstract protected function get_TypeMsgKey();
 
 	protected function get_StoreClass() {
-		return "\\BlueSpice\\Rating\\Data\\Rating\\Store";
+		return "\\BlueSpice\\Rating\\Data\\Store";
+	}
+	protected function get_RatingSetClass() {
+		return "\\BlueSpice\\Rating\\Data\\RatingSet";
 	}
 	protected function get_ModuleScripts() {
 		return [ 'ext.bluespice.rating', 'ext.bluespice.ratingItem' ];

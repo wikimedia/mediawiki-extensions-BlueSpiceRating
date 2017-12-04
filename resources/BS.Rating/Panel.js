@@ -17,7 +17,7 @@ Ext.define( 'BS.Rating.Panel', {
 
 	initComponent: function() {
 		this.strMain = new BS.store.BSApi( {
-			apiAction: 'bs-rating-store',
+			apiAction: 'bs-ratingarticle-store',
 			fields: [ 'page_title', 'rat_reftype', 'rat_ref', 'vote', 'votes', 'refcontent' ]
 		});
 

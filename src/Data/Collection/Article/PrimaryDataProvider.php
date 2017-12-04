@@ -1,32 +1,12 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Rating;
+namespace BlueSpice\Rating\Data\Collection\Article;
 
-use \BlueSpice\Data\IPrimaryDataProvider;
 use BlueSpice\Data\FilterFinder;
-use BlueSpice\Rating\Data\Rating\Schema;
+use BlueSpice\Rating\Data\Schema;
+use BlueSpice\Rating\Data\Record;
 
-class PrimaryDataProvider implements IPrimaryDataProvider {
-
-	/**
-	 *
-	 * @var \BlueSpice\Data\Record[]
-	 */
-	protected $data = [];
-
-	/**
-	 *
-	 * @var \Wikimedia\Rdbms\IDatabase
-	 */
-	protected $db = null;
-
-	/**
-	 *
-	 * @param \Wikimedia\Rdbms\IDatabase $db
-	 */
-	public function __construct( $db ) {
-		$this->db = $db;
-	}
+class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 
 	/**
 	 *

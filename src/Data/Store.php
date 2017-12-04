@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Rating;
+namespace BlueSpice\Rating\Data;
 
 class Store implements \BlueSpice\Data\IStore {
 

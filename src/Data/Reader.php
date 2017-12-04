@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Rating;
+namespace BlueSpice\Rating\Data;
 
 use \BlueSpice\Data\DatabaseReader;
 
@@ -24,6 +24,21 @@ class Reader extends DatabaseReader {
 
 	public function getSchema() {
 		return new Schema();
+	}
+
+	/**
+	 *
+	 * @param ReaderParams $params
+	 * @return RatingSet
+	 */
+	public function read( $params ) {
+		$result = parent::read( $params );
+		$records = [];
+		foreach( $result->getRecords() as $record ) {
+			$records[] = $record;
+		}
+		$setClass = $this->config->get( 'RatingSetClass' );
+		return new $setClass( $records, $result->getTotal() );
 	}
 
 }

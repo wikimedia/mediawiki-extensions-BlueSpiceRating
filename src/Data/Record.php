@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Rating;
+namespace BlueSpice\Rating\Data;
 
 class Record extends \BlueSpice\Data\Record {
 	const ID = 'rat_id';

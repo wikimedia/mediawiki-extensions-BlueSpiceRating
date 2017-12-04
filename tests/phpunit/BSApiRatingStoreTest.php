@@ -1,5 +1,6 @@
 <?php
 
+namespace BlueSpice\Rating\Tests;
 /**
  * @group medium
  * @group api
@@ -7,7 +8,7 @@
  * @group BlueSpice
  * @group BlueSpiceRating
  */
-class BSApiRatingStoreTests extends BSApiExtJSStoreTestBase {
+class BSApiRatingStoreTests extends \BSApiExtJSStoreTestBase {
 	protected $iFixtureTotal = 2;
 
 	protected $tablesUsed = [ 'page', 'bs_rating' ];
@@ -42,7 +43,7 @@ class BSApiRatingStoreTests extends BSApiExtJSStoreTestBase {
 	protected function createStoreFixtureData() {}
 
 	public function addDBData() {
-		$oTitle = Title::newFromId( 1 );
+		$oTitle = \Title::newFromId( 1 );
 
 		$oUserSysop = self::$users['sysop']->getUser();
 		$oUserUploader = self::$users['uploader']->getUser();

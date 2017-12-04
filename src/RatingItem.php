@@ -30,12 +30,12 @@
  */
 
 namespace BlueSpice\Rating;
-use BlueSpice\Rating\Data\Rating\Store;
-use BlueSpice\Rating\Data\Rating\Record;
-use BlueSpice\Rating\Data\Rating\Schema;
+use BlueSpice\Rating\Data\Store;
+use BlueSpice\Rating\Data\Record;
+use BlueSpice\Rating\Data\Schema;
+use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Data\ReaderParams;
 use BlueSpice\Data\Filter;
-use BlueSpice\Data\RecordSet;
 use BlueSpice\Context;
 
 /**
@@ -48,7 +48,11 @@ class RatingItem implements \JsonSerializable {
 	protected $config = null;
 	protected $refType = '';
 	protected $subType = 'default';
-	protected $sRef = '';
+	protected $ref = '';
+	/**
+	 *
+	 * @var RatingSet
+	 */
 	protected $ratings = null;
 
 	/**
@@ -56,27 +60,30 @@ class RatingItem implements \JsonSerializable {
 	 */
 	private function __construct( \stdClass $data, RatingConfig $config ) {
 		$this->refType = $data->reftype;
-		$this->sRef = $data->ref;
+		$this->ref = $data->ref;
 		$this->subType = $data->subtype;
 		$this->config = $config;
 		$this->loadRating();
 	}
 
 	public function jsonSerialize() {
-		$ratings = $this->getRatings();
-		if( $this->getConfig()->get( 'IsAnonymous' ) ) {
-			$ratings = $this->getAnonRatings( $ratings );
-		}
-		$aUserRatings = $this->getRatingsOfSpecificUser(
-			\RequestContext::getMain()->getUser()
+		//TODO: There is currently no way to filter by context!
+		$ratings = $this->getRatingSet()->getRatings();
+		$userRatings = $this->getRatingSet()->getUserRatings(
+			\RequestContext::getMain()->getUser(),
+			$ratings
 		);
+
+		if( $this->getConfig()->get( 'IsAnonymous' ) ) {
+			$ratings = $this->getRatingSet()->getAnonRatings( $ratings );
+		}
 
 		return [
 			'reftype' => $this->getRefType(),
 			'ref' => $this->getRef(),
 			'subtype' => $this->getSubType(),
 			'ratings' => $ratings,
-			'userratings' => $aUserRatings,
+			'userratings' => $userRatings,
 		];
 	}
 
@@ -164,6 +171,14 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
+	 *
+	 * @return RatingSet
+	 */
+	public function getRatingSet() {
+		return $this->ratings;
+	}
+
+	/**
 	 * 
 	 * @return Store
 	 */
@@ -182,7 +197,7 @@ class RatingItem implements \JsonSerializable {
 	 * 
 	 * @param Schema $schema
 	 */
-	protected function makeLoadRatingsFilter( $schema ) {
+	protected function makeLoadRatingsFilter() {
 		$filter = [];
 		$filter[] = [
 			Filter::KEY_FIELD => Record::REFTYPE,
@@ -193,7 +208,7 @@ class RatingItem implements \JsonSerializable {
 		$filter[] = [
 			Filter::KEY_FIELD => Record::REF,
 			Filter::KEY_VALUE => $this->getRef(),
-			Filter::KEY_TYPE => 'string',
+			Filter::KEY_TYPE => 'numeric',
 			Filter::KEY_COMPARISON => Filter::COMPARISON_EQUALS
 		];
 		$filter[] = [
@@ -210,25 +225,12 @@ class RatingItem implements \JsonSerializable {
 	 * @return boolean
 	 */
 	protected function loadRating() {
-		$this->ratings = [];
+		$this->ratings = null;
 		$reader = $this->getStore()->getReader();
 		$result = $reader->read( new ReaderParams([
-			'filter' => $this->makeLoadRatingsFilter( $reader->getSchema() ),
+			'filter' => $this->makeLoadRatingsFilter(),
 		]));
-		foreach( $result->getRecords() as $record ) {
-			$this->ratings[$record->get( Record::ID )] = [
-				'id'      => $record->get( Record::ID ),
-				'reftype' => $record->get( Record::REFTYPE ),
-				'ref'     => $record->get( Record::REF ),
-				'userid'  => $record->get( Record::USERID ),
-				'userip'  => $record->get( Record::USERIP ),
-				'value'   => $record->get( Record::VALUE ),
-				'created' => $record->get( Record::CREATED ),
-				'touched' => $record->get( Record::TOUCHED ),
-				'subtype' => $record->get( Record::SUBTYPE ),
-				'context' => $record->get( Record::CONTEXT ),
-			];
-		}
+		$this->ratings = $result;
 		return $this->ratings;
 	}
 
@@ -249,7 +251,7 @@ class RatingItem implements \JsonSerializable {
 		if( !$status->isOK() ) {
 			return $status;
 		}
-		$ratings = $this->getRatingsOfSpecificUser( $owner, $context );
+		$ratings = $this->getRatingSet()->getUserRatings( $owner, false, $context );
 		if( $value === false ) {
 			$status = $this->userCan( $user, 'delete', $title );
 			if( !$status->isOK() ) {
@@ -279,11 +281,10 @@ class RatingItem implements \JsonSerializable {
 		if( empty($ratings) ) {
 			$status = $this->insertRating( $owner, $value, $context );
 		} else {
-			$ratings = array_values( $ratings );
 			$status = $this->updateRating(
 				$owner,
 				$value,
-				$ratings[0],
+				$ratings,
 				$context
 			);
 		}
@@ -311,29 +312,40 @@ class RatingItem implements \JsonSerializable {
 		if( !$status->isOK() ) {
 			return $status;
 		}
-		$aValues = array(
-			'rat_value' => $value,
-			'rat_ref' => $this->getRef(),
-			'rat_reftype' => $this->getRefType(),
-			'rat_userid'  => (int) $owner->getId(),
-			'rat_userip'  => $owner->getName(),
-			'rat_created' => wfTimestampNow(),
-			'rat_touched' => wfTimestampNow(),
-			'rat_subtype' => $this->getSubType(),
-			'rat_context' => $context,
-		);
-		$success = wfGetDB( DB_MASTER )->insert(
-			'bs_rating',
-			$aValues,
-			__METHOD__
-		);
-		if( !$success ) {
+		$writer = $this->getStore()->getWriter();
+		$setClass = $this->getConfig()->get( 'RatingSetClass' );
+		$result = $writer->write( new $setClass( [
+			new Record( (object) [
+				Record::ID => $id,
+				Record::REF => $this->getRef(),
+				Record::VALUE => $value,
+				Record::TOUCHED => wfTimestampNow(),
+				Record::CREATED => wfTimestampNow(),
+				Record::CONTEXT => $context,
+				Record::SUBTYPE => $this->getSubType(),
+				Record::REFTYPE => $this->getRefType(),
+				Record::USERID => $owner->getId(),
+				Record::USERIP => $owner->getName(),
+			]),
+		]));
+		foreach( $result->getRecords() as $record ) {
+			if( $record->getStatus()->isOK() ) {
+				continue;
+			}
 			return \Status::newFatal( 'insert database error' ); //TODO
 		}
 		return \Status::newGood( $this->invalidateCache() );
 	}
 
-	protected function updateRating( \User $owner, $value, $id, $context = 0 ) {
+	/**
+	 *
+	 * @param \User $owner
+	 * @param mixed $value
+	 * @param Record[] $ratings
+	 * @param integer $context
+	 * @return \Status
+	 */
+	protected function updateRating( \User $owner, $value, $ratings, $context = 0 ) {
 		$status = \Status::newGood( $this );
 		\Hooks::run( 'BlueSpiceRatingItemVoteSave', [
 			$this,
@@ -341,33 +353,22 @@ class RatingItem implements \JsonSerializable {
 			&$value,
 			&$context,
 			$status,
-			$id,
+			$ratings,
 		]);
 		if( !$status->isOK() ) {
 			return $status;
 		}
+		foreach( $ratings as &$record ) {
+			$record->set( Record::VALUE, $value );
+			$record->set( Record::TOUCHED, wfTimestampNow() );
+		}
 		$writer = $this->getStore()->getWriter();
-		$result = $writer->write( new RecordSet( [
-			new Record( (object) [
-				Record::ID => $id,
-				Record::VALUE => $value,
-				Record::TOUCHED => wfTimestampNow()
-			]),
-		]));
+		$setClass = $this->getConfig()->get( 'RatingSetClass' );
+		$result = $writer->write( new $setClass( $ratings ) );
 		foreach( $result->getRecords() as $record ) {
 			if( $record->getStatus()->isOK() ) {
 				continue;
 			}
-			return \Status::newFatal( 'update database error' ); //TODO
-		}
-		return \Status::newGood( $this->invalidateCache() );
-		$success = wfGetDB( DB_MASTER )->update(
-			'bs_rating',
-			array( 'rat_value' => $value ),
-			array( 'rat_id' => $id ),
-			__METHOD__
-		);
-		if( !$success ) {
 			return \Status::newFatal( 'update database error' ); //TODO
 		}
 		return \Status::newGood( $this->invalidateCache() );
@@ -388,80 +389,24 @@ class RatingItem implements \JsonSerializable {
 	 * @return Boolean - true or false
 	 */
 	protected function deleteRating( \User $user = null, $context = 0 ) {
-		$conditions = array(
-			'rat_ref' => $this->sRef,
-			'rat_reftype' => $this->refType,
-		);
-
-		if( !empty($context) ) {
-			$conditions['rat_context'] = $context;
+		$ratings = $this->getRatingSet()->getRatings( $context );
+		if( $user ) {
+			$ratings = $this->getRatingSet()->getUserRatings( $user, $ratings );
+		}
+		if( empty( $ratings ) ) {
+			return \Status::newGood( $this->invalidateCache() );
 		}
 
-		if( $user instanceof \User ) {
-			if( $user->getId() === 0 ) {
-				$conditions['rat_userip'] = $user->getName();
-			} else {
-				$conditions['rat_userid'] = $user->getId();
+		$writer = $this->getStore()->getWriter();
+		$setClass = $this->getConfig()->get( 'RatingSetClass' );
+		$result = $writer->remove( new $setClass( $ratings ) );
+		foreach( $result->getRecords() as $record ) {
+			if( $record->getStatus()->isOK() ) {
+				continue;
 			}
+			return \Status::newFatal( 'delete from database error' ); //TODO
 		}
-
-		$dbr = wfGetDB( DB_SLAVE );
-
-		$b = $dbr->delete( 
-			'bs_rating', 
-			$conditions 
-		);
 		return \Status::newGood( $this->invalidateCache() );
-	}
-
-	protected function filterRating( $a = [] ) {
-		if( empty($a) ) {
-			return $this->ratings;
-		}
-		return array_filter($this->ratings, function($e) use($a) {
-			foreach( $a as $sKey => $value ) {
-				if( !isset($e[$sKey]) ) {
-					return false;
-				}
-				if( $e[$sKey] == $value ) {
-					continue;
-				}
-				return false;
-			}
-			return true;
-		});
-	}
-
-	/**
-	 * Make given ratings anon by removing userid and userip or request ratings
-	 * with context and make the result anon.
-	 * @param array $ratings
-	 * @param integer $context
-	 * @return array
-	 */
-	public function getAnonRatings( $ratings = false, $context = 0 ) {
-		if( !$ratings ) {
-			$ratings = $this->getRatings( $context );
-		}
-		array_walk( $ratings, function( &$e ) {
-			$e['userid'] = 0;
-			$e['userip'] = '';
-		});
-		return $ratings;
-	}
-
-	/**
-	 * Returns an array containing all ratings row arrays filtered by context.
-	 * @param integer $context
-	 * @return array
-	 */
-	public function getRatings( $context = 0 ) {
-		if( empty($context) ) {
-			return $this->filterRating();
-		}
-		return $this->filterRating(array(
-			'context' => $context
-		));
 	}
 
 	public function getRefType() {
@@ -473,7 +418,7 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	public function getRef() {
-		return $this->sRef;
+		return $this->ref;
 	}
 
 	/**
@@ -481,109 +426,6 @@ class RatingItem implements \JsonSerializable {
 	 */
 	public function getConfig() {
 		return $this->config;
-	}
-
-	/**
-	 * Total number of votes
-	 * @param integer $context
-	 * @return integer
-	 */
-	public function countRatings( $context = 0 ) {
-		return count($this->getRatings( $context ));
-	}
-
-	/**
-	 * Total sum of all rating. Note that this only works for integers!
-	 * @param integer $context
-	 * @return integer
-	 */
-	public function getTotal( $context = 0 ) {
-		$filter = [];
-		$total = 0;
-		if( !empty($context) ) {
-			$filter['context'] = $context;
-		}
-		$ratings = $this->filterRating( $filter );
-		if( empty( $ratings )) {
-			return $total;
-		}
-		foreach( $ratings as $id => $rating ) {
-			$total += $rating['value'];
-		}
-		return $total;
-	}
-
-	/**
-	 * Average vote value. Note that this only works for integers!
-	 * @param integer $context
-	 * @return float
-	 */
-	public function getAverage( $context ) {
-		return $this->getTotal( $context ) / $this->countRatings( $context );
-	}
-
-	/**
-	 * returns if the user has already rated
-	 * @param \User $user
-	 * @param boolean $return
-	 * @return boolean - true or false
-	 */
-	public function hasUserRated( \User $user, $return = false, $context = 0 ) {
-		//use name as ip for anonymous
-		$userID = $user->getId();
-		if( empty( $userID ) ) {
-			$userID = $user->getName();
-		}
-		$aRatedUserIDs = $this->getRatedUserIDs( $context );
-		if( in_array( $userID, $aRatedUserIDs ) ) {
-			$return = true;
-		}
-		return $return;
-	}
-
-	public function getRatedUserIDs( $context = 0 ) {
-		$userIDs = $filter = [];
-		if( !empty( $context ) ) {
-			$filter['context'] = $context;
-		}
-		$ratings = $this->filterRating( $filter );
-		if( empty( $ratings ) ) {
-			return $userIDs;
-		}
-
-		foreach( $ratings as $id => $rating ) {
-			$userIDs[] = empty( $rating['userid'] )
-				? $rating['userip']
-				: $rating['userid']
-			;
-		}
-		return $userIDs;
-	}
-
-	public function getRatingsOfSpecificUser( \User $user, $context = 0 ) {
-		$filter = [];
-		$iUserID = $user->getId();
-		if( !empty($iUserID) ) {
-			$filter['userid'] = $iUserID;
-		} else {
-			$filter['userip'] = $user->getName();
-		}
-		if( !empty($context) ) {
-			$filter['context'] = $context;
-		}
-		$ratings = $this->filterRating( $filter );
-
-		return $ratings;
-	}
-
-	public function getValueFilteredRatings( $value = false, $context = 0  ) {
-		$filter = [
-			'value' => $value,
-		];
-		if( !empty( $context ) ) {
-			$filter['context'] = $context;
-		}
-		return $this->filterRating( $filter );
 	}
 
 	public function getTagData() {

@@ -74,7 +74,6 @@ bs.rating.Item.prototype.filterRatings = function( field, value, ratings ) {
 	if( ratings.length < 1 ) {
 		return ratings;
 	}
-
 	return $.grep( ratings, function( e, i ) {
 		if( typeof e[field] === 'undefined' ) {
 			return false;
@@ -87,10 +86,10 @@ bs.rating.Item.prototype.userVoted = function( context ) {
 		return false;
 	}
 
-	context = context || this.data.get( 'context', '0' );
+	context = context || this.data.get( 'rat_context', '0' );
 	context = ""+context;
 	var ratings = this.filterRatings(
-		'context',
+		'rat_context',
 		context,
 		this.getCurrentUserRatings()
 	);
@@ -98,42 +97,42 @@ bs.rating.Item.prototype.userVoted = function( context ) {
 	return ratings.length > 0;
 };
 bs.rating.Item.prototype.getUserVotes = function( sID, context ) {
-	context = context || this.data.get( 'context', '0' );
+	context = context || this.data.get( 'rat_context', '0' );
 	context = ""+context;
 	sID = ""+sID; //needs to be string -.-
 	var ratings = this.filterRatings(
-		'context',
+		'rat_context',
 		context
 	);
 	if( this.getConfig().IsAnonymous ) {
 		return ratings;
 	}
 	var ratings = this.filterRatings(
-		'userid',
+		'rat_userid',
 		sID,
 		ratings
 	);
 	return ratings;
 };
 bs.rating.Item.prototype.getVoteCount = function( context ) {
-	context = context || this.data.get( 'context', '0' );
+	context = context || this.data.get( 'rat_context', '0' );
 	context = ""+context;
 	var ratings = this.filterRatings(
-		'context',
+		'rat_context',
 		context
 	);
 	return ratings.length;
 };
 bs.rating.Item.prototype.getVoteTotal = function( context ) {
-	context = context || this.data.get( 'context', '0' );
+	context = context || this.data.get( 'rat_context', '0' );
 	context = ""+context;
 	var total = 0;
 	var ratings = this.filterRatings(
-		'context',
+		'rat_context',
 		context
 	);
 	for( var i = 0; i < ratings.length; i++ ) {
-		total = total + parseInt( ratings[i].value );
+		total = total + parseInt( ratings[i].rat_value );
 	}
 	return total;
 };
