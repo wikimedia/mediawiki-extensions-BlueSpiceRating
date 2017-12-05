@@ -31,6 +31,7 @@
 namespace BlueSpice\Rating\RatingItem;
 
 use BlueSpice\Rating\RatingItem;
+use BlueSpice\Rating\Data\Record;
 /**
  * ArticleLike class for Rating extension
  * @package BlueSpiceRating
@@ -46,9 +47,9 @@ class ArticleLike extends RatingItem {
 	 */
 	public static function newFromTitle( \Title $title ) {
 		return static::newFromObject((object) array(
-			'reftype' => 'articlelike',
-			'ref' => $title->getArticleID(), //check this, omg
-			'subtype' => '',
+			Record::REFTYPE => 'articlelike',
+			Record::REF => $title->getArticleID(), //check this, omg
+			Record::SUBTYPE => '',
 		));
 	}
 
@@ -61,5 +62,16 @@ class ArticleLike extends RatingItem {
 		);
 		$data['usercanmodify'] = $status->isOK();
 		return $data;
+	}
+
+	/**
+	 * @param \User $user
+	 * @return \Status
+	 */
+	public function userCan( \User $user, $action = 'read', \Title $title = null ) {
+		if( !$title ) {
+			$title = \Title::newFromID( (int) $this->getRef() );
+		}
+		return parent::userCan( $user, $action, $title );
 	}
 }

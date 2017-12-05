@@ -12,6 +12,6 @@ Ext.Loader.setPath(
 	'BS.Rating',
 	bs.em.paths.get( 'BlueSpiceRating' ) + '/resources/BS.Rating'
 );
-Ext.create( 'BS.Rating.Panel', {
-	renderTo: 'bs-rating-grid'
+Ext.create( 'BS.Rating.article.grid.Panel', {
+	renderTo: 'bs-ratingarticle-grid'
 });

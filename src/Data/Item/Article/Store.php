@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Collection\Article;
+namespace BlueSpice\Rating\Data\Item\Article;
 
 class Store extends \BlueSpice\Rating\Data\Store {
 

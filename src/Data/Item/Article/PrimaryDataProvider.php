@@ -1,12 +1,11 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Collection\Article;
+namespace BlueSpice\Rating\Data\Item\Article;
 
 use BlueSpice\Data\FilterFinder;
 use BlueSpice\Rating\Data\Schema;
-use BlueSpice\Rating\Data\Record;
 
-class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
+class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvider {
 
 	/**
 	 *
@@ -15,13 +14,24 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 	public function makeData( $params ) {
 		$this->data = [];
 
+		$fields = [
+			'rat_ref',
+			'rat_reftype', 
+			"ROUND(AVG( rat_value ),1) AS average", 
+			'COUNT(rat_value) as totalcount',
+			'page_id',
+			'page_title',
+			'page_namespace',
+		];
+
 		$res = $this->db->select(
-			'bs_rating',
-			'*',
+			['bs_rating', 'page'],
+			$fields,
 			$this->makePreFilterConds( $params ),
 			__METHOD__,
-			$this->makePreOptionConds( $params )
+			[]//$this->makePreOptionConds( $params )
 		);
+
 		foreach( $res as $row ) {
 			$this->appendRowToData( $row );
 		}
@@ -35,7 +45,10 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 	 * @return array
 	 */
 	protected function makePreFilterConds( $params ) {
-		$conds = [];
+		$conds = [
+			'rat_reftype' => 'article',
+			'page_id = rat_ref',
+		];
 		$schema = new Schema();
 		$fields = array_values( $schema->getFilterableFields() );
 		$filterFinder = new FilterFinder( $params->getFilter() );
@@ -55,8 +68,10 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 	 * @return array
 	 */
 	protected function makePreOptionConds( $params ) {
-		$conds = [];
-		
+		$conds = [
+			'GROUP BY' => 'rat_reftype, rat_ref',
+		];
+
 		$schema = new Schema();
 		$fields = array_values( $schema->getSortableFields() );
 
@@ -75,18 +90,12 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 		return $conds;
 	}
 
-	protected function appendRowToData( $row ) {
-		$this->data[] = new Record( (object) [
-			Record::ID => $row->{Record::ID},
-			Record::REFTYPE => $row->{Record::REFTYPE},
-			Record::REF => $row->{Record::REF},
-			Record::USERID => $row->{Record::USERID},
-			Record::USERIP => $row->{Record::USERIP},
-			Record::VALUE => $row->{Record::VALUE},
-			Record::CREATED => $row->{Record::CREATED},
-			Record::TOUCHED => $row->{Record::TOUCHED},
-			Record::SUBTYPE => $row->{Record::SUBTYPE},
-			Record::CONTEXT => $row->{Record::CONTEXT},
-		] );
+	protected function extractDataFromRow( $row, $rating ) {
+		return array_merge( parent::extractDataFromRow( $row, $rating ), [
+			Record::AVERAGE => $row->{Record::AVERAGE},
+			Record::TOTALCOUNT => $row->{Record::TOTALCOUNT},
+			Record::PAGENAMESPACE => $row->{Record::PAGENAMESPACE},
+			Record::PAGETITLE => $row->{Record::PAGETITLE},
+		]);
 	}
 }

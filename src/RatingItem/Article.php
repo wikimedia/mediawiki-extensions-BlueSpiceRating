@@ -29,6 +29,7 @@
  * @filesource
  */
 namespace BlueSpice\Rating\RatingItem;
+use BlueSpice\Rating\Data\Record;
 
 use BlueSpice\Rating\RatingItem;
 /**
@@ -46,9 +47,9 @@ class Article extends RatingItem {
 	 */
 	public static function newFromTitle( \Title $title ) {
 		return static::newFromObject((object) array(
-			'reftype' => 'article',
-			'ref' => $title->getArticleID(), //check this, omg
-			'subtype' => '',
+			Record::REFTYPE => 'article',
+			Record::REF => $title->getArticleID(), //check this, omg
+			Record::SUBTYPE => '',
 		));
 	}
 
@@ -61,5 +62,16 @@ class Article extends RatingItem {
 		);
 		$data['usercanmodify'] = $status->isOK();
 		return $data;
+	}
+
+	/**
+	 * @param \User $user
+	 * @return \Status
+	 */
+	public function userCan( \User $user, $action = 'read', \Title $title = null ) {
+		if( !$title ) {
+			$title = \Title::newFromID( (int) $this->getRef() );
+		}
+		return parent::userCan( $user, $action, $title );
 	}
 }

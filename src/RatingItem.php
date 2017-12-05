@@ -59,9 +59,9 @@ class RatingItem implements \JsonSerializable {
 	 * Contructor of the Rating class
 	 */
 	private function __construct( \stdClass $data, RatingConfig $config ) {
-		$this->refType = $data->reftype;
-		$this->ref = $data->ref;
-		$this->subType = $data->subtype;
+		$this->refType = $data->{Record::REFTYPE};
+		$this->ref = $data->{Record::REF};
+		$this->subType = $data->{Record::SUBTYPE};
 		$this->config = $config;
 		$this->loadRating();
 	}
@@ -79,9 +79,9 @@ class RatingItem implements \JsonSerializable {
 		}
 
 		return [
-			'reftype' => $this->getRefType(),
-			'ref' => $this->getRef(),
-			'subtype' => $this->getSubType(),
+			Record::REFTYPE => $this->getRefType(),
+			Record::REF => $this->getRef(),
+			Record::SUBTYPE => $this->getSubType(),
 			'ratings' => $ratings,
 			'userratings' => $userRatings,
 		];

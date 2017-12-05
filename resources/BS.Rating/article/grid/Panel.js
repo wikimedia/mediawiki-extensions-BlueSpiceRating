@@ -9,7 +9,7 @@
  * @filesource
  */
 
-Ext.define( 'BS.Rating.Panel', {
+Ext.define( 'BS.Rating.article.grid.Panel', {
 	extend: 'BS.CRUDGridPanel',
 	requires: [ 'BS.store.BSApi' ],
 	id: 'bs-specialrating-extgrid',
@@ -18,16 +18,25 @@ Ext.define( 'BS.Rating.Panel', {
 	initComponent: function() {
 		this.strMain = new BS.store.BSApi( {
 			apiAction: 'bs-ratingarticle-store',
-			fields: [ 'page_title', 'rat_reftype', 'rat_ref', 'vote', 'votes', 'refcontent' ]
+			fields: [
+				'page_namepsace',
+				'page_title',
+				'rat_reftype',
+				'rat_ref',
+				'average',
+				'totalcount',
+				'content',
+				'item'
+			]
 		});
 
 		this.columns = [{
-			id: 'reftype',
+			id: 'page_title',
 			header: mw.message('bs-rating-specialrating-titleTitle').plain(),
 			dataIndex: 'page_title',
-			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+			/*renderer: function(value, metaData, record, rowIndex, colIndex, store) {
 				return record.data.refcontent;
-			},
+			},*/
 			sortable: true,
 			filterable: true
 		},{
@@ -48,6 +57,10 @@ Ext.define( 'BS.Rating.Panel', {
 			encode: true,
 			local: false,
 			filters: [{
+				type: 'string',
+				dataIndex: 'page_title',
+				menuItems: ['ct', 'nct', 'sw', 'ew', 'eq', 'neq']
+			},{
 				type: 'numeric',
 				dataIndex: 'vote',
 				menuItems: ['gt', 'lt', 'eq']

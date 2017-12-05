@@ -26,6 +26,7 @@
  * @filesource
  */
 namespace BlueSpice\Rating;
+use BlueSpice\Rating\Data\Record;
 
 class RatingFactory {
 	/**
@@ -83,14 +84,14 @@ class RatingFactory {
 		if( is_null($data) ) {
 			return \Status::newFatal( 'No Data Given' ); //TODO
 		}
-		if( empty($data->ref) ) {
+		if( empty($data->{Record::REF}) ) {
 			return \Status::newFatal( 'No reference Given' ); //TODO
 		}
-		if( empty($data->reftype) ) {
+		if( empty($data->{Record::REFTYPE}) ) {
 			return \Status::newFatal( 'No reference type Given' ); //TODO
 		}
-		if( empty($data->subtype) ) {
-			$data->subtype = 'default';
+		if( empty($data->{Record::SUBTYPE}) ) {
+			$data->{Record::SUBTYPE} = 'default';
 		}
 		return \Status::newGood( $data );
 	}
@@ -111,7 +112,7 @@ class RatingFactory {
 		if( $instance instanceof RatingItem ) {
 			return $instance;
 		}
-		return $this->factory( $data->reftype, $data );
+		return $this->factory( $data->{Record::REFTYPE}, $data );
 	}
 
 	/**
@@ -120,16 +121,16 @@ class RatingFactory {
 	 * @return RatingItem - or null
 	 */
 	protected function getInstanceFromCache( \stdClass $data ) {
-		if( !isset($this->ratingItems[$data->reftype]) ) {
+		if( !isset($this->ratingItems[$data->{Record::REFTYPE}]) ) {
 			return null;
 		}
-		if( !isset($this->ratingItems[$data->reftype][$data->ref]) ) {
+		if( !isset($this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}]) ) {
 			return null;
 		}
-		if( !isset($this->ratingItems[$data->reftype][$data->ref][$data->subtype]) ) {
+		if( !isset($this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}][$data->{Record::SUBTYPE}]) ) {
 			return null;
 		}
-		return $this->ratingItems[$data->reftype][$data->ref][$data->subtype];
+		return $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}][$data->{Record::SUBTYPE}];
 	}
 
 	/**

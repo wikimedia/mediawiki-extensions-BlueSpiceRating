@@ -27,6 +27,7 @@
  */
 namespace BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\RatingFactory;
+use BlueSpice\Rating\Data\Record;
 
 class Article extends RatingFactory {
 	/**
@@ -36,9 +37,9 @@ class Article extends RatingFactory {
 	 */
 	public function newFromTitle( \Title $title ) {
 		return $this->newFromObject((object) [
-			'reftype' => 'article',
-			'ref' => $title->getArticleID(), //check this, omg
-			'subtype' => '',
+			Record::REFTYPE => 'article',
+			Record::REF => $title->getArticleID(), //check this, omg
+			Record::SUBTYPE => '',
 		]);
 	}
 }
