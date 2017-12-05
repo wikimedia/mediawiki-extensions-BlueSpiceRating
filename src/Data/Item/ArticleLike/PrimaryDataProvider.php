@@ -1,6 +1,6 @@
 <?php
 
-namespace BlueSpice\Rating\Data\Item\Article;
+namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
 use BlueSpice\Data\FilterFinder;
 use BlueSpice\Rating\Data\Schema;
@@ -16,8 +16,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 
 		$fields = [
 			'rat_ref',
-			'rat_reftype', 
-			"ROUND(AVG( rat_value ),1) AS average", 
+			'rat_reftype',
 			'COUNT(rat_value) as totalcount',
 			'page_id',
 			'page_title',
@@ -46,7 +45,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	 */
 	protected function makePreFilterConds( $params ) {
 		$conds = [
-			'rat_reftype' => 'article',
+			'rat_reftype' => 'articlelike',
 			'page_id = rat_ref',
 		];
 		$schema = new Schema();
@@ -92,7 +91,6 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 
 	protected function extractDataFromRow( $row, $rating ) {
 		return array_merge( parent::extractDataFromRow( $row, $rating ), [
-			Record::AVERAGE => $row->{Record::AVERAGE},
 			Record::TOTALCOUNT => $row->{Record::TOTALCOUNT},
 			Record::PAGENAMESPACE => $row->{Record::PAGENAMESPACE},
 			Record::PAGETITLE => $row->{Record::PAGETITLE},

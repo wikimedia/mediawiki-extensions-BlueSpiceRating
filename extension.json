@@ -30,11 +30,13 @@
 		"includes/ServiceWiring.php"
 	],
 	"SpecialPages": {
-		"Rating": "\\BlueSpice\\Rating\\Special\\Rating"
+		"Rating": "\\BlueSpice\\Rating\\Special\\Rating",
+		"Recommendations": "\\BlueSpice\\Rating\\Special\\Recommendations"
 	},
 	"APIModules": {
 		"bs-rating-tasks": "\\BlueSpice\\Rating\\Api\\Task\\Rating",
-		"bs-ratingarticle-store": "\\BlueSpice\\Rating\\Api\\Store\\Article"
+		"bs-ratingarticle-store": "\\BlueSpice\\Rating\\Api\\Store\\Article",
+		"bs-ratingarticlelike-store": "\\BlueSpice\\Rating\\Api\\Store\\ArticleLike"
 	},
 	"MessagesDirs": {
 		"BlueSpiceRating": [
@@ -43,7 +45,8 @@
 	},
 	"ExtensionMessagesFiles": {
 		"BlueSpiceRatingMagic": "languages/Rating.i18n.magic.php",
-		"BlueSpiceRatingAlias": "languages/SpecialRating.alias.php"
+		"BlueSpiceRatingAlias": "languages/SpecialRating.alias.php",
+		"BlueSpiceRatingAlias": "languages/SpecialRecommendations.alias.php"
 	},
 	"GroupPermissions": {
 		"*": {
@@ -129,6 +132,23 @@
 		},
 		"ext.bluespice.specialRating": {
 			"scripts": "bluespice.specialRating.js",
+			"dependencies": [
+				"oojs-ui",
+				"ext.bluespice.extjs"
+			],
+			"targets": [ "desktop", "mobile" ],
+			"messages": [
+				"bs-rating-specialrating-titleTitle",
+				"bs-rating-specialrating-titleRating",
+				"bs-rating-specialrating-titleVotes",
+				"bs-rating-specialrating-ptbDisplayMsgText",
+				"bs-rating-specialrating-ptbEmptyMsgText",
+				"bs-rating-specialrating-ptbBeforePageText",
+				"bs-rating-specialrating-ptbAfterPageText"
+			]
+		},
+		"ext.bluespice.specialRecommendations": {
+			"scripts": "bluespice.specialRecommendations.js",
 			"dependencies": [
 				"oojs-ui",
 				"ext.bluespice.extjs"

@@ -31,9 +31,11 @@ class Rating extends \SpecialPage {
 			$this->msg( 'bs-rating-special-rating-heading' )->plain()
 		);
 
-		$this->getOutput()->addHtml( '<div id="bs-rating-grid"></div>' );
+		$this->getOutput()->addHtml(
+			\Html::element('div', ['id' => "bs-ratingarticle-grid"] )
+		);
 
-		$this->getOutput()->addModules( 'ext.bluespice.rating' );
+		$this->getOutput()->addModules( 'ext.bluespice.ratingItemArticle' );
 		$this->getOutput()->addModules( 'ext.bluespice.specialRating' );
 		$this->getOutput()->addModuleStyles( 'ext.bluespice.rating.styles' );
 	}
