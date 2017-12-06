@@ -20,7 +20,7 @@ bs.rating.ItemArticle = function( $el, type, data ) {
 	if( aUserVotes.length > 0 ) {
 		me.$userVoted.attr(
 			'title',
-			mw.message( 'bs-rating-yourrating', aUserVotes[0].rat_value )
+			mw.message( 'bs-rating-yourrating', aUserVotes[0][me.VALUE] )
 		);
 	}
 	if( me.userVoted() ) {
@@ -59,7 +59,7 @@ bs.rating.ItemArticle.prototype.reset = function( data ) {
 	if( aUserVotes.length > 0 ) {
 		this.$userVoted.attr(
 			'title',
-			mw.message( 'bs-rating-yourrating', aUserVotes[0].rat_value )
+			mw.message( 'bs-rating-yourrating', aUserVotes[0][this.VALUE])
 		);
 	}
 };

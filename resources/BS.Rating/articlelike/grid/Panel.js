@@ -73,8 +73,11 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 			filterable: true
 		},{
 			id: 'votes',
-			header:mw.message( 'bs-rating-specialrating-titleVotes' ).plain(),
+			header:mw.message( 'bs-rating-special-recommendations-label-recommendation' ).plain(),
 			dataIndex: 'totalcount',
+			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
+				return record.get('content');
+			},
 			sortable: true
 		}];
 

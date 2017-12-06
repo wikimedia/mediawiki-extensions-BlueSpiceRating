@@ -26,6 +26,9 @@
  */
 
 namespace BlueSpice\Rating\Api\Task;
+
+use BlueSpice\Rating\Data\Record;
+
 /**
  * Api base class for simple tasks in BlueSpice
  * @package BlueSpice_pro
@@ -66,8 +69,8 @@ class Rating extends \BSApiTasksBase {
 		}
 		$rating = $ratingFactory->newFromObject( $taskData );
 		$title = null;
-		if( !isset($taskData->value) ) {
-			$taskData->value = false;
+		if( !isset($taskData->{Record::VALUE}) ) {
+			$taskData->{Record::VALUE} = false;
 		}
 		if( !empty($taskData->articleid) ) {
 			$title = \Title::newFromID( $taskData->articleid );
@@ -78,7 +81,7 @@ class Rating extends \BSApiTasksBase {
 
 		$status = $rating->vote(
 			$this->getUser(),
-			$taskData->value,
+			$taskData->{Record::VALUE},
 			$this->getUser(),
 			0,
 			$title

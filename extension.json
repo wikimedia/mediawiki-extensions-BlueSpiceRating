@@ -45,8 +45,8 @@
 	},
 	"ExtensionMessagesFiles": {
 		"BlueSpiceRatingMagic": "languages/Rating.i18n.magic.php",
-		"BlueSpiceRatingAlias": "languages/SpecialRating.alias.php",
-		"BlueSpiceRatingAlias": "languages/SpecialRecommendations.alias.php"
+		"BlueSpiceRatingSpecialRatingAlias": "languages/SpecialRating.alias.php",
+		"BlueSpiceRatingSpecialRecommendationsAlias": "languages/SpecialRecommendations.alias.php"
 	},
 	"GroupPermissions": {
 		"*": {
@@ -144,7 +144,8 @@
 				"bs-rating-specialrating-ptbDisplayMsgText",
 				"bs-rating-specialrating-ptbEmptyMsgText",
 				"bs-rating-specialrating-ptbBeforePageText",
-				"bs-rating-specialrating-ptbAfterPageText"
+				"bs-rating-specialrating-ptbAfterPageText",
+				"bs-rating-specialrating-label-namespace"
 			]
 		},
 		"ext.bluespice.specialRecommendations": {
@@ -156,12 +157,12 @@
 			"targets": [ "desktop", "mobile" ],
 			"messages": [
 				"bs-rating-specialrating-titleTitle",
-				"bs-rating-specialrating-titleRating",
-				"bs-rating-specialrating-titleVotes",
 				"bs-rating-specialrating-ptbDisplayMsgText",
 				"bs-rating-specialrating-ptbEmptyMsgText",
 				"bs-rating-specialrating-ptbBeforePageText",
-				"bs-rating-specialrating-ptbAfterPageText"
+				"bs-rating-specialrating-ptbAfterPageText",
+				"bs-rating-specialrating-label-namespace",
+				"bs-rating-special-recommendations-label-recommendation"
 			]
 		},
 		"ext.bluespice.rating.icons": {

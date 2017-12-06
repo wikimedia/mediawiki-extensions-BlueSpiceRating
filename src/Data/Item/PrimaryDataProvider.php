@@ -31,14 +31,12 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	}
 
 	protected function appendRowToData( $row ) {
-		error_log(var_export($row,1));
 		$title = \Title::newFromID( $row->page_id );
 		if( !$title ) {
 			return;
 		}
 		$rating = $this->makeRatingItem( $row );
 		if( !$rating ) {
-			error_log('no rating');
 			return;
 		}
 		if( !$this->checkRatingPermission( $rating ) ) {

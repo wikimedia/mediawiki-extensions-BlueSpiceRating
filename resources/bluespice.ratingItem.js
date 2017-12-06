@@ -9,6 +9,17 @@
  */
 
 bs.rating.Item = function( $el, type, data ) {
+	this.REF = 'rat_ref';
+	this.REFTYPE = 'rat_reftype';
+	this.SUBTYPE = 'rat_subtype';
+	this.CONTEXT = 'rat_context';
+	this.USERID = 'rat_userid';
+	this.USERIP = 'rat_userip';
+	this.VALUE = 'rat_value';
+
+	this.RATINGS = 'ratings';
+	this.USERRATINGS = 'userratings';
+
 	OO.EventEmitter.call( this );
 	this.$el = $el;
 	this.type = type;
@@ -47,15 +58,15 @@ bs.rating.Item.prototype.getType = function() {
 };
 bs.rating.Item.prototype.getData = function() {
 	return {
-		ref: this.data.get( 'ref', '' ),
-		subtype: this.data.get( 'subtype', 'default' ),
-		reftype: this.getType(),
-		context: this.data.get( 'context', 0 )
+		[this.REF]: this.data.get( this.REF, '' ),
+		[this.SUBTYPE]: this.data.get( this.SUBTYPE, 'default' ),
+		[this.REFTYPE]: this.getType(),
+		[this.CONTEXT]: this.data.get( this.CONTEXT, 0 )
 	};
 };
 bs.rating.Item.prototype.getRatings = function() {
 	var res = [];
-	var ratings = this.data.get( 'ratings', {});
+	var ratings = this.data.get( this.RATINGS, {});
 	for( var i in ratings ) {
 		res.push( ratings[i] );
 	}
@@ -63,7 +74,7 @@ bs.rating.Item.prototype.getRatings = function() {
 };
 bs.rating.Item.prototype.getCurrentUserRatings = function() {
 	var res = [];
-	var ratings = this.data.get( 'userratings', {});
+	var ratings = this.data.get( this.USERRATINGS, {});
 	for( var i in ratings ) {
 		res.push( ratings[i] );
 	}
@@ -74,6 +85,7 @@ bs.rating.Item.prototype.filterRatings = function( field, value, ratings ) {
 	if( ratings.length < 1 ) {
 		return ratings;
 	}
+	var me = this;
 	return $.grep( ratings, function( e, i ) {
 		if( typeof e[field] === 'undefined' ) {
 			return false;
@@ -86,10 +98,10 @@ bs.rating.Item.prototype.userVoted = function( context ) {
 		return false;
 	}
 
-	context = context || this.data.get( 'rat_context', '0' );
+	context = context || this.data.get( this.CONTEXT, '0' );
 	context = ""+context;
 	var ratings = this.filterRatings(
-		'rat_context',
+		this.CONTEXT,
 		context,
 		this.getCurrentUserRatings()
 	);
@@ -97,42 +109,42 @@ bs.rating.Item.prototype.userVoted = function( context ) {
 	return ratings.length > 0;
 };
 bs.rating.Item.prototype.getUserVotes = function( sID, context ) {
-	context = context || this.data.get( 'rat_context', '0' );
+	context = context || this.data.get( this.CONTEXT, '0' );
 	context = ""+context;
 	sID = ""+sID; //needs to be string -.-
 	var ratings = this.filterRatings(
-		'rat_context',
+		this.CONTEXT,
 		context
 	);
 	if( this.getConfig().IsAnonymous ) {
 		return ratings;
 	}
 	var ratings = this.filterRatings(
-		'rat_userid',
+		this.USERID,
 		sID,
 		ratings
 	);
 	return ratings;
 };
 bs.rating.Item.prototype.getVoteCount = function( context ) {
-	context = context || this.data.get( 'rat_context', '0' );
+	context = context || this.data.get( this.CONTEXT, '0' );
 	context = ""+context;
 	var ratings = this.filterRatings(
-		'rat_context',
+		this.CONTEXT,
 		context
 	);
 	return ratings.length;
 };
 bs.rating.Item.prototype.getVoteTotal = function( context ) {
-	context = context || this.data.get( 'rat_context', '0' );
+	context = context || this.data.get( this.CONTEXT, '0' );
 	context = ""+context;
 	var total = 0;
 	var ratings = this.filterRatings(
-		'rat_context',
+		this.CONTEXT,
 		context
 	);
 	for( var i = 0; i < ratings.length; i++ ) {
-		total = total + parseInt( ratings[i].rat_value );
+		total = total + parseInt( ratings[i][this.VALUE] );
 	}
 	return total;
 };
@@ -156,7 +168,7 @@ bs.rating.Item.prototype.getTaskApi = function() {
 
 bs.rating.Item.prototype.vote = function( rating ) {
 	var data = this.getData();
-	data.value = rating;
+	data[this.VALUE] = rating;
 	return bs.api.tasks.execSilent(
 		this.getTaskApi(),
 		this.getVoteTask(),

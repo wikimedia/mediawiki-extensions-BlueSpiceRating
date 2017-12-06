@@ -45,7 +45,7 @@ class RatingSet extends ResultSet {
 			$ratings = $this->getRatings( $context );
 		}
 		$ratingsCopy = [];
-		array_walk( $ratings, function( Record &$record ) use ( &$ratingsCopy ) {
+		array_walk( $ratings, function( Record $record ) use ( &$ratingsCopy ) {
 			$recordCopy = clone( $record );
 			$recordCopy->set( Record::USERID, 0 );
 			$recordCopy->set( Record::USERIP, '' );
