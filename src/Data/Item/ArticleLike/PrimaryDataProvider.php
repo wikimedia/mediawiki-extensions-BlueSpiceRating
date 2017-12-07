@@ -3,7 +3,7 @@
 namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
 use BlueSpice\Data\FilterFinder;
-use BlueSpice\Rating\Data\Schema;
+use BlueSpice\Data\Filter;
 
 class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvider {
 
@@ -30,7 +30,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 			__METHOD__,
 			$this->makePreOptionConds( $params )
 		);
-
+error_log($this->db->lastQuery());
 		foreach( $res as $row ) {
 			$this->appendRowToData( $row );
 		}

@@ -4,6 +4,7 @@ namespace BlueSpice\Rating\Data;
 
 use \BlueSpice\Data\IPrimaryDataProvider;
 use BlueSpice\Data\FilterFinder;
+use BlueSpice\Data\Filter;
 use BlueSpice\Rating\Data\Schema;
 
 class PrimaryDataProvider implements IPrimaryDataProvider {
