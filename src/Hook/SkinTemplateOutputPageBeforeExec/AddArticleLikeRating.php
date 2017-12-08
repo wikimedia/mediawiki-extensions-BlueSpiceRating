@@ -50,7 +50,7 @@ class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
 			'RatingenArticleLikeNS'
 		);
 		if( !in_array( $title->getNamespace(), $enambledNamespaces ) ) {
-			//return true;
+			return true;
 		}
 
 		$factory = $this->getServices()->getService(

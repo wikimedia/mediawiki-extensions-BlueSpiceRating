@@ -35,6 +35,21 @@ class Recommendations extends \SpecialPage {
 			\Html::element('div', ['id' => "bs-ratingarticlelike-grid"] )
 		);
 
+		$config = \MediaWiki\MediaWikiServices::getInstance()
+			->getConfigFactory()->makeConfig( 'bsg' );
+
+		$namespaces = [];
+		foreach( $config->get( 'RatingenArticleLikeNS' ) as $nsIdx ) {
+			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
+				$nsIdx
+			); 
+		}
+
+		$this->getOutput()->addJsConfigVars(
+			'bsgRatingArticleLikeAcitveNamespaces',
+			$namespaces
+		);
+
 		$this->getOutput()->addModules( 'ext.bluespice.ratingItemArticleLike' );
 		$this->getOutput()->addModules( 'ext.bluespice.specialRecommendations' );
 		$this->getOutput()->addModuleStyles(

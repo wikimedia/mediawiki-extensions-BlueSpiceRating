@@ -34,15 +34,15 @@ Ext.define( 'BS.Rating.article.grid.Panel', {
 		});  
 
 		var filter = [];
-		var namespaceIds = mw.config.get('wgNamespaceIds');
-		for( var ns in namespaceIds ) {
-			if( namespaceIds[ns] < 0 ) {
+		var namespaces = mw.config.get(
+			'bsgRatingArticleAcitveNamespaces',
+			{}
+		);
+		for( var idx in namespaces ) {
+			if( !namespaces[idx] ) {
 				continue;
 			}
-			if( namespaceIds[ns] %2 !== 0 ) {
-				continue;
-			}
-			filter.push( bs.util.getNamespaceText( namespaceIds[ns] ) );
+			filter.push( namespaces[idx] );
 		}
 
 		this.columns = [{

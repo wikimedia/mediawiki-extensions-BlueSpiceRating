@@ -43,7 +43,7 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 			return;
 		}
 
-	$this->data[] = new \BlueSpice\Data\Record( (object)
+		$this->data[] = new \BlueSpice\Data\Record( (object)
 			$this->extractDataFromRow( $row, $rating )
 		);
 	}

@@ -48,7 +48,7 @@ class AddArticleRating extends SkinTemplateOutputPageBeforeExec {
 
 		$enambledNamespaces = $this->getConfig()->get( 'RatingenRatingNS' );
 		if( !in_array( $title->getNamespace(), $enambledNamespaces ) ) {
-			//return true;
+			return true;
 		}
 
 		$factory = $this->getServices()->getService( 'BSRatingFactoryArticle' );

@@ -36,7 +36,7 @@ namespace BlueSpice\Rating;
  * @package BlueSpice_pro
  * @subpackage Rating
  */
-class Rating extends \BlueSpice\Extension {
+class Extension extends \BlueSpice\Extension {
 
 	public function __construct( array $definition, \IContextSource $context, \Config $config) {
 		parent::__construct( $definition, $context, $config );

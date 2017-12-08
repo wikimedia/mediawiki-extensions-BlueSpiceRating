@@ -35,6 +35,21 @@ class Rating extends \SpecialPage {
 			\Html::element('div', ['id' => "bs-ratingarticle-grid"] )
 		);
 
+		$config = \MediaWiki\MediaWikiServices::getInstance()
+			->getConfigFactory()->makeConfig( 'bsg' );
+
+		$namespaces = [];
+		foreach( $config->get( 'RatingenRatingNS' ) as $nsIdx ) {
+			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
+				$nsIdx
+			); 
+		}
+
+		$this->getOutput()->addJsConfigVars(
+			'bsgRatingArticleAcitveNamespaces',
+			$namespaces
+		);
+
 		$this->getOutput()->addModules( 'ext.bluespice.ratingItemArticle' );
 		$this->getOutput()->addModules( 'ext.bluespice.specialRating' );
 		$this->getOutput()->addModuleStyles( 'ext.bluespice.rating.styles' );
