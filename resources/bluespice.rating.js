@@ -56,7 +56,7 @@ bs.rating.createFromEl = function( $el ) {
 	if( !type || type === '' || typeof type === 'undefined' ) {
 		type = 'base';
 	}
-	console.log(type);
+
 	if( typeof bs.rating.types[type] === "undefined" ) {
 		throw "Unregistered type: " + type;
 	}

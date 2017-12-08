@@ -44,30 +44,6 @@ class Extension extends \BlueSpice\Extension {
 		$core = \BsCore::getInstance();
 		$core->registerBehaviorSwitch( 'bs_norating' );
 	}
-	/**
-	 * Initialization of Rating extension
-	 */
-	protected function initExt() {
-		wfProfileIn( 'BS::'.__METHOD__ );
-
-		BsConfig::registerVar(
-			'MW::Rating::enRatingNS',
-			array( NS_MAIN ),
-			BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_ARRAY_INT | BsConfig::USE_PLUGIN_FOR_PREFS,
-			'bs-rating-toc-enratingns',
-			'multiselectex'
-		);
-
-		BsConfig::registerVar(
-			'MW::Rating::enArticleLikeNS',
-			[],
-			BsConfig::LEVEL_PUBLIC | BsConfig::TYPE_ARRAY_INT | BsConfig::USE_PLUGIN_FOR_PREFS,
-			'bs-rating-toc-enarticlelikens',
-			'multiselectex'
-		);
-
-		wfProfileOut( 'BS::'.__METHOD__ );
-	}
 
 	/**
 	* Hook handler for UnitTestList
