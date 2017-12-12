@@ -1,10 +1,9 @@
 /**
  * @author     Patric Wirth <wirth@hallowelt.com>
- * @version    2.27.2
  * @package    BluespiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2017 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v2 or later
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
  */
 
 bs.rating.ItemArticleLike = function( $el, type, data ) {

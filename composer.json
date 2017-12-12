@@ -2,6 +2,7 @@
   "name": "mediawiki/blue-spice-rating",
   "type": "mediawiki-extension",
   "description": "Provides a rating system",
+  "license": "GPL-3.0",
   "require": {
     "composer/installers": "~1.0"
   }
