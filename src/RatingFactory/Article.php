@@ -36,7 +36,7 @@ class Article extends RatingFactory {
 	 * @return \BlueSpice\Rating\RatingItem\Article | null
 	 */
 	public function newFromTitle( \Title $title ) {
-		return $this->newFromObject((object) [
+		return $this->newFromObject( (object) [
 			Record::REFTYPE => 'article',
 			Record::REF => $title->getArticleID(), //check this, omg
 			Record::SUBTYPE => '',

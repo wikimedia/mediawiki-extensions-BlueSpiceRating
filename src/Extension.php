@@ -37,6 +37,12 @@ namespace BlueSpice\Rating;
  */
 class Extension extends \BlueSpice\Extension {
 
+	/**
+	 *
+	 * @param array $definition
+	 * @param \IContextSource $context
+	 * @param \Config $config
+	 */
 	public function __construct( array $definition, \IContextSource $context, \Config $config) {
 		parent::__construct( $definition, $context, $config );
 
@@ -44,6 +50,21 @@ class Extension extends \BlueSpice\Extension {
 		$core->registerBehaviorSwitch( 'bs_norating' );
 	}
 
+	/**
+	 * Hook handler for BSMigrateSettingsFromDeviatingNames
+	 * @param string $oldName
+	 * @param string $newName
+	 * @return boolean
+	 */
+	public static function onBSMigrateSettingsFromDeviatingNames( $oldName, &$newName ) {
+		if( $oldName === "MW::Rating::enRatingNS" ) {
+			$newName = "RatingArticleEnabledNamespaces";
+		}
+		if( $oldName === "MW::Rating::enArticleLikeNS" ) {
+			$newName = "RatingArticleLikeEnabledNamespaces";
+		}
+		return true;
+	}
 	/**
 	* Hook handler for UnitTestList
 	*

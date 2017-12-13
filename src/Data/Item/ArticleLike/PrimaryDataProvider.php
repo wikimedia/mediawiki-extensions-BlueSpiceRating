@@ -163,7 +163,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	protected function makeRatingItem( $row ) {
 		$config = \MediaWiki\MediaWikiServices::getInstance()
 			->getConfigFactory()->makeConfig( 'bsg' );
-		$namespaces = $config->get( 'RatingenArticleLikeNS' );
+		$namespaces = $config->get( 'RatingArticleLikeEnabledNamespaces' );
 		$ns = $row->{Record::PAGENAMESPACE};
 		if( !in_array( $ns, $namespaces ) ) {
 			return null;

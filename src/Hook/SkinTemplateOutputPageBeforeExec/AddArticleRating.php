@@ -46,8 +46,8 @@ class AddArticleRating extends SkinTemplateOutputPageBeforeExec {
 			return true;
 		}
 
-		$enambledNamespaces = $this->getConfig()->get( 'RatingenRatingNS' );
-		if( !in_array( $title->getNamespace(), $enambledNamespaces ) ) {
+		$enabledNamespaces = $this->getConfig()->get( 'RatingArticleEnabledNamespaces' );
+		if( !in_array( $title->getNamespace(), $enabledNamespaces ) ) {
 			return true;
 		}
 

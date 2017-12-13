@@ -4,7 +4,7 @@ namespace BlueSpice\Rating\ConfigDefinition;
 
 use BlueSpice\ConfigDefinition\ArraySetting;
 
-class RatingenArticleLikeNS extends ArraySetting {
+class RatingArticleLikeEnabledNamespaces extends ArraySetting {
 
 	public function getLabelMessageKey() {
 		return 'bs-rating-toc-enarticlelikens';

@@ -39,7 +39,7 @@ class Rating extends \SpecialPage {
 			->getConfigFactory()->makeConfig( 'bsg' );
 
 		$namespaces = [];
-		foreach( $config->get( 'RatingenRatingNS' ) as $nsIdx ) {
+		foreach( $config->get( 'RatingArticleEnabledNamespaces' ) as $nsIdx ) {
 			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
 				$nsIdx
 			); 

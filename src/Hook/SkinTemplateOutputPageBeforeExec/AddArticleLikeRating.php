@@ -46,10 +46,10 @@ class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
 			return true;
 		}
 
-		$enambledNamespaces = $this->getConfig()->get(
-			'RatingenArticleLikeNS'
+		$enabledNamespaces = $this->getConfig()->get(
+			'RatingArticleLikeEnabledNamespaces'
 		);
-		if( !in_array( $title->getNamespace(), $enambledNamespaces ) ) {
+		if( !in_array( $title->getNamespace(), $enabledNamespaces ) ) {
 			return true;
 		}
 

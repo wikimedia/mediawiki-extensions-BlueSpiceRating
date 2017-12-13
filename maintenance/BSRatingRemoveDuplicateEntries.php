@@ -3,7 +3,7 @@
 $IP = dirname(dirname(dirname(__DIR__)));
 require_once( "$IP/maintenance/Maintenance.php" );
 
-class BSRatingRemoveDuplucateEntries extends LoggedUpdateMaintenance {
+class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 
 	protected function doDBUpdates() {
 		$ids = $ips = $deleteEntries = [];
@@ -16,46 +16,46 @@ class BSRatingRemoveDuplucateEntries extends LoggedUpdateMaintenance {
 		);
 		foreach( $res as $row ) {
 			if( isset( $ids
-					[$row->rat_reftype]
-					[$row->rat_ref]
-					[$row->rat_subtype]
-					[$row->rat_context]
+					[ $row->rat_reftype ]
+					[ $row->rat_ref ]
+					[ $row->rat_subtype ]
+					[ $row->rat_context ]
 				) && $ids
-					[$row->rat_reftype]
-					[$row->rat_ref]
-					[$row->rat_subtype]
-					[$row->rat_context]
+					[ $row->rat_reftype ]
+					[ $row->rat_ref ]
+					[ $row->rat_subtype ]
+					[ $row->rat_context ]
 				== $row->rat_userid
 			) {
 				$deleteEntries[] = $row->rat_id;
 				continue;
 			}
 			if( isset( $ips
-					[$row->rat_reftype]
-					[$row->rat_ref]
-					[$row->rat_subtype]
-					[$row->rat_context]
+					[ $row->rat_reftype ]
+					[ $row->rat_ref ]
+					[ $row->rat_subtype ]
+					[ $row->rat_context ]
 				) && $ips
-					[$row->rat_reftype]
-					[$row->rat_ref]
-					[$row->rat_subtype]
-					[$row->rat_context]
+					[ $row->rat_reftype ]
+					[ $row->rat_ref ]
+					[ $row->rat_subtype ]
+					[ $row->rat_context ]
 				== $row->rat_userid
 			) {
 				$deleteEntries[] = $row->rat_id;
 				continue;
 			}
 			$ids
-				[$row->rat_reftype]
-				[$row->rat_ref]
-				[$row->rat_subtype]
-				[$row->rat_context]
+				[ $row->rat_reftype ]
+				[ $row->rat_ref ]
+				[ $row->rat_subtype ]
+				[ $row->rat_context ]
 				= $row->rat_userid;
 			$ips
-				[$row->rat_reftype]
-				[$row->rat_ref]
-				[$row->rat_subtype]
-				[$row->rat_context]
+				[ $row->rat_reftype ]
+				[ $row->rat_ref ]
+				[ $row->rat_subtype ]
+				[ $row->rat_context ]
 				= $row->rat_userip;
 		}
 		if( empty( $deleteEntries ) ) {
@@ -63,7 +63,7 @@ class BSRatingRemoveDuplucateEntries extends LoggedUpdateMaintenance {
 		}
 		$b = $this->getDB( DB_MASTER )->delete(
 			'bs_rating',
-			['rat_id' => $deleteEntries]
+			[ 'rat_id' => $deleteEntries ]
 		);
 		return true;
 	}
