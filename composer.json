@@ -1,9 +1,15 @@
 {
-  "name": "mediawiki/blue-spice-rating",
-  "type": "mediawiki-extension",
-  "description": "Provides a rating system",
-  "license": "GPL-3.0",
-  "require": {
-    "composer/installers": "~1.0"
-  }
+	"name": "mediawiki/blue-spice-rating",
+	"type": "mediawiki-extension",
+	"description": "Provides a rating system",
+	"license": "GPL-3.0",
+	"require": {
+		"composer/installers": "~1.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"BlueSpice\\Rating\\" : "src",
+			"BlueSpice\\Rating\\Tests\\": "tests/phpunit"
+		}
+	}
 }
