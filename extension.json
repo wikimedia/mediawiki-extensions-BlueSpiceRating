@@ -17,6 +17,32 @@
 						"RatingArticleLikeEnabledNamespaces": "\\BlueSpice\\Rating\\ConfigDefinition\\RatingArticleLikeEnabledNamespaces::getInstance"
 					}
 				}
+			},
+			"PermissionRegistry": {
+				"rating-read": {
+					"type": "namespace",
+					"roles": [
+						"reader"
+					]
+				},
+				"rating-write": {
+					"type": "namespace",
+					"roles": [
+						"editor"
+					]
+				},
+				"rating-archive": {
+					"type": "namespace",
+					"roles": [
+						"admin"
+					]
+				},
+				"rating-viewspecialpage": {
+					"type": "namespace",
+					"roles": [
+						"editor"
+					]
+				}
 			}
 		},
 		"BlueSpiceRating": {
