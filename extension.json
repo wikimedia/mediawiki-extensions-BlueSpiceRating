@@ -38,7 +38,7 @@
 					]
 				},
 				"rating-viewspecialpage": {
-					"type": "namespace",
+					"type": "global",
 					"roles": [
 						"editor"
 					]
