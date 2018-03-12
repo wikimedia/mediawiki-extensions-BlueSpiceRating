@@ -206,7 +206,8 @@
 		"BeforePageDisplay": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources::callback",
 		"SkinTemplateOutputPageBeforeExec": [
 			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleLikeRating::callback"
+			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleLikeRating::callback",
+			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRating::callback"
 		],
 		"BSMigrateSettingsFromDeviatingNames": "\\BlueSpice\\Rating\\Extension::onBSMigrateSettingsFromDeviatingNames",
 		"UnitTestsList" : "\\BlueSpice\\Rating\\Extension::onUnitTestsList"
