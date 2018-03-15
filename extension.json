@@ -22,13 +22,16 @@
 				"rating-read": {
 					"type": "namespace",
 					"roles": [
-						"reader"
+						"reader",
+						"editor",
+						"admin"
 					]
 				},
 				"rating-write": {
 					"type": "namespace",
 					"roles": [
-						"editor"
+						"editor",
+						"admin"
 					]
 				},
 				"rating-archive": {
@@ -40,7 +43,8 @@
 				"rating-viewspecialpage": {
 					"type": "global",
 					"roles": [
-						"editor"
+						"editor",
+						"admin"
 					]
 				}
 			}
