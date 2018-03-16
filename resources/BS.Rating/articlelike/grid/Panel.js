@@ -12,7 +12,7 @@
 Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 	extend: 'BS.CRUDGridPanel',
 	requires: [ 'BS.store.BSApi' ],
-	id: 'bs-specialrating-extgrid',
+	id: 'bs-specialratinglike-extgrid',
 	features: [],
 
 	initComponent: function() {
@@ -49,7 +49,6 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 			header: mw.message ('bs-rating-specialrating-label-namespace' ).plain(),
 			dataIndex: 'page_namespace',
 			sortable: true,
-			filterable: true,
 			filter: {
 				type: 'list',
 				options: filter
@@ -70,7 +69,9 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 					+ '</a>';
 			},
 			sortable: true,
-			filterable: true
+			filter: {
+				type: 'string'
+			}
 		},{
 			id: 'votes',
 			header:mw.message( 'bs-rating-special-recommendations-label-recommendation' ).plain(),
@@ -78,28 +79,11 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
 				return record.get('content');
 			},
-			sortable: true
+			sortable: true,
+			filter: {
+				type: 'numeric'
+			}
 		}];
-
-		this.filters = Ext.create('Ext.ux.grid.FiltersFeature', {
-			encode: true,
-			local: false,
-			filters: [/*{ is not working -.-
-				/*type: 'list',
-				dataIndex: 'page_namepsace',
-				options: ['Foo', 'Bar']
-			},*/{
-				type: 'string',
-				dataIndex: 'page_title',
-				menuItems: ['ct', 'nct', 'sw', 'ew', 'eq', 'neq']
-			}, {
-				type: 'numeric',
-				dataIndex: 'totalcount',
-				menuItems: ['gt', 'lt', 'eq']
-			}]
-		});
-
-		this.gpMainConf.features = [this.filters];
 
 		this.colMainConf.columns = this.columns;
 		this.callParent( arguments );
