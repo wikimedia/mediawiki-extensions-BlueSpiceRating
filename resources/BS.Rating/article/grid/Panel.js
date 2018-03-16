@@ -50,7 +50,6 @@ Ext.define( 'BS.Rating.article.grid.Panel', {
 			header: mw.message ('bs-rating-specialrating-label-namespace' ).plain(),
 			dataIndex: 'page_namespace',
 			sortable: true,
-			filterable: true,
 			filter: {
 				type: 'list',
 				options: filter
@@ -71,44 +70,28 @@ Ext.define( 'BS.Rating.article.grid.Panel', {
 					+ '</a>';
 			},
 			sortable: true,
-			filterable: true
+			filter: {
+				type: 'string'
+			}
 		},{
 			header: mw.message( 'bs-rating-specialrating-titleRating' ).plain(),
 			sortable: true,
 			dataIndex: 'average',
 			renderer: function(value, metaData, record, rowIndex, colIndex, store) {
 				return record.get('content');
+			},
+			filter: {
+				type: 'numeric'
 			}
 		},{
 			id: 'votes',
 			header:mw.message( 'bs-rating-specialrating-titleVotes' ).plain(),
 			dataIndex: 'totalcount',
-			sortable: true
+			sortable: true,
+			filter: {
+				type: 'numeric'
+			}
 		}];
-
-		this.filters = Ext.create('Ext.ux.grid.FiltersFeature', {
-			encode: true,
-			local: false,
-			filters: [/*{ is not working -.-
-				/*type: 'list',
-				dataIndex: 'page_namepsace',
-				options: ['Foo', 'Bar']
-			},*/{
-				type: 'string',
-				dataIndex: 'page_title',
-				menuItems: ['ct', 'nct', 'sw', 'ew', 'eq', 'neq']
-			},{
-				type: 'numeric',
-				dataIndex: 'average',
-				menuItems: ['gt', 'lt', 'eq']
-			}, {
-				type: 'numeric',
-				dataIndex: 'totalcount',
-				menuItems: ['gt', 'lt', 'eq']
-			}]
-		});
-
-		this.gpMainConf.features = [this.filters];
 
 		this.colMainConf.columns = this.columns;
 		this.callParent( arguments );
