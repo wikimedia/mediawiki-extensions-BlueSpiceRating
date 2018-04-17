@@ -57,12 +57,13 @@ bs.rating.Item.prototype.getType = function() {
 	return this.type;
 };
 bs.rating.Item.prototype.getData = function() {
-	return {
-		[this.REF]: this.data.get( this.REF, '' ),
-		[this.SUBTYPE]: this.data.get( this.SUBTYPE, 'default' ),
-		[this.REFTYPE]: this.getType(),
-		[this.CONTEXT]: this.data.get( this.CONTEXT, 0 )
-	};
+	var data = {};
+	data[this.REF] = this.data.get( this.REF, '' );
+	data[this.SUBTYPE] = this.data.get( this.SUBTYPE, 'default' );
+	data[this.REFTYPE] = this.getType();
+	data[this.CONTEXT] = this.data.get( this.CONTEXT, 0 );
+
+	return data;
 };
 bs.rating.Item.prototype.getRatings = function() {
 	var res = [];
