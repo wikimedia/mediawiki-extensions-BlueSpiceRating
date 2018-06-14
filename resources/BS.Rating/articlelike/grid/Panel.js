@@ -64,7 +64,7 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 				if( ns && ns !== "" ) {
 					value = ns + ':' + value;
 				}
-				return '<a href = "' + mw.util.wikiGetlink( value ) + '">'
+				return '<a href = "' + mw.util.getUrl( value ) + '">'
 					+ value
 					+ '</a>';
 			},

@@ -23,6 +23,7 @@ Ext.define( 'BS.Rating.article.grid.Panel', {
 				'page_title',
 				'rat_reftype',
 				'rat_ref',
+				'rat_subtype',
 				'average',
 				'totalcount',
 				'content',
@@ -65,7 +66,7 @@ Ext.define( 'BS.Rating.article.grid.Panel', {
 				if( ns && ns !== "" ) {
 					value = ns + ':' + value;
 				}
-				return '<a href = "' + mw.util.wikiGetlink( value ) + '">'
+				return '<a href = "' + mw.util.getUrl( value ) + '">'
 					+ value
 					+ '</a>';
 			},

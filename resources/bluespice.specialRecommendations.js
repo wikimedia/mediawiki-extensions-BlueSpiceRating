@@ -8,10 +8,16 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
  * @filesource
  */
-Ext.Loader.setPath(
-	'BS.Rating',
-	bs.em.paths.get( 'BlueSpiceRating' ) + '/resources/BS.Rating'
-);
-Ext.create( 'BS.Rating.articlelike.grid.Panel', {
-	renderTo: 'bs-ratingarticlelike-grid'
-});
+( function( mw, $, bs ) {
+	Ext.onReady( function() {
+		Ext.Loader.setPath(
+			'BS.Rating',
+			bs.em.paths.get( 'BlueSpiceRating' ) + '/resources/BS.Rating'
+		);
+		Ext.require( 'BS.Rating.articlelike.grid.Panel', function(){
+			new BS.Rating.articlelike.grid.Panel( {
+				renderTo: 'bs-ratingarticlelike-grid'
+			});
+		});
+	});
+})( mediaWiki, jQuery, blueSpice );
