@@ -18,7 +18,7 @@ namespace BlueSpice\Rating\Special;
  * @package BlueSpice_Extensions
  * @subpackage Recommendations
  */
-class Recommendations extends \SpecialPage {
+class Recommendations extends \BsSpecialPage {
 
 	function __construct() {
 		parent::__construct( 'Recommendations', 'rating-viewspecialpage', true );
@@ -32,14 +32,17 @@ class Recommendations extends \SpecialPage {
 		);
 
 		$this->getOutput()->addHtml(
-			\Html::element('div', ['id' => "bs-ratingarticlelike-grid"] )
+			\Html::element( 'div', [
+				'id' => "bs-ratingarticlelike-grid",
+				'class' => "bs-manager-container",
+			])
 		);
 
-		$config = \MediaWiki\MediaWikiServices::getInstance()
-			->getConfigFactory()->makeConfig( 'bsg' );
-
+		$enabledNamespaces = $this->getConfig()->get(
+			'RatingArticleLikeEnabledNamespaces'
+		);
 		$namespaces = [];
-		foreach( $config->get( 'RatingenArticleLikeNS' ) as $nsIdx ) {
+		foreach( $enabledNamespaces as $nsIdx ) {
 			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
 				$nsIdx
 			); 

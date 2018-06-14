@@ -18,7 +18,7 @@ namespace BlueSpice\Rating\Special;
  * @package BlueSpice_Extensions
  * @subpackage Rating
  */
-class Rating extends \SpecialPage {
+class Rating extends \BsSpecialPage {
 
 	function __construct() {
 		parent::__construct( 'Rating', 'rating-viewspecialpage', true );
@@ -32,14 +32,18 @@ class Rating extends \SpecialPage {
 		);
 
 		$this->getOutput()->addHtml(
-			\Html::element('div', ['id' => "bs-ratingarticle-grid"] )
+			\Html::element( 'div', [
+				'id' => "bs-ratingarticle-grid",
+				'class' => "bs-manager-container",
+			])
 		);
 
-		$config = \MediaWiki\MediaWikiServices::getInstance()
-			->getConfigFactory()->makeConfig( 'bsg' );
+		$enabledNamespaces = $this->getConfig()->get(
+			'RatingArticleEnabledNamespaces'
+		);
 
 		$namespaces = [];
-		foreach( $config->get( 'RatingArticleEnabledNamespaces' ) as $nsIdx ) {
+		foreach( $enabledNamespaces as $nsIdx ) {
 			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
 				$nsIdx
 			); 
@@ -53,9 +57,5 @@ class Rating extends \SpecialPage {
 		$this->getOutput()->addModules( 'ext.bluespice.ratingItemArticle' );
 		$this->getOutput()->addModules( 'ext.bluespice.specialRating' );
 		$this->getOutput()->addModuleStyles( 'ext.bluespice.rating.styles' );
-	}
-
-	protected function getGroupName() {
-		return 'bluespice';
 	}
 }
