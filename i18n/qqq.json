@@ -5,5 +5,7 @@
 		]
 	},
 	"apihelp-bs-rating-tasks-description": "{{doc-apihelp-description|bs-rating-tasks}}",
-	"apihelp-bs-rating-store-description": "{{doc-apihelp-description|bs-rating-store}}"
+	"apihelp-bs-rating-store-description": "{{doc-apihelp-description|bs-rating-store}}",
+	"bs-rating-nsm-label-stars": "Label for field in BlueSpiceNamespaceManager used to select namespaces in which rating is enabled",
+	"bs-rating-nsm-label-likes": "Label for field in BlueSpiceNamespaceManager used to select namespaces in which rating - recommendations is enabled"
 }

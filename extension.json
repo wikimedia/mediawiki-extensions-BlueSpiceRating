@@ -11,11 +11,7 @@
 				"BlueSpiceRating": {
 					"className": "\\BlueSpice\\Rating\\Extension",
 					"extPath": "/BlueSpiceRating",
-					"package": "BlueSpice Pro",
-					"configDefinitions": {
-						"RatingArticleEnabledNamespaces": "\\BlueSpice\\Rating\\ConfigDefinition\\RatingArticleEnabledNamespaces::getInstance",
-						"RatingArticleLikeEnabledNamespaces": "\\BlueSpice\\Rating\\ConfigDefinition\\RatingArticleLikeEnabledNamespaces::getInstance"
-					}
+					"package": "BlueSpice Pro"
 				}
 			},
 			"PermissionRegistry": {
@@ -217,14 +213,10 @@
 	"config_prefix": "bsg",
 	"config": {
 		"RatingArticleEnabledNamespaces": {
-			"value": [ 0 ],
-			"descriptionmsg": "bs-rating-toc-enratingns",
-			"public": true
+			"value": [ 0 ]
 		},
 		"RatingArticleLikeEnabledNamespaces": {
-			"value": [],
-			"descriptionmsg": "bs-rating-toc-enarticlelikens",
-			"public": true
+			"value": []
 		}
 	},
 	"Hooks": {
@@ -242,7 +234,13 @@
 			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRating::callback"
 		],
 		"BSMigrateSettingsFromDeviatingNames": "\\BlueSpice\\Rating\\Extension::onBSMigrateSettingsFromDeviatingNames",
-		"UnitTestsList" : "\\BlueSpice\\Rating\\Extension::onUnitTestsList"
+		"UnitTestsList" : "\\BlueSpice\\Rating\\Extension::onUnitTestsList",
+		"NamespaceManager::getMetaFields": "BlueSpice\\Rating\\Hook\\NamespaceManagerGetMetaFields\\RegisterMetaFields::callback",
+		"BSApiNamespaceStoreMakeData": "BlueSpice\\Rating\\Hook\\BSApiNamespaceStoreMakeData\\AddData::callback",
+		"NamespaceManager::editNamespace": "BlueSpice\\Rating\\Hook\\NamespaceManagerEditNamespace\\SetRatingValues::callback",
+		"NamespaceManager::writeNamespaceConfiguration": [
+			"BlueSpice\\Rating\\Hook\\NamespaceManagerWriteNamespaceConfiguration\\WriteToConfiguration::callback"
+		]
 	},
 	"load_composer_autoloader": true,
 	"manifest_version": 2
