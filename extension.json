@@ -213,10 +213,10 @@
 	"config_prefix": "bsg",
 	"config": {
 		"RatingArticleEnabledNamespaces": {
-			"value": [ 0 ]
+			"value": []
 		},
 		"RatingArticleLikeEnabledNamespaces": {
-			"value": []
+			"value": [ 0, 4, 6, 10, 14 ]
 		}
 	},
 	"Hooks": {
