@@ -7,18 +7,18 @@ use BlueSpice\NamespaceManager\Hook\NamespaceManagerEditNamespace;
 class SetRatingValues extends NamespaceManagerEditNamespace {
 	
 	protected function doProcess() {
-		if ( !$this->useInternalDefaults && isset( $this->additionalSettings['rating-stars'] ) ) {
-			$this->namespaceDefinition[$this->nsId][ 'rating-stars' ] = $this->additionalSettings['rating-stars'];
+		if ( !$this->useInternalDefaults && isset( $this->additionalSettings['rating'] ) ) {
+			$this->namespaceDefinition[$this->nsId][ 'rating' ] = $this->additionalSettings['rating'];
 		}
 		else {
-			$this->namespaceDefinition[$this->nsId][ 'rating-stars' ] = false;
+			$this->namespaceDefinition[$this->nsId][ 'rating' ] = false;
 		}
 
-		if ( !$this->useInternalDefaults && isset( $this->additionalSettings['rating-likes'] ) ) {
-			$this->namespaceDefinition[$this->nsId][ 'rating-likes' ] = $this->additionalSettings['rating-likes'];
+		if ( !$this->useInternalDefaults && isset( $this->additionalSettings['rating-recommendations'] ) ) {
+			$this->namespaceDefinition[$this->nsId][ 'rating-recommendations' ] = $this->additionalSettings['rating-recommendations'];
 		}
 		else {
-			$this->namespaceDefinition[$this->nsId][ 'rating-likes' ] = false;
+			$this->namespaceDefinition[$this->nsId][ 'rating-recommendations' ] = false;
 		}
 		return true;
 	}

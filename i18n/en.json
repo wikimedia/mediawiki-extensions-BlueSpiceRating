@@ -7,8 +7,6 @@
 	"bs-rating-extension-description": "Provides a rating system",
 	"Rating": "Rating",
 	"prefs-rating": "Rating",
-	"bs-rating-toc-enratingns": "Activate 'stars' in namespaces",
-	"bs-rating-toc-enarticlelikens": "Activate 'likes' in namespaces",
 	"bs-rating-toc-statebartoprating": "Rating",
 	"bs-rating-toc-statebarbodyrating": "Rating",
 	"bs-rating-types-page": "Article",
@@ -35,6 +33,6 @@
 	"bs-rating-specialrating-ptbAfterPageText": "of {0}",
 	"apihelp-bs-rating-tasks-description": "Executes common tasks for extension Rating",
 	"apihelp-bs-rating-store-description": "Delivers ratings for articles",
-	"bs-rating-nsm-label-stars": "Rating - Stars",
-	"bs-rating-nsm-label-likes": "Rating - Likes"
+	"bs-rating-nsm-label": "Rating",
+	"bs-rating-nsm-label-recommendations": "Rating - Recommendations"
 }

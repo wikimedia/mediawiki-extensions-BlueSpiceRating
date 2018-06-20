@@ -8,18 +8,18 @@ class RegisterMetaFields extends NamespaceManagerGetMetaFields {
 	
 	protected function doProcess() {
 		$this->metaFields[] = [
-			'name' => 'rating-stars',
+			'name' => 'rating',
 			'type' => 'boolean',
-			'label' => wfMessage( 'bs-rating-nsm-label-stars' )->plain(),
+			'label' => wfMessage( 'bs-rating-nsm-label' )->plain(),
 			'filter' => [
 				'type' => 'boolean'
 			]
 		];
 
 		$this->metaFields[] = [
-			'name' => 'rating-likes',
+			'name' => 'rating-recommendations',
 			'type' => 'boolean',
-			'label' => wfMessage( 'bs-rating-nsm-label-likes' )->plain(),
+			'label' => wfMessage( 'bs-rating-nsm-label-recommendations' )->plain(),
 			'filter' => [
 				'type' => 'boolean'
 			]

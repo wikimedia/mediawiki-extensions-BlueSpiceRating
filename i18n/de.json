@@ -7,8 +7,6 @@
 	"bs-rating-extension-description": "Stellt ein Bewertungssystem zur Verfügung.",
 	"Rating": "Bewertung",
 	"prefs-rating": "Bewertung",
-	"bs-rating-toc-enratingns": "'Sterne' aktivieren für Namensräume",
-	"bs-rating-toc-enarticlelikens": "'Likes' aktivieren für Namensräume",
 	"bs-rating-toc-statebartoprating": "Bewertung",
 	"bs-rating-toc-statebarbodyrating": "Bewertung",
 	"bs-rating-types-page": "Artikel",
@@ -33,6 +31,6 @@
 	"bs-rating-specialrating-ptbEmptyMsgText": "Keine Bewertungen gefunden",
 	"bs-rating-specialrating-ptbBeforePageText": "Seite",
 	"bs-rating-specialrating-ptbAfterPageText": "von {0}",
-	"bs-rating-nsm-label-stars": "Bewertung - Sterne",
-	"bs-rating-nsm-label-likes": "Bewertung - Likes"
+	"bs-rating-nsm-label": "Bewertung",
+	"bs-rating-nsm-label-recommendations": "Bewertung - Empfehlungen"
 }

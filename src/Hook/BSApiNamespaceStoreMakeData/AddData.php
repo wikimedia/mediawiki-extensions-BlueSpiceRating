@@ -11,9 +11,9 @@ class AddData extends BSApiNamespaceStoreMakeData {
 		$enabledLikeNamespaces = $this->getConfig()->get( 'RatingArticleLikeEnabledNamespaces' );
 
 		foreach( $this->results as $key => &$result ) {
-			$result['rating-stars'] =
+			$result['rating'] =
 				in_array( $result[ 'id' ], $enabledNamespaces );
-			$result['rating-likes'] =
+			$result['rating-recommendations'] =
 				in_array( $result[ 'id' ], $enabledLikeNamespaces );
 		}
 
