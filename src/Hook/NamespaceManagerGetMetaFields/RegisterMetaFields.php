@@ -5,7 +5,7 @@ namespace BlueSpice\Rating\Hook\NamespaceManagerGetMetaFields;
 use BlueSpice\NamespaceManager\Hook\NamespaceManagerGetMetaFields;
 
 class RegisterMetaFields extends NamespaceManagerGetMetaFields {
-	
+
 	protected function doProcess() {
 		$this->metaFields[] = [
 			'name' => 'rating',
@@ -17,7 +17,7 @@ class RegisterMetaFields extends NamespaceManagerGetMetaFields {
 		];
 
 		$this->metaFields[] = [
-			'name' => 'rating-recommendations',
+			'name' => 'recommendations',
 			'type' => 'boolean',
 			'label' => wfMessage( 'bs-rating-nsm-label-recommendations' )->plain(),
 			'filter' => [

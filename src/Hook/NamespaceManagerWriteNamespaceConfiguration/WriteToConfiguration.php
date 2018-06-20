@@ -11,10 +11,10 @@ class WriteToConfiguration extends NamespaceManagerWriteNamespaceConfiguration {
 		}
 		return false;
 	}
-	
+
 	protected function doProcess() {
 		$this->writeConfiguration( "RatingArticleEnabledNamespaces", "rating" );
-		$this->writeConfiguration( "RatingArticleLikeEnabledNamespaces", "rating-recommendations" );
+		$this->writeConfiguration( "RatingArticleLikeEnabledNamespaces", "recommendations" );
 
 		return true;
 	}
