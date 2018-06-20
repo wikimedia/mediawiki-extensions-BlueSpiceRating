@@ -32,5 +32,7 @@
 	"bs-rating-specialrating-ptbDisplayMsgText": "Seiten {0} - {1} von {2}",
 	"bs-rating-specialrating-ptbEmptyMsgText": "Keine Bewertungen gefunden",
 	"bs-rating-specialrating-ptbBeforePageText": "Seite",
-	"bs-rating-specialrating-ptbAfterPageText": "von {0}"
+	"bs-rating-specialrating-ptbAfterPageText": "von {0}",
+	"bs-rating-nsm-label-stars": "Bewertung - Sterne",
+	"bs-rating-nsm-label-likes": "Bewertung - Likes"
 }
