@@ -1,6 +1,9 @@
 <?php
 
 namespace BlueSpice\Rating\Tests;
+
+use BlueSpice\Tests\BSApiExtJSStoreTestBase;
+
 /**
  * @group medium
  * @group api
@@ -8,7 +11,7 @@ namespace BlueSpice\Rating\Tests;
  * @group BlueSpice
  * @group BlueSpiceRating
  */
-class BSApiRatingStoreTests extends \BSApiExtJSStoreTestBase {
+class BSApiRatingStoreTests extends BSApiExtJSStoreTestBase {
 	protected $iFixtureTotal = 2;
 
 	protected $tablesUsed = [ 'page', 'bs_rating' ];

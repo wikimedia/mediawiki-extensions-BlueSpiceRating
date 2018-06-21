@@ -1,6 +1,9 @@
 <?php
 
 namespace BlueSpice\Rating\Tests;
+
+use BlueSpice\Tests\BSApiTasksTestBase;
+
 /**
  * @group medium
  * @group API
@@ -8,7 +11,7 @@ namespace BlueSpice\Rating\Tests;
  * @group BlueSpice
  * @group BlueSpiceRating
  */
-class BSApiTasksRatingTest extends \BSApiTasksTestBase {
+class BSApiTasksRatingTest extends BSApiTasksTestBase {
 	protected function getModuleName() {
 		return 'bs-rating-tasks';
 	}
