@@ -232,7 +232,8 @@
 		"SkinTemplateOutputPageBeforeExec": [
 			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleRating::callback",
 			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleLikeRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRating::callback"
+			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRating::callback",
+			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRecommendationsGlobalAction::callback"
 		],
 		"BSMigrateSettingsFromDeviatingNames": "\\BlueSpice\\Rating\\Extension::onBSMigrateSettingsFromDeviatingNames",
 		"UnitTestsList" : "\\BlueSpice\\Rating\\Extension::onUnitTestsList",
