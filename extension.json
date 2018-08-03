@@ -242,7 +242,8 @@
 		"NamespaceManager::editNamespace": "BlueSpice\\Rating\\Hook\\NamespaceManagerEditNamespace\\SetRatingValues::callback",
 		"NamespaceManager::writeNamespaceConfiguration": [
 			"BlueSpice\\Rating\\Hook\\NamespaceManagerWriteNamespaceConfiguration\\WriteToConfiguration::callback"
-		]
+		],
+		"GetDoubleUnderscoreIDs": "\\BlueSpice\\Rating\\Hook\\GetDoubleUnderscoreIDs\\AddNoRating::callback"
 	},
 	"load_composer_autoloader": true,
 	"manifest_version": 2
