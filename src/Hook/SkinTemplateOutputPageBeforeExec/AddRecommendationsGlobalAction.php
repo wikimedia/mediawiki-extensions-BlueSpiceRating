@@ -26,7 +26,7 @@ class AddRecommendationsGlobalAction extends SkinTemplateOutputPageBeforeExec {
 					'href' => $special->getPageTitle()->getFullURL(),
 					'text' => $special->getDescription(),
 					'title' => $special->getPageTitle(),
-					'classes' => ' icon-special-recommendations ',
+					'iconClass' => ' icon-special-recommendations ',
 					'position' => 30
 				]
 			]

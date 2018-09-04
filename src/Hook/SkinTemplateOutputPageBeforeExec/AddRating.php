@@ -15,7 +15,7 @@ class AddRating extends SkinTemplateOutputPageBeforeExec {
 					'href' => $specialRating->getPageTitle()->getFullURL(),
 					'text' => $specialRating->getDescription(),
 					'title' => $specialRating->getPageTitle(),
-					'classes' => ' icon-special-rating ',
+					'iconClass' => ' icon-special-rating ',
 					'position' => 30
 				]
 			]
