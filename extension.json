@@ -217,7 +217,7 @@
 			"value": []
 		},
 		"RatingArticleLikeEnabledNamespaces": {
-			"value": [ 0, 4, 6, 10, 14 ]
+			"value": []
 		}
 	},
 	"Hooks": {
