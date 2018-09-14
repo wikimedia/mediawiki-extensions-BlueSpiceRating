@@ -17,7 +17,6 @@ class AddData extends BSApiNamespaceStoreMakeData {
 				'disabled' => $result['isTalkNS']
 			];
 
-
 			$result['recommendations'] = [
 				'value' => in_array( $result[ 'id' ], $enabledLikeNamespaces ),
 				'disabled' => $result['isTalkNS']
