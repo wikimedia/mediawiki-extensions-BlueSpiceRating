@@ -16,32 +16,40 @@
 				}
 			},
 			"PermissionRegistry": {
-				"rating-read": {
-					"type": "namespace",
-					"roles": [
-						"reader",
-						"editor",
-						"admin"
-					]
-				},
-				"rating-write": {
-					"type": "namespace",
-					"roles": [
-						"editor",
-						"admin"
-					]
-				},
 				"rating-archive": {
 					"type": "namespace",
 					"roles": [
-						"admin"
+						"admin",
+						"editor",
+						"maintenanceadmin"
+					]
+				},
+				"rating-read": {
+					"type": "namespace",
+					"roles": [
+						"admin",
+						"commenter",
+						"editor",
+						"maintenanceadmin",
+						"reader"
 					]
 				},
 				"rating-viewspecialpage": {
 					"type": "global",
 					"roles": [
+						"admin",
 						"editor",
-						"admin"
+						"maintenanceadmin",
+						"reader"
+					]
+				},
+				"rating-write": {
+					"type": "namespace",
+					"roles": [
+						"author",
+						"commenter",
+						"editor",
+						"maintenanceadmin"
 					]
 				}
 			}
