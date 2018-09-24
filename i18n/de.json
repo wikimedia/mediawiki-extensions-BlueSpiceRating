@@ -31,6 +31,8 @@
 	"bs-rating-specialrating-ptbEmptyMsgText": "Keine Bewertungen gefunden",
 	"bs-rating-specialrating-ptbBeforePageText": "Seite",
 	"bs-rating-specialrating-ptbAfterPageText": "von {0}",
+	"apihelp-bs-rating-tasks-description": "Führt allgemeine Aufgaben für die Erweiterung Bewertungen aus",
+	"apihelp-bs-rating-store-description": "Liefert Bewertungen für Seiten",
 	"bs-rating-nsm-label": "Bewertung",
 	"bs-rating-nsm-label-recommendations": "Empfehlungen"
 }
