@@ -203,8 +203,7 @@
 		},
 		"ext.bluespice.rating.icons": {
 			"styles": "bluespice.rating.icons.less",
-			"targets": [ "desktop", "mobile" ],
-			"position": "top"
+			"targets": [ "desktop", "mobile" ]
 		},
 		"ext.rating.starRatingSvg.styles": {
 			"targets": [ "desktop", "mobile" ],
