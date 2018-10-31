@@ -18,7 +18,7 @@ namespace BlueSpice\Rating\Special;
  * @package BlueSpice_Extensions
  * @subpackage Recommendations
  */
-class Recommendations extends \BsSpecialPage {
+class Recommendations extends \BlueSpice\SpecialPage {
 
 	function __construct() {
 		parent::__construct( 'Recommendations', 'rating-viewspecialpage', true );
@@ -60,7 +60,4 @@ class Recommendations extends \BsSpecialPage {
 		);
 	}
 
-	protected function getGroupName() {
-		return 'bluespice';
-	}
 }

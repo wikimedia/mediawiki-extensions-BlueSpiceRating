@@ -18,7 +18,7 @@ namespace BlueSpice\Rating\Special;
  * @package BlueSpice_Extensions
  * @subpackage Rating
  */
-class Rating extends \BsSpecialPage {
+class Rating extends \BlueSpice\SpecialPage {
 
 	function __construct() {
 		parent::__construct( 'Rating', 'rating-viewspecialpage', true );
