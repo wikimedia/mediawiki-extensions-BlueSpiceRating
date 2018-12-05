@@ -59,6 +59,11 @@
 				"article": "\\BlueSpice\\Rating\\RatingConfig\\Article",
 				"articlelike": "\\BlueSpice\\Rating\\RatingConfig\\ArticleLike"
 			}
+		},
+		"BlueSpicePrivacy": {
+			"Handlers": [
+				"\\BlueSpice\\Rating\\Privacy\\Handler"
+			]
 		}
 	},
 	"ServiceWiringFiles": [
