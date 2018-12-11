@@ -116,14 +116,14 @@
 	},
 	"ResourceModules": {
 		"ext.bluespice.rating.styles": {
-			"styles": "bluespice.rating.css",
-			"targets": [ "desktop", "mobile" ]
+			"styles": [
+				"bluespice.rating.css"
+			]
 		},
 		"ext.bluespice.rating": {
 			"scripts": [
 				"bluespice.rating.js"
 			],
-			"targets": [ "desktop", "mobile" ],
 			"dependencies": [
 				"oojs-ui",
 				"ext.bluespice"
@@ -133,7 +133,6 @@
 			"scripts": [
 				"bluespice.ratingItem.js"
 			],
-			"targets": [ "desktop", "mobile" ],
 			"dependencies": [
 				"ext.bluespice.rating"
 			]
@@ -142,7 +141,6 @@
 			"scripts": [
 				"bluespice.ratingItemArticle.js"
 			],
-			"targets": [ "desktop", "mobile" ],
 			"dependencies": [
 				"ext.bluespice.rating",
 				"ext.bluespice.ratingItem"
@@ -155,7 +153,6 @@
 			"scripts": [
 				"bluespice.ratingItemArticleLike.js"
 			],
-			"targets": [ "desktop", "mobile" ],
 			"dependencies": [
 				"ext.bluespice.rating",
 				"ext.bluespice.ratingItem"
@@ -168,8 +165,7 @@
 		"ext.bluespice.ratingItemArticleLike.styles": {
 			"styles": [
 				"bluespice.ratingarticlelike.css"
-			],
-			"targets": [ "desktop", "mobile" ]
+			]
 		},
 		"ext.bluespice.specialRating": {
 			"scripts": "bluespice.specialRating.js",
@@ -177,7 +173,6 @@
 				"oojs-ui",
 				"ext.bluespice.extjs"
 			],
-			"targets": [ "desktop", "mobile" ],
 			"messages": [
 				"bs-rating-specialrating-titleTitle",
 				"bs-rating-specialrating-titleRating",
@@ -195,7 +190,6 @@
 				"oojs-ui",
 				"ext.bluespice.extjs"
 			],
-			"targets": [ "desktop", "mobile" ],
 			"messages": [
 				"bs-rating-specialrating-titleTitle",
 				"bs-rating-specialrating-ptbDisplayMsgText",
@@ -207,16 +201,19 @@
 			]
 		},
 		"ext.bluespice.rating.icons": {
-			"styles": "bluespice.rating.icons.less",
-			"targets": [ "desktop", "mobile" ]
+			"styles": [
+				"bluespice.rating.icons.less"
+			]
 		},
 		"ext.rating.starRatingSvg.styles": {
-			"targets": [ "desktop", "mobile" ],
-			"styles": "star-rating-svg/src/css/star-rating-svg.css"
+			"styles": [
+				"star-rating-svg/src/css/star-rating-svg.css"
+			]
 		},
 		"ext.rating.starRatingSvg": {
-			"targets": [ "desktop", "mobile" ],
-			"scripts": "star-rating-svg/src/jquery.star-rating-svg.js"
+			"scripts": [
+				"star-rating-svg/src/jquery.star-rating-svg.js"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
