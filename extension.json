@@ -108,6 +108,10 @@
 			"rating-viewspecialpage": true
 		}
 	},
+	"AutoloadNamespaces": {
+		"BlueSpice\\Rating\\": "src/",
+		"BlueSpice\\Rating\\Tests\\": "tests/phpunit/"
+	},
 	"AutoloadClasses": {
 		"BSRatingRemoveArchived": "maintenance/BSRatingRemoveArchived.php",
 		"BSRatingSetDefaultSubType": "maintenance/BSRatingSetDefaultSubType.php",
