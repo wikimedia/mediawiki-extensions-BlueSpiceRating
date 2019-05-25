@@ -8,20 +8,33 @@ class Reader extends DatabaseReader {
 	/**
 	 *
 	 * @param \LoadBalancer $loadBalancer
-	 * @param \IContextSource $context
+	 * @param \IContextSource|null $context
 	 */
 	public function __construct( $loadBalancer, \IContextSource $context = null ) {
 		parent::__construct( $loadBalancer, $context, $context->getConfig() );
 	}
 
+	/**
+	 *
+	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @return PrimaryDataProvider
+	 */
 	protected function makePrimaryDataProvider( $params ) {
 		return new PrimaryDataProvider( $this->db );
 	}
 
+	/**
+	 *
+	 * @return null
+	 */
 	protected function makeSecondaryDataProvider() {
 		return null;
 	}
 
+	/**
+	 *
+	 * @return Schema
+	 */
 	public function getSchema() {
 		return new Schema();
 	}
@@ -34,7 +47,7 @@ class Reader extends DatabaseReader {
 	public function read( $params ) {
 		$result = parent::read( $params );
 		$records = [];
-		foreach( $result->getRecords() as $record ) {
+		foreach ( $result->getRecords() as $record ) {
 			$records[] = $record;
 		}
 		$setClass = $this->config->get( 'RatingSetClass' );

@@ -21,10 +21,11 @@
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @package    BlueSpiceFoundation
  * @copyright  Copyright (C) 2017 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 namespace BlueSpice\Rating\Hook\SkinTemplateOutputPageBeforeExec;
+
 use BlueSpice\Hook\SkinTemplateOutputPageBeforeExec;
 
 class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
@@ -32,31 +33,33 @@ class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
 
 	protected function skipProcessing() {
 		$registry = $this->getServices()->getService( 'BSRatingRegistry' );
-		if( !$registry->isRegisteredType( 'articlelike' ) ) {
+		if ( !$registry->isRegisteredType( 'articlelike' ) ) {
 			return true;
 		}
-		if( !$title = $this->getArticleLikeContext( $this->skin->getTitle() ) ) {
+		$title = $this->getArticleLikeContext( $this->skin->getTitle() );
+		if ( !$title ) {
 			return true;
 		}
 
 		$prop = \BsArticleHelper::getInstance( $title )->getPageProp(
 			'bs_norating'
 		);
-		if( !is_null( $prop ) ) {
+		if ( !is_null( $prop ) ) {
 			return true;
 		}
 
 		$enabledNamespaces = $this->getConfig()->get(
 			'RatingArticleLikeEnabledNamespaces'
 		);
-		if( !in_array( $title->getNamespace(), $enabledNamespaces ) ) {
+		if ( !in_array( $title->getNamespace(), $enabledNamespaces ) ) {
 			return true;
 		}
 
 		$factory = $this->getServices()->getService(
 			'BSRatingFactoryArticleLike'
 		);
-		if( !$rating = $factory->newFromTitle( $title ) ) {
+		$rating = $factory->newFromTitle( $title );
+		if ( !$rating ) {
 			return true;
 		}
 		$oStatus = $rating->userCan(
@@ -64,7 +67,7 @@ class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
 			'read',
 			$title
 		);
-		if( !$oStatus->isOK() ) {
+		if ( !$oStatus->isOK() ) {
 			return true;
 		}
 
@@ -72,13 +75,15 @@ class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
 	}
 
 	protected function doProcess() {
-		if( !$title = $this->getArticleLikeContext( $this->skin->getTitle() ) ) {
+		$title = $this->getArticleLikeContext( $this->skin->getTitle() );
+		if ( !$title ) {
 			return true;
 		}
 		$factory = $this->getServices()->getService(
 			'BSRatingFactoryArticleLike'
 		);
-		if( !$rating = $factory->newFromTitle( $title ) ) {
+		$rating = $factory->newFromTitle( $title );
+		if ( !$rating ) {
 			return true;
 		}
 
@@ -88,34 +93,34 @@ class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
 
 	/**
 	 * Checks wether to set Context or not and returns the context Title.
-	 * @param \Title $title
+	 * @param \Title|null $title
 	 * @return Title - or false
 	 */
 	public function getArticleLikeContext( \Title $title = null ) {
-		if( !$title instanceof \Title ) {
+		if ( !$title instanceof \Title ) {
 			return false;
 		}
-		if( $this->contextTitle ) {
+		if ( $this->contextTitle ) {
 			return $this->contextTitle;
 		}
 
 		$request = $this->skin->getRequest();
 		$action = $request->getVal( 'action', 'view' );
 
-		if( !in_array( $action, ['view', 'submit'] ) ) {
+		if ( !in_array( $action, [ 'view', 'submit' ] ) ) {
 			return false;
 		}
 
-		if( $title->isRedirect() ) {
-			if( $request->getVal( 'redirect' ) != 'no' ) {
+		if ( $title->isRedirect() ) {
+			if ( $request->getVal( 'redirect' ) != 'no' ) {
 				$title = \BsArticleHelper::getInstance( $title )
 					->getTitleFromRedirectRecurse();
 			}
-			if( !$title || !$title->exists() || $title->isRedirect() ) {
+			if ( !$title || !$title->exists() || $title->isRedirect() ) {
 				return false;
 			}
 		}
-		if( $title->getNamespace() === NS_SPECIAL ) {
+		if ( $title->getNamespace() === NS_SPECIAL ) {
 			return false;
 		}
 

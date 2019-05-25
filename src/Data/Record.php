@@ -14,8 +14,8 @@ class Record extends \BlueSpice\Data\Record {
 	const SUBTYPE = 'rat_subtype';
 	const CONTEXT = 'rat_context';
 
-	function __clone() {
-		$this->dataSet = clone ($this->dataSet);
+	public function __clone() {
+		$this->dataSet = clone $this->dataSet;
 		$this->status = null;
 	}
 }

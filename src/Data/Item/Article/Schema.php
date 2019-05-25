@@ -27,6 +27,6 @@ class Schema extends \BlueSpice\Rating\Data\Item\Schema {
 				self::SORTABLE => true,
 				self::TYPE => FieldType::INT
 			],
-		]);
+		] );
 	}
 }

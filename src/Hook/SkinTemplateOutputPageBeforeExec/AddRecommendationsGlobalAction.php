@@ -7,16 +7,25 @@ use BlueSpice\SkinData;
 
 class AddRecommendationsGlobalAction extends SkinTemplateOutputPageBeforeExec {
 
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function skipProcessing() {
-		if( !$special = \SpecialPageFactory::getPage( 'Recommendations' ) ) {
+		$special = \SpecialPageFactory::getPage( 'Recommendations' );
+		if ( !$special ) {
 			return true;
 		}
-		if( !$special->userCanExecute( $this->skin->getUser() ) ) {
+		if ( !$special->userCanExecute( $this->skin->getUser() ) ) {
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function doProcess() {
 		$special = \SpecialPageFactory::getPage( 'Recommendations' );
 		$this->mergeSkinDataArray(

@@ -1,17 +1,17 @@
 <?php
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'Recommendations' => array( 'Recommendations', 'Recommendations' ),
-);
+$specialPageAliases['en'] = [
+	'Recommendations' => [ 'Recommendations', 'Recommendations' ],
+];
 
 /** German (Deutsch) */
-$specialPageAliases['de'] = array(
-	'Recommendations' => array( 'Empfehlungen' ),
-);
+$specialPageAliases['de'] = [
+	'Recommendations' => [ 'Empfehlungen' ],
+];
 
 /** German (Deutsch Formal) */
-$specialPageAliases['de-formal'] = array(
-	'Recommendations' => array( 'Empfehlungen' ),
-);
+$specialPageAliases['de-formal'] = [
+	'Recommendations' => [ 'Empfehlungen' ],
+];

@@ -8,7 +8,7 @@
  * @package    BlueSpice Pro
  * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 namespace BlueSpice\Rating\Special;
@@ -20,11 +20,15 @@ namespace BlueSpice\Rating\Special;
  */
 class Rating extends \BlueSpice\SpecialPage {
 
-	function __construct() {
+	public function __construct() {
 		parent::__construct( 'Rating', 'rating-viewspecialpage', true );
 	}
 
-	function execute( $param ) {
+	/**
+	 *
+	 * @param string $param
+	 */
+	public function execute( $param ) {
 		$this->checkPermissions();
 
 		$this->getOutput()->setPageTitle(
@@ -35,7 +39,7 @@ class Rating extends \BlueSpice\SpecialPage {
 			\Html::element( 'div', [
 				'id' => "bs-ratingarticle-grid",
 				'class' => "bs-manager-container",
-			])
+			] )
 		);
 
 		$enabledNamespaces = $this->getConfig()->get(
@@ -43,10 +47,10 @@ class Rating extends \BlueSpice\SpecialPage {
 		);
 
 		$namespaces = [];
-		foreach( $enabledNamespaces as $nsIdx ) {
+		foreach ( $enabledNamespaces as $nsIdx ) {
 			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
 				$nsIdx
-			); 
+			);
 		}
 
 		$this->getOutput()->addJsConfigVars(

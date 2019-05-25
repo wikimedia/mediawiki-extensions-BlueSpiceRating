@@ -5,8 +5,12 @@ namespace BlueSpice\Rating\Hook\LoadExtensionSchemaUpdates;
 use BlueSpice\Hook\LoadExtensionSchemaUpdates;
 
 class AddRatingDatabase extends LoadExtensionSchemaUpdates {
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function doProcess() {
-		$dir = $this->getExtensionPath().'/maintenance/db';
+		$dir = $this->getExtensionPath() . '/maintenance/db';
 
 		$this->updater->addExtensionTable(
 			'bs_rating',
@@ -25,6 +29,10 @@ class AddRatingDatabase extends LoadExtensionSchemaUpdates {
 		return true;
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function getExtensionPath() {
 		return dirname( dirname( dirname( __DIR__ ) ) );
 	}

@@ -12,6 +12,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	/**
 	 *
 	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @return Record[]
 	 */
 	public function makeData( $params ) {
 		$this->data = [];
@@ -26,14 +27,14 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 		];
 
 		$res = $this->db->select(
-			['bs_rating', 'page'],
+			[ 'bs_rating', 'page' ],
 			$fields,
 			$this->makePreFilterConds( $params ),
 			__METHOD__,
 			$this->makePreOptionConds( $params )
 		);
 
-		foreach( $res as $row ) {
+		foreach ( $res as $row ) {
 			$this->appendRowToData( $row );
 		}
 
@@ -53,26 +54,26 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 		$schema = new Schema();
 		$fields = array_values( $schema->getFilterableFields() );
 		$filterFinder = new FilterFinder( $params->getFilter() );
-		foreach( $fields as $fieldName ) {
+		foreach ( $fields as $fieldName ) {
 			$filter = $filterFinder->findByField( $fieldName );
-			if( !$filter instanceof Filter ) {
+			if ( !$filter instanceof Filter ) {
 				continue;
 			}
-			if( $fieldName === Record::TOTALCOUNT ) {
+			if ( $fieldName === Record::TOTALCOUNT ) {
 				continue;
 			}
-			if( $filter->getField() === 'page_namespace' ) {
+			if ( $filter->getField() === 'page_namespace' ) {
 				$filter->setAppied();
 				$nsIdxes = [];
-				foreach( $filter->getValue() as $value ) {
+				foreach ( $filter->getValue() as $value ) {
 					$nsIdxes[] = \BsNamespaceHelper::getNamespaceIndex( $value );
 				}
-				if( !empty( $nsIdxes ) ) {
+				if ( !empty( $nsIdxes ) ) {
 					$conds[$fieldName] = $nsIdxes;
 				}
 				continue;
 			}
-			switch( $filter->getComparison() ) {
+			switch ( $filter->getComparison() ) {
 				case Filter::COMPARISON_EQUALS:
 					$conds[$fieldName] = $filter->getValue();
 					$filter->setAppied();
@@ -82,7 +83,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 					$filter->setAppied();
 					break;
 				case StringValue::COMPARISON_CONTAINS:
-					$conds[] = "$fieldName ".$this->db->buildLike(
+					$conds[] = "$fieldName " . $this->db->buildLike(
 						$this->db->anyString(),
 						$filter->getValue(),
 						$this->db->anyString()
@@ -90,7 +91,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 					$filter->setAppied();
 					break;
 				case StringValue::COMPARISON_NOT_CONTAINS:
-					$conds[] = "$fieldName NOT ".$this->db->buildLike(
+					$conds[] = "$fieldName NOT " . $this->db->buildLike(
 						$this->db->anyString(),
 						$filter->getValue(),
 						$this->db->anyString()
@@ -98,14 +99,14 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 					$filter->setAppied();
 					break;
 				case StringValue::COMPARISON_STARTS_WITH:
-					$conds[] = "$fieldName ".$this->db->buildLike(
+					$conds[] = "$fieldName " . $this->db->buildLike(
 						$filter->getValue(),
 						$this->db->anyString()
 					);
 					$filter->setAppied();
 					break;
 				case StringValue::COMPARISON_ENDS_WITH:
-					$conds[] = "$fieldName ".$this->db->buildLike(
+					$conds[] = "$fieldName " . $this->db->buildLike(
 						$this->db->anyString(),
 						$filter->getValue()
 					);
@@ -137,11 +138,11 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 		$schema = new Schema();
 		$fields = array_values( $schema->getSortableFields() );
 
-		foreach( $params->getSort() as $sort ) {
-			if( !in_array( $sort->getProperty(), $fields ) ) {
+		foreach ( $params->getSort() as $sort ) {
+			if ( !in_array( $sort->getProperty(), $fields ) ) {
 				continue;
 			}
-			if( !isset( $conds['ORDER BY'] ) ) {
+			if ( !isset( $conds['ORDER BY'] ) ) {
 				$conds['ORDER BY'] = "";
 			} else {
 				$conds['ORDER BY'] .= ",";
@@ -152,20 +153,31 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 		return $conds;
 	}
 
+	/**
+	 *
+	 * @param \stdClass $row
+	 * @param \BlueSpice\Rating\RatingItem $rating
+	 * @return array
+	 */
 	protected function extractDataFromRow( $row, $rating ) {
 		return array_merge( parent::extractDataFromRow( $row, $rating ), [
 			Record::TOTALCOUNT => $row->{Record::TOTALCOUNT},
 			Record::PAGENAMESPACE => $row->{Record::PAGENAMESPACE},
 			Record::PAGETITLE => $row->{Record::PAGETITLE},
-		]);
+		] );
 	}
 
+	/**
+	 *
+	 * @param \stdClass $row
+	 * @return \BlueSpice\Rating\RatingItem
+	 */
 	protected function makeRatingItem( $row ) {
 		$config = \MediaWiki\MediaWikiServices::getInstance()
 			->getConfigFactory()->makeConfig( 'bsg' );
 		$namespaces = $config->get( 'RatingArticleLikeEnabledNamespaces' );
 		$ns = $row->{Record::PAGENAMESPACE};
-		if( !in_array( $ns, $namespaces ) ) {
+		if ( !in_array( $ns, $namespaces ) ) {
 			return null;
 		}
 		return parent::makeRatingItem( $row );

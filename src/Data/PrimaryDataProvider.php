@@ -5,7 +5,6 @@ namespace BlueSpice\Rating\Data;
 use \BlueSpice\Data\IPrimaryDataProvider;
 use BlueSpice\Data\FilterFinder;
 use BlueSpice\Data\Filter;
-use BlueSpice\Rating\Data\Schema;
 
 class PrimaryDataProvider implements IPrimaryDataProvider {
 
@@ -32,6 +31,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 	/**
 	 *
 	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @return Records[]
 	 */
 	public function makeData( $params ) {
 		$this->data = [];
@@ -43,7 +43,7 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 			__METHOD__,
 			$this->makePreOptionConds( $params )
 		);
-		foreach( $res as $row ) {
+		foreach ( $res as $row ) {
 			$this->appendRowToData( $row );
 		}
 
@@ -60,9 +60,9 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 		$schema = new Schema();
 		$fields = array_values( $schema->getFilterableFields() );
 		$filterFinder = new FilterFinder( $params->getFilter() );
-		foreach( $fields as $fieldName ) {
+		foreach ( $fields as $fieldName ) {
 			$filter = $filterFinder->findByField( $fieldName );
-			if( !$filter instanceof Filter ) {
+			if ( !$filter instanceof Filter ) {
 				continue;
 			}
 			$conds[$fieldName] = $filter->getValue();
@@ -77,15 +77,15 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 	 */
 	protected function makePreOptionConds( $params ) {
 		$conds = [];
-		
+
 		$schema = new Schema();
 		$fields = array_values( $schema->getSortableFields() );
 
-		foreach( $params->getSort() as $sort ) {
-			if( !in_array( $sort->getProperty(), $fields ) ) {
+		foreach ( $params->getSort() as $sort ) {
+			if ( !in_array( $sort->getProperty(), $fields ) ) {
 				continue;
 			}
-			if( !isset( $conds['ORDER BY'] ) ) {
+			if ( !isset( $conds['ORDER BY'] ) ) {
 				$conds['ORDER BY'] = "";
 			} else {
 				$conds['ORDER BY'] .= ",";
@@ -96,8 +96,12 @@ class PrimaryDataProvider implements IPrimaryDataProvider {
 		return $conds;
 	}
 
+	/**
+	 *
+	 * @param \stdClass $row
+	 */
 	protected function appendRowToData( $row ) {
-		$this->data[] = new Record( (object) [
+		$this->data[] = new Record( (object)[
 			Record::ID => $row->{Record::ID},
 			Record::REFTYPE => $row->{Record::REFTYPE},
 			Record::REF => $row->{Record::REF},

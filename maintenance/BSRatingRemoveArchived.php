@@ -1,10 +1,14 @@
 <?php
 
-$IP = dirname(dirname(dirname(__DIR__)));
-require_once( "$IP/maintenance/Maintenance.php" );
+$IP = dirname( dirname( dirname( __DIR__ ) ) );
+require_once "$IP/maintenance/Maintenance.php";
 
 class BSRatingRemoveArchived extends LoggedUpdateMaintenance {
 
+	/**
+	 *
+	 * @return true
+	 */
 	protected function doDBUpdates() {
 		$this->getDB( DB_MASTER )->delete(
 			'bs_rating',
@@ -15,6 +19,10 @@ class BSRatingRemoveArchived extends LoggedUpdateMaintenance {
 		return true;
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function getUpdateKey() {
 		return 'bs_rating-removearchived';
 	}

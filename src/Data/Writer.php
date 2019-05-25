@@ -1,8 +1,6 @@
 <?php
 
 namespace BlueSpice\Rating\Data;
-use BlueSpice\Data\FieldType;
-use BlueSpice\Data\Filter;
 
 class Writer extends \BlueSpice\Data\DatabaseWriter {
 
@@ -10,12 +8,17 @@ class Writer extends \BlueSpice\Data\DatabaseWriter {
 	 *
 	 * @param \BlueSpice\Data\IReader $reader
 	 * @param \LoadBalancer $loadBalancer
-	 * @param \IContextSource $context
+	 * @param \IContextSource|null $context
 	 */
-	public function __construct( \BlueSpice\Data\IReader $reader, $loadBalancer, \IContextSource $context = null ) {
+	public function __construct( \BlueSpice\Data\IReader $reader, $loadBalancer,
+		\IContextSource $context = null ) {
 		parent::__construct( $reader, $loadBalancer, $context, $context->getConfig() );
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function getTableName() {
 		return 'bs_rating';
 	}
@@ -28,6 +31,10 @@ class Writer extends \BlueSpice\Data\DatabaseWriter {
 		return new Schema();
 	}
 
+	/**
+	 *
+	 * @return array
+	 */
 	protected function getIdentifierFields() {
 		return [ Record::ID ];
 	}

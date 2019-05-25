@@ -21,7 +21,7 @@
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @package    BlueSpiceFoundation
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 
@@ -48,8 +48,13 @@ class RatingRegistry {
 		$this->config = $config;
 	}
 
+	/**
+	 *
+	 * @param bool $forceReload
+	 * @return true
+	 */
 	protected function runRegister( $forceReload = false ) {
-		if( $this->ratingDefinitions && !$forceReload ) {
+		if ( $this->ratingDefinitions && !$forceReload ) {
 			return true;
 		}
 
@@ -58,8 +63,8 @@ class RatingRegistry {
 			'BlueSpiceRatingRatingRegistry'
 		);
 
-		//This hook is deprecated - Use attributes mechanism in extension.json
-		//to register entities
+		// This hook is deprecated - Use attributes mechanism in extension.json
+		// to register entities
 		\Hooks::run( 'RatingRegister', [ &$this->ratingDefinitions ] );
 
 		return true;
@@ -70,7 +75,7 @@ class RatingRegistry {
 	 * @return array
 	 */
 	public function getRatingDefinitions() {
-		if( !$this->runRegister() ) {
+		if ( !$this->runRegister() ) {
 			return [];
 		}
 		return $this->ratingDefinitions;
@@ -94,7 +99,7 @@ class RatingRegistry {
 	 * @return array
 	 */
 	public function getRegisteredRatingByType( $sType ) {
-		if( !$this->isRegisteredType($sType) ) {
+		if ( !$this->isRegisteredType( $sType ) ) {
 			return [];
 		}
 		return $this->ratingDefinitions[$sType];

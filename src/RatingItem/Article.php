@@ -24,13 +24,14 @@
  * @package    BlueSpice Pro
  * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 namespace BlueSpice\Rating\RatingItem;
-use BlueSpice\Rating\Data\Record;
 
+use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingItem;
+
 /**
  * Article class for Rating extension
  * @package BlueSpiceRating
@@ -45,11 +46,11 @@ class Article extends RatingItem {
 	 * @return Article
 	 */
 	public static function newFromTitle( \Title $title ) {
-		return static::newFromObject((object) array(
+		return static::newFromObject( (object)[
 			Record::REFTYPE => 'article',
-			Record::REF => $title->getArticleID(), //check this, omg
+			Record::REF => $title->getArticleID(),
 			Record::SUBTYPE => '',
-		));
+		] );
 	}
 
 	public function jsonSerialize() {
@@ -65,11 +66,13 @@ class Article extends RatingItem {
 
 	/**
 	 * @param \User $user
+	 * @param string $action
+	 * @param \Title|null $title
 	 * @return \Status
 	 */
 	public function userCan( \User $user, $action = 'read', \Title $title = null ) {
-		if( !$title ) {
-			$title = \Title::newFromID( (int) $this->getRef() );
+		if ( !$title ) {
+			$title = \Title::newFromID( (int)$this->getRef() );
 		}
 		return parent::userCan( $user, $action, $title );
 	}

@@ -1,10 +1,14 @@
 <?php
 
-$IP = dirname(dirname(dirname(__DIR__)));
-require_once( "$IP/maintenance/Maintenance.php" );
+$IP = dirname( dirname( dirname( __DIR__ ) ) );
+require_once "$IP/maintenance/Maintenance.php";
 
 class BSRatingSetDefaultSubType extends LoggedUpdateMaintenance {
 
+	/**
+	 *
+	 * @return true
+	 */
 	protected function doDBUpdates() {
 		$this->getDB( DB_MASTER )->update(
 			'bs_rating',
@@ -16,6 +20,10 @@ class BSRatingSetDefaultSubType extends LoggedUpdateMaintenance {
 		return true;
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function getUpdateKey() {
 		return 'bs_rating-setdefaultsubtype';
 	}

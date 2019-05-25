@@ -22,7 +22,7 @@
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @package    BlueSpiceFoundation
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 namespace BlueSpice\Rating;
@@ -38,7 +38,7 @@ class RatingConfigFactory {
 	protected $ratingRegistry = null;
 
 	/**
-	 * @param \RatingRegistry
+	 * @param \RatingRegistry $ratingRegistry
 	 * @param \Config $config
 	 */
 	public function __construct( $ratingRegistry, $config ) {
@@ -52,8 +52,8 @@ class RatingConfigFactory {
 	 * @return RatingConfig - or null
 	 */
 	public function newFromType( $type ) {
-		if( $this->ratingConfigs ) {
-			if( !isset( $this->ratingConfigs[$type] ) ) {
+		if ( $this->ratingConfigs ) {
+			if ( !isset( $this->ratingConfigs[$type] ) ) {
 				return null;
 			}
 			return $this->ratingConfigs[$type];
@@ -63,18 +63,18 @@ class RatingConfigFactory {
 		$ratingDefinitions = $this->ratingRegistry->getRatingDefinitions();
 		$defaults = [];
 
-		//Deprecated: This hook should not be used anymore - Use the bluespice
-		//global config mechanism instead
+		// Deprecated: This hook should not be used anymore - Use the bluespice
+		// global config mechanism instead
 		\Hooks::run( 'BSRatingConfigDefaults', [ &$defaults ] );
-		foreach( $ratingDefinitions as $key => $sConfigClass ) {
+		foreach ( $ratingDefinitions as $key => $sConfigClass ) {
 			$this->ratingConfigs[$key] = new $sConfigClass(
 				$this->config,
 				$key,
-				$defaults //deprecated
+				$defaults
 			);
 		}
 
-		if( !isset( $this->ratingConfigs[$type] ) ) {
+		if ( !isset( $this->ratingConfigs[$type] ) ) {
 			return null;
 		}
 		return $this->ratingConfigs[$type];
