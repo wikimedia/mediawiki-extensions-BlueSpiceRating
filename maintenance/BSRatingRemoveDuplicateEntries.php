@@ -1,10 +1,14 @@
 <?php
 
-$IP = dirname(dirname(dirname(__DIR__)));
-require_once( "$IP/maintenance/Maintenance.php" );
+$IP = dirname( dirname( dirname( __DIR__ ) ) );
+require_once "$IP/maintenance/Maintenance.php";
 
 class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 
+	/**
+	 *
+	 * @return true
+	 */
 	protected function doDBUpdates() {
 		$ids = $ips = $deleteEntries = [];
 		$res = $this->getDB( DB_MASTER )->select(
@@ -14,8 +18,8 @@ class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 			__METHOD__,
 			[ 'ORDER BY' => 'rat_touched desc' ]
 		);
-		foreach( $res as $row ) {
-			if( isset( $ids
+		foreach ( $res as $row ) {
+			if ( isset( $ids
 					[ $row->rat_reftype ]
 					[ $row->rat_ref ]
 					[ $row->rat_subtype ]
@@ -30,7 +34,7 @@ class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 				$deleteEntries[] = $row->rat_id;
 				continue;
 			}
-			if( isset( $ips
+			if ( isset( $ips
 					[ $row->rat_reftype ]
 					[ $row->rat_ref ]
 					[ $row->rat_subtype ]
@@ -58,7 +62,7 @@ class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 				[ $row->rat_context ]
 				= $row->rat_userip;
 		}
-		if( empty( $deleteEntries ) ) {
+		if ( empty( $deleteEntries ) ) {
 			return true;
 		}
 		$b = $this->getDB( DB_MASTER )->delete(
@@ -68,6 +72,10 @@ class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 		return true;
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function getUpdateKey() {
 		return 'bs_rating-removeduplicateentries';
 	}

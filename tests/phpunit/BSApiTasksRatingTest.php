@@ -20,19 +20,22 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 	public function setUp() {
 		parent::setUp();
 		$oDBW = $this->db;
-		$oDBW->delete( 'bs_rating', array( 'rat_ref' => 1 ) );
+		$oDBW->delete( 'bs_rating', [ 'rat_ref' => 1 ] );
 	}
 
+	/**
+	 * @covers BlueSpice\Rating\Api\Task\Rating::task_vote
+	 */
 	public function testVote() {
 		$oTitle = Title::newFromId( 1 );
 		$iRef = $oTitle->getArticleID();
 
-		$aData = array(
+		$aData = [
 			'reftype' => 'article',
 			'ref' => $iRef,
 			'value' => 3,
 			'articleid' => $iRef
-		);
+		];
 
 		$oResponse = $this->executeTask(
 			'vote',
@@ -42,11 +45,11 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 		$this->assertTrue( $oResponse->success, 'Vote task failed' );
 		$this->assertSelect(
 			'bs_rating',
-			array( 'rat_reftype', 'rat_userip', 'rat_value' ),
-			array( 'rat_ref' => $iRef ),
-			array(
-				array( 'article', 'Apitestsysop', '3' )
-			)
+			[ 'rat_reftype', 'rat_userip', 'rat_value' ],
+			[ 'rat_ref' => $iRef ],
+			[
+				[ 'article', 'Apitestsysop', '3' ]
+			]
 		);
 		$this->verifyResponse( $oResponse, 3 );
 
@@ -59,23 +62,26 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 		$this->assertTrue( $oResponse->success, 'Vote task failed' );
 		$this->assertSelect(
 			'bs_rating',
-			array( 'rat_value' ),
-			array( 'rat_ref' => $iRef ),
-			array(
-				array( '4' )
-			)
+			[ 'rat_value' ],
+			[ 'rat_ref' => $iRef ],
+			[
+				[ '4' ]
+			]
 		);
 		$this->verifyResponse( $oResponse, 4 );
 	}
 
+	/**
+	 * @covers BlueSpice\Rating\Api\Task\Rating::task_reload
+	 */
 	public function testReload() {
 		$oTitle = \Title::newFromId( 1 );
 		$iRef = $oTitle->getArticleID();
 
-		$aData = array(
+		$aData = [
 			'reftype' => 'article',
 			'ref' => $iRef
-		);
+		];
 
 		$oResponse = $this->executeTask(
 			'reload',
@@ -96,7 +102,7 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 		$this->assertEquals( 1, $oData->ref, 'Ref value is wrong' );
 
 		$oRatings = $oData->ratings;
-		foreach( $oRatings as $oRating ) {
+		foreach ( $oRatings as $oRating ) {
 			$this->assertEquals( $iValue, $oRating->value );
 			$this->assertEquals( 1, $oRating->ref );
 		}

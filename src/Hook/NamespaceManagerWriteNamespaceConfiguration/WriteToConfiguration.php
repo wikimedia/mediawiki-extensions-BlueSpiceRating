@@ -6,7 +6,7 @@ use BlueSpice\NamespaceManager\Hook\NamespaceManagerWriteNamespaceConfiguration;
 
 class WriteToConfiguration extends NamespaceManagerWriteNamespaceConfiguration {
 	protected function skipProcessing() {
-		if( $this->ns === null ) {
+		if ( $this->ns === null ) {
 			return true;
 		}
 		return false;

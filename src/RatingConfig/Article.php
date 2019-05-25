@@ -21,7 +21,7 @@
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @package    BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 
@@ -34,15 +34,32 @@ use BlueSpice\Rating\RatingConfig;
  * @package BlueSpiceFoundation
  */
 class Article extends RatingConfig {
+	/**
+	 *
+	 * @var string
+	 */
 	protected $type = 'article';
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_RatingClass() {
 		return "\\BlueSpice\\Rating\\RatingItem\\Article";
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_TypeMsgKey() {
 		return "bs-rating-types-page";
 	}
 
+	/**
+	 *
+	 * @return string[]
+	 */
 	protected function get_ModuleScripts() {
 		return array_merge(
 			parent::get_ModuleScripts(), [
@@ -51,28 +68,49 @@ class Article extends RatingConfig {
 			]
 		);
 	}
+
+	/**
+	 *
+	 * @return string[]
+	 */
 	protected function get_ModuleStyles() {
 		return array_merge(
 			parent::get_ModuleStyles(),
-			['ext.rating.starRatingSvg.styles']
+			[ 'ext.rating.starRatingSvg.styles' ]
 		);
 	}
 
+	/**
+	 *
+	 * @return int[]
+	 */
 	protected function get_AllowedValues() {
-		return range( 1, 5 ); // basic 5 stars
+		return range( 1, 5 );
 	}
 
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function get_UserCanRemoveVote() {
 		return false;
 	}
 
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function get_PermissionTitleRequired() {
 		return true;
 	}
 
+	/**
+	 *
+	 * @return array
+	 */
 	protected function get_HTMLTagOptions() {
 		return array_merge_recursive( parent::get_HTMLTagOptions(), [
-			'class' => ['bs-rating-article'],
-		]);
+			'class' => [ 'bs-rating-article' ],
+		] );
 	}
 }

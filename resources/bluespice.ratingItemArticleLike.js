@@ -3,7 +3,7 @@
  * @package    BluespiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2017 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  */
 
 bs.rating.ItemArticleLike = function( $el, type, data ) {

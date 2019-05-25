@@ -24,7 +24,7 @@
  * @package    BlueSpice Pro
  * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 
@@ -40,24 +40,25 @@ class Extension extends \BlueSpice\Extension {
 	/**
 	 * Hook handler for BSMigrateSettingsFromDeviatingNames
 	 * @param string $oldName
-	 * @param string $newName
-	 * @return boolean
+	 * @param string &$newName
+	 * @return bool
 	 */
 	public static function onBSMigrateSettingsFromDeviatingNames( $oldName, &$newName ) {
-		if( $oldName === "MW::Rating::enRatingNS" ) {
+		if ( $oldName === "MW::Rating::enRatingNS" ) {
 			$newName = "RatingArticleEnabledNamespaces";
 		}
-		if( $oldName === "MW::Rating::enArticleLikeNS" ) {
+		if ( $oldName === "MW::Rating::enArticleLikeNS" ) {
 			$newName = "RatingArticleLikeEnabledNamespaces";
 		}
 		return true;
 	}
+
 	/**
-	* Hook handler for UnitTestList
-	*
-	* @param array $paths
-	* @return boolean
-	*/
+	 * Hook handler for UnitTestList
+	 *
+	 * @param array &$paths
+	 * @return bool
+	 */
 	public static function onUnitTestsList( &$paths ) {
 		$paths[] = __DIR__ . '/tests/phpunit/';
 		return true;

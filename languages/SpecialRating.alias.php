@@ -1,17 +1,17 @@
 <?php
-$specialPageAliases = array();
+$specialPageAliases = [];
 
 /** English */
-$specialPageAliases['en'] = array(
-	'Rating' => array( 'Rating', 'Ratings' ),
-);
+$specialPageAliases['en'] = [
+	'Rating' => [ 'Rating', 'Ratings' ],
+];
 
 /** German (Deutsch) */
-$specialPageAliases['de'] = array(
-	'Rating' => array( 'Bewertungen' ),
-);
+$specialPageAliases['de'] = [
+	'Rating' => [ 'Bewertungen' ],
+];
 
 /** German (Deutsch Formal) */
-$specialPageAliases['de-formal'] = array(
-	'Rating' => array( 'Bewertungen' ),
-);
+$specialPageAliases['de-formal'] = [
+	'Rating' => [ 'Bewertungen' ],
+];

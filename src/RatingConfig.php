@@ -21,7 +21,7 @@
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @package    BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 
@@ -48,7 +48,9 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 
 	/**
 	 *
-	 * @param type $config
+	 * @param \Config $config
+	 * @param string $type
+	 * @param array $defaults
 	 */
 	public function __construct( $config, $type, $defaults = [] ) {
 		$this->config = $config;
@@ -74,16 +76,24 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 		return $configFactory->newFromType( $type );
 	}
 
+	/**
+	 *
+	 * @param string $sOption
+	 * @return mixed|false
+	 */
 	protected function getDefault( $sOption ) {
-		if( isset( $this->defaults[$sOption] ) ) {
+		if ( isset( $this->defaults[$sOption] ) ) {
 			return $this->defaults[$sOption];
 		}
 		return $this->getConfig()->has( $sOption )
 			? $this->getConfig()->get( $sOption )
-			: false
-		;
+			: false;
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	public function getType() {
 		return $this->type;
 	}
@@ -96,7 +106,7 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 	 */
 	public function get( $method ) {
 		$method = "get_$method";
-		if( !is_callable( array($this, $method) ) ) {
+		if ( !is_callable( [ $this, $method ] ) ) {
 			$this->getDefault( $method );
 		}
 		return $this->$method();
@@ -109,10 +119,10 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 	 */
 	public function has( $method ) {
 		$method = "get_$method";
-		if( is_callable( array($this, $method) ) ) {
+		if ( is_callable( [ $this, $method ] ) ) {
 			return true;
 		}
-		if( isset( $this->defaults[$method] ) ) {
+		if ( isset( $this->defaults[$method] ) ) {
 			return true;
 		}
 		return $this->config->has( $method );
@@ -123,75 +133,166 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 	 * @return stdClass
 	 */
 	public function jsonSerialize() {
-		$aConfig = array();
-		foreach( get_class_methods( $this ) as $method ) {
-			if( strpos($method, 'get_') !== 0 ) {
+		$aConfig = [];
+		foreach ( get_class_methods( $this ) as $method ) {
+			if ( strpos( $method, 'get_' ) !== 0 ) {
 				continue;
 			}
-			//remove the get_
+			// remove the get_
 			$sVarName = substr( $method, 4 );
 			$aConfig[$sVarName] = $this->$method();
 		}
-		return (object) array_merge(
+		return (object)array_merge(
 			$this->defaults,
 			$aConfig
 		);
 	}
 
+	/**
+	 *
+	 * @return array
+	 */
 	protected function addGetterDefaults() {
 		return [];
 	}
+
+	/**
+	 * @return string
+	 */
 	abstract protected function get_RatingClass();
+
+	/**
+	 * @return string
+	 */
 	abstract protected function get_TypeMsgKey();
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_StoreClass() {
 		return "\\BlueSpice\\Rating\\Data\\Store";
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_RatingSetClass() {
 		return "\\BlueSpice\\Rating\\Data\\RatingSet";
 	}
+
+	/**
+	 *
+	 * @return string[]
+	 */
 	protected function get_ModuleScripts() {
 		return [ 'ext.bluespice.rating', 'ext.bluespice.ratingItem' ];
 	}
+
+	/**
+	 *
+	 * @return string[]
+	 */
 	protected function get_ModuleStyles() {
 		return [ 'ext.bluespice.rating.styles' ];
 	}
+
+	/**
+	 *
+	 * @return mixed[]
+	 */
 	protected function get_AllowedValues() {
-		return [ 1 ]; // basic like
+		return [ 1 ];
 	}
+
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function get_UserCanRemoveVote() {
 		return true;
 	}
+
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function get_MultiValue() {
 		return false;
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_ReadPermission() {
 		return 'rating-read';
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_UpdatePermission() {
 		return 'rating-write';
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_DeletePermission() {
 		return 'rating-write';
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_DeleteOthersPermission() {
 		return 'rating-archive';
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_UpdateOthersPermission() {
 		return 'rating-archive';
 	}
+
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function get_PermissionTitleRequired() {
 		return false;
 	}
+
+	/**
+	 *
+	 * @return bool
+	 */
 	protected function get_IsAnonymous() {
 		return true;
 	}
+
+	/**
+	 *
+	 * @return string
+	 */
 	protected function get_HTMLTag() {
 		return 'div';
 	}
+
+	/**
+	 *
+	 * @return array
+	 */
 	protected function get_HTMLTagOptions() {
 		return [
-			'class' => ['bs-rating'],
+			'class' => [ 'bs-rating' ],
 			'data-type' => $this->type,
 		];
 	}

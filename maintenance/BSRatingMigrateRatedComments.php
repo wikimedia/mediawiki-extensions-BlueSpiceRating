@@ -1,10 +1,12 @@
 <?php
 
-$IP = dirname(dirname(dirname(__DIR__)));
-require_once( "$IP/maintenance/Maintenance.php" );
+$IP = dirname( dirname( dirname( __DIR__ ) ) );
+require_once "$IP/maintenance/Maintenance.php";
 
+use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingItem\Article;
+use BlueSpice\Services;
 
 class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 
@@ -18,43 +20,47 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 			'bs_rating',
 			'*',
 			[ 'rat_reftype = "rcarticle"' ]
-			
+
 		);
-		foreach( $res as $row ) {
+		foreach ( $res as $row ) {
 			$this->data[$row->rat_ref][] = $row;
 		}
 	}
 
 	protected function doDBUpdates() {
-		if( $this->noDataToMigrate() ) {
+		if ( $this->noDataToMigrate() ) {
 			$this->output( "bs_rating-migrateratedcomments -> No data to migrate\n" );
 			return true;
 		}
 		$this->output( "...bs_rating-migrateratedcomments -> migration...\n" );
 
 		$this->readData();
-		foreach( $this->data as $articleId => $ratings ) {
-			//article does not exists anymore => ignore ratings
-			if( !$title = \Title::newFromID( (int) $articleId ) ) {
+		foreach ( $this->data as $articleId => $ratings ) {
+			// article does not exists anymore => ignore ratings
+			$title = \Title::newFromID( (int)$articleId );
+			if ( !$title ) {
 				continue;
 			}
-			if( !$ratingItem = $this->makeRatingItem( $title ) ) {
+			$ratingItem = $this->makeRatingItem( $title );
+			if ( !$ratingItem ) {
 				continue;
 			}
 			$this->output(
-				"\n{$title->getArticleID()}... ".count( $ratings )." ratings"
+				"\n{$title->getArticleID()}... " . count( $ratings ) . " ratings"
 			);
-			foreach( $ratings as $rating ) {
-				if( empty( $rating->rat_value ) ) {
-					continue; //just ignore what ever happend there ^^
+			foreach ( $ratings as $rating ) {
+				if ( empty( $rating->rat_value ) ) {
+					// just ignore what ever happend there ^^
+					continue;
 				}
 				$this->output( "." );
 
-				if( !$user = \User::newFromId( $rating->rat_userid ) ) {
+				$user = User::newFromId( $rating->rat_userid );
+				if ( !$user ) {
 					$this->output( "No User - skip" );
 					continue;
 				}
-				if( $this->userVoted( $user, $ratingItem ) ) {
+				if ( $this->userVoted( $user, $ratingItem ) ) {
 					$this->output(
 						"User voted - skip"
 					);
@@ -68,11 +74,11 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 						0,
 						$title
 					);
-				} catch( \Exception $e ) {
+				} catch ( \Exception $e ) {
 					$this->output( $e->getMessage() );
 					continue;
 				}
-				if( !$status->isOK() ) {
+				if ( !$status->isOK() ) {
 					$this->output( $status->getMessage() );
 					continue;
 				}
@@ -83,7 +89,13 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 		return true;
 	}
 
-	protected function userVoted( \User $user, Article $ratingItem ) {
+	/**
+	 *
+	 * @param User $user
+	 * @param Article $ratingItem
+	 * @return bool
+	 */
+	protected function userVoted( User $user, Article $ratingItem ) {
 		$ratings = $ratingItem->getRatingSet()->getUserRatings( $user );
 		return !empty( $ratings );
 	}
@@ -99,8 +111,8 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 			Record::REFTYPE => 'article',
 			Record::REF => $title->getArticleID(),
 			Record::SUBTYPE => '',
-		]);
-		if( !$ratingItem ) {
+		] );
+		if ( !$ratingItem ) {
 			$this->output( "Rating item could not be created" );
 			return null;
 		}
@@ -108,20 +120,28 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 * 
-	 * @return \BlueSpice\Rating\RatingFactory
+	 *
+	 * @return RatingFactory
 	 */
 	protected function getRatingFactory() {
-		return \BlueSpice\Services::getInstance()->getService(
+		return Services::getInstance()->getService(
 			'BSRatingFactory'
 		);
 	}
 
+	/**
+	 *
+	 * @return User
+	 */
 	protected function getMaintenanceUser() {
-		return \BlueSpice\Services::getInstance()->getBSUtilityFactory()
+		return Services::getInstance()->getBSUtilityFactory()
 			->getMaintenanceUser()->getUser();
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	protected function getUpdateKey() {
 		return 'bs_rating-migrateratedcomments';
 	}

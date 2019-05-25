@@ -44,7 +44,8 @@ class BSApiRatingStoreTest extends BSApiExtJSStoreTestBase {
 		];
 	}
 
-	protected function createStoreFixtureData() {}
+	protected function createStoreFixtureData() {
+	}
 
 	public function addDBData() {
 		$oTitle = \Title::newFromId( 1 );
@@ -52,30 +53,30 @@ class BSApiRatingStoreTest extends BSApiExtJSStoreTestBase {
 		$oUserSysop = self::$users['sysop']->getUser();
 		$oUserUploader = self::$users['uploader']->getUser();
 		$oDbw = $this->db;
-		$oDbw->insert( 'bs_rating', array(
+		$oDbw->insert( 'bs_rating', [
 			'rat_ref' => $oTitle->getArticleId(),
 			'rat_reftype' => 'article',
 			'rat_userid' => $oUserSysop->getID(),
 			'rat_userip' => $oUserSysop->getName(),
 			'rat_value' => 4
-		) );
+		] );
 
-		$oDbw->insert( 'bs_rating', array(
+		$oDbw->insert( 'bs_rating', [
 			'rat_ref' => $oTitle->getArticleId(),
 			'rat_reftype' => 'article',
 			'rat_userid' => $oUserUploader->getID(),
 			'rat_userip' => $oUserUploader->getName(),
 			'rat_value' => 2
-		) );
+		] );
 
 		$oNewTitle = $this->insertPage( 'DummyPage' )['title'];
-		$oDbw->insert( 'bs_rating', array(
+		$oDbw->insert( 'bs_rating', [
 			'rat_ref' => $oNewTitle->getArticleId(),
 			'rat_reftype' => 'article',
 			'rat_userid' => $oUserSysop->getID(),
 			'rat_userip' => $oUserSysop->getName(),
 			'rat_value' => 5
-		) );
+		] );
 
 		return 2;
 	}
@@ -113,7 +114,7 @@ class BSApiRatingStoreTest extends BSApiExtJSStoreTestBase {
 	}
 
 	public function provideKeyItemData() {
-		return[
+		return [
 			'Test page UTPage: vote' => [ "vote", "3.0" ],
 			'Test page UTPage: votes' => [ "votes", "2" ],
 			'Test user DummyPage: votes' => [ "votes", "1" ]

@@ -22,10 +22,11 @@
  * @package    BlueSpice Pro
  * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 namespace BlueSpice\Rating\RatingFactory;
+
 use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\Data\Record;
 
@@ -36,10 +37,10 @@ class ArticleLike extends RatingFactory {
 	 * @return \BlueSpice\Rating\RatingFactory\ArticleLike | null
 	 */
 	public function newFromTitle( \Title $title ) {
-		return $this->newFromObject( (object) [
+		return $this->newFromObject( (object)[
 			Record::REFTYPE => 'articlelike',
-			Record::REF => $title->getArticleID(), //check this, omg
+			Record::REF => $title->getArticleID(),
 			Record::SUBTYPE => '',
-		]);
+		] );
 	}
 }

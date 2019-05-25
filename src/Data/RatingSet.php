@@ -5,64 +5,75 @@ namespace BlueSpice\Rating\Data;
 use BlueSpice\Data\ResultSet;
 
 class RatingSet extends ResultSet {
-	public function __construct($records, $total = false ) {
-		if( !$total ) {
+	/**
+	 *
+	 * @param Records[] $records
+	 * @param int $total
+	 */
+	public function __construct( $records, $total = false ) {
+		if ( !$total ) {
 			$total = count( $records );
 		}
 		parent::__construct( $records, $total );
 	}
 
+	/**
+	 *
+	 * @param Records[] $ratings
+	 * @param array $rules
+	 * @return Records[]
+	 */
 	public function retrench( $ratings = false, $rules = [] ) {
-		if( !$ratings ) {
+		if ( !$ratings ) {
 			$ratings = $this->getRecords();
 		}
-		if( empty( $rules ) ) {
+		if ( empty( $rules ) ) {
 			return $ratings;
 		}
-		return array_filter( $ratings, function( Record $record ) use( $rules ) {
-			foreach( $rules as $fieldName => $value ) {
-				if( is_null( $record->get( $fieldName ) ) ) {
+		return array_filter( $ratings, function ( Record $record ) use( $rules ) {
+			foreach ( $rules as $fieldName => $value ) {
+				if ( is_null( $record->get( $fieldName ) ) ) {
 					return false;
 				}
-				if( $record->get( $fieldName ) == $value ) {
+				if ( $record->get( $fieldName ) == $value ) {
 					continue;
 				}
 				return false;
 			}
 			return true;
-		});
+		} );
 	}
 
 	/**
 	 * Make given ratings anon by removing userid and userip or request ratings
 	 * with context and make the result anon.
 	 * @param Record[] $ratings
-	 * @param integer $context
+	 * @param int $context
 	 * @return Record[]
 	 */
 	public function getAnonRatings( $ratings = false, $context = 0 ) {
-		if( !$ratings ) {
+		if ( !$ratings ) {
 			$ratings = $this->getRatings( $context );
 		}
 		$ratingsCopy = [];
-		array_walk( $ratings, function( Record $record ) use ( &$ratingsCopy ) {
-			$recordCopy = clone( $record );
+		array_walk( $ratings, function ( Record $record ) use ( &$ratingsCopy ) {
+			$recordCopy = clone $record;
 			$recordCopy->set( Record::USERID, 0 );
 			$recordCopy->set( Record::USERIP, '' );
 			$ratingsCopy[] = &$recordCopy;
-		});
+		} );
 
 		return $ratingsCopy;
 	}
 
 	/**
 	 * Returns an array containing all ratings row arrays filtered by context.
-	 * @param integer $context
+	 * @param int $context
 	 * @return array
 	 */
 	public function getRatings( $context = 0 ) {
 		$rules = [];
-		if( !empty( $context ) ) {
+		if ( !empty( $context ) ) {
 			$rules[ Record::CONTEXT ] = $context;
 		}
 		return $this->retrench( $rules );
@@ -70,11 +81,12 @@ class RatingSet extends ResultSet {
 
 	/**
 	 * Total number of votes
-	 * @param integer $context
-	 * @return integer
+	 * @param Records[] $ratings
+	 * @param int $context
+	 * @return int
 	 */
 	public function getTotal( $ratings = false, $context = 0 ) {
-		if( !$ratings ) {
+		if ( !$ratings ) {
 			return count( $this->getRatings( $context ) );
 		}
 		return count( $ratings );
@@ -83,18 +95,19 @@ class RatingSet extends ResultSet {
 	/**
 	 * Total sum of given or all ratings.
 	 * Note that this only works for integers!
-	 * @param integer $context
-	 * @return integer
+	 * @param Records[] $ratings
+	 * @param int $context
+	 * @return int
 	 */
 	public function getSum( $ratings = false, $context = 0 ) {
-		if( !$ratings ) {
+		if ( !$ratings ) {
 			$ratings = $this->getRatings( $context );
 		}
 		$total = 0;
-		if( empty( $ratings )) {
+		if ( empty( $ratings ) ) {
 			return $total;
 		}
-		foreach( $ratings as $rating ) {
+		foreach ( $ratings as $rating ) {
 			$total += $rating->get( Record::VALUE );
 		}
 		return $total;
@@ -102,11 +115,12 @@ class RatingSet extends ResultSet {
 
 	/**
 	 * Average vote value. Note that this only works for integers!
-	 * @param integer $context
+	 * @param Records[] $ratings
+	 * @param int $context
 	 * @return float
 	 */
 	public function getAverage( $ratings = false, $context = 0 ) {
-		if( !$ratings ) {
+		if ( !$ratings ) {
 			$ratings = $this->getRatings( $context );
 		}
 		return $this->getSum( $ratings, $context ) / $this->getTotal( $ratings, $context );
@@ -116,7 +130,8 @@ class RatingSet extends ResultSet {
 	 * returns if the user has already rated
 	 * @param \User $user
 	 * @param Records[] $ratings
-	 * @return boolean - true or false
+	 * @param int $context
+	 * @return bool - true or false
 	 */
 	public function hasUserRated( \User $user, $ratings = false, $context = 0 ) {
 		return $this->getTotal(
@@ -128,15 +143,15 @@ class RatingSet extends ResultSet {
 	 * Returns the users ratings
 	 * @param \User $user
 	 * @param Records[] $ratings
-	 * @param integer $context
+	 * @param int $context
 	 * @return Records[]
 	 */
 	public function getUserRatings( \User $user, $ratings = false, $context = 0 ) {
-		if( !$ratings ) {
+		if ( !$ratings ) {
 			$ratings = $this->getRatings( $context );
 		}
 		$rules = [];
-		if( $user->getId() > 0 ) {
+		if ( $user->getId() > 0 ) {
 			$rules[Record::USERID] = $user->getId();
 		} else {
 			$rules[Record::USERIP] = $user->getName();

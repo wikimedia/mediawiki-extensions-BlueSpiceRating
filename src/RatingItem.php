@@ -24,14 +24,14 @@
  * @package    BlueSpiceRating
  * @subpackage Rating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 
 namespace BlueSpice\Rating;
+
 use BlueSpice\Rating\Data\Store;
 use BlueSpice\Rating\Data\Record;
-use BlueSpice\Rating\Data\Schema;
 use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Data\ReaderParams;
 use BlueSpice\Data\Filter;
@@ -66,14 +66,14 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	public function jsonSerialize() {
-		//TODO: There is currently no way to filter by context!
+		// TODO: There is currently no way to filter by context!
 		$ratings = $this->getRatingSet()->getRatings();
 		$userRatings = $this->getRatingSet()->getUserRatings(
 			\RequestContext::getMain()->getUser(),
 			$ratings
 		);
 
-		if( $this->getConfig()->get( 'IsAnonymous' ) ) {
+		if ( $this->getConfig()->get( 'IsAnonymous' ) ) {
 			$ratings = $this->getRatingSet()->getAnonRatings( $ratings );
 		}
 
@@ -95,27 +95,28 @@ class RatingItem implements \JsonSerializable {
 	 * @param RatingFactory $ratingFactory
 	 * @return static
 	 */
-	public static function newFromFactory( \stdClass $data, RatingConfig $config, RatingFactory $ratingFactory ) {
+	public static function newFromFactory( \stdClass $data, RatingConfig $config,
+		RatingFactory $ratingFactory ) {
 		return new static( $data, $config );
 	}
 
 	/**
 	 * @param mixed $value
-	 * @param integer $context
+	 * @param int $context
 	 * @return \Status
 	 */
 	public function checkValue( $value = false, $context = 0 ) {
-		if( $this->getConfig()->get( 'MultiValue' ) && empty( $context ) ) {
+		if ( $this->getConfig()->get( 'MultiValue' ) && empty( $context ) ) {
 			return \Status::newFatal(
 				'Context cannot be empty when multivalue!'
 			);
 		}
-		if( $value === false ) {
-			//stands for a delete
+		if ( $value === false ) {
+			// stands for a delete
 			return \Status::newGood( $value );
 		}
-		if( !$this->isAllowedValue( $value ) ) {
-			return \Status::newFatal( 'Value not allowed' ); //TODO
+		if ( !$this->isAllowedValue( $value ) ) {
+			return \Status::newFatal( 'Value not allowed' );
 		}
 		return \Status::newGood( $value );
 	}
@@ -125,23 +126,29 @@ class RatingItem implements \JsonSerializable {
 	 * @return \Status
 	 */
 	public function isAllowedValue( $value = false ) {
-		if( $value === false ) {
+		if ( $value === false ) {
 			return \Status::newGood( $value );
 		}
 		$allowedValues = $this->getConfig()->get( 'AllowedValues' );
 		return in_array( $value, $allowedValues )
 			? \Status::newGood( $value )
-			: \Status::newFatal( 'Value not allowed' ) //TODO
-		;
+			: \Status::newFatal( 'Value not allowed' );
 	}
 
+	/**
+	 *
+	 * @param string $action
+	 * @param \User $user
+	 * @param \Title|null $title
+	 * @return bool
+	 */
 	protected function checkPermission( $action, \User $user, \Title $title = null ) {
-		$action = ucfirst( $action );//...
+		$action = ucfirst( $action );
 		$permission = $this->getConfig()->get( "{$action}Permission" );
-		if( !$permission ) {
+		if ( !$permission ) {
 			return false;
 		}
-		if( $title instanceof \Title ) {
+		if ( $title instanceof \Title ) {
 			return $title->userCan( $permission, $user );
 		}
 		return $user->isAllowed( $permission );
@@ -149,15 +156,17 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 * @param \User $user
+	 * @param string $action
+	 * @param \Title|null $title
 	 * @return \Status
 	 */
 	public function userCan( \User $user, $action = 'read', \Title $title = null ) {
 		$bTitleRequired = $this->getConfig()->get( 'PermissionTitleRequired' );
-		if( $bTitleRequired && !$title instanceof \Title ) {
-			return \Status::newFatal( "Title Required" ); //TODO
+		if ( $bTitleRequired && !$title instanceof \Title ) {
+			return \Status::newFatal( "Title Required" );
 		}
-		if( !$this->checkPermission( $action, $user, $title ) ) {
-			return \Status::newFatal( "User is not Allowed $action" ); //TODO
+		if ( !$this->checkPermission( $action, $user, $title ) ) {
+			return \Status::newFatal( "User is not Allowed $action" );
 		}
 		return \Status::newGood( $user );
 	}
@@ -178,12 +187,12 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
-	 * 
+	 *
 	 * @return Store
 	 */
 	protected function getStore() {
 		$storeClass = $this->getConfig()->get( 'StoreClass' );
-		if( !class_exists( $storeClass ) ) {
+		if ( !class_exists( $storeClass ) ) {
 			return \Status::newFatal( "Store class '$storeClass' not found" );
 		}
 		return new $storeClass(
@@ -193,8 +202,8 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
-	 * 
-	 * @param Schema $schema
+	 *
+	 * @return array
 	 */
 	protected function makeLoadRatingsFilter() {
 		$filter = [];
@@ -221,14 +230,14 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 * loads the ratings from the bs_rating table
-	 * @return boolean
+	 * @return bool
 	 */
 	protected function loadRating() {
 		$this->ratings = null;
 		$reader = $this->getStore()->getReader();
-		$result = $reader->read( new ReaderParams([
+		$result = $reader->read( new ReaderParams( [
 			'filter' => $this->makeLoadRatingsFilter(),
-		]));
+		] ) );
 		$this->ratings = $result;
 		return $this->ratings;
 	}
@@ -237,47 +246,48 @@ class RatingItem implements \JsonSerializable {
 	 * CRUD votes from the rating item. Use $value = false to delete
 	 * @param \User $user - \User, that initiated this action
 	 * @param mixed $value - use false to delete
-	 * @param \User $owner - \User, that the vote is related to
-	 * @param integer $context - context for multi value
-	 * @param \Title $title - for permission check!
+	 * @param \User|null $owner - \User, that the vote is related to
+	 * @param int $context - context for multi value
+	 * @param \Title|null $title - for permission check!
 	 * @return \Status
 	 */
-	public function vote( \User $user, $value, \User $owner = null, $context = 0, \Title $title = null ) {
-		if( !$owner instanceof \User ) {
+	public function vote( \User $user, $value, \User $owner = null, $context = 0,
+		\Title $title = null ) {
+		if ( !$owner instanceof \User ) {
 			$owner = $user;
 		}
 		$status = $this->checkValue( $value, $context );
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			return $status;
 		}
 		$ratings = $this->getRatingSet()->getUserRatings( $owner, false, $context );
-		if( $value === false ) {
+		if ( $value === false ) {
 			$status = $this->userCan( $user, 'delete', $title );
-			if( !$status->isOK() ) {
+			if ( !$status->isOK() ) {
 				return $status;
 			}
-			if( $owner->getId() != $user->getId() ) {
+			if ( $owner->getId() != $user->getId() ) {
 				$status = $this->userCan( $user, 'deleteOthers', $title );
-				if( !$status->isOK() ) {
+				if ( !$status->isOK() ) {
 					return $status;
 				}
 			}
-			if( empty($ratings) ) {
-				return \Status::newFatal( 'Nothing to delete!' ); //TODO!
+			if ( empty( $ratings ) ) {
+				return \Status::newFatal( 'Nothing to delete!' );
 			}
-			return $this->deleteRating( $owner, $context);
+			return $this->deleteRating( $owner, $context );
 		}
 		$status = $this->userCan( $user, 'update', $title );
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			return $status;
 		}
-		if( $owner->getId() != $user->getId() ) {
+		if ( $owner->getId() != $user->getId() ) {
 			$status = $this->userCan( $user, 'updateOthers', $title );
-			if( !$status->isOK() ) {
+			if ( !$status->isOK() ) {
 				return $status;
 			}
 		}
-		if( empty($ratings) ) {
+		if ( empty( $ratings ) ) {
 			$status = $this->insertRating( $owner, $value, $context );
 		} else {
 			$status = $this->updateRating(
@@ -292,11 +302,18 @@ class RatingItem implements \JsonSerializable {
 			$owner,
 			$value,
 			$context,
-		]);
+		] );
 
 		return $status;
 	}
 
+	/**
+	 *
+	 * @param \User $owner
+	 * @param mixed $value
+	 * @param int $context
+	 * @return \Status
+	 */
 	protected function insertRating( \User $owner, $value, $context = 0 ) {
 		$status = \Status::newGood( $this );
 		$id = 0;
@@ -307,14 +324,14 @@ class RatingItem implements \JsonSerializable {
 			&$context,
 			$status,
 			$id,
-		]);
-		if( !$status->isOK() ) {
+		] );
+		if ( !$status->isOK() ) {
 			return $status;
 		}
 		$writer = $this->getStore()->getWriter();
 		$setClass = $this->getConfig()->get( 'RatingSetClass' );
 		$result = $writer->write( new $setClass( [
-			new Record( (object) [
+			new Record( (object)[
 				Record::ID => $id,
 				Record::REF => $this->getRef(),
 				Record::VALUE => $value,
@@ -325,13 +342,13 @@ class RatingItem implements \JsonSerializable {
 				Record::REFTYPE => $this->getRefType(),
 				Record::USERID => $owner->getId(),
 				Record::USERIP => $owner->getName(),
-			]),
-		]));
-		foreach( $result->getRecords() as $record ) {
-			if( $record->getStatus()->isOK() ) {
+			] ),
+		] ) );
+		foreach ( $result->getRecords() as $record ) {
+			if ( $record->getStatus()->isOK() ) {
 				continue;
 			}
-			return \Status::newFatal( 'insert database error' ); //TODO
+			return \Status::newFatal( 'insert database error' );
 		}
 		return \Status::newGood( $this->invalidateCache() );
 	}
@@ -341,7 +358,7 @@ class RatingItem implements \JsonSerializable {
 	 * @param \User $owner
 	 * @param mixed $value
 	 * @param Record[] $ratings
-	 * @param integer $context
+	 * @param int $context
 	 * @return \Status
 	 */
 	protected function updateRating( \User $owner, $value, $ratings, $context = 0 ) {
@@ -353,22 +370,22 @@ class RatingItem implements \JsonSerializable {
 			&$context,
 			$status,
 			$ratings,
-		]);
-		if( !$status->isOK() ) {
+		] );
+		if ( !$status->isOK() ) {
 			return $status;
 		}
-		foreach( $ratings as &$record ) {
+		foreach ( $ratings as &$record ) {
 			$record->set( Record::VALUE, $value );
 			$record->set( Record::TOUCHED, wfTimestampNow() );
 		}
 		$writer = $this->getStore()->getWriter();
 		$setClass = $this->getConfig()->get( 'RatingSetClass' );
 		$result = $writer->write( new $setClass( $ratings ) );
-		foreach( $result->getRecords() as $record ) {
-			if( $record->getStatus()->isOK() ) {
+		foreach ( $result->getRecords() as $record ) {
+			if ( $record->getStatus()->isOK() ) {
 				continue;
 			}
-			return \Status::newFatal( 'update database error' ); //TODO
+			return \Status::newFatal( 'update database error' );
 		}
 		return \Status::newGood( $this->invalidateCache() );
 	}
@@ -383,39 +400,51 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 * Deletes given \User rating or all ratings when no \User given
-	 * @param \User $user
-	 * @param integer $context
+	 * @param \User|null $user
+	 * @param int $context
 	 * @return Boolean - true or false
 	 */
 	protected function deleteRating( \User $user = null, $context = 0 ) {
 		$ratings = $this->getRatingSet()->getRatings( $context );
-		if( $user ) {
+		if ( $user ) {
 			$ratings = $this->getRatingSet()->getUserRatings( $user, $ratings );
 		}
-		if( empty( $ratings ) ) {
+		if ( empty( $ratings ) ) {
 			return \Status::newGood( $this->invalidateCache() );
 		}
 
 		$writer = $this->getStore()->getWriter();
 		$setClass = $this->getConfig()->get( 'RatingSetClass' );
 		$result = $writer->remove( new $setClass( $ratings ) );
-		foreach( $result->getRecords() as $record ) {
-			if( $record->getStatus()->isOK() ) {
+		foreach ( $result->getRecords() as $record ) {
+			if ( $record->getStatus()->isOK() ) {
 				continue;
 			}
-			return \Status::newFatal( 'delete from database error' ); //TODO
+			return \Status::newFatal( 'delete from database error' );
 		}
 		return \Status::newGood( $this->invalidateCache() );
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	public function getRefType() {
 		return $this->refType;
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	public function getSubType() {
 		return $this->subType;
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	public function getRef() {
 		return $this->ref;
 	}
@@ -427,14 +456,22 @@ class RatingItem implements \JsonSerializable {
 		return $this->config;
 	}
 
+	/**
+	 *
+	 * @return array
+	 */
 	public function getTagData() {
-		return array(
+		return [
 			'data-ref' => $this->getRef(),
 			'data-subtype' => $this->getSubType(),
 			'data-item' => json_encode( $this ),
-		);
+		];
 	}
 
+	/**
+	 *
+	 * @return string
+	 */
 	public function getTag() {
 		$aOptions = array_merge_recursive(
 			$this->getConfig()->get( 'HTMLTagOptions' ),

@@ -21,7 +21,7 @@
  * @author     Patric Wirth <wirth@hallowelt.com>
  * @package    Bluespice_pro
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  */
 
 namespace BlueSpice\Rating\Api\Task;
@@ -38,23 +38,29 @@ class Rating extends \BSApiTasksBase {
 	 * Methods that can be called by task param
 	 * @var array
 	 */
-	protected $aTasks = array(
+	protected $aTasks = [
 		'vote',
 		'reload',
-	);
+	];
 
 	/**
 	 * Returns an array of tasks and their required permissions
 	 * array('taskname' => array('read', 'edit'))
-	 * @return type
+	 * @return array
 	 */
 	protected function getRequiredTaskPermissions() {
-		return array(
-			'vote' => array( 'read' ),
-			'reload' => array( 'read' ),
-		);
+		return [
+			'vote' => [ 'read' ],
+			'reload' => [ 'read' ],
+		];
 	}
 
+	/**
+	 *
+	 * @param \stdClass $taskData
+	 * @param array $aParams
+	 * @return \stdClass
+	 */
 	public function task_vote( $taskData, $aParams ) {
 		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
@@ -62,19 +68,19 @@ class Rating extends \BSApiTasksBase {
 		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
 			->getService( 'BSRatingFactory' );
 		$status = $ratingFactory->ensureBasicParams( $taskData );
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			$result->message = $status->getHTML();
 			return $result;
 		}
 		$rating = $ratingFactory->newFromObject( $taskData );
 		$title = null;
-		if( !isset($taskData->{Record::VALUE}) ) {
+		if ( !isset( $taskData->{Record::VALUE} ) ) {
 			$taskData->{Record::VALUE} = false;
 		}
-		if( !empty($taskData->articleid) ) {
+		if ( !empty( $taskData->articleid ) ) {
 			$title = \Title::newFromID( $taskData->articleid );
 		}
-		if( !empty($taskData->titletext) ) {
+		if ( !empty( $taskData->titletext ) ) {
 			$title = \Title::newFromText( $taskData->titletext );
 		}
 
@@ -85,12 +91,12 @@ class Rating extends \BSApiTasksBase {
 			0,
 			$title
 		);
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			$result->message = $status->getHTML();
 			return $result;
 		}
 
-		if( $title ) {
+		if ( $title ) {
 			$title->invalidateCache();
 		}
 
@@ -100,6 +106,12 @@ class Rating extends \BSApiTasksBase {
 		return $result;
 	}
 
+	/**
+	 *
+	 * @param \stdClass $taskData
+	 * @param array $aParams
+	 * @return \stdClass
+	 */
 	public function task_reload( $taskData, $aParams ) {
 		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
@@ -107,7 +119,7 @@ class Rating extends \BSApiTasksBase {
 		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
 			->getService( 'BSRatingFactory' );
 		$status = $ratingFactory->ensureBasicParams( $taskData );
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			$result->message = $status->getHTML();
 			return $result;
 		}
@@ -124,9 +136,9 @@ class Rating extends \BSApiTasksBase {
 	 * @return array
 	 */
 	protected function getAllowedParams() {
-		return parent::getAllowedParams() + array(
+		return parent::getAllowedParams() + [
 
-		);
+		];
 	}
 
 	/**
@@ -134,28 +146,9 @@ class Rating extends \BSApiTasksBase {
 	 * @return array
 	 */
 	public function getParamDescription() {
-		return parent::getParamDescription() + array(
+		return parent::getParamDescription() + [
 
-		);
+		];
 	}
 
-	/**
-	 * Returns the bsic description for this module
-	 * @return type
-	 */
-	public function getDescription() {
-		return array(
-			'BSApiTasksBase: This should be implemented by subclass'
-		);
-	}
-
-	/**
-	 * Returns the basic example
-	 * @return type
-	 */
-	public function getExamples() {
-		return array(
-			'api.php?action='.$this->getModuleName().'&task='.$this->aTasks[0].'&taskData={someKey:"someValue",isFalse:true}',
-		);
-	}
 }

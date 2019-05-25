@@ -22,10 +22,11 @@
  * @package    BlueSpice Pro
  * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License v3
+ * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
 namespace BlueSpice\Rating;
+
 use BlueSpice\Rating\Data\Record;
 
 class RatingFactory {
@@ -65,10 +66,16 @@ class RatingFactory {
 		$this->config = $config;
 	}
 
+	/**
+	 *
+	 * @param string $type
+	 * @param \stdClass $data
+	 * @return RatingItem
+	 */
 	protected function factory( $type, $data ) {
 		$ratingConfig = $this->configFactory->newFromType( $type );
-		if( !$ratingConfig instanceof RatingConfig ) {
-			//TODO: Return a DummyRating instead of null.
+		if ( !$ratingConfig instanceof RatingConfig ) {
+			// TODO: Return a DummyRating instead of null.
 			return null;
 		}
 
@@ -77,20 +84,20 @@ class RatingFactory {
 	}
 
 	/**
-	 * @param \stdClass $data
+	 * @param \stdClass|null $data
 	 * @return Status
 	 */
 	public function ensureBasicParams( \stdClass $data = null ) {
-		if( is_null($data) ) {
-			return \Status::newFatal( 'No Data Given' ); //TODO
+		if ( is_null( $data ) ) {
+			return \Status::newFatal( 'No Data Given' );
 		}
-		if( empty($data->{Record::REF}) ) {
-			return \Status::newFatal( 'No reference Given' ); //TODO
+		if ( empty( $data->{Record::REF} ) ) {
+			return \Status::newFatal( 'No reference Given' );
 		}
-		if( empty($data->{Record::REFTYPE}) ) {
-			return \Status::newFatal( 'No reference type Given' ); //TODO
+		if ( empty( $data->{Record::REFTYPE} ) ) {
+			return \Status::newFatal( 'No reference type Given' );
 		}
-		if( empty($data->{Record::SUBTYPE}) ) {
+		if ( empty( $data->{Record::SUBTYPE} ) ) {
 			$data->{Record::SUBTYPE} = 'default';
 		}
 		return \Status::newGood( $data );
@@ -103,13 +110,13 @@ class RatingFactory {
 	 */
 	public function newFromObject( \stdClass $data ) {
 		$status = $this->ensureBasicParams( $data );
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			return null;
 		}
 		$instance = $this->getInstanceFromCache(
 			$status->getValue()
 		);
-		if( $instance instanceof RatingItem ) {
+		if ( $instance instanceof RatingItem ) {
 			return $instance;
 		}
 		return $this->factory( $data->{Record::REFTYPE}, $data );
@@ -121,16 +128,20 @@ class RatingFactory {
 	 * @return RatingItem - or null
 	 */
 	protected function getInstanceFromCache( \stdClass $data ) {
-		if( !isset($this->ratingItems[$data->{Record::REFTYPE}]) ) {
+		if ( !isset( $this->ratingItems[$data->{Record::REFTYPE}] ) ) {
 			return null;
 		}
-		if( !isset($this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}]) ) {
+		if ( !isset( $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}] ) ) {
 			return null;
 		}
-		if( !isset($this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}][$data->{Record::SUBTYPE}]) ) {
+		if ( !isset( $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}]
+			[$data->{Record::SUBTYPE}] ) ) {
 			return null;
 		}
-		return $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}][$data->{Record::SUBTYPE}];
+		return $this->ratingItems
+			[$data->{Record::REFTYPE}]
+			[$data->{Record::REF}]
+			[$data->{Record::SUBTYPE}];
 	}
 
 	/**
@@ -152,13 +163,14 @@ class RatingFactory {
 	 * @return bool
 	 */
 	public function invalidateCache( RatingItem $instance ) {
-		if( !isset($this->ratingItems[$instance->getRefType()]) ) {
+		if ( !isset( $this->ratingItems[$instance->getRefType()] ) ) {
 			return false;
 		}
-		if( !isset($this->ratingItems[$instance->getRefType()][$instance->getRef()]) ) {
+		if ( !isset( $this->ratingItems[$instance->getRefType()][$instance->getRef()] ) ) {
 			return false;
 		}
-		if( !isset($this->ratingItems[$instance->getRefType()][$instance->getRef()][$instance->getSubType()]) ) {
+		if ( !isset( $this->ratingItems[$instance->getRefType()][$instance->getRef()]
+			[$instance->getSubType()] ) ) {
 			return false;
 		}
 		unset( $this->ratingItems

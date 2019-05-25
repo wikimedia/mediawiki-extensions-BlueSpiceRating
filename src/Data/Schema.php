@@ -5,6 +5,10 @@ namespace BlueSpice\Rating\Data;
 use BlueSpice\Data\FieldType;
 
 class Schema extends \BlueSpice\Data\Schema {
+
+	/**
+	 * @return Schema
+	 */
 	public function __construct() {
 		parent::__construct( [
 			Record::ID => [
@@ -57,6 +61,6 @@ class Schema extends \BlueSpice\Data\Schema {
 				self::SORTABLE => true,
 				self::TYPE => FieldType::INT
 			],
-		]);
+		] );
 	}
 }

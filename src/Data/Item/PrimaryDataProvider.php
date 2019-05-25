@@ -15,39 +15,55 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	/**
 	 *
 	 * @param \Wikimedia\Rdbms\IDatabase $db
+	 * @param \IContextSource $context
 	 */
 	public function __construct( $db, $context ) {
 		$this->context = $context;
 		parent::__construct( $db );
 	}
 
+	/**
+	 *
+	 * @param \BlueSpice\Rating\RatingItem $rating
+	 * @return bool
+	 */
 	protected function checkRatingPermission( $rating ) {
 		$user = $this->context->getUser();
 		$status = $rating->userCan( $user, 'read' );
-		if( !$status->isOK() ) {
+		if ( !$status->isOK() ) {
 			return false;
 		}
 		return true;
 	}
 
+	/**
+	 *
+	 * @param \stdClass $row
+	 */
 	protected function appendRowToData( $row ) {
 		$title = \Title::newFromID( $row->page_id );
-		if( !$title ) {
+		if ( !$title ) {
 			return;
 		}
 		$rating = $this->makeRatingItem( $row );
-		if( !$rating ) {
+		if ( !$rating ) {
 			return;
 		}
-		if( !$this->checkRatingPermission( $rating ) ) {
+		if ( !$this->checkRatingPermission( $rating ) ) {
 			return;
 		}
 
-		$this->data[] = new \BlueSpice\Data\Record( (object)
-			$this->extractDataFromRow( $row, $rating )
+		$this->data[] = new \BlueSpice\Data\Record(
+			(object)$this->extractDataFromRow( $row, $rating )
 		);
 	}
 
+	/**
+	 *
+	 * @param \stdClass $row
+	 * @param \BlueSpice\Rating\RatingItem $rating
+	 * @return array
+	 */
 	protected function extractDataFromRow( $row, $rating ) {
 		return [
 			Record::REFTYPE => $row->{Record::REFTYPE},
@@ -58,6 +74,11 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 		];
 	}
 
+	/**
+	 *
+	 * @param \stdClass $row
+	 * @return \BlueSpice\Rating\RatingItem
+	 */
 	protected function makeRatingItem( $row ) {
 		$factory = MediaWikiServices::getInstance()->getService(
 			'BSRatingFactory'
