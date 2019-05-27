@@ -19,11 +19,11 @@ class AddResources extends BeforePageDisplay {
 			$configs[$key] = $config->jsonSerialize();
 			$ratingConfigStyles = $config->get( 'ModuleStyles' );
 			if ( $ratingConfigStyles ) {
-				$styles = array_merge( $styles, $a );
+				$styles = array_merge( $styles, $ratingConfigStyles );
 			}
 			$ratingConfigScripts = $config->get( 'ModuleScripts' );
 			if ( $ratingConfigScripts ) {
-				$scripts = array_merge( $scripts, $a );
+				$scripts = array_merge( $scripts, $ratingConfigScripts );
 			}
 		}
 
