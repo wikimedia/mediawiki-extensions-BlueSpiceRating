@@ -253,7 +253,6 @@
 			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRecommendationsGlobalAction::callback"
 		],
 		"BSMigrateSettingsFromDeviatingNames": "\\BlueSpice\\Rating\\Extension::onBSMigrateSettingsFromDeviatingNames",
-		"UnitTestsList" : "\\BlueSpice\\Rating\\Extension::onUnitTestsList",
 		"NamespaceManager::getMetaFields": "BlueSpice\\Rating\\Hook\\NamespaceManagerGetMetaFields\\RegisterMetaFields::callback",
 		"BSApiNamespaceStoreMakeData": "BlueSpice\\Rating\\Hook\\BSApiNamespaceStoreMakeData\\AddData::callback",
 		"NamespaceManager::editNamespace": "BlueSpice\\Rating\\Hook\\NamespaceManagerEditNamespace\\SetRatingValues::callback",
