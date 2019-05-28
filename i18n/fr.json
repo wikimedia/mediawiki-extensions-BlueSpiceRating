@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"Wladek92"
+		]
+	},
+	"bs-rating-types-page": "Évaluation des pages",
+	"rating": "Évaluations",
+	"recommendations": "Recommendations",
+	"bs-rating-special-rating-heading": "Évaluations",
+	"bs-rating-special-recommendations-heading": "Recommandations",
+	"bs-rating-special-recommendations-label-recommendation": "Recommandations",
+	"bs-rating-specialrating-label-namespace": "Espace de noms",
+	"bs-rating-specialrating-titleTitle": "Titre",
+	"bs-rating-specialrating-titleRating": "Évaluation",
+	"bs-rating-nsm-label": "Évaluation",
+	"bs-rating-nsm-label-recommendations": "Recommendations"
+}
