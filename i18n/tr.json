@@ -1,0 +1,21 @@
+{
+	"@metadata": {
+		"authors": [
+			"Mirzali"
+		]
+	},
+	"bs-rating-types-page": "Sayfa derecelendirmesi",
+	"rating": "Derecelendirmeler",
+	"recommendations": "Öneriler",
+	"bs-rating-articlelike-uratingtextservoted": "Tavsiye edildi ($1)",
+	"action-rating-write": "sayfalarda oy",
+	"right-rating-read": "Sayfalardaki oylamaları okuyun",
+	"bs-rating-special-recommendations-label-recommendation": "Öneriler",
+	"bs-rating-specialrating-titleTitle": "Başlık",
+	"bs-rating-specialrating-titleRating": "Derecelendirme",
+	"apihelp-bs-rating-tasks-description": "Uzantı değerlendirmesi için ortak görevleri yürütür",
+	"apihelp-bs-rating-store-description": "Makaleler için derecelendirme sunar",
+	"bs-rating-nsm-label-recommendations": "Öneriler",
+	"apihelp-bs-ratingarticle-store-summary": "Makaleler için derecelendirme sunar",
+	"apihelp-bs-ratingarticlelike-store-summary": "Makaleler için öneriler sunar"
+}

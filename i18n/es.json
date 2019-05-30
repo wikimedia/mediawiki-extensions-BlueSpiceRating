@@ -1,0 +1,11 @@
+{
+	"@metadata": {
+		"authors": [
+			"Harvest"
+		]
+	},
+	"recommendations": "Recomendaciones",
+	"bs-rating-special-recommendations-label-recommendation": "Recomendaciones",
+	"bs-rating-specialrating-titleTitle": "Título",
+	"bs-rating-nsm-label-recommendations": "Recomendaciones"
+}

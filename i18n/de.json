@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Patric Wirth <wirth@hallowelt.biz>\r"
+			"Patric Wirth <wirth@hallowelt.biz>\r",
+			"Mirzali"
 		]
 	},
 	"bs-rating-extension-description": "Stellt ein Bewertungssystem zur Verfügung.",
@@ -13,6 +14,8 @@
 	"bs-rating-articlelike-ratingtext": "Empfehlen($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Empfohlen($1)",
 	"action-rating-viewspecialpage": "Seiten, die durch das \"Rating-Viewspecialpage\" Recht geschützt sind, aufzurufen",
+	"action-rating-write": "Stimmen Sie auf den Seiten ab",
+	"right-rating-read": "Lies die Bewertungen auf den Seiten",
 	"bs-rating-special-recommendations-heading": "Empfehlungen",
 	"bs-rating-special-recommendations-label-recommendation": "Empfehlungen",
 	"bs-rating-specialrating-label-namespace": "Namensraum",
@@ -22,5 +25,7 @@
 	"apihelp-bs-rating-tasks-description": "Führt allgemeine Aufgaben für die Erweiterung Bewertungen aus",
 	"apihelp-bs-rating-store-description": "Liefert Bewertungen für Seiten",
 	"bs-rating-nsm-label": "Bewertung",
-	"bs-rating-nsm-label-recommendations": "Empfehlungen"
+	"bs-rating-nsm-label-recommendations": "Empfehlungen",
+	"apihelp-bs-ratingarticle-store-summary": "Liefert Bewertungen für Artikel",
+	"apihelp-bs-ratingarticlelike-store-summary": "Liefert Empfehlungen für Artikel"
 }
