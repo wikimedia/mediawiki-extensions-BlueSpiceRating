@@ -1,14 +1,24 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mirzali"
+			"Mirzali",
+			"Hedda"
 		]
 	},
+	"bs-rating-extension-description": "Bir derecelendirme sistemi sağlar",
 	"bs-rating-types-page": "Sayfa derecelendirmesi",
+	"bs-rating-types-pagelike": "Sayfa önerisi",
 	"rating": "Derecelendirmeler",
 	"recommendations": "Öneriler",
+	"bs-rating-yourrating": "Derecelendirmen: $1",
+	"bs-rating-special-rating-heading": "Derecelendirmeler",
+	"bs-rating-articlelike-ratingtext": "Tavsiye edildi ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Tavsiye edildi ($1)",
-	"action-rating-write": "sayfalarda oy",
+	"action-rating-viewspecialpage": "\"Derecelendirme Görünümü\" hakkına sahip korunan sayfaları görüntüle",
+	"action-rating-read": "sayfalardaki derecelendirmeleri oku",
+	"action-rating-write": "sayfalardaki oy",
+	"action-rating-archive": "sayfalardaki oyları kaldır",
+	"right-rating-viewspecialpage": "\"Derecelendirme Görünümü\" hakkına sahip korunan sayfaları görüntüle",
 	"right-rating-read": "Sayfalardaki oylamaları okuyun",
 	"bs-rating-special-recommendations-label-recommendation": "Öneriler",
 	"bs-rating-specialrating-titleTitle": "Başlık",
