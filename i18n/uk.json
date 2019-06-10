@@ -1,0 +1,20 @@
+{
+	"@metadata": {
+		"authors": [
+			"Vlad5250"
+		]
+	},
+	"rating": "Рейтинги",
+	"recommendations": "Рекомендації",
+	"bs-rating-yourrating": "Ваш рейтинг: $1",
+	"bs-rating-special-rating-heading": "Рейтинги",
+	"action-rating-viewspecialpage": "перегляд сторінок, які охороняються з правом \"Rating-Viewspecialpage\"",
+	"right-rating-viewspecialpage": "перегляд сторінок, які охороняються з правом \"Rating-Viewspecialpage\"",
+	"bs-rating-special-recommendations-heading": "Рекомендації",
+	"bs-rating-special-recommendations-label-recommendation": "Рекомендації",
+	"bs-rating-specialrating-label-namespace": "Простір назв",
+	"bs-rating-specialrating-titleTitle": "Назва",
+	"bs-rating-specialrating-titleRating": "Рейтинг",
+	"bs-rating-nsm-label": "Рейтинг",
+	"bs-rating-nsm-label-recommendations": "Рекомендації"
+}
