@@ -4,5 +4,10 @@
 			"Mjälten"
 		]
 	},
+	"bs-rating-special-rating-heading": "Betyg",
+	"bs-rating-special-recommendations-label-recommendation": "Rekommendationer",
+	"bs-rating-specialrating-label-namespace": "Namnrymd",
+	"bs-rating-specialrating-titleTitle": "Titel",
+	"bs-rating-specialrating-titleRating": "Betyg",
 	"bs-rating-nsm-label": "Betyg"
 }

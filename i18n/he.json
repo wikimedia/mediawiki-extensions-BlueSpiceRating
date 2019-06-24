@@ -1,0 +1,15 @@
+{
+	"@metadata": {
+		"authors": [
+			"Steeve815"
+		]
+	},
+	"bs-rating-special-recommendations-heading": "המלצות",
+	"bs-rating-special-recommendations-label-recommendation": "המלצות",
+	"bs-rating-specialrating-label-namespace": "מרחב שם",
+	"bs-rating-specialrating-titleTitle": "כותרת",
+	"bs-rating-specialrating-titleRating": "דירוג",
+	"bs-rating-specialrating-titleVotes": "מספר דירוגים",
+	"bs-rating-nsm-label": "דירוג",
+	"bs-rating-nsm-label-recommendations": "המלצות"
+}

@@ -1,8 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
-			"AF"
+			"AF",
+			"神樂坂秀吉"
 		]
 	},
-	"bs-rating-specialrating-label-namespace": "命名空間"
+	"bs-rating-specialrating-label-namespace": "命名空間",
+	"bs-rating-specialrating-titleTitle": "標題",
+	"bs-rating-specialrating-titleRating": "評級",
+	"bs-rating-nsm-label": "評級"
 }
