@@ -13,13 +13,19 @@
  */
 namespace BlueSpice\Rating\Special;
 
+use BlueSpice\Special\ManagerBase;
+use BsNamespaceHelper;
+
 /**
  * Recommendations SpecialPage
  * @package BlueSpice_Extensions
  * @subpackage Recommendations
  */
-class Recommendations extends \BlueSpice\SpecialPage {
+class Recommendations extends ManagerBase {
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		parent::__construct( 'Recommendations', 'rating-viewspecialpage', true );
 	}
@@ -29,39 +35,48 @@ class Recommendations extends \BlueSpice\SpecialPage {
 	 * @param string $param
 	 */
 	public function execute( $param ) {
-		$this->checkPermissions();
+		parent::execute( $param );
 
 		$this->getOutput()->setPageTitle(
 			$this->msg( 'bs-rating-special-recommendations-heading' )->plain()
 		);
+	}
 
-		$this->getOutput()->addHtml(
-			\Html::element( 'div', [
-				'id' => "bs-ratingarticlelike-grid",
-				'class' => "bs-manager-container",
-			] )
-		);
+	/**
+	 * @return string ID of the HTML element being added
+	 */
+	protected function getId() {
+		return 'bs-ratingarticlelike-grid';
+	}
 
+	/**
+	 * @return array
+	 */
+	protected function getModules() {
+		return [
+			'ext.bluespice.ratingItemArticleLike',
+			'ext.bluespice.specialRecommendations',
+			'ext.bluespice.ratingItemArticleLike.styles'
+		];
+	}
+
+	/**
+	 *
+	 * @return array
+	 */
+	protected function getJSVars() {
 		$enabledNamespaces = $this->getConfig()->get(
 			'RatingArticleLikeEnabledNamespaces'
 		);
 		$namespaces = [];
 		foreach ( $enabledNamespaces as $nsIdx ) {
-			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
+			$namespaces[$nsIdx] = BsNamespaceHelper::getNamespaceName(
 				$nsIdx
 			);
 		}
 
-		$this->getOutput()->addJsConfigVars(
-			'bsgRatingArticleLikeAcitveNamespaces',
-			$namespaces
-		);
-
-		$this->getOutput()->addModules( 'ext.bluespice.ratingItemArticleLike' );
-		$this->getOutput()->addModules( 'ext.bluespice.specialRecommendations' );
-		$this->getOutput()->addModuleStyles(
-			'ext.bluespice.ratingItemArticleLike.styles'
-		);
+		return [
+			'bsgRatingArticleLikeActiveNamespaces' => $namespaces
+		];
 	}
-
 }

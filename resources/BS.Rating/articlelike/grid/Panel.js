@@ -34,7 +34,7 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 
 		var filter = [];
 		var namespaces = mw.config.get(
-			'bsgRatingArticleLikeAcitveNamespaces',
+			'bsgRatingArticleLikeActiveNamespaces',
 			{}
 		);
 		for( var idx in namespaces ) {

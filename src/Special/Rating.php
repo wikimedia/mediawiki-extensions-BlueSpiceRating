@@ -13,13 +13,19 @@
  */
 namespace BlueSpice\Rating\Special;
 
+use BlueSpice\Special\ManagerBase;
+use BsNamespaceHelper;
+
 /**
  * Rating SpecialPage
  * @package BlueSpice_Extensions
  * @subpackage Rating
  */
-class Rating extends \BlueSpice\SpecialPage {
+class Rating extends ManagerBase {
 
+	/**
+	 *
+	 */
 	public function __construct() {
 		parent::__construct( 'Rating', 'rating-viewspecialpage', true );
 	}
@@ -29,37 +35,49 @@ class Rating extends \BlueSpice\SpecialPage {
 	 * @param string $param
 	 */
 	public function execute( $param ) {
-		$this->checkPermissions();
+		parent::execute( $param );
 
 		$this->getOutput()->setPageTitle(
 			$this->msg( 'bs-rating-special-rating-heading' )->plain()
 		);
+	}
 
-		$this->getOutput()->addHtml(
-			\Html::element( 'div', [
-				'id' => "bs-ratingarticle-grid",
-				'class' => "bs-manager-container",
-			] )
-		);
+	/**
+	 * @return string ID of the HTML element being added
+	 */
+	protected function getId() {
+		return "bs-ratingarticle-grid";
+	}
 
+	/**
+	 * @return array
+	 */
+	protected function getModules() {
+		return [
+			'ext.bluespice.ratingItemArticle',
+			'ext.bluespice.specialRating',
+			'ext.bluespice.rating.styles'
+		];
+	}
+
+	/**
+	 *
+	 * @return array
+	 */
+	protected function getJSVars() {
 		$enabledNamespaces = $this->getConfig()->get(
 			'RatingArticleEnabledNamespaces'
 		);
 
 		$namespaces = [];
 		foreach ( $enabledNamespaces as $nsIdx ) {
-			$namespaces[$nsIdx] = \BsNamespaceHelper::getNamespaceName(
+			$namespaces[$nsIdx] = BsNamespaceHelper::getNamespaceName(
 				$nsIdx
 			);
 		}
 
-		$this->getOutput()->addJsConfigVars(
-			'bsgRatingArticleAcitveNamespaces',
-			$namespaces
-		);
-
-		$this->getOutput()->addModules( 'ext.bluespice.ratingItemArticle' );
-		$this->getOutput()->addModules( 'ext.bluespice.specialRating' );
-		$this->getOutput()->addModuleStyles( 'ext.bluespice.rating.styles' );
+		return [
+			'bsgRatingArticleAcitveNamespaces' => $namespaces
+		];
 	}
 }
