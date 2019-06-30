@@ -4,6 +4,17 @@
 			"Vlad5250"
 		]
 	},
+	"bs-rating-types-page": "Оценка на страница",
+	"rating": "Котирања",
+	"recommendations": "Препораки",
+	"bs-rating-special-rating-heading": "Котирања",
 	"action-rating-viewspecialpage": "прегледај страници заштитени со правото „Rating-Viewspecialpage“",
-	"right-rating-viewspecialpage": "Преглед на страници заштитени со правото „Rating-Viewspecialpage“"
+	"right-rating-viewspecialpage": "Преглед на страници заштитени со правото „Rating-Viewspecialpage“",
+	"bs-rating-special-recommendations-heading": "Препораки",
+	"bs-rating-special-recommendations-label-recommendation": "Препораки",
+	"bs-rating-specialrating-label-namespace": "Именски простор",
+	"bs-rating-specialrating-titleTitle": "Наслов",
+	"bs-rating-specialrating-titleRating": "Оценка",
+	"bs-rating-nsm-label": "Оценка",
+	"bs-rating-nsm-label-recommendations": "Препораки"
 }

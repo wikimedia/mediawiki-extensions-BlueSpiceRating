@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Steeve815"
+			"Steeve815",
+			"Strayblues"
 		]
 	},
 	"bs-rating-special-recommendations-heading": "המלצות",
@@ -9,7 +10,7 @@
 	"bs-rating-specialrating-label-namespace": "מרחב שם",
 	"bs-rating-specialrating-titleTitle": "כותרת",
 	"bs-rating-specialrating-titleRating": "דירוג",
-	"bs-rating-specialrating-titleVotes": "מספר דירוגים",
+	"bs-rating-specialrating-titleVotes": "מספר הדירוגים",
 	"bs-rating-nsm-label": "דירוג",
 	"bs-rating-nsm-label-recommendations": "המלצות"
 }
