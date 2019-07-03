@@ -1,9 +1,14 @@
 {
 	"@metadata": {
 		"authors": [
-			"Ps2049"
+			"Ps2049",
+			"神樂坂秀吉"
 		]
 	},
+	"bs-rating-types-page": "页面评级",
+	"rating": "评级",
+	"recommendations": "推荐",
+	"bs-rating-special-rating-heading": "评级",
 	"bs-rating-specialrating-label-namespace": "名字空间",
 	"bs-rating-specialrating-titleTitle": "标题",
 	"bs-rating-specialrating-titleRating": "评级"
