@@ -63,7 +63,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 				continue;
 			}
 			if ( $filter->getField() === 'page_namespace' ) {
-				$filter->setAppied();
+				$filter->setApplied();
 				$nsIdxes = [];
 				foreach ( $filter->getValue() as $value ) {
 					$nsIdxes[] = \BsNamespaceHelper::getNamespaceIndex( $value );
@@ -76,11 +76,11 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 			switch ( $filter->getComparison() ) {
 				case Filter::COMPARISON_EQUALS:
 					$conds[$fieldName] = $filter->getValue();
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 				case Filter::COMPARISON_NOT_EQUALS:
 					$conds[] = "{$filter->getValue()} != $fieldName";
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 				case StringValue::COMPARISON_CONTAINS:
 					$conds[] = "$fieldName " . $this->db->buildLike(
@@ -88,7 +88,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 						$filter->getValue(),
 						$this->db->anyString()
 					);
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 				case StringValue::COMPARISON_NOT_CONTAINS:
 					$conds[] = "$fieldName NOT " . $this->db->buildLike(
@@ -96,29 +96,29 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 						$filter->getValue(),
 						$this->db->anyString()
 					);
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 				case StringValue::COMPARISON_STARTS_WITH:
 					$conds[] = "$fieldName " . $this->db->buildLike(
 						$filter->getValue(),
 						$this->db->anyString()
 					);
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 				case StringValue::COMPARISON_ENDS_WITH:
 					$conds[] = "$fieldName " . $this->db->buildLike(
 						$this->db->anyString(),
 						$filter->getValue()
 					);
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 				case Numeric::COMPARISON_GREATER_THAN:
 					$conds[] = "{$filter->getValue()} > $fieldName";
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 				case Numeric::COMPARISON_LOWER_THAN:
 					$conds[] = "{$filter->getValue()} < $fieldName";
-					$filter->setAppied();
+					$filter->setApplied();
 					break;
 			}
 		}
