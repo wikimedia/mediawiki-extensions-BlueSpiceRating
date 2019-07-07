@@ -9,7 +9,11 @@
 	"rating": "评级",
 	"recommendations": "推荐",
 	"bs-rating-special-rating-heading": "评级",
+	"bs-rating-special-recommendations-heading": "推荐",
+	"bs-rating-special-recommendations-label-recommendation": "推荐",
 	"bs-rating-specialrating-label-namespace": "名字空间",
 	"bs-rating-specialrating-titleTitle": "标题",
-	"bs-rating-specialrating-titleRating": "评级"
+	"bs-rating-specialrating-titleRating": "评级",
+	"bs-rating-nsm-label": "评分",
+	"bs-rating-nsm-label-recommendations": "推荐"
 }
