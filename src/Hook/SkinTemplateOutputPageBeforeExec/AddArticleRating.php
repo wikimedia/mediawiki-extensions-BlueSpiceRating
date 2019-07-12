@@ -49,9 +49,8 @@ class AddArticleRating extends SkinTemplateOutputPageBeforeExec {
 			return true;
 		}
 
-		$prop = \BsArticleHelper::getInstance( $title )->getPageProp(
-			'bs_norating'
-		);
+		$prop = $this->getServices()->getBSUtilityFactory()
+			->getPagePropHelper( $title )->getPageProp( 'bs_norating' );
 		if ( !is_null( $prop ) ) {
 			return true;
 		}
