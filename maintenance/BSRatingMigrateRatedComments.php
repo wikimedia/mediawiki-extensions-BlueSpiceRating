@@ -15,6 +15,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	protected $data = [];
+
 	protected function readData() {
 		$res = $this->getDB( DB_REPLICA )->select(
 			'bs_rating',
