@@ -6,7 +6,6 @@ use BlueSpice\Data\FilterFinder;
 use BlueSpice\Data\Filter;
 use BlueSpice\Data\Filter\StringValue;
 use BlueSpice\Data\Filter\Numeric;
-use BlueSpice\Data\Record;
 use BlueSpice\Data\ReaderParams;
 use BlueSpice\Rating\RatingItem;
 
