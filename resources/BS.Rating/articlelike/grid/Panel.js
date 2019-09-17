@@ -20,6 +20,7 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 			apiAction: 'bs-ratingarticlelike-store',
 			fields: [
 				'page_namespace',
+				'page_namespace_text',
 				'page_title',
 				'rat_reftype',
 				'rat_ref',
@@ -49,6 +50,9 @@ Ext.define( 'BS.Rating.articlelike.grid.Panel', {
 			header: mw.message ('bs-rating-specialrating-label-namespace' ).plain(),
 			dataIndex: 'page_namespace',
 			sortable: true,
+			renderer: function( value, metaData, record, rowIndex, colIndex, store ) {
+				return record.get( 'page_namespace_text' ) + " (" + value + ")"
+			},
 			filter: {
 				type: 'list',
 				options: filter

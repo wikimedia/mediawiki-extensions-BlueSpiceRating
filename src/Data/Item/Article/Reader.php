@@ -17,10 +17,10 @@ class Reader extends \BlueSpice\Rating\Data\Item\Reader {
 
 	/**
 	 *
-	 * @return null
+	 * @return SecondaryDataProvider
 	 */
 	protected function makeSecondaryDataProvider() {
-		return null;
+		return new SecondaryDataProvider;
 	}
 
 	/**
