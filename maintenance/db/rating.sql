@@ -2,7 +2,7 @@
 --
 -- Part of BlueSpice MediaWiki
 --
--- @author     Patric Wirth <pwirth@hallowelt.com>
+-- @author     Patric Wirth
 -- @package    BlueSpice_Extensions
 -- @subpackage Rating
 -- @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
