@@ -4,7 +4,7 @@
  *
  * Part of BlueSpice MediaWiki
  *
- * @author     Patric Wirth <wirth@hallowelt.com>
+ * @author     Patric Wirth
  * @package    BlueSpice Pro
  * @subpackage BlueSpiceRating
  * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
