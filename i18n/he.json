@@ -15,5 +15,16 @@
 	"bs-rating-specialrating-titleRating": "דירוג",
 	"bs-rating-specialrating-titleVotes": "מספר הדירוגים",
 	"bs-rating-nsm-label": "דירוג",
-	"bs-rating-nsm-label-recommendations": "המלצות"
+	"bs-rating-nsm-label-recommendations": "המלצות",
+	"bs-rating-types-pagelike": "המלצה על הדף",
+	"bs-rating-yourrating": "הדירוג שלך: $1",
+	"bs-rating-special-rating-heading": "דירוגים",
+	"bs-rating-articlelike-ratingtext": "להמליץ ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "הומלץ ($1)",
+	"action-rating-read": "לקרוא דירוגים של דפים",
+	"action-rating-write": "להצביע על דפים",
+	"action-rating-archive": "להסיר הצבעות מדפים",
+	"right-rating-read": "קריאת דירוגים של דפים",
+	"right-rating-write": "הצבעה על דפים",
+	"right-rating-archive": "הסרת הצבעות מדפים"
 }
