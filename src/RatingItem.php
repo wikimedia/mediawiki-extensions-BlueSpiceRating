@@ -30,6 +30,7 @@
 
 namespace BlueSpice\Rating;
 
+use BlueSpice\Services;
 use BlueSpice\Rating\Data\Store;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\RatingSet;
@@ -197,7 +198,7 @@ class RatingItem implements \JsonSerializable {
 		}
 		return new $storeClass(
 			new Context( \RequestContext::getMain(), $this->getConfig() ),
-			\MediaWiki\MediaWikiServices::getInstance()->getDBLoadBalancer()
+			Services::getInstance()->getDBLoadBalancer()
 		);
 	}
 
@@ -484,8 +485,7 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	public function invalidateCache() {
-		\MediaWiki\MediaWikiServices::getInstance()
-			->getService( 'BSRatingFactory' )
+		Services::getInstance()->getService( 'BSRatingFactory' )
 			->invalidateCache( $this );
 		$this->loadRating();
 		return $this;

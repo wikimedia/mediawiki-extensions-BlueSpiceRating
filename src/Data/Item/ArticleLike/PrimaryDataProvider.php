@@ -2,6 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
+use BlueSpice\Services;
 use BlueSpice\Data\FilterFinder;
 use BlueSpice\Data\Filter;
 use BlueSpice\Data\Filter\StringValue;
@@ -173,8 +174,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	 * @return \BlueSpice\Rating\RatingItem
 	 */
 	protected function makeRatingItem( $row ) {
-		$config = \MediaWiki\MediaWikiServices::getInstance()
-			->getConfigFactory()->makeConfig( 'bsg' );
+		$config = Services::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
 		$namespaces = $config->get( 'RatingArticleLikeEnabledNamespaces' );
 		$ns = $row->{Record::PAGENAMESPACE};
 		if ( !in_array( $ns, $namespaces ) ) {
