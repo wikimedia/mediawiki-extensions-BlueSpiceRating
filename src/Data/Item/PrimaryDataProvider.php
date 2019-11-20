@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item;
 
-use MediaWiki\MediaWikiServices;
+use BlueSpice\Services;
 
 abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 
@@ -80,9 +80,7 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	 * @return \BlueSpice\Rating\RatingItem
 	 */
 	protected function makeRatingItem( $row ) {
-		$factory = MediaWikiServices::getInstance()->getService(
-			'BSRatingFactory'
-		);
+		$factory = Services::getInstance()->getService( 'BSRatingFactory' );
 		return $factory->newFromObject( $row );
 	}
 }

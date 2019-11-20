@@ -27,6 +27,8 @@
 
 namespace BlueSpice\Rating;
 
+use BlueSpice\Services;
+
 /**
  * RatingConfig class for Rating extension
  * @package BlueSpiceFoundation
@@ -70,7 +72,7 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 	 */
 	public static function factory( $type ) {
 		wfDeprecated( __METHOD__, '3.0.0' );
-		$configFactory = MediaWikiServices::getInstance()->getService(
+		$configFactory = Services::getInstance()->getService(
 			'BSRatingConfigFactory'
 		);
 		return $configFactory->newFromType( $type );

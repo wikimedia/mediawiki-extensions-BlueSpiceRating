@@ -65,8 +65,7 @@ class Rating extends \BSApiTasksBase {
 		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
 
-		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
-			->getService( 'BSRatingFactory' );
+		$ratingFactory = $this->getServices()->getService( 'BSRatingFactory' );
 		$status = $ratingFactory->ensureBasicParams( $taskData );
 		if ( !$status->isOK() ) {
 			$result->message = $status->getHTML();
@@ -116,8 +115,7 @@ class Rating extends \BSApiTasksBase {
 		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
 
-		$ratingFactory = \MediaWiki\MediaWikiServices::getInstance()
-			->getService( 'BSRatingFactory' );
+		$ratingFactory = $this->getServices()->getService( 'BSRatingFactory' );
 		$status = $ratingFactory->ensureBasicParams( $taskData );
 		if ( !$status->isOK() ) {
 			$result->message = $status->getHTML();
