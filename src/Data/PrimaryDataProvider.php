@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data;
 
-use \BlueSpice\Data\IPrimaryDataProvider;
+use BlueSpice\Data\IPrimaryDataProvider;
 use BlueSpice\Data\FilterFinder;
 use BlueSpice\Data\Filter;
 
