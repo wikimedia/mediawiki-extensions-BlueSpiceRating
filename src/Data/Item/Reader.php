@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item;
 
-use \BlueSpice\Data\DatabaseReader;
+use BlueSpice\Data\DatabaseReader;
 
 abstract class Reader extends DatabaseReader {
 	/**
