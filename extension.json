@@ -124,7 +124,8 @@
 		"BSRatingRemoveArchived": "maintenance/BSRatingRemoveArchived.php",
 		"BSRatingSetDefaultSubType": "maintenance/BSRatingSetDefaultSubType.php",
 		"BSRatingRemoveDuplicateEntries": "maintenance/BSRatingRemoveDuplicateEntries.php",
-		"BSRatingMigrateRatedComments": "maintenance/BSRatingMigrateRatedComments.php"
+		"BSRatingMigrateRatedComments": "maintenance/BSRatingMigrateRatedComments.php",
+		"BSReviewMigrateSettingsFromDB": "maintenance/BSReviewMigrateSettingsFromDB.php"
 	},
 	"AutoloadNamespaces": {
 		"BlueSpice\\Rating\\": "src/",
@@ -243,7 +244,8 @@
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddRatingRemoveArchivedMaintenanceScript::callback",
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddRatingSetDefaultSubTypeMaintenanceScript::callback",
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddBSRatingRemoveDuplicateEntriesMaintenanceScript::callback",
-			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddRatingMigrateRatedCommentsScript::callback"
+			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddRatingMigrateRatedCommentsScript::callback",
+			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddMigrateSettingsFromDBMaintenanceScript::callback"
 		],
 		"BeforePageDisplay": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources::callback",
 		"SkinTemplateOutputPageBeforeExec": [
