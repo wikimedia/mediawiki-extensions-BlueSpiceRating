@@ -2,8 +2,8 @@
 
 namespace BlueSpice\Rating\Data\Item\Article;
 
-use BsNamespaceHelper;
 use BlueSpice\Data\SecondaryDataProvider as SecondaryDataProviderBase;
+use BsNamespaceHelper;
 
 class SecondaryDataProvider extends SecondaryDataProviderBase {
 

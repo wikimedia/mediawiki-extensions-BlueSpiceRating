@@ -29,8 +29,8 @@
  */
 namespace BlueSpice\Rating\RatingItem;
 
-use BlueSpice\Rating\RatingItem;
 use BlueSpice\Rating\Data\Record;
+use BlueSpice\Rating\RatingItem;
 
 /**
  * ArticleLike class for Rating extension

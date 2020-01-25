@@ -88,7 +88,7 @@ class RatingFactory {
 	 * @return Status
 	 */
 	public function ensureBasicParams( \stdClass $data = null ) {
-		if ( is_null( $data ) ) {
+		if ( $data === null ) {
 			return \Status::newFatal( 'No Data Given' );
 		}
 		if ( empty( $data->{Record::REF} ) ) {

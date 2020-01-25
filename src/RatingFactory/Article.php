@@ -27,8 +27,8 @@
  */
 namespace BlueSpice\Rating\RatingFactory;
 
-use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\Data\Record;
+use BlueSpice\Rating\RatingFactory;
 
 class Article extends RatingFactory {
 	/**

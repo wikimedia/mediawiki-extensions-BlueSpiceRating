@@ -3,8 +3,8 @@
 $IP = dirname( dirname( dirname( __DIR__ ) ) );
 require_once "$IP/maintenance/Maintenance.php";
 
-use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\Data\Record;
+use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\RatingItem\Article;
 use BlueSpice\Services;
 

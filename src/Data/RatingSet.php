@@ -32,7 +32,7 @@ class RatingSet extends ResultSet {
 		}
 		return array_filter( $ratings, function ( Record $record ) use( $rules ) {
 			foreach ( $rules as $fieldName => $value ) {
-				if ( is_null( $record->get( $fieldName ) ) ) {
+				if ( $record->get( $fieldName ) === null ) {
 					return false;
 				}
 				if ( $record->get( $fieldName ) == $value ) {

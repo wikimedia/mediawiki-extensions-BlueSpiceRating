@@ -30,13 +30,13 @@
 
 namespace BlueSpice\Rating;
 
-use BlueSpice\Services;
-use BlueSpice\Rating\Data\Store;
-use BlueSpice\Rating\Data\Record;
-use BlueSpice\Rating\Data\RatingSet;
-use BlueSpice\Data\ReaderParams;
-use BlueSpice\Data\Filter;
 use BlueSpice\Context;
+use BlueSpice\Data\Filter;
+use BlueSpice\Data\ReaderParams;
+use BlueSpice\Rating\Data\RatingSet;
+use BlueSpice\Rating\Data\Record;
+use BlueSpice\Rating\Data\Store;
+use BlueSpice\Services;
 
 /**
  * RatingItem class for Rating extension
@@ -57,6 +57,8 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 * Contructor of the Rating class
+	 * @param \stdClass $data
+	 * @param RatingConfig $config
 	 */
 	private function __construct( \stdClass $data, RatingConfig $config ) {
 		$this->refType = $data->{Record::REFTYPE};

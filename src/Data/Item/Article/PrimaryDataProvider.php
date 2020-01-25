@@ -2,13 +2,13 @@
 
 namespace BlueSpice\Rating\Data\Item\Article;
 
-use BlueSpice\Services;
-use BlueSpice\Data\FilterFinder;
 use BlueSpice\Data\Filter;
-use BlueSpice\Data\Filter\StringValue;
 use BlueSpice\Data\Filter\Numeric;
+use BlueSpice\Data\Filter\StringValue;
+use BlueSpice\Data\FilterFinder;
 use BlueSpice\Data\ReaderParams;
 use BlueSpice\Rating\RatingItem;
+use BlueSpice\Services;
 
 class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvider {
 
