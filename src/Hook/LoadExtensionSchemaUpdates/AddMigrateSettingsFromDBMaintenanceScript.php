@@ -7,7 +7,7 @@ use BlueSpice\Hook\LoadExtensionSchemaUpdates;
 class AddMigrateSettingsFromDBMaintenanceScript extends LoadExtensionSchemaUpdates {
 	protected function doProcess() {
 		$this->updater->addPostDatabaseUpdateMaintenance(
-			'BSReviewMigrateSettingsFromDB'
+			'BSRatingMigrateSettingsFromDB'
 		);
 		return true;
 	}

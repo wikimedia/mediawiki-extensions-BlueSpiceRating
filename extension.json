@@ -125,7 +125,7 @@
 		"BSRatingSetDefaultSubType": "maintenance/BSRatingSetDefaultSubType.php",
 		"BSRatingRemoveDuplicateEntries": "maintenance/BSRatingRemoveDuplicateEntries.php",
 		"BSRatingMigrateRatedComments": "maintenance/BSRatingMigrateRatedComments.php",
-		"BSReviewMigrateSettingsFromDB": "maintenance/BSReviewMigrateSettingsFromDB.php"
+		"BSRatingMigrateSettingsFromDB": "maintenance/BSRatingMigrateSettingsFromDB.php"
 	},
 	"AutoloadNamespaces": {
 		"BlueSpice\\Rating\\": "src/",
