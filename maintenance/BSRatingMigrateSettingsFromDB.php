@@ -6,27 +6,22 @@ require_once "$IP/maintenance/Maintenance.php";
 
 use BlueSpice\Services;
 
-class BSReviewMigrateSettingsFromDB extends LoggedUpdateMaintenance {
-
-	/**
-	 * @inheritDoc
-	 */
-	public function execute() {
-		$namespaceManager = Services::getInstance()->getBSExtensionFactory()->getExtension(
-			'BlueSpiceNamespaceManager'
-		);
-		if ( $namespaceManager === null ) {
-			$this->output( 'BlueSpiceNamespaceManager is not enabled' . PHP_EOL );
-		} else {
-			return parent::execute();
-		}
-	}
+class BSRatingMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 
 	/**
 	 * @inheritDoc
 	 */
 	protected function doDBUpdates() {
 		$this->output( 'Migrating settings for BlueSpiceRating to nm-settings.php...' );
+
+		$namespaceManager = Services::getInstance()->getBSExtensionFactory()->getExtension(
+			'BlueSpiceNamespaceManager'
+		);
+		if ( !$namespaceManager ) {
+			$this->output( 'BlueSpiceNamespaceManager is not enabled' . PHP_EOL );
+			return false;
+		}
+
 		$ratingArticleEnabledNamespaces = $this->getValuesFor( 'RatingArticleEnabledNamespaces' );
 		$ratingArticleLikeEnabledNamespaces = $this->getValuesFor( 'RatingArticleLikeEnabledNamespaces' );
 
@@ -44,7 +39,7 @@ class BSReviewMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 		$status = NamespaceManager::setUserNamespaces( $userNamespaces );
 		if ( !$status['success'] ) {
 			$this->output( 'failed:' . $status['message'] . PHP_EOL );
-			return;
+			return false;
 		}
 
 		if (
@@ -52,10 +47,11 @@ class BSReviewMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 			$this->deleteDBSettings( 'RatingArticleLikeEnabledNamespaces' )
 		) {
 			$this->output( 'failed removing settings from database' . PHP_EOL );
-			return;
+			return false;
 		}
 
 		$this->output( 'done' . PHP_EOL );
+		return true;
 	}
 
 	/**
@@ -129,10 +125,10 @@ class BSReviewMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 	 * @return string
 	 */
 	protected function getUpdateKey() {
-		return 'bs_review_settings_remove';
+		return 'bs_rating_settings_remove';
 	}
 
 }
 
-$maintClass = BSReviewMigrateSettingsFromDB::class;
+$maintClass = BSRatingMigrateSettingsFromDB::class;
 require_once RUN_MAINTENANCE_IF_MAIN;
