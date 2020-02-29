@@ -12,7 +12,9 @@ class AddRecommendationsGlobalAction extends SkinTemplateOutputPageBeforeExec {
 	 * @return bool
 	 */
 	protected function skipProcessing() {
-		$special = \SpecialPageFactory::getPage( 'Recommendations' );
+		$special = \MediaWiki\MediaWikiServices::getInstance()
+			->getSpecialPageFactory()
+			->getPage( 'Recommendations' );
 		if ( !$special ) {
 			return true;
 		}
@@ -27,7 +29,9 @@ class AddRecommendationsGlobalAction extends SkinTemplateOutputPageBeforeExec {
 	 * @return bool
 	 */
 	protected function doProcess() {
-		$special = \SpecialPageFactory::getPage( 'Recommendations' );
+		$special = \MediaWiki\MediaWikiServices::getInstance()
+			->getSpecialPageFactory()
+			->getPage( 'Recommendations' );
 		$this->mergeSkinDataArray(
 			SkinData::GLOBAL_ACTIONS,
 			[

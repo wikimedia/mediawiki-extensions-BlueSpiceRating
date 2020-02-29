@@ -7,7 +7,9 @@ use BlueSpice\SkinData;
 
 class AddRating extends SkinTemplateOutputPageBeforeExec {
 	protected function doProcess() {
-		$specialRating = \SpecialPageFactory::getPage( 'Rating' );
+		$specialRating = \MediaWiki\MediaWikiServices::getInstance()
+			->getSpecialPageFactory()
+			->getPage( 'Rating' );
 		$this->mergeSkinDataArray(
 			SkinData::GLOBAL_ACTIONS,
 			[
