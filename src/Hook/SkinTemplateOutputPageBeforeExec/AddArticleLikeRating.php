@@ -41,7 +41,7 @@ class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
 			return true;
 		}
 
-		$prop = $this->getServices()->getBSUtilityFactory()
+		$prop = $this->getServices()->getService( 'BSUtilityFactory' )
 			->getPagePropHelper( $title )->getPageProp( 'bs_norating' );
 		if ( !is_null( $prop ) ) {
 			return true;

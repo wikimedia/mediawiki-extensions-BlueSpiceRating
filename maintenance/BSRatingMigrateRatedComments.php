@@ -135,7 +135,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	 * @return User
 	 */
 	protected function getMaintenanceUser() {
-		return Services::getInstance()->getBSUtilityFactory()
+		return Services::getInstance()->getService( 'BSUtilityFactory' )
 			->getMaintenanceUser()->getUser();
 	}
 
