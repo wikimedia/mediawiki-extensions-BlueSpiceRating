@@ -152,7 +152,9 @@ class RatingItem implements \JsonSerializable {
 			return false;
 		}
 		if ( $title instanceof \Title ) {
-			return $title->userCan( $permission, $user );
+			return \MediaWiki\MediaWikiServices::getInstance()
+				->getPermissionManager()
+				->userCan( $permission, $user, $title );
 		}
 		return $user->isAllowed( $permission );
 	}
