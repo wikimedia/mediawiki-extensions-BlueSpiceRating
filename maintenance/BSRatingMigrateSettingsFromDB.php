@@ -14,7 +14,7 @@ class BSRatingMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 	protected function doDBUpdates() {
 		$this->output( 'Migrating settings for BlueSpiceRating to nm-settings.php...' );
 
-		$namespaceManager = Services::getInstance()->getBSExtensionFactory()->getExtension(
+		$namespaceManager = Services::getInstance()->getService( 'BSExtensionFactory' )->getExtension(
 			'BlueSpiceNamespaceManager'
 		);
 		if ( !$namespaceManager ) {
