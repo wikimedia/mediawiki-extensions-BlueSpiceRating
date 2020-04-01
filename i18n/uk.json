@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Vlad5250",
-			"Ата"
+			"Ата",
+			"Piramidion"
 		]
 	},
 	"bs-rating-extension-description": "Надає рейтингову систему",
@@ -14,11 +15,11 @@
 	"bs-rating-special-rating-heading": "Рейтинги",
 	"bs-rating-articlelike-ratingtext": "Рекомендувати ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Рекомендовано ($1)",
-	"action-rating-viewspecialpage": "перегляд сторінок, які охороняються з правом \"Rating-Viewspecialpage\"",
+	"action-rating-viewspecialpage": "перегляд сторінок, які захищені з правом «Rating-Viewspecialpage»",
 	"action-rating-read": "читання рейтингів на сторінках",
 	"action-rating-write": "голосування на сторінках",
 	"action-rating-archive": "вилучення голосів зі сторінок",
-	"right-rating-viewspecialpage": "перегляд сторінок, які охороняються з правом \"Rating-Viewspecialpage\"",
+	"right-rating-viewspecialpage": "Перегляд сторінок, які захищені з правом «Rating-Viewspecialpage»",
 	"right-rating-read": "Читання рейтингів на сторінках",
 	"right-rating-write": "Голосування на сторінках",
 	"right-rating-archive": "Вилучення голосів зі сторінок",
