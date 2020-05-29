@@ -407,7 +407,7 @@ class RatingItem implements \JsonSerializable {
 	 * Deletes given \User rating or all ratings when no \User given
 	 * @param \User|null $user
 	 * @param int $context
-	 * @return Boolean - true or false
+	 * @return bool - true or false
 	 */
 	protected function deleteRating( \User $user = null, $context = 0 ) {
 		$ratings = $this->getRatingSet()->getRatings( $context );

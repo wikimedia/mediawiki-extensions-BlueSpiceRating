@@ -99,12 +99,12 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 		$oData = json_decode( $aPayload['data'] );
 
 		$this->assertEquals( 'article', $oData->reftype, 'Reftype value is wrong' );
-		$this->assertEquals( 1, $oData->ref, 'Ref value is wrong' );
+		$this->assertSame( 1, $oData->ref, 'Ref value is wrong' );
 
 		$oRatings = $oData->ratings;
 		foreach ( $oRatings as $oRating ) {
 			$this->assertEquals( $iValue, $oRating->value );
-			$this->assertEquals( 1, $oRating->ref );
+			$this->assertSame( 1, $oRating->ref );
 		}
 	}
 }
