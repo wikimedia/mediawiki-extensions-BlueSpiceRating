@@ -10,6 +10,14 @@ class AddRating extends SkinTemplateOutputPageBeforeExec {
 		$specialRating = \MediaWiki\MediaWikiServices::getInstance()
 			->getSpecialPageFactory()
 			->getPage( 'Rating' );
+
+		if ( !$this->getContext()
+			->getUser()
+			->isAllowed( $specialRating->getRestriction() )
+		) {
+			return true;
+		}
+
 		$this->mergeSkinDataArray(
 			SkinData::GLOBAL_ACTIONS,
 			[
