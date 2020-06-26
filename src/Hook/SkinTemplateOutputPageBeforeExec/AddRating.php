@@ -8,6 +8,14 @@ use BlueSpice\SkinData;
 class AddRating extends SkinTemplateOutputPageBeforeExec {
 	protected function doProcess() {
 		$specialRating = \SpecialPageFactory::getPage( 'Rating' );
+
+		if ( !$this->getContext()
+			->getUser()
+			->isAllowed( $specialRating->getRestriction() )
+		) {
+			return true;
+		}
+
 		$this->mergeSkinDataArray(
 			SkinData::GLOBAL_ACTIONS,
 			[
