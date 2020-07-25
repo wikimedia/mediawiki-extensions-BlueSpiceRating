@@ -1,11 +1,11 @@
 <?php
 
-namespace BlueSpice\Rating\Hook\SkinTemplateOutputPageBeforeExec;
+namespace BlueSpice\Rating\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 
-use BlueSpice\Hook\SkinTemplateOutputPageBeforeExec;
+use BlueSpice\Calumma\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 use BlueSpice\SkinData;
 
-class AddRating extends SkinTemplateOutputPageBeforeExec {
+class AddRating extends ChameleonSkinTemplateOutputPageBeforeExec {
 	protected function doProcess() {
 		$specialRating = \MediaWiki\MediaWikiServices::getInstance()
 			->getSpecialPageFactory()

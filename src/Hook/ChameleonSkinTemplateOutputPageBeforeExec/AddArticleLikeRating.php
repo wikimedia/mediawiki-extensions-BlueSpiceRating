@@ -1,6 +1,6 @@
 <?php
 /**
- * Hook handler base class for MediaWiki hook SkinTemplateOutputPageBeforeExec
+ * Hook handler base class for Chameleon hook ChameleonSkinTemplateOutputPageBeforeExec
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,11 +24,11 @@
  * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
  * @filesource
  */
-namespace BlueSpice\Rating\Hook\SkinTemplateOutputPageBeforeExec;
+namespace BlueSpice\Rating\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 
-use BlueSpice\Hook\SkinTemplateOutputPageBeforeExec;
+use BlueSpice\Calumma\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 
-class AddArticleLikeRating extends SkinTemplateOutputPageBeforeExec {
+class AddArticleLikeRating extends ChameleonSkinTemplateOutputPageBeforeExec {
 	protected $contextTitle = null;
 
 	protected function skipProcessing() {

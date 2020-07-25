@@ -248,11 +248,11 @@
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddMigrateSettingsFromDBMaintenanceScript::callback"
 		],
 		"BeforePageDisplay": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources::callback",
-		"SkinTemplateOutputPageBeforeExec": [
-			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddArticleLikeRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\SkinTemplateOutputPageBeforeExec\\AddRecommendationsGlobalAction::callback"
+		"ChameleonSkinTemplateOutputPageBeforeExec": [
+			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddArticleRating::callback",
+			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddArticleLikeRating::callback",
+			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddRating::callback",
+			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddRecommendationsGlobalAction::callback"
 		],
 		"BSMigrateSettingsFromDeviatingNames": "\\BlueSpice\\Rating\\Extension::onBSMigrateSettingsFromDeviatingNames",
 		"NamespaceManager::getMetaFields": "BlueSpice\\Rating\\Hook\\NamespaceManagerGetMetaFields\\RegisterMetaFields::callback",
