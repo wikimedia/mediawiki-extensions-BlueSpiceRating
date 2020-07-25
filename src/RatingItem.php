@@ -37,6 +37,7 @@ use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\Store;
 use BlueSpice\Services;
+use MediaWiki\MediaWikiServices;
 
 /**
  * RatingItem class for Rating extension
@@ -156,7 +157,10 @@ class RatingItem implements \JsonSerializable {
 				->getPermissionManager()
 				->userCan( $permission, $user, $title );
 		}
-		return $user->isAllowed( $permission );
+		return MediaWikiServices::getInstance()->getPermissionManager()->userHasRight(
+			$user,
+			$permission
+		);
 	}
 
 	/**
