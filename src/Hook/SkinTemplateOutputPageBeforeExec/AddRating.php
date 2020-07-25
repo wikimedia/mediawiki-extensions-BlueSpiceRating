@@ -11,10 +11,11 @@ class AddRating extends SkinTemplateOutputPageBeforeExec {
 			->getSpecialPageFactory()
 			->getPage( 'Rating' );
 
-		if ( !$this->getContext()
-			->getUser()
-			->isAllowed( $specialRating->getRestriction() )
-		) {
+		$isAllowed = $this->getServices()->getPermissionManager()->userHasRight(
+			$this->getContext()->getUser(),
+			$specialRating->getRestriction()
+		);
+		if ( !$isAllowed ) {
 			return true;
 		}
 
