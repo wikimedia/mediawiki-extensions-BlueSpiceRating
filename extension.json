@@ -128,7 +128,9 @@
 		"BSRatingMigrateSettingsFromDB": "maintenance/BSRatingMigrateSettingsFromDB.php"
 	},
 	"AutoloadNamespaces": {
-		"BlueSpice\\Rating\\": "src/",
+		"BlueSpice\\Rating\\": "src/"
+	},
+	"TestAutoloadNamespaces": {
 		"BlueSpice\\Rating\\Tests\\": "tests/phpunit/"
 	},
 	"ResourceModules": {
