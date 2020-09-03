@@ -8,7 +8,7 @@ use BlueSpice\Data\Filter\StringValue;
 use BlueSpice\Data\FilterFinder;
 use BlueSpice\Data\ReaderParams;
 use BlueSpice\Rating\RatingItem;
-use BlueSpice\Services;
+use MediaWiki\MediaWikiServices;
 
 class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvider {
 
@@ -181,7 +181,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	 * @return RatingItem
 	 */
 	protected function makeRatingItem( $row ) {
-		$config = Services::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
+		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
 		$namespaces = $config->get( 'RatingArticleEnabledNamespaces' );
 		$ns = $row->{Record::PAGENAMESPACE};
 		if ( !in_array( $ns, $namespaces ) ) {

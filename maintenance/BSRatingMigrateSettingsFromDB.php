@@ -4,7 +4,7 @@ $IP = dirname( dirname( dirname( __DIR__ ) ) );
 
 require_once "$IP/maintenance/Maintenance.php";
 
-use BlueSpice\Services;
+use MediaWiki\MediaWikiServices;
 
 class BSRatingMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 
@@ -14,9 +14,8 @@ class BSRatingMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 	protected function doDBUpdates() {
 		$this->output( 'Migrating settings for BlueSpiceRating to nm-settings.php...' );
 
-		$namespaceManager = Services::getInstance()->getService( 'BSExtensionFactory' )->getExtension(
-			'BlueSpiceNamespaceManager'
-		);
+		$namespaceManager = MediaWikiServices::getInstance()->getService( 'BSExtensionFactory' )
+			->getExtension( 'BlueSpiceNamespaceManager' );
 		if ( !$namespaceManager ) {
 			$this->output( 'BlueSpiceNamespaceManager is not enabled' . PHP_EOL );
 			return false;
