@@ -36,7 +36,6 @@ use BlueSpice\Data\ReaderParams;
 use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\Store;
-use BlueSpice\Services;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -153,7 +152,7 @@ class RatingItem implements \JsonSerializable {
 			return false;
 		}
 		if ( $title instanceof \Title ) {
-			return \MediaWiki\MediaWikiServices::getInstance()
+			return MediaWikiServices::getInstance()
 				->getPermissionManager()
 				->userCan( $permission, $user, $title );
 		}
@@ -206,7 +205,7 @@ class RatingItem implements \JsonSerializable {
 		}
 		return new $storeClass(
 			new Context( \RequestContext::getMain(), $this->getConfig() ),
-			Services::getInstance()->getDBLoadBalancer()
+			MediaWikiServices::getInstance()->getDBLoadBalancer()
 		);
 	}
 
@@ -493,7 +492,7 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	public function invalidateCache() {
-		Services::getInstance()->getService( 'BSRatingFactory' )
+		MediaWikiServices::getInstance()->getService( 'BSRatingFactory' )
 			->invalidateCache( $this );
 		$this->loadRating();
 		return $this;
