@@ -6,7 +6,7 @@ require_once "$IP/maintenance/Maintenance.php";
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\RatingItem\Article;
-use BlueSpice\Services;
+use MediaWiki\MediaWikiServices;
 
 class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 
@@ -125,7 +125,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	 * @return RatingFactory
 	 */
 	protected function getRatingFactory() {
-		return Services::getInstance()->getService(
+		return MediaWikiServices::getInstance()->getService(
 			'BSRatingFactory'
 		);
 	}
@@ -135,7 +135,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	 * @return User
 	 */
 	protected function getMaintenanceUser() {
-		return Services::getInstance()->getService( 'BSUtilityFactory' )
+		return MediaWikiServices::getInstance()->getService( 'BSUtilityFactory' )
 			->getMaintenanceUser()->getUser();
 	}
 
