@@ -60,7 +60,13 @@ bs.rating.createFromEl = function( $el ) {
 	if( typeof bs.rating.types[type] === "undefined" ) {
 		throw "Unregistered type: " + type;
 	}
+
+	if( typeof $el.attr('data-item') === "undefined" ) {
+		throw "The fild 'data-item' is missing.";
+	}
+
 	var data = JSON.parse( $el.attr('data-item') );
+
 	var ratingitem = bs.rating.factory.create(
 		bs.rating.types[type],
 		$el,
