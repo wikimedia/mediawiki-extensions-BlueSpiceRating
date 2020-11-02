@@ -27,6 +27,8 @@
  */
 namespace BlueSpice\Rating;
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * RatingConfigFactory class for BlueSpice
  * @package BlueSpiceFoundation
@@ -65,7 +67,9 @@ class RatingConfigFactory {
 
 		// Deprecated: This hook should not be used anymore - Use the bluespice
 		// global config mechanism instead
-		\Hooks::run( 'BSRatingConfigDefaults', [ &$defaults ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'BSRatingConfigDefaults', [
+			&$defaults
+		] );
 		foreach ( $ratingDefinitions as $key => $sConfigClass ) {
 			$this->ratingConfigs[$key] = new $sConfigClass(
 				$this->config,
