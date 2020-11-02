@@ -27,6 +27,8 @@
 
 namespace BlueSpice\Rating;
 
+use MediaWiki\MediaWikiServices;
+
 /**
  * RatingRegistry class for Rating extension
  * @package BlueSpiceRating
@@ -65,7 +67,9 @@ class RatingRegistry {
 
 		// This hook is deprecated - Use attributes mechanism in extension.json
 		// to register entities
-		\Hooks::run( 'RatingRegister', [ &$this->ratingDefinitions ] );
+		MediaWikiServices::getInstance()->getHookContainer()->run( 'RatingRegister', [
+			&$this->ratingDefinitions
+		] );
 
 		return true;
 	}

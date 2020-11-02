@@ -305,12 +305,15 @@ class RatingItem implements \JsonSerializable {
 				$context
 			);
 		}
-		\Hooks::run( 'BlueSpiceRatingItemVoteSaveComplete', [
-			$this,
-			$owner,
-			$value,
-			$context,
-		] );
+		MediaWikiServices::getInstance()->getHookContainer()->run(
+			'BlueSpiceRatingItemVoteSaveComplete',
+			[
+				$this,
+				$owner,
+				$value,
+				$context,
+			]
+		);
 
 		return $status;
 	}
@@ -325,14 +328,17 @@ class RatingItem implements \JsonSerializable {
 	protected function insertRating( \User $owner, $value, $context = 0 ) {
 		$status = \Status::newGood( $this );
 		$id = 0;
-		\Hooks::run( 'BlueSpiceRatingItemVoteSave', [
-			$this,
-			$owner,
-			&$value,
-			&$context,
-			$status,
-			$id,
-		] );
+		MediaWikiServices::getInstance()->getHookContainer()->run(
+			'BlueSpiceRatingItemVoteSave',
+			[
+				$this,
+				$owner,
+				&$value,
+				&$context,
+				$status,
+				$id,
+			]
+		);
 		if ( !$status->isOK() ) {
 			return $status;
 		}
@@ -371,14 +377,17 @@ class RatingItem implements \JsonSerializable {
 	 */
 	protected function updateRating( \User $owner, $value, $ratings, $context = 0 ) {
 		$status = \Status::newGood( $this );
-		\Hooks::run( 'BlueSpiceRatingItemVoteSave', [
-			$this,
-			$owner,
-			&$value,
-			&$context,
-			$status,
-			$ratings,
-		] );
+		MediaWikiServices::getInstance()->getHookContainer()->run(
+			'BlueSpiceRatingItemVoteSave',
+			[
+				$this,
+				$owner,
+				&$value,
+				&$context,
+				$status,
+				$ratings,
+			]
+		);
 		if ( !$status->isOK() ) {
 			return $status;
 		}
