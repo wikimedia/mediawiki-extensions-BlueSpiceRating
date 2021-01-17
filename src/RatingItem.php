@@ -45,9 +45,13 @@ use MediaWiki\MediaWikiServices;
  */
 class RatingItem implements \JsonSerializable {
 
+	/** @var RatingConfig */
 	protected $config = null;
+	/** @var string */
 	protected $refType = '';
+	/** @var string */
 	protected $subType = 'default';
+	/** @var string */
 	protected $ref = '';
 	/**
 	 *
@@ -252,11 +256,11 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 * CRUD votes from the rating item. Use $value = false to delete
-	 * @param \User $user - \User, that initiated this action
-	 * @param mixed $value - use false to delete
-	 * @param \User|null $owner - \User, that the vote is related to
-	 * @param int $context - context for multi value
-	 * @param \Title|null $title - for permission check!
+	 * @param \User $user User, that initiated this action
+	 * @param mixed $value use false to delete
+	 * @param \User|null $owner User, that the vote is related to
+	 * @param int $context context for multi value
+	 * @param \Title|null $title for permission check!
 	 * @return \Status
 	 */
 	public function vote( \User $user, $value, \User $owner = null, $context = 0,
@@ -419,7 +423,7 @@ class RatingItem implements \JsonSerializable {
 	 * Deletes given \User rating or all ratings when no \User given
 	 * @param \User|null $user
 	 * @param int $context
-	 * @return bool - true or false
+	 * @return bool
 	 */
 	protected function deleteRating( \User $user = null, $context = 0 ) {
 		$ratings = $this->getRatingSet()->getRatings( $context );

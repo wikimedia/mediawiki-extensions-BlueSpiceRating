@@ -99,7 +99,7 @@ class AddArticleRating extends ChameleonSkinTemplateOutputPageBeforeExec {
 	/**
 	 * Checks wether to set Context or not and returns the context Title.
 	 * @param \Title|null $title
-	 * @return Title - or false
+	 * @return Title|false
 	 */
 	public function getArticleContext( \Title $title = null ) {
 		if ( !$title instanceof \Title ) {

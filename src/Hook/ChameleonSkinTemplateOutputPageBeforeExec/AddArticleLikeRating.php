@@ -29,6 +29,7 @@ namespace BlueSpice\Rating\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 use BlueSpice\Calumma\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 
 class AddArticleLikeRating extends ChameleonSkinTemplateOutputPageBeforeExec {
+	/** @var \Title */
 	protected $contextTitle = null;
 
 	protected function skipProcessing() {
@@ -93,7 +94,7 @@ class AddArticleLikeRating extends ChameleonSkinTemplateOutputPageBeforeExec {
 	/**
 	 * Checks wether to set Context or not and returns the context Title.
 	 * @param \Title|null $title
-	 * @return Title - or false
+	 * @return Title|false
 	 */
 	public function getArticleLikeContext( \Title $title = null ) {
 		if ( !$title instanceof \Title ) {

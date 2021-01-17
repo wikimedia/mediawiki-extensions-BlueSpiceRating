@@ -38,6 +38,7 @@ use BlueSpice\Rating\RatingItem;
  * @subpackage Rating
  */
 class ArticleLike extends RatingItem {
+	/** @inheritDoc */
 	protected $refType = 'articlelike';
 
 	/**

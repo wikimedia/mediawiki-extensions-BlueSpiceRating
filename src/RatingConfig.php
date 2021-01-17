@@ -32,6 +32,7 @@ namespace BlueSpice\Rating;
  * @package BlueSpiceFoundation
  */
 abstract class RatingConfig implements \JsonSerializable, \Config {
+	/** @var string */
 	protected $type = '';
 
 	/**
@@ -86,7 +87,7 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 	/**
 	 * Getter for config methods
 	 * @param string $method
-	 * @return mixed - The return value of the internaly called method or the
+	 * @return mixed The return value of the internaly called method or the
 	 * default
 	 */
 	public function get( $method ) {
