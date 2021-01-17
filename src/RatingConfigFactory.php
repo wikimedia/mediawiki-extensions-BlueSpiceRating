@@ -34,9 +34,12 @@ use MediaWiki\MediaWikiServices;
  * @package BlueSpiceFoundation
  */
 class RatingConfigFactory {
+	/** @var array|null */
 	protected $ratingConfigs = null;
 
+	/** @var \Config */
 	protected $config = null;
+	/** @var \RatingRegistry */
 	protected $ratingRegistry = null;
 
 	/**
@@ -50,8 +53,8 @@ class RatingConfigFactory {
 
 	/**
 	 * RatingConfig factory
-	 * @param string $type - Rating type
-	 * @return RatingConfig - or null
+	 * @param string $type Rating type
+	 * @return RatingConfig|null
 	 */
 	public function newFromType( $type ) {
 		if ( $this->ratingConfigs ) {

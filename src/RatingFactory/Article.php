@@ -34,7 +34,7 @@ class Article extends RatingFactory {
 	/**
 	 * Article from a \Title object
 	 * @param \Title $title
-	 * @return \BlueSpice\Rating\RatingItem\Article | null
+	 * @return \BlueSpice\Rating\RatingItem\Article|null
 	 */
 	public function newFromTitle( \Title $title ) {
 		return $this->newFromObject( (object)[

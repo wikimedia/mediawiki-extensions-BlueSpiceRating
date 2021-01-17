@@ -131,7 +131,7 @@ class RatingSet extends ResultSet {
 	 * @param \User $user
 	 * @param Records[] $ratings
 	 * @param int $context
-	 * @return bool - true or false
+	 * @return bool
 	 */
 	public function hasUserRated( \User $user, $ratings = false, $context = 0 ) {
 		return $this->getTotal(

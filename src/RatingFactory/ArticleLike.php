@@ -34,7 +34,7 @@ class ArticleLike extends RatingFactory {
 	/**
 	 * ArticleLike from a \Title object
 	 * @param \Title $title
-	 * @return \BlueSpice\Rating\RatingFactory\ArticleLike | null
+	 * @return \BlueSpice\Rating\RatingFactory\ArticleLike|null
 	 */
 	public function newFromTitle( \Title $title ) {
 		return $this->newFromObject( (object)[

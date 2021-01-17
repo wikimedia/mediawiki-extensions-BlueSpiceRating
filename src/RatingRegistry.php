@@ -34,6 +34,7 @@ use MediaWiki\MediaWikiServices;
  * @package BlueSpiceRating
  */
 class RatingRegistry {
+	/** @var array|null */
 	protected $ratingDefinitions = null;
 
 	/**

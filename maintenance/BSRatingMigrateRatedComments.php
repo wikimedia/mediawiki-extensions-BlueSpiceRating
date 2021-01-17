@@ -14,6 +14,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 		return $this->getDB( DB_REPLICA )->tableExists( 'bs_rating' ) === false;
 	}
 
+	/** @var stdClass[][] */
 	protected $data = [];
 
 	protected function readData() {

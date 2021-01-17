@@ -58,7 +58,7 @@ class RatingFactory {
 	 * @param RatingRegistry $ratingRegistry
 	 * @param RatingConfigFactory $configFactory
 	 * @param \Config $config
-	 * @return Rating | null
+	 * @return Rating|null
 	 */
 	public function __construct( $ratingRegistry, $configFactory, $config ) {
 		$this->ratingRegistry = $ratingRegistry;
@@ -125,7 +125,7 @@ class RatingFactory {
 	/**
 	 * TODO: real object cache!
 	 * @param \stdClass $data
-	 * @return RatingItem - or null
+	 * @return RatingItem|null
 	 */
 	protected function getInstanceFromCache( \stdClass $data ) {
 		if ( !isset( $this->ratingItems[$data->{Record::REFTYPE}] ) ) {
