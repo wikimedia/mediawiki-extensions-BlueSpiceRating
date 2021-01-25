@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 
-use BlueSpice\Calumma\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
+use BlueSpice\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 use BlueSpice\SkinData;
 
 class AddRating extends ChameleonSkinTemplateOutputPageBeforeExec {
