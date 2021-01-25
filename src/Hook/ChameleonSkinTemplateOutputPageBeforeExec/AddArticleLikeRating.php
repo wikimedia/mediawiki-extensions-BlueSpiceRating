@@ -26,7 +26,7 @@
  */
 namespace BlueSpice\Rating\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 
-use BlueSpice\Calumma\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
+use BlueSpice\Hook\ChameleonSkinTemplateOutputPageBeforeExec;
 
 class AddArticleLikeRating extends ChameleonSkinTemplateOutputPageBeforeExec {
 	/** @var \Title */
