@@ -134,14 +134,10 @@ class RatingFactory {
 		if ( !isset( $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}] ) ) {
 			return null;
 		}
-		if ( !isset( $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}]
-			[$data->{Record::SUBTYPE}] ) ) {
+		if ( !isset( $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}][$data->{Record::SUBTYPE}] ) ) {
 			return null;
 		}
-		return $this->ratingItems
-			[$data->{Record::REFTYPE}]
-			[$data->{Record::REF}]
-			[$data->{Record::SUBTYPE}];
+		return $this->ratingItems[$data->{Record::REFTYPE}][$data->{Record::REF}][$data->{Record::SUBTYPE}];
 	}
 
 	/**
@@ -149,11 +145,7 @@ class RatingFactory {
 	 * @return \RatingItem
 	 */
 	protected function appendCache( RatingItem $instance ) {
-		$this->ratingItems
-			[$instance->getRefType()]
-			[$instance->getRef()]
-			[$instance->getSubType()]
-		= $instance;
+		$this->ratingItems[$instance->getRefType()][$instance->getRef()][$instance->getSubType()] = $instance;
 		return $instance;
 	}
 
@@ -169,15 +161,10 @@ class RatingFactory {
 		if ( !isset( $this->ratingItems[$instance->getRefType()][$instance->getRef()] ) ) {
 			return false;
 		}
-		if ( !isset( $this->ratingItems[$instance->getRefType()][$instance->getRef()]
-			[$instance->getSubType()] ) ) {
+		if ( !isset( $this->ratingItems[$instance->getRefType()][$instance->getRef()][$instance->getSubType()] ) ) {
 			return false;
 		}
-		unset( $this->ratingItems
-			[$instance->getRefType()]
-			[$instance->getRef()]
-			[$instance->getSubType()]
-		);
+		unset( $this->ratingItems[$instance->getRefType()][$instance->getRef()][$instance->getSubType()] );
 		return true;
 	}
 }

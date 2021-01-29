@@ -19,48 +19,22 @@ class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 			[ 'ORDER BY' => 'rat_touched desc' ]
 		);
 		foreach ( $res as $row ) {
-			if ( isset( $ids
-					[ $row->rat_reftype ]
-					[ $row->rat_ref ]
-					[ $row->rat_subtype ]
-					[ $row->rat_context ]
-				) && $ids
-					[ $row->rat_reftype ]
-					[ $row->rat_ref ]
-					[ $row->rat_subtype ]
-					[ $row->rat_context ]
-				== $row->rat_userid
-			) {
+			$hash = md5(
+				$row->rat_reftype
+					. $row->rat_ref
+					. $row->rat_subtype
+					. $row->rat_context
+			);
+			if ( isset( $ids[ $hash ] ) && $ids[ $hash ] == $row->rat_userid ) {
 				$deleteEntries[] = $row->rat_id;
 				continue;
 			}
-			if ( isset( $ips
-					[ $row->rat_reftype ]
-					[ $row->rat_ref ]
-					[ $row->rat_subtype ]
-					[ $row->rat_context ]
-				) && $ips
-					[ $row->rat_reftype ]
-					[ $row->rat_ref ]
-					[ $row->rat_subtype ]
-					[ $row->rat_context ]
-				== $row->rat_userid
-			) {
+			if ( isset( $ips[ $hash ] ) && $ips[ $hash ] == $row->rat_userid ) {
 				$deleteEntries[] = $row->rat_id;
 				continue;
 			}
-			$ids
-				[ $row->rat_reftype ]
-				[ $row->rat_ref ]
-				[ $row->rat_subtype ]
-				[ $row->rat_context ]
-				= $row->rat_userid;
-			$ips
-				[ $row->rat_reftype ]
-				[ $row->rat_ref ]
-				[ $row->rat_subtype ]
-				[ $row->rat_context ]
-				= $row->rat_userip;
+			$ids[ $hash ] = $row->rat_userid;
+			$ips[ $hash ] = $row->rat_userip;
 		}
 		if ( empty( $deleteEntries ) ) {
 			return true;
