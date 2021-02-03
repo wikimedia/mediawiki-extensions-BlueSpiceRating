@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"FarsiNevis"
+			"FarsiNevis",
+			"Jeeputer"
 		]
 	},
 	"bs-rating-extension-description": "یک نظام درجه‌بندی فراهم می‌آورَد",
@@ -11,5 +12,11 @@
 	"action-rating-write": "به صفحه‌ها رأی دهید",
 	"right-rating-write": "به صفحه‌ها رأی دهید",
 	"bs-rating-specialrating-label-namespace": "فضای نام",
-	"bs-rating-specialrating-titleTitle": "عنوان"
+	"bs-rating-specialrating-titleTitle": "عنوان",
+	"bs-rating-types-pagelike": "پیشنهاد صفحه",
+	"recommendations": "توصیه‌ها",
+	"bs-rating-yourrating": "ردهٔ شما: $1",
+	"bs-rating-articlelike-ratingtext": "پیشنهاد ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "پیشنهاد شده ($1)",
+	"action-rating-archive": "حذف رأی‌ها از صفحه‌ها"
 }
