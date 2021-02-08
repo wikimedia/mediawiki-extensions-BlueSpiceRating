@@ -1,0 +1,17 @@
+{
+	"@metadata": {
+		"authors": [
+			"W"
+		]
+	},
+	"bs-rating-articlelike-ratingtext": "Раіць ($1)",
+	"action-rating-write": "галасаваць на старонках",
+	"action-rating-archive": "прыбраць галасы са старонак",
+	"right-rating-write": "Галасаваць на старонках",
+	"right-rating-archive": "Прыбраць галасы са старонак",
+	"bs-rating-special-recommendations-heading": "Парады",
+	"bs-rating-special-recommendations-label-recommendation": "Парады",
+	"bs-rating-specialrating-label-namespace": "Прастора назваў",
+	"bs-rating-specialrating-titleTitle": "Загаловак",
+	"bs-rating-nsm-label-recommendations": "Парады"
+}
