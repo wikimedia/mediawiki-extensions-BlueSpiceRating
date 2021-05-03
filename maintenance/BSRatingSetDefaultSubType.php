@@ -10,7 +10,7 @@ class BSRatingSetDefaultSubType extends LoggedUpdateMaintenance {
 	 * @return true
 	 */
 	protected function doDBUpdates() {
-		$this->getDB( DB_MASTER )->update(
+		$this->getDB( DB_PRIMARY )->update(
 			'bs_rating',
 			[ 'rat_subtype' => 'default' ],
 			[ 'rat_subtype' => '' ],

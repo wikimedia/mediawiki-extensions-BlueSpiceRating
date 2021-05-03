@@ -58,7 +58,7 @@ class BSRatingMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 	 * @return bool
 	 */
 	protected function deleteDBSettings( $prop ) {
-		$db = $this->getDB( DB_MASTER );
+		$db = $this->getDB( DB_PRIMARY );
 		$db->delete(
 			'bs_settings3',
 			[ 's_name' => $prop ],

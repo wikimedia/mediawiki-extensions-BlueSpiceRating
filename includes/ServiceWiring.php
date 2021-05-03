@@ -4,20 +4,20 @@ use MediaWiki\MediaWikiServices;
 
 return [
 
-	'BSRatingRegistry' => function ( MediaWikiServices $services ) {
+	'BSRatingRegistry' => static function ( MediaWikiServices $services ) {
 		return new \BlueSpice\Rating\RatingRegistry(
 			$services->getConfigFactory()->makeConfig( 'bsg' )
 		);
 	},
 
-	'BSRatingConfigFactory' => function ( MediaWikiServices $services ) {
+	'BSRatingConfigFactory' => static function ( MediaWikiServices $services ) {
 		return new \BlueSpice\Rating\RatingConfigFactory(
 			$services->getService( 'BSRatingRegistry' ),
 			$services->getConfigFactory()->makeConfig( 'bsg' )
 		);
 	},
 
-	'BSRatingFactory' => function ( MediaWikiServices $services ) {
+	'BSRatingFactory' => static function ( MediaWikiServices $services ) {
 		return new \BlueSpice\Rating\RatingFactory(
 			$services->getService( 'BSRatingRegistry' ),
 			$services->getService( 'BSRatingConfigFactory' ),
@@ -25,7 +25,7 @@ return [
 		);
 	},
 
-	'BSRatingFactoryArticle' => function ( MediaWikiServices $services ) {
+	'BSRatingFactoryArticle' => static function ( MediaWikiServices $services ) {
 		return new \BlueSpice\Rating\RatingFactory\Article(
 			$services->getService( 'BSRatingRegistry' ),
 			$services->getService( 'BSRatingConfigFactory' ),
@@ -33,7 +33,7 @@ return [
 		);
 	},
 
-	'BSRatingFactoryArticleLike' => function ( MediaWikiServices $services ) {
+	'BSRatingFactoryArticleLike' => static function ( MediaWikiServices $services ) {
 		return new \BlueSpice\Rating\RatingFactory\ArticleLike(
 			$services->getService( 'BSRatingRegistry' ),
 			$services->getService( 'BSRatingConfigFactory' ),

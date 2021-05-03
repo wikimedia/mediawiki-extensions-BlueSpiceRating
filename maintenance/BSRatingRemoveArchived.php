@@ -10,7 +10,7 @@ class BSRatingRemoveArchived extends LoggedUpdateMaintenance {
 	 * @return true
 	 */
 	protected function doDBUpdates() {
-		$this->getDB( DB_MASTER )->delete(
+		$this->getDB( DB_PRIMARY )->delete(
 			'bs_rating',
 			[ 'rat_archived' => '1' ],
 			__METHOD__

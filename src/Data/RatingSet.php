@@ -30,7 +30,7 @@ class RatingSet extends ResultSet {
 		if ( empty( $rules ) ) {
 			return $ratings;
 		}
-		return array_filter( $ratings, function ( Record $record ) use( $rules ) {
+		return array_filter( $ratings, static function ( Record $record ) use( $rules ) {
 			foreach ( $rules as $fieldName => $value ) {
 				if ( $record->get( $fieldName ) === null ) {
 					return false;
@@ -56,7 +56,7 @@ class RatingSet extends ResultSet {
 			$ratings = $this->getRatings( $context );
 		}
 		$ratingsCopy = [];
-		array_walk( $ratings, function ( Record $record ) use ( &$ratingsCopy ) {
+		array_walk( $ratings, static function ( Record $record ) use ( &$ratingsCopy ) {
 			$recordCopy = clone $record;
 			$recordCopy->set( Record::USERID, 0 );
 			$recordCopy->set( Record::USERIP, '' );
