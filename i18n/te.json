@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Veeven"
+		]
+	},
+	"recommendations": "సిఫారసులు",
+	"bs-rating-special-recommendations-heading": "సిఫారసులు",
+	"bs-rating-special-recommendations-label-recommendation": "సిఫారసులు",
+	"bs-rating-specialrating-label-namespace": "పేరుబరి",
+	"bs-rating-specialrating-titleTitle": "శీర్షిక",
+	"bs-rating-specialrating-titleRating": "రేటింగు",
+	"bs-rating-specialrating-titleVotes": "రేటింగుల సంఖ్య",
+	"bs-rating-nsm-label": "రేటింగు",
+	"bs-rating-nsm-label-recommendations": "సిఫారసులు"
+}
