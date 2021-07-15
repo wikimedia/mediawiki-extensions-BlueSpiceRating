@@ -1,13 +1,30 @@
 {
 	"@metadata": {
 		"authors": [
-			"Mainframe98"
+			"Mainframe98",
+			"Romaine"
 		]
 	},
+	"rating": "Beoordelingen",
+	"recommendations": "Aanbevelingen",
+	"bs-rating-yourrating": "Uw beoordeling: $1",
+	"bs-rating-special-rating-heading": "Beoordelingen",
+	"bs-rating-articlelike-ratingtext": "Aanbevolen ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "Aanbevolen ($1)",
 	"action-rating-viewspecialpage": "pagina's beveiligd met het recht \"Rating-Viewspecialpage\" te bekijken",
+	"action-rating-read": "lees beoordelingen op pagina's",
+	"action-rating-write": "stemmen op pagina's",
+	"action-rating-archive": "stemmen van pagina's verwijderen",
+	"right-rating-viewspecialpage": "Bekijk pagina's die zijn beveiligd met het recht \"Rating-Viewspecialpage\"",
+	"right-rating-read": "Lees beoordelingen op pagina's",
+	"right-rating-write": "Stemmen op pagina's",
+	"right-rating-archive": "Stemmen van pagina's verwijderen",
 	"bs-rating-special-recommendations-heading": "Aanbevelingen",
 	"bs-rating-special-recommendations-label-recommendation": "Aanbevelingen",
 	"bs-rating-specialrating-label-namespace": "Naamruimte",
 	"bs-rating-specialrating-titleTitle": "Titel",
+	"bs-rating-specialrating-titleRating": "Beoordeling",
+	"bs-rating-specialrating-titleVotes": "Aantal beoordelingen",
+	"bs-rating-nsm-label": "Beoordeling",
 	"bs-rating-nsm-label-recommendations": "Aanbevelingen"
 }
