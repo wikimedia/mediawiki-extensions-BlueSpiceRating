@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"A Retired User",
+			"Lakejason0",
 			"Ps2049",
 			"VulpesVulpes825",
 			"予弦",
@@ -25,5 +26,6 @@
 	"bs-rating-specialrating-titleTitle": "标题",
 	"bs-rating-specialrating-titleRating": "评级",
 	"bs-rating-nsm-label": "评分",
-	"bs-rating-nsm-label-recommendations": "推荐"
+	"bs-rating-nsm-label-recommendations": "推荐",
+	"bs-rating-specialrating-titleVotes": "评分数量"
 }
