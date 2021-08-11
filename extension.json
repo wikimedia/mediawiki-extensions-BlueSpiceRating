@@ -240,6 +240,11 @@
 			"value": []
 		}
 	},
+	"HookHandlers": {
+		"main": {
+			"class": "\\BlueSpice\\Rating\\HookHandler\\Main"
+		}
+	},
 	"Hooks": {
 		"LoadExtensionSchemaUpdates": [
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddRatingDatabase::callback",
@@ -264,7 +269,8 @@
 			"BlueSpice\\Rating\\Hook\\NamespaceManagerWriteNamespaceConfiguration\\WriteToConfiguration::callback"
 		],
 		"GetDoubleUnderscoreIDs": "\\BlueSpice\\Rating\\Hook\\GetDoubleUnderscoreIDs\\AddNoRating::callback",
-		"BSMigrateSettingsSetNewSettings": "\\BlueSpice\\Rating\\Hook\\BSMigrateSettingsSetNewSettings\\SetGlobals::callback"
+		"BSMigrateSettingsSetNewSettings": "\\BlueSpice\\Rating\\Hook\\BSMigrateSettingsSetNewSettings\\SetGlobals::callback",
+		"MWStakeCommonUIRegisterSkinSlotComponents": "main"
 	},
 	"load_composer_autoloader": true,
 	"manifest_version": 2
