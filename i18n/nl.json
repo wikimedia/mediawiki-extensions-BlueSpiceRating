@@ -2,9 +2,13 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
+			"McDutchie",
 			"Romaine"
 		]
 	},
+	"bs-rating-extension-description": "Voorziet in een beoordelingssysteem",
+	"bs-rating-types-page": "Paginabeoordeling",
+	"bs-rating-types-pagelike": "Pagina-aanbeveling",
 	"rating": "Beoordelingen",
 	"recommendations": "Aanbevelingen",
 	"bs-rating-yourrating": "Uw beoordeling: $1",
@@ -25,6 +29,11 @@
 	"bs-rating-specialrating-titleTitle": "Titel",
 	"bs-rating-specialrating-titleRating": "Beoordeling",
 	"bs-rating-specialrating-titleVotes": "Aantal beoordelingen",
+	"apihelp-bs-rating-tasks-description": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
+	"apihelp-bs-rating-store-description": "Levert beoordelingen voor artikelen",
 	"bs-rating-nsm-label": "Beoordeling",
-	"bs-rating-nsm-label-recommendations": "Aanbevelingen"
+	"bs-rating-nsm-label-recommendations": "Aanbevelingen",
+	"apihelp-bs-rating-tasks-summary": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
+	"apihelp-bs-ratingarticle-store-summary": "Levert beoordelingen voor artikelen",
+	"apihelp-bs-ratingarticlelike-store-summary": "Levert aanbevelingen voor artikelen"
 }
