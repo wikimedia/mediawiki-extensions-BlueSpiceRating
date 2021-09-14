@@ -270,6 +270,7 @@
 		],
 		"GetDoubleUnderscoreIDs": "\\BlueSpice\\Rating\\Hook\\GetDoubleUnderscoreIDs\\AddNoRating::callback",
 		"BSMigrateSettingsSetNewSettings": "\\BlueSpice\\Rating\\Hook\\BSMigrateSettingsSetNewSettings\\SetGlobals::callback",
+		"UserMergeAccountFields": "\\BlueSpice\\Rating\\Hook\\UserMergeAccountFields\\MergeRatingDBFields::callback",
 		"MWStakeCommonUIRegisterSkinSlotComponents": "main"
 	},
 	"load_composer_autoloader": true,
