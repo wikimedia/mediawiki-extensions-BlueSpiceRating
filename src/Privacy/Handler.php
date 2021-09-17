@@ -7,15 +7,15 @@ use BlueSpice\Privacy\IPrivacyHandler;
 class Handler implements IPrivacyHandler {
 	/**
 	 *
-	 * @var \Database
+	 * @var \IDatabase
 	 */
 	protected $db;
 
 	/**
 	 *
-	 * @param \Database $db
+	 * @param \IDatabase $db
 	 */
-	public function __construct( \Database $db ) {
+	public function __construct( \IDatabase $db ) {
 		$this->db = $db;
 	}
 
