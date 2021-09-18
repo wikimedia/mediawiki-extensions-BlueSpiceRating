@@ -7,7 +7,7 @@ class Writer extends \BlueSpice\Data\DatabaseWriter {
 	/**
 	 *
 	 * @param \BlueSpice\Data\IReader $reader
-	 * @param \LoadBalancer $loadBalancer
+	 * @param \Wikimedia\Rdbms\LoadBalancer $loadBalancer
 	 * @param \IContextSource|null $context
 	 */
 	public function __construct( \BlueSpice\Data\IReader $reader, $loadBalancer,

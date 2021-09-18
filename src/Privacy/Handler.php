@@ -3,19 +3,20 @@
 namespace BlueSpice\Rating\Privacy;
 
 use BlueSpice\Privacy\IPrivacyHandler;
+use Wikimedia\Rdbms\IDatabase;
 
 class Handler implements IPrivacyHandler {
 	/**
 	 *
-	 * @var \IDatabase
+	 * @var IDatabase
 	 */
 	protected $db;
 
 	/**
 	 *
-	 * @param \IDatabase $db
+	 * @param IDatabase $db
 	 */
-	public function __construct( \IDatabase $db ) {
+	public function __construct( IDatabase $db ) {
 		$this->db = $db;
 	}
 
