@@ -24,7 +24,8 @@ class BSRatingMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 		$ratingArticleEnabledNamespaces = $this->getValuesFor( 'RatingArticleEnabledNamespaces' );
 		$ratingArticleLikeEnabledNamespaces = $this->getValuesFor( 'RatingArticleLikeEnabledNamespaces' );
 
-		$userNamespaces = NamespaceManager::getUserNamespaces( true );
+		$nmService = MediaWikiServices::getInstance()->getService( 'BSNamespaceManager' );
+		$userNamespaces = $nmService->getUserNamespaces( true );
 		$this->buildDefinitions(
 			'rating',
 			$ratingArticleEnabledNamespaces,
@@ -35,7 +36,7 @@ class BSRatingMigrateSettingsFromDB extends LoggedUpdateMaintenance {
 			$ratingArticleLikeEnabledNamespaces,
 			$userNamespaces
 		);
-		$status = NamespaceManager::setUserNamespaces( $userNamespaces );
+		$status = $nmService->setUserNamespaces( $userNamespaces );
 		if ( !$status['success'] ) {
 			$this->output( 'failed:' . $status['message'] . PHP_EOL );
 			return false;
