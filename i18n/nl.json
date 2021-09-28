@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Mainframe98",
+			"McDutchie",
 			"Romaine"
 		]
 	},
@@ -26,5 +27,13 @@
 	"right-rating-archive": "Stemmen van pagina's verwijderen",
 	"bs-rating-specialrating-titleRating": "Beoordeling",
 	"bs-rating-specialrating-titleVotes": "Aantal beoordelingen",
-	"bs-rating-nsm-label": "Beoordeling"
+	"bs-rating-nsm-label": "Beoordeling",
+	"bs-rating-extension-description": "Voorziet in een beoordelingssysteem",
+	"bs-rating-types-page": "Paginabeoordeling",
+	"bs-rating-types-pagelike": "Pagina-aanbeveling",
+	"apihelp-bs-rating-tasks-description": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
+	"apihelp-bs-rating-store-description": "Levert beoordelingen voor artikelen",
+	"apihelp-bs-rating-tasks-summary": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
+	"apihelp-bs-ratingarticle-store-summary": "Levert beoordelingen voor artikelen",
+	"apihelp-bs-ratingarticlelike-store-summary": "Levert aanbevelingen voor artikelen"
 }
