@@ -17,6 +17,13 @@
 	"action-rating-write": "به صفحه‌ها رأی دهید",
 	"action-rating-archive": "حذف رأی‌ها از صفحه‌ها",
 	"right-rating-write": "به صفحه‌ها رأی دهید",
+	"right-rating-archive": "حذف آراء از صفحه‌ها",
+	"bs-rating-special-recommendations-heading": "پیشنهادها",
+	"bs-rating-special-recommendations-label-recommendation": "پیشنهادها",
 	"bs-rating-specialrating-label-namespace": "فضای نام",
-	"bs-rating-specialrating-titleTitle": "عنوان"
+	"bs-rating-specialrating-titleTitle": "عنوان",
+	"bs-rating-specialrating-titleRating": "امتیاز",
+	"bs-rating-specialrating-titleVotes": "تعداد امتیازها",
+	"bs-rating-nsm-label": "امتیاز",
+	"bs-rating-nsm-label-recommendations": "پیشنهادها"
 }
