@@ -3,9 +3,9 @@
 namespace BlueSpice\Rating\Data\Item\Article;
 
 class Record extends \BlueSpice\Rating\Data\Item\Record {
-	const PAGETITLE = 'page_title';
-	const PAGENAMESPACE = 'page_namespace';
-	const PAGENAMESPACETEXT = 'page_namespace_text';
-	const AVERAGE = 'average';
-	const TOTALCOUNT = 'totalcount';
+	public const PAGETITLE = 'page_title';
+	public const PAGENAMESPACE = 'page_namespace';
+	public const PAGENAMESPACETEXT = 'page_namespace_text';
+	public const AVERAGE = 'average';
+	public const TOTALCOUNT = 'totalcount';
 }
