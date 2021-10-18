@@ -241,8 +241,8 @@
 		}
 	},
 	"HookHandlers": {
-		"main": {
-			"class": "\\BlueSpice\\Rating\\HookHandler\\Main"
+		"common-user-interface": {
+			"class": "\\BlueSpice\\Rating\\HookHandler\\CommonUserInterface"
 		}
 	},
 	"Hooks": {
@@ -271,7 +271,7 @@
 		"GetDoubleUnderscoreIDs": "\\BlueSpice\\Rating\\Hook\\GetDoubleUnderscoreIDs\\AddNoRating::callback",
 		"BSMigrateSettingsSetNewSettings": "\\BlueSpice\\Rating\\Hook\\BSMigrateSettingsSetNewSettings\\SetGlobals::callback",
 		"UserMergeAccountFields": "\\BlueSpice\\Rating\\Hook\\UserMergeAccountFields\\MergeRatingDBFields::callback",
-		"MWStakeCommonUIRegisterSkinSlotComponents": "main"
+		"MWStakeCommonUIRegisterSkinSlotComponents": "common-user-interface"
 	},
 	"load_composer_autoloader": true,
 	"manifest_version": 2
