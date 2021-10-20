@@ -1,0 +1,37 @@
+{
+	"@metadata": {
+		"authors": [
+			"McDutchie"
+		]
+	},
+	"bs-rating-extension-description": "Forni un systema de evalutation",
+	"bs-rating-types-page": "Evalutation de paginas",
+	"bs-rating-types-pagelike": "Recommendation de paginas",
+	"rating": "Evalutationes",
+	"recommendations": "Recommendationes",
+	"bs-rating-yourrating": "Tu evalutation: $1",
+	"bs-rating-special-rating-heading": "Evalutationes",
+	"bs-rating-articlelike-ratingtext": "Recommendate ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "Recommendate ($1)",
+	"action-rating-viewspecialpage": "vider paginas protegite con le derecto \"Rating-Viewspecialpage\"",
+	"action-rating-read": "leger evalutationes sur paginas",
+	"action-rating-write": "votar sur paginas",
+	"action-rating-archive": "remover votos de paginas",
+	"right-rating-viewspecialpage": "Vider paginas protegite con le derecto \"Rating-Viewspecialpage\"",
+	"right-rating-read": "Leger evalutationes sur paginas",
+	"right-rating-write": "Votar sur paginas",
+	"right-rating-archive": "Remover votos de paginas",
+	"bs-rating-special-recommendations-heading": "Recommendationes",
+	"bs-rating-special-recommendations-label-recommendation": "Recommendationes",
+	"bs-rating-specialrating-label-namespace": "Spatio de nomines",
+	"bs-rating-specialrating-titleTitle": "Titulo",
+	"bs-rating-specialrating-titleRating": "Evalutation",
+	"bs-rating-specialrating-titleVotes": "Numero de evalutationes",
+	"apihelp-bs-rating-tasks-description": "Executa processos commun pro le extension Rating",
+	"apihelp-bs-rating-store-description": "Forni evalutationes pro articulos",
+	"bs-rating-nsm-label": "Evalutation",
+	"bs-rating-nsm-label-recommendations": "Recommendationes",
+	"apihelp-bs-rating-tasks-summary": "Executa processos commun pro le extension Rating",
+	"apihelp-bs-ratingarticle-store-summary": "Forni evalutationes pro articulos",
+	"apihelp-bs-ratingarticlelike-store-summary": "Forni recommendationes pro articulos"
+}

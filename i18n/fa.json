@@ -18,5 +18,12 @@
 	"bs-rating-yourrating": "ردهٔ شما: $1",
 	"bs-rating-articlelike-ratingtext": "پیشنهاد ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "پیشنهاد شده ($1)",
-	"action-rating-archive": "حذف رأی‌ها از صفحه‌ها"
+	"action-rating-archive": "حذف رأی‌ها از صفحه‌ها",
+	"right-rating-archive": "حذف آراء از صفحه‌ها",
+	"bs-rating-special-recommendations-heading": "پیشنهادها",
+	"bs-rating-special-recommendations-label-recommendation": "پیشنهادها",
+	"bs-rating-specialrating-titleRating": "امتیاز",
+	"bs-rating-specialrating-titleVotes": "تعداد امتیازها",
+	"bs-rating-nsm-label": "امتیاز",
+	"bs-rating-nsm-label-recommendations": "پیشنهادها"
 }

@@ -1,0 +1,19 @@
+{
+	"@metadata": {
+		"authors": [
+			"DDPAT"
+		]
+	},
+	"recommendations": "Рекомендации",
+	"bs-rating-yourrating": "Ваша оценка: $1",
+	"bs-rating-articlelike-ratingtext": "Рекомендовать ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "Рекомендуемые ($1)",
+	"right-rating-write": "Голоса на страницах",
+	"bs-rating-special-recommendations-heading": "Рекомендации",
+	"bs-rating-special-recommendations-label-recommendation": "Рекомендации",
+	"bs-rating-specialrating-label-namespace": "Пространство имён",
+	"bs-rating-specialrating-titleTitle": "Заголовок",
+	"bs-rating-specialrating-titleRating": "Рейтинг",
+	"bs-rating-specialrating-titleVotes": "Число рейтингов",
+	"bs-rating-nsm-label": "Рейтинг"
+}
