@@ -1,0 +1,9 @@
+#bs-rating-component-cnt .bs-rating-article .bs-rating-article-numvotes {
+	bottom: 0px;
+	vertical-align: middle;
+	color: inherit;
+}
+
+#bs-rating-component-cnt .bs-rating-article .bs-rating-article-uservoted::after {
+	vertical-align: middle;
+}

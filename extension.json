@@ -225,6 +225,11 @@
 			"scripts": [
 				"star-rating-svg/src/jquery.star-rating-svg.js"
 			]
+		},
+		"ext.bluespice.rating.discovery.styles": {
+			"styles": [
+				"bluespice.rating.discovery.styles.css"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

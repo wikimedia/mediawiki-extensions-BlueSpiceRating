@@ -111,4 +111,12 @@ class RatingComponent extends Literal {
 
 		return false;
 	}
+
+	/**
+	 *
+	 * @inheritDoc
+	 */
+	public function getRequiredRLStyles(): array {
+		return [ 'ext.bluespice.rating.discovery.styles' ];
+	}
 }
