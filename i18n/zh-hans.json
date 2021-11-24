@@ -6,7 +6,8 @@
 			"Ps2049",
 			"VulpesVulpes825",
 			"予弦",
-			"神樂坂秀吉"
+			"神樂坂秀吉",
+			"Xiplus"
 		]
 	},
 	"bs-rating-extension-description": "提供评分系统",
@@ -22,7 +23,7 @@
 	"right-rating-write": "为页面投票",
 	"bs-rating-special-recommendations-heading": "推荐",
 	"bs-rating-special-recommendations-label-recommendation": "推荐",
-	"bs-rating-specialrating-label-namespace": "名字空间",
+	"bs-rating-specialrating-label-namespace": "命名空间",
 	"bs-rating-specialrating-titleTitle": "标题",
 	"bs-rating-specialrating-titleRating": "评级",
 	"bs-rating-specialrating-titleVotes": "评分数量",
