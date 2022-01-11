@@ -36,6 +36,7 @@ use BlueSpice\Data\ReaderParams;
 use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\Store;
+use Html;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -498,7 +499,7 @@ class RatingItem implements \JsonSerializable {
 			$this->getConfig()->get( 'HTMLTagOptions' ),
 			$this->getTagData()
 		);
-		return \HTML::element(
+		return Html::element(
 			$this->getConfig()->get( 'HTMLTag' ),
 			$aOptions
 		);
