@@ -37,6 +37,7 @@ use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Data\ReaderParams;
 use BlueSpice\Data\Filter;
 use BlueSpice\Context;
+use Html;
 
 /**
  * RatingItem class for Rating extension
@@ -478,7 +479,7 @@ class RatingItem implements \JsonSerializable {
 			$this->getConfig()->get( 'HTMLTagOptions' ),
 			$this->getTagData()
 		);
-		return \HTML::element(
+		return Html::element(
 			$this->getConfig()->get( 'HTMLTag' ),
 			$aOptions
 		);
