@@ -2,7 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Fitoschido",
-			"Harvest"
+			"Harvest",
+			"DiegoAmbrocio"
 		]
 	},
 	"bs-rating-extension-description": "Proporciona un sistema de valoraciones",
@@ -20,5 +21,6 @@
 	"bs-rating-specialrating-titleTitle": "Título",
 	"bs-rating-specialrating-titleRating": "Valoración",
 	"bs-rating-specialrating-titleVotes": "Número de valoraciones",
+	"bs-rating-nsm-label": "Valoración",
 	"bs-rating-nsm-label-recommendations": "Recomendaciones"
 }
