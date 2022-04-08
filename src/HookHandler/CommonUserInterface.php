@@ -5,6 +5,7 @@ namespace BlueSpice\Rating\HookHandler;
 use BlueSpice\Rating\GlobalActionsToolRating;
 use BlueSpice\Rating\GlobalActionsToolRecommendations;
 use BlueSpice\Rating\RatingComponent;
+use BlueSpice\Rating\RecommendationsComponent;
 use MediaWiki\MediaWikiServices;
 use MWStake\MediaWiki\Component\CommonUserInterface\Hook\MWStakeCommonUIRegisterSkinSlotComponents;
 use RequestContext;
@@ -41,6 +42,11 @@ class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {
 				'rating' => [
 					'factory' => function () use ( $title, $services ) {
 						return new RatingComponent( $title, $services );
+					}
+				],
+				'recommendations' => [
+					'factory' => function () use ( $title, $services ) {
+						return new RecommendationsComponent( $title, $services );
 					}
 				]
 			]
