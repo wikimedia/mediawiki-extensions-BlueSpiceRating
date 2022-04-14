@@ -1,4 +1,5 @@
 {
+	"name": "BlueSpiceRating",
 	"private": true,
 	"scripts": {
 		"test": "grunt test"
