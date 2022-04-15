@@ -15,6 +15,7 @@
 	"bs-rating-special-rating-heading": "Valoraciones",
 	"bs-rating-articlelike-ratingtext": "Recomendar ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Recomendado ($1)",
+	"action-rating-read": "leer las calificaciones en las páginas",
 	"action-rating-write": "votar en las páginas",
 	"action-rating-archive": "eliminar votos de las páginas",
 	"right-rating-read": "Lea las calificaciones en las páginas",
