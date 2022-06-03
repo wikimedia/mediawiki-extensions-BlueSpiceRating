@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"DiegoAmbrocio",
 			"Fitoschido",
-			"Harvest",
-			"DiegoAmbrocio"
+			"Harvest"
 		]
 	},
 	"bs-rating-extension-description": "Proporciona un sistema de valoraciones",
