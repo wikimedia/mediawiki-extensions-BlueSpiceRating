@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Patric Wirth"
+			"Patric Wirth",
+			"Verdy p"
 		]
 	},
 	"bs-rating-extension-description": "{{desc}}",
@@ -23,7 +24,7 @@
 	"right-rating-archive": "{{doc-right|rating-archive}}",
 	"bs-rating-special-recommendations-heading": "Heading for [[Special:Recommendations]] special page",
 	"bs-rating-special-recommendations-label-recommendation": "Title of the ExtJS manager for recommendations",
-	"bs-rating-specialrating-label-namespace": "Short label for the column that lists namespaces in the ExtJS manager",
+	"bs-rating-specialrating-label-namespace": "Short label for the column that lists namespaces in the ExtJS manager\n{{Identical|Namespace}}",
 	"bs-rating-specialrating-titleTitle": "Short label for the column that lists page titles in the ExtJS manager",
 	"bs-rating-specialrating-titleRating": "Short label for the column that lists the current rating in the ExtJS manager",
 	"bs-rating-specialrating-titleVotes": "Short label for the column that lists the number of votes in the ExtJS manager",
