@@ -6,9 +6,7 @@ use BlueSpice\Hook\LoadExtensionSchemaUpdates;
 
 class AddRatingSetDefaultSubTypeMaintenanceScript extends LoadExtensionSchemaUpdates {
 	protected function doProcess() {
-		$this->updater->addPostDatabaseUpdateMaintenance(
-			'BSRatingSetDefaultSubType'
-		);
+		$this->updater->addPostDatabaseUpdateMaintenance( \BSRatingSetDefaultSubType::class );
 		return true;
 	}
 

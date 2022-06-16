@@ -6,9 +6,7 @@ use BlueSpice\Hook\LoadExtensionSchemaUpdates;
 
 class AddBSRatingRemoveDuplicateEntriesMaintenanceScript extends LoadExtensionSchemaUpdates {
 	protected function doProcess() {
-		$this->updater->addPostDatabaseUpdateMaintenance(
-			'BSRatingRemoveDuplicateEntries'
-		);
+		$this->updater->addPostDatabaseUpdateMaintenance( \BSRatingRemoveDuplicateEntries::class );
 		return true;
 	}
 

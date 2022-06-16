@@ -6,9 +6,7 @@ use BlueSpice\Hook\LoadExtensionSchemaUpdates;
 
 class AddRatingMigrateRatedCommentsScript extends LoadExtensionSchemaUpdates {
 	protected function doProcess() {
-		$this->updater->addPostDatabaseUpdateMaintenance(
-			'BSRatingMigrateRatedComments'
-		);
+		$this->updater->addPostDatabaseUpdateMaintenance( \BSRatingMigrateRatedComments::class );
 		return true;
 	}
 
