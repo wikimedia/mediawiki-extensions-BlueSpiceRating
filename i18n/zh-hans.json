@@ -5,6 +5,7 @@
 			"Lakejason0",
 			"Ps2049",
 			"VulpesVulpes825",
+			"Wzl19371",
 			"Xiplus",
 			"予弦",
 			"神樂坂秀吉"
@@ -28,5 +29,9 @@
 	"bs-rating-specialrating-titleRating": "评级",
 	"bs-rating-nsm-label": "评分",
 	"bs-rating-nsm-label-recommendations": "推荐",
-	"bs-rating-specialrating-titleVotes": "评分数量"
+	"bs-rating-specialrating-titleVotes": "评分数量",
+	"action-rating-read": "查看页面上的评分",
+	"action-rating-archive": "移除页面上的投票",
+	"right-rating-read": "查看页面上的评分",
+	"right-rating-archive": "移除页面上的投票"
 }
