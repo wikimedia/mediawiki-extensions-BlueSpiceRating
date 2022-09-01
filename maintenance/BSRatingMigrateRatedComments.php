@@ -10,6 +10,14 @@ use MediaWiki\MediaWikiServices;
 
 class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 
+	/** @var MediaWikiServices */
+	private $services = null;
+
+	public function __construct() {
+		parent::__construct();
+		$this->services = MediaWikiServices::getInstance();
+	}
+
 	protected function noDataToMigrate() {
 		return $this->getDB( DB_REPLICA )->tableExists( 'bs_rating' ) === false;
 	}
@@ -37,6 +45,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 		$this->output( "...bs_rating-migrateratedcomments -> migration...\n" );
 
 		$this->readData();
+		$userFactory = $this->services->getUserFactory();
 		foreach ( $this->data as $articleId => $ratings ) {
 			// article does not exists anymore => ignore ratings
 			$title = \Title::newFromID( (int)$articleId );
@@ -57,7 +66,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 				}
 				$this->output( "." );
 
-				$user = User::newFromId( $rating->rat_userid );
+				$user = $userFactory->newFromId( $rating->rat_userid );
 				if ( !$user ) {
 					$this->output( "No User - skip" );
 					continue;
@@ -126,9 +135,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	 * @return RatingFactory
 	 */
 	protected function getRatingFactory() {
-		return MediaWikiServices::getInstance()->getService(
-			'BSRatingFactory'
-		);
+		return $this->services->getService( 'BSRatingFactory' );
 	}
 
 	/**
@@ -136,7 +143,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	 * @return User
 	 */
 	protected function getMaintenanceUser() {
-		return MediaWikiServices::getInstance()->getService( 'BSUtilityFactory' )
+		return $this->services->getService( 'BSUtilityFactory' )
 			->getMaintenanceUser()->getUser();
 	}
 
