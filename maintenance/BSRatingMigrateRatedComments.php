@@ -11,7 +11,7 @@ use MediaWiki\MediaWikiServices;
 class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 
 	/** @var MediaWikiServices */
-	private $services = null;
+	protected $services = null;
 
 	public function __construct() {
 		parent::__construct();
