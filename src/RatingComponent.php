@@ -8,10 +8,8 @@ use MWStake\MediaWiki\Component\CommonUserInterface\Component\Literal;
 
 class RatingComponent extends Literal {
 
-	/**
-	 * @var MediaWikiServices
-	 */
-	private $services = null;
+	/** @var MediaWikiServices */
+	protected $services = null;
 
 	/**
 	 * @var Title
