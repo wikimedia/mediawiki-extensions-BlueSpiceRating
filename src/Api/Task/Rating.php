@@ -65,7 +65,7 @@ class Rating extends \BSApiTasksBase {
 		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
 
-		$ratingFactory = $this->getServices()->getService( 'BSRatingFactory' );
+		$ratingFactory = $this->services->getService( 'BSRatingFactory' );
 		$status = $ratingFactory->ensureBasicParams( $taskData );
 		if ( !$status->isOK() ) {
 			$result->message = $status->getHTML();
@@ -115,7 +115,7 @@ class Rating extends \BSApiTasksBase {
 		$result = $this->makeStandardReturn();
 		$this->checkPermissions();
 
-		$ratingFactory = $this->getServices()->getService( 'BSRatingFactory' );
+		$ratingFactory = $this->services->getService( 'BSRatingFactory' );
 		$status = $ratingFactory->ensureBasicParams( $taskData );
 		if ( !$status->isOK() ) {
 			$result->message = $status->getHTML();

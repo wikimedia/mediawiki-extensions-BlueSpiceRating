@@ -10,7 +10,7 @@ class Article extends \BlueSpice\Api\Store {
 	protected function makeDataStore() {
 		return new Store(
 			new Context( \RequestContext::getMain(), $this->getConfig() ),
-			$this->getServices()->getDBLoadBalancer()
+			$this->services->getDBLoadBalancer()
 		);
 	}
 }
