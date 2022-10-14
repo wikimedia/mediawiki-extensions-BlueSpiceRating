@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Steeve815",
 			"Strayblues"
 		]
@@ -26,5 +27,13 @@
 	"bs-rating-specialrating-titleRating": "דירוג",
 	"bs-rating-specialrating-titleVotes": "מספר הדירוגים",
 	"bs-rating-nsm-label": "דירוג",
-	"bs-rating-nsm-label-recommendations": "המלצות"
+	"bs-rating-nsm-label-recommendations": "המלצות",
+	"bs-rating-extension-description": "מספק מערכת דירוג",
+	"action-rating-viewspecialpage": "להציג דפים המוגנים עם ההרשאה \"Rating-Viewspecialpage\".",
+	"right-rating-viewspecialpage": "הצגת דפים המוגנים עם ההרשאה \"Rating-Viewspecialpage\".",
+	"apihelp-bs-rating-tasks-description": "מבצעת משימות נפוצות עבור ההרחבה Rating",
+	"apihelp-bs-rating-store-description": "מוסרת דירוגים לערכים",
+	"apihelp-bs-rating-tasks-summary": "מבצעת משימות נפוצות עבור ההרחבה Rating",
+	"apihelp-bs-ratingarticle-store-summary": "מוסרת דירוגים לערכים",
+	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים"
 }
