@@ -1,10 +1,12 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Steeve815",
 			"Strayblues"
 		]
 	},
+	"bs-rating-extension-description": "מספק מערכת דירוג",
 	"bs-rating-types-page": "דירוג הדף",
 	"bs-rating-types-pagelike": "המלצה על הדף",
 	"rating": "דירוגים",
@@ -13,9 +15,11 @@
 	"bs-rating-special-rating-heading": "דירוגים",
 	"bs-rating-articlelike-ratingtext": "להמליץ ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "הומלץ ($1)",
+	"action-rating-viewspecialpage": "להציג דפים המוגנים עם ההרשאה \"Rating-Viewspecialpage\".",
 	"action-rating-read": "לקרוא דירוגים של דפים",
 	"action-rating-write": "להצביע על דפים",
 	"action-rating-archive": "להסיר הצבעות מדפים",
+	"right-rating-viewspecialpage": "הצגת דפים המוגנים עם ההרשאה \"Rating-Viewspecialpage\".",
 	"right-rating-read": "קריאת דירוגים של דפים",
 	"right-rating-write": "הצבעה על דפים",
 	"right-rating-archive": "הסרת הצבעות מדפים",
@@ -25,6 +29,11 @@
 	"bs-rating-specialrating-titleTitle": "כותרת",
 	"bs-rating-specialrating-titleRating": "דירוג",
 	"bs-rating-specialrating-titleVotes": "מספר הדירוגים",
+	"apihelp-bs-rating-tasks-description": "מבצעת משימות נפוצות עבור ההרחבה Rating",
+	"apihelp-bs-rating-store-description": "מוסרת דירוגים לערכים",
 	"bs-rating-nsm-label": "דירוג",
-	"bs-rating-nsm-label-recommendations": "המלצות"
+	"bs-rating-nsm-label-recommendations": "המלצות",
+	"apihelp-bs-rating-tasks-summary": "מבצעת משימות נפוצות עבור ההרחבה Rating",
+	"apihelp-bs-ratingarticle-store-summary": "מוסרת דירוגים לערכים",
+	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים"
 }
