@@ -2,10 +2,9 @@
 
 namespace BlueSpice\Rating\Data\Item\Article;
 
-use BlueSpice\Data\SecondaryDataProvider as SecondaryDataProviderBase;
 use BsNamespaceHelper;
 
-class SecondaryDataProvider extends SecondaryDataProviderBase {
+class SecondaryDataProvider extends \MWStake\MediaWiki\Component\DataStore\SecondaryDataProvider {
 
 	public function __construct() {
 	}

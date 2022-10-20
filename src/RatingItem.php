@@ -31,13 +31,13 @@
 namespace BlueSpice\Rating;
 
 use BlueSpice\Context;
-use BlueSpice\Data\Filter;
-use BlueSpice\Data\ReaderParams;
 use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\Store;
 use Html;
 use MediaWiki\MediaWikiServices;
+use MWStake\MediaWiki\Component\DataStore\Filter;
+use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 
 /**
  * RatingItem class for Rating extension

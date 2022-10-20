@@ -2,9 +2,9 @@
 
 namespace BlueSpice\Rating\Data;
 
-use BlueSpice\Data\FieldType;
+use MWStake\MediaWiki\Component\DataStore\FieldType;
 
-class Schema extends \BlueSpice\Data\Schema {
+class Schema extends \MWStake\MediaWiki\Component\DataStore\Schema {
 
 	/**
 	 * @return Schema

@@ -2,11 +2,13 @@
 
 namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
+use MWStake\MediaWiki\Component\DataStore\ReaderParams;
+
 class Reader extends \BlueSpice\Rating\Data\Item\Reader {
 
 	/**
 	 *
-	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @param ReaderParams $params
 	 * @return PrimaryDataProvider
 	 */
 	protected function makePrimaryDataProvider( $params ) {

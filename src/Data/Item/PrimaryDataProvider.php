@@ -3,6 +3,7 @@
 namespace BlueSpice\Rating\Data\Item;
 
 use MediaWiki\MediaWikiServices;
+use MWStake\MediaWiki\Component\DataStore\Record as DataStoreRecord;
 
 abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 
@@ -53,7 +54,7 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 			return;
 		}
 
-		$this->data[] = new \BlueSpice\Data\Record(
+		$this->data[] = new DataStoreRecord(
 			(object)$this->extractDataFromRow( $row, $rating )
 		);
 	}

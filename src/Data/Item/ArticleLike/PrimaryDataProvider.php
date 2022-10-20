@@ -2,17 +2,18 @@
 
 namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
-use BlueSpice\Data\Filter;
-use BlueSpice\Data\Filter\Numeric;
-use BlueSpice\Data\Filter\StringValue;
-use BlueSpice\Data\FilterFinder;
 use MediaWiki\MediaWikiServices;
+use MWStake\MediaWiki\Component\DataStore\Filter;
+use MWStake\MediaWiki\Component\DataStore\Filter\Numeric;
+use MWStake\MediaWiki\Component\DataStore\Filter\StringValue;
+use MWStake\MediaWiki\Component\DataStore\FilterFinder;
+use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 
 class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvider {
 
 	/**
 	 *
-	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @param ReaderParams $params
 	 * @return Record[]
 	 */
 	public function makeData( $params ) {
@@ -44,7 +45,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 
 	/**
 	 *
-	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @param ReaderParams $params
 	 * @return array
 	 */
 	protected function makePreFilterConds( $params ) {
@@ -128,7 +129,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 
 	/**
 	 *
-	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @param ReaderParams $params
 	 * @return array
 	 */
 	protected function makePreOptionConds( $params ) {

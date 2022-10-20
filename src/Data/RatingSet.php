@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data;
 
-use BlueSpice\Data\ResultSet;
+use MWStake\MediaWiki\Component\DataStore\ResultSet;
 
 class RatingSet extends ResultSet {
 	/**
