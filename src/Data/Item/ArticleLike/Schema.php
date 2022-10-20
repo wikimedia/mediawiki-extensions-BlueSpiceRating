@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
-use BlueSpice\Data\FieldType;
+use MWStake\MediaWiki\Component\DataStore\FieldType;
 
 class Schema extends \BlueSpice\Rating\Data\Item\Schema {
 	public function __construct() {

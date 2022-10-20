@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item;
 
-use BlueSpice\Data\DatabaseReader;
+use MWStake\MediaWiki\Component\DataStore\DatabaseReader;
 
 abstract class Reader extends DatabaseReader {
 	/**

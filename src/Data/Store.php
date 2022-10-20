@@ -2,7 +2,9 @@
 
 namespace BlueSpice\Rating\Data;
 
-class Store implements \BlueSpice\Data\IStore {
+use MWStake\MediaWiki\Component\DataStore\IStore;
+
+class Store implements IStore {
 
 	/**
 	 *

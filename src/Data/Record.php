@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data;
 
-class Record extends \BlueSpice\Data\Record {
+class Record extends \MWStake\MediaWiki\Component\DataStore\Record {
 	public const ID = 'rat_id';
 	public const REFTYPE = 'rat_reftype';
 	public const REF = 'rat_ref';
