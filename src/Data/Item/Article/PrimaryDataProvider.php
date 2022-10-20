@@ -2,13 +2,13 @@
 
 namespace BlueSpice\Rating\Data\Item\Article;
 
-use BlueSpice\Data\Filter;
-use BlueSpice\Data\Filter\Numeric;
-use BlueSpice\Data\Filter\StringValue;
-use BlueSpice\Data\FilterFinder;
-use BlueSpice\Data\ReaderParams;
 use BlueSpice\Rating\RatingItem;
 use MediaWiki\MediaWikiServices;
+use MWStake\MediaWiki\Component\DataStore\Filter;
+use MWStake\MediaWiki\Component\DataStore\Filter\Numeric;
+use MWStake\MediaWiki\Component\DataStore\Filter\StringValue;
+use MWStake\MediaWiki\Component\DataStore\FilterFinder;
+use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 
 class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvider {
 

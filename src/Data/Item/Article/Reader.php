@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item\Article;
 
-use BlueSpice\Data\ReaderParams;
+use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 
 class Reader extends \BlueSpice\Rating\Data\Item\Reader {
 

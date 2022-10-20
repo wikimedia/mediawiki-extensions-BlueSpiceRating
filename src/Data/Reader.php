@@ -2,7 +2,8 @@
 
 namespace BlueSpice\Rating\Data;
 
-use BlueSpice\Data\DatabaseReader;
+use MWStake\MediaWiki\Component\DataStore\DatabaseReader;
+use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 
 class Reader extends DatabaseReader {
 	/**
@@ -16,7 +17,7 @@ class Reader extends DatabaseReader {
 
 	/**
 	 *
-	 * @param \BlueSpice\Data\ReaderParams $params
+	 * @param ReaderParams $params
 	 * @return PrimaryDataProvider
 	 */
 	protected function makePrimaryDataProvider( $params ) {
