@@ -11,5 +11,7 @@
 	"bs-rating-specialrating-titleTitle": "Titel",
 	"bs-rating-nsm-label-recommendations": "Anbefalinger",
 	"action-rating-write": "stem på sider",
-	"right-rating-write": "Stem på sider"
+	"right-rating-write": "Stem på sider",
+	"bs-rating-articlelike-ratingtext": "Anbefal ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "Anbefalet ($1)"
 }

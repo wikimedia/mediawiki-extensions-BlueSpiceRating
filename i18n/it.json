@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"GpieroMW"
 		]
 	},
 	"bs-rating-types-page": "Giudizio pagina",
@@ -16,5 +17,7 @@
 	"bs-rating-specialrating-titleTitle": "Titolo",
 	"bs-rating-specialrating-titleRating": "Valutazione",
 	"bs-rating-nsm-label": "Valutazione",
-	"bs-rating-nsm-label-recommendations": "Consigli"
+	"bs-rating-nsm-label-recommendations": "Consigli",
+	"bs-rating-articlelike-ratingtext": "Consiglia ( $1 )",
+	"bs-rating-articlelike-uratingtextservoted": "Consigliato ( $1 )"
 }
