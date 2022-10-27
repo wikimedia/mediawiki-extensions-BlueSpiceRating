@@ -5,6 +5,8 @@
 		]
 	},
 	"recommendations": "Anbefalinger",
+	"bs-rating-articlelike-ratingtext": "Anbefal ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "Anbefalet ($1)",
 	"action-rating-write": "stem på sider",
 	"right-rating-write": "Stem på sider",
 	"bs-rating-special-recommendations-heading": "Anbefalinger",

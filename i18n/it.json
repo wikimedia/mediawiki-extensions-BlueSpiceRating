@@ -1,13 +1,16 @@
 {
 	"@metadata": {
 		"authors": [
-			"Beta16"
+			"Beta16",
+			"GpieroMW"
 		]
 	},
 	"bs-rating-types-page": "Giudizio pagina",
 	"rating": "Valutazioni",
 	"recommendations": "Consigli",
 	"bs-rating-special-rating-heading": "Valutazioni",
+	"bs-rating-articlelike-ratingtext": "Consiglia ( $1 )",
+	"bs-rating-articlelike-uratingtextservoted": "Consigliato ( $1 )",
 	"action-rating-viewspecialpage": "vedere pagine protette con il diritto \"Rating-Viewspecialpage\"",
 	"right-rating-viewspecialpage": "Visualizza pagine protette con il diritto \"Rating-Viewspecialpage\"",
 	"bs-rating-special-recommendations-heading": "Consigli",
