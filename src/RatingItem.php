@@ -73,7 +73,7 @@ class RatingItem implements \JsonSerializable {
 		$this->loadRating();
 	}
 
-	public function jsonSerialize() {
+	public function jsonSerialize(): array {
 		// TODO: There is currently no way to filter by context!
 		$ratings = $this->getRatingSet()->getRatings();
 		$userRatings = $this->getRatingSet()->getUserRatings(

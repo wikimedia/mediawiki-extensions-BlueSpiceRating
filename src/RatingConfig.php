@@ -116,9 +116,9 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 
 	/**
 	 * Returns a json serializable object
-	 * @return stdClass
+	 * @return \stdClass
 	 */
-	public function jsonSerialize() {
+	public function jsonSerialize(): \stdClass {
 		$aConfig = [];
 		foreach ( get_class_methods( $this ) as $method ) {
 			if ( strpos( $method, 'get_' ) !== 0 ) {
