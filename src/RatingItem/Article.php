@@ -54,7 +54,7 @@ class Article extends RatingItem {
 		] );
 	}
 
-	public function jsonSerialize() {
+	public function jsonSerialize(): array {
 		$data = parent::jsonSerialize();
 		$status = $this->userCan(
 			\RequestContext::getMain()->getUser(),
