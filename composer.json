@@ -32,5 +32,10 @@
 	},
 	"extra": {
 		"installer-name": "BlueSpiceRating"
+	},
+	"config": {
+		"allow-plugins": {
+			"composer/installers": true
+		}
 	}
 }
