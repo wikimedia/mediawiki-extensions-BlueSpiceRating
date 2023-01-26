@@ -70,6 +70,16 @@
 			"Handlers": [
 				"\\BlueSpice\\Rating\\Privacy\\Handler"
 			]
+		},
+		"BlueSpiceDiscovery": {
+			"MetaItemProviderRegistry": {
+				"recommendations": {
+					"class": "\\BlueSpice\\Rating\\MetaItemProvider\\RecommendationProvider"
+				},
+				"rating": {
+					"class": "\\BlueSpice\\Rating\\MetaItemProvider\\RatingProvider"
+				}
+			}
 		}
 	},
 	"ServiceWiringFiles": [
