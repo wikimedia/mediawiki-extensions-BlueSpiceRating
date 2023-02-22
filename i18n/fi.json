@@ -1,8 +1,10 @@
 {
 	"@metadata": {
 		"authors": [
-			"Antsa"
+			"Antsa",
+			"Silvonen"
 		]
 	},
-	"bs-rating-specialrating-titleTitle": "Otsikko"
+	"bs-rating-specialrating-titleTitle": "Otsikko",
+	"bs-rating-specialrating-label-namespace": "Nimiavaruus"
 }
