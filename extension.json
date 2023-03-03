@@ -2,7 +2,7 @@
 	"name": "BlueSpiceRating",
 	"version": "4.3.0-alpha",
 	"license-name": "GPL-3.0-only",
-	"url": "https://en.wiki.bluespice.com/wiki/Reference:Rating",
+	"url": "https://en.wiki.bluespice.com/wiki/Reference:BlueSpiceRating",
 	"author": "Patric Wirth",
 	"descriptionmsg": "bs-rating-extension-description",
 	"requires": {
