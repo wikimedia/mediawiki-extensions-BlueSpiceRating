@@ -1,0 +1,129 @@
+[
+	{
+		"name": "bs_rating",
+		"columns": [
+			{
+				"name": "rat_id",
+				"type": "integer",
+				"options": {
+					"length": 6,
+					"unsigned": true,
+					"notnull": true,
+					"autoincrement": true
+				}
+			},
+			{
+				"name": "rat_reftype",
+				"type": "string",
+				"options": {
+					"length": 13,
+					"notnull": true,
+					"default": "article"
+				}
+			},
+			{
+				"name": "rat_ref",
+				"type": "string",
+				"options": {
+					"length": 33,
+					"notnull": true,
+					"default": "0"
+				}
+			},
+			{
+				"name": "rat_userid",
+				"type": "smallint",
+				"options": {
+					"length": 5,
+					"unsigned": true,
+					"notnull": false
+				}
+			},
+			{
+				"name": "rat_userip",
+				"type": "string",
+				"options": {
+					"length": 15,
+					"notnull": false
+				}
+			},
+			{
+				"name": "rat_value",
+				"type": "smallint",
+				"options": {
+					"length": 3,
+					"notnull": true,
+					"default": 0
+				}
+			},
+			{
+				"name": "rat_created",
+				"type": "string",
+				"options": {
+					"length": 14,
+					"notnull": true,
+					"default": ""
+				}
+			},
+			{
+				"name": "rat_touched",
+				"type": "string",
+				"options": {
+					"length": 14,
+					"notnull": true,
+					"default": ""
+				}
+			},
+			{
+				"name": "rat_archived",
+				"type": "boolean",
+				"options": {
+					"notnull": true,
+					"default": 0
+				}
+			},
+			{
+				"name": "rat_subtype",
+				"type": "string",
+				"options": {
+					"length": 33,
+					"notnull": true,
+					"default": ""
+				}
+			}
+		],
+		"indexes": [
+			{
+				"name": "rat_userid",
+				"columns": [
+					"rat_userid"
+				],
+				"unique": false
+			},
+			{
+				"name": "rat_userip",
+				"columns": [
+					"rat_userip"
+				],
+				"unique": false
+			},
+			{
+				"name": "rat_ref",
+				"columns": [
+					"rat_ref"
+				],
+				"unique": false
+			},
+			{
+				"name": "rat_reftype",
+				"columns": [
+					"rat_reftype"
+				],
+				"unique": false
+			}
+		],
+		"pk": [
+			"rat_id"
+		]
+	}
+]
