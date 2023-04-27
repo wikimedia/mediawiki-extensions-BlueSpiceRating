@@ -1,0 +1,35 @@
+{
+	"@metadata": {
+		"authors": [
+			"Nokeoo"
+		]
+	},
+	"bs-rating-extension-description": "Suteikia vertinimo sistemą",
+	"bs-rating-types-page": "Puslapio įvertinimas",
+	"bs-rating-types-pagelike": "Puslapio rekomendacija",
+	"rating": "Įvertinimai",
+	"recommendations": "Rekomendacijos",
+	"bs-rating-yourrating": "Jūsų įvertinimas: $1",
+	"bs-rating-special-rating-heading": "Įvertinimai",
+	"bs-rating-articlelike-ratingtext": "Rekomenduoti ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "Rekomenduojama ($1)",
+	"action-rating-viewspecialpage": "peržiūrėti puslapius, kurie yra apsaugoti „Rating-Viewspecialpage“ teisės",
+	"action-rating-read": "skaityti puslapiuose įvertinimus",
+	"action-rating-write": "balsuoti puslapiuose",
+	"action-rating-archive": "pašalinti balsus iš puslapių",
+	"right-rating-viewspecialpage": "Peržiūrėti puslapius, kurie yra apsaugoti „Rating-Viewspecialpage“ teisės",
+	"right-rating-read": "Skaityti puslapiuose įvertinimus",
+	"right-rating-write": "Balsuoti puslapiuose",
+	"right-rating-archive": "Pašalinti balsus iš puslapių",
+	"bs-rating-special-recommendations-heading": "Rekomendacijos",
+	"bs-rating-special-recommendations-label-recommendation": "Rekomendacijos",
+	"bs-rating-specialrating-label-namespace": "Vardų sritis",
+	"bs-rating-specialrating-titleTitle": "Pavadinimas",
+	"bs-rating-specialrating-titleRating": "Įvertinimas",
+	"bs-rating-specialrating-titleVotes": "Įvertinimų skaičius",
+	"apihelp-bs-rating-store-description": "Pateikia straipsnių įvertinimus",
+	"bs-rating-nsm-label": "Įvertinimas",
+	"bs-rating-nsm-label-recommendations": "Rekomendacijos",
+	"apihelp-bs-ratingarticle-store-summary": "Suteikia straipsnių įvertinimus",
+	"apihelp-bs-ratingarticlelike-store-summary": "Teikia straipsnių rekomendacijas"
+}
