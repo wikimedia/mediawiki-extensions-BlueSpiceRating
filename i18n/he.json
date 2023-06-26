@@ -35,5 +35,6 @@
 	"apihelp-bs-rating-store-description": "מוסרת דירוגים לערכים",
 	"apihelp-bs-rating-tasks-summary": "מבצעת משימות נפוצות עבור ההרחבה Rating",
 	"apihelp-bs-ratingarticle-store-summary": "מוסרת דירוגים לערכים",
-	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים"
+	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים",
+	"apihelp-bs-rating-store-summary": "מוסרת דירוגים לערכים"
 }
