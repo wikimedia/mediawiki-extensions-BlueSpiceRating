@@ -27,7 +27,7 @@
 	"bs-rating-specialrating-titleTitle": "Pavadinimas",
 	"bs-rating-specialrating-titleRating": "Įvertinimas",
 	"bs-rating-specialrating-titleVotes": "Įvertinimų skaičius",
-	"apihelp-bs-rating-store-description": "Pateikia straipsnių įvertinimus",
+	"apihelp-bs-rating-store-summary": "Pateikia straipsnių įvertinimus",
 	"bs-rating-nsm-label": "Įvertinimas",
 	"bs-rating-nsm-label-recommendations": "Rekomendacijos",
 	"apihelp-bs-ratingarticle-store-summary": "Suteikia straipsnių įvertinimus",
