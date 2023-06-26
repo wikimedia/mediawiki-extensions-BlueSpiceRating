@@ -35,5 +35,6 @@
 	"apihelp-bs-rating-store-description": "Levert beoordelingen voor artikelen",
 	"apihelp-bs-rating-tasks-summary": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Levert beoordelingen voor artikelen",
-	"apihelp-bs-ratingarticlelike-store-summary": "Levert aanbevelingen voor artikelen"
+	"apihelp-bs-ratingarticlelike-store-summary": "Levert aanbevelingen voor artikelen",
+	"apihelp-bs-rating-store-summary": "Levert beoordelingen voor artikelen"
 }
