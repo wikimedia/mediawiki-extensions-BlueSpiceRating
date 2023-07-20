@@ -1,0 +1,9 @@
+{
+	"@metadata": {
+		"authors": [
+			"Piano1forte2"
+		]
+	},
+	"action-rating-viewspecialpage": "view pages which are protected with the 'Rating-Viewspecialpage' right",
+	"right-rating-viewspecialpage": "View pages which are protected with the 'Rating-Viewspecialpage' right"
+}
