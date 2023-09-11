@@ -4,6 +4,7 @@
 			"A Retired User",
 			"Lakejason0",
 			"Ps2049",
+			"Vikarna",
 			"VulpesVulpes825",
 			"Wzl19371",
 			"Xiplus",
@@ -33,5 +34,7 @@
 	"action-rating-read": "查看页面上的评分",
 	"action-rating-archive": "移除页面上的投票",
 	"right-rating-read": "查看页面上的评分",
-	"right-rating-archive": "移除页面上的投票"
+	"right-rating-archive": "移除页面上的投票",
+	"action-rating-viewspecialpage": "查看受“Rating-Viewspecialpage”权限保护的页面",
+	"right-rating-viewspecialpage": "查看受“Rating-Viewspecialpage”权限保护的页面"
 }
