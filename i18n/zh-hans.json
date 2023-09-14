@@ -8,7 +8,8 @@
 			"Wzl19371",
 			"Xiplus",
 			"予弦",
-			"神樂坂秀吉"
+			"神樂坂秀吉",
+			"Vikarna"
 		]
 	},
 	"bs-rating-extension-description": "提供评分系统",
@@ -20,9 +21,11 @@
 	"bs-rating-special-rating-heading": "评级",
 	"bs-rating-articlelike-ratingtext": "建议（$1）",
 	"bs-rating-articlelike-uratingtextservoted": "已建议（$1）",
+	"action-rating-viewspecialpage": "查看受“Rating-Viewspecialpage”权限保护的页面",
 	"action-rating-read": "查看页面上的评分",
 	"action-rating-write": "为页面投票",
 	"action-rating-archive": "移除页面上的投票",
+	"right-rating-viewspecialpage": "查看受“Rating-Viewspecialpage”权限保护的页面",
 	"right-rating-read": "查看页面上的评分",
 	"right-rating-write": "为页面投票",
 	"right-rating-archive": "移除页面上的投票",
