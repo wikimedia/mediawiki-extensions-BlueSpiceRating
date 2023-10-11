@@ -6,7 +6,7 @@ use Message;
 use MWStake\MediaWiki\Component\CommonUserInterface\Component\RestrictedTextLink;
 use SpecialPage;
 
-class GlobalActionsToolRecommendations extends RestrictedTextLink {
+class GlobalActionsOverviewRating extends RestrictedTextLink {
 
 	public function __construct() {
 		parent::__construct( [] );
@@ -17,7 +17,7 @@ class GlobalActionsToolRecommendations extends RestrictedTextLink {
 	 * @return string
 	 */
 	public function getId(): string {
-		return 'ga-bs-recommendations';
+		return 'ga-bs-rating';
 	}
 
 	/**
@@ -36,7 +36,7 @@ class GlobalActionsToolRecommendations extends RestrictedTextLink {
 	 * @return string
 	 */
 	public function getHref(): string {
-		$tool = SpecialPage::getTitleFor( 'Recommendations' );
+		$tool = SpecialPage::getTitleFor( 'Rating' );
 		return $tool->getLocalURL();
 	}
 
@@ -45,7 +45,7 @@ class GlobalActionsToolRecommendations extends RestrictedTextLink {
 	 * @return Message
 	 */
 	public function getTitle(): Message {
-		return Message::newFromKey( 'recommendations' );
+		return Message::newFromKey( 'rating' );
 	}
 
 	/**
@@ -53,7 +53,7 @@ class GlobalActionsToolRecommendations extends RestrictedTextLink {
 	 * @return Message
 	 */
 	public function getText(): Message {
-		return Message::newFromKey( 'recommendations' );
+		return Message::newFromKey( 'rating' );
 	}
 
 	/**
@@ -61,6 +61,6 @@ class GlobalActionsToolRecommendations extends RestrictedTextLink {
 	 * @return Message
 	 */
 	public function getAriaLabel(): Message {
-		return Message::newFromKey( 'recommendations' );
+		return Message::newFromKey( 'rating' );
 	}
 }
