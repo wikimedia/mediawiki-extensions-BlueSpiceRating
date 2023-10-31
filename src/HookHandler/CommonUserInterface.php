@@ -2,8 +2,8 @@
 
 namespace BlueSpice\Rating\HookHandler;
 
-use BlueSpice\Rating\GlobalActionsToolRating;
-use BlueSpice\Rating\GlobalActionsToolRecommendations;
+use BlueSpice\Rating\GlobalActionsOverviewRating;
+use BlueSpice\Rating\GlobalActionsOverviewRecommendations;
 use MWStake\MediaWiki\Component\CommonUserInterface\Hook\MWStakeCommonUIRegisterSkinSlotComponents;
 
 class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {
@@ -13,16 +13,16 @@ class CommonUserInterface implements MWStakeCommonUIRegisterSkinSlotComponents {
 	 */
 	public function onMWStakeCommonUIRegisterSkinSlotComponents( $registry ): void {
 		$registry->register(
-			'GlobalActionsTools',
+			'GlobalActionsOverview',
 			[
 				'special-bluespice-rating' => [
 					'factory' => static function () {
-						return new GlobalActionsToolRating();
+						return new GlobalActionsOverviewRating();
 					}
 				],
 				'special-bluespice-recommendations' => [
 					'factory' => static function () {
-						return new GlobalActionsToolRecommendations();
+						return new GlobalActionsOverviewRecommendations();
 					}
 				]
 			]
