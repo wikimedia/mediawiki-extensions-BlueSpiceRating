@@ -33,5 +33,6 @@
 	"bs-rating-nsm-label-recommendations": "Recommendationes",
 	"apihelp-bs-rating-tasks-summary": "Executa processos commun pro le extension Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Forni evalutationes pro articulos",
-	"apihelp-bs-ratingarticlelike-store-summary": "Forni recommendationes pro articulos"
+	"apihelp-bs-ratingarticlelike-store-summary": "Forni recommendationes pro articulos",
+	"apihelp-bs-rating-store-summary": "Forni evalutationes pro articulos"
 }

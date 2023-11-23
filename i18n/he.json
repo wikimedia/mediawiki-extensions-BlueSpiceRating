@@ -1,9 +1,9 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Steeve815",
-			"Strayblues",
-			"Amire80"
+			"Strayblues"
 		]
 	},
 	"bs-rating-extension-description": "מספק מערכת דירוג",
@@ -35,5 +35,6 @@
 	"bs-rating-nsm-label-recommendations": "המלצות",
 	"apihelp-bs-rating-tasks-summary": "מבצעת משימות נפוצות עבור ההרחבה Rating",
 	"apihelp-bs-ratingarticle-store-summary": "מוסרת דירוגים לערכים",
-	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים"
+	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים",
+	"apihelp-bs-rating-store-summary": "מוסרת דירוגים לערכים"
 }

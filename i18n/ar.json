@@ -33,5 +33,6 @@
 	"bs-rating-nsm-label-recommendations": "توصيات",
 	"apihelp-bs-rating-tasks-summary": "ينفذ المهام المشتركة لتمديد التقييم",
 	"apihelp-bs-ratingarticle-store-summary": "يسلم تقييمات للمقالات",
-	"apihelp-bs-ratingarticlelike-store-summary": "يسلم توصيات للمقالات"
+	"apihelp-bs-ratingarticlelike-store-summary": "يسلم توصيات للمقالات",
+	"apihelp-bs-rating-store-summary": "يسلم تقييمات للمقالات"
 }

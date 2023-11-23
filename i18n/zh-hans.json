@@ -4,6 +4,7 @@
 			"A Retired User",
 			"Lakejason0",
 			"Ps2049",
+			"Vikarna",
 			"VulpesVulpes825",
 			"Wzl19371",
 			"Xiplus",
@@ -33,5 +34,7 @@
 	"bs-rating-specialrating-titleRating": "评级",
 	"bs-rating-specialrating-titleVotes": "评分数量",
 	"bs-rating-nsm-label": "评分",
-	"bs-rating-nsm-label-recommendations": "推荐"
+	"bs-rating-nsm-label-recommendations": "推荐",
+	"action-rating-viewspecialpage": "查看受“Rating-Viewspecialpage”权限保护的页面",
+	"right-rating-viewspecialpage": "查看受“Rating-Viewspecialpage”权限保护的页面"
 }

@@ -36,5 +36,6 @@
 	"bs-rating-nsm-label-recommendations": "Recommandations",
 	"apihelp-bs-rating-tasks-summary": "Exécute les tâches courantes pour l’extension Évaluation",
 	"apihelp-bs-ratingarticle-store-summary": "Fournit des évaluations pour les articles",
-	"apihelp-bs-ratingarticlelike-store-summary": "Fournit des recommandations pour les articles"
+	"apihelp-bs-ratingarticlelike-store-summary": "Fournit des recommandations pour les articles",
+	"apihelp-bs-rating-store-summary": "Fournit des évaluations pour les articles"
 }
