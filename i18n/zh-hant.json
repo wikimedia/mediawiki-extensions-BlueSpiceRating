@@ -4,9 +4,9 @@
 			"A Retired User",
 			"AF",
 			"Kly",
+			"Lakejason0",
 			"予弦",
-			"神樂坂秀吉",
-			"Lakejason0"
+			"神樂坂秀吉"
 		]
 	},
 	"bs-rating-extension-description": "提供評分系統",
@@ -38,5 +38,6 @@
 	"bs-rating-nsm-label-recommendations": "建議",
 	"apihelp-bs-rating-tasks-summary": "執行擴充功能 Rating 的一般任務",
 	"apihelp-bs-ratingarticle-store-summary": "傳遞條目評分",
-	"apihelp-bs-ratingarticlelike-store-summary": "傳遞條目建議"
+	"apihelp-bs-ratingarticlelike-store-summary": "傳遞條目建議",
+	"apihelp-bs-rating-store-summary": "傳遞題目評分"
 }

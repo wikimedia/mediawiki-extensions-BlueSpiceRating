@@ -33,5 +33,6 @@
 	"bs-rating-nsm-label-recommendations": "Conziglie",
 	"apihelp-bs-rating-tasks-summary": "Lange le attività comune pe l'estenzione Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Pundegge de consegne pe le vôsce",
-	"apihelp-bs-ratingarticlelike-store-summary": "Conziglie de consegne pe le vôsce"
+	"apihelp-bs-ratingarticlelike-store-summary": "Conziglie de consegne pe le vôsce",
+	"apihelp-bs-rating-store-summary": "Pundegge de consegne pe le vôsce"
 }

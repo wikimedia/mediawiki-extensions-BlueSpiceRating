@@ -33,5 +33,6 @@
 	"bs-rating-nsm-label-recommendations": "Recomendaciones",
 	"apihelp-bs-rating-tasks-summary": "Ejecuta las tareas comunes de la extensión Calificación",
 	"apihelp-bs-ratingarticle-store-summary": "Proporciona calificaciones para los artículos",
-	"apihelp-bs-ratingarticlelike-store-summary": "Proporciona recomendaciones para los artículos"
+	"apihelp-bs-ratingarticlelike-store-summary": "Proporciona recomendaciones para los artículos",
+	"apihelp-bs-rating-store-summary": "Proporciona calificaciones para los artículos"
 }

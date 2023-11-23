@@ -31,5 +31,6 @@
 	"bs-rating-nsm-label": "Įvertinimas",
 	"bs-rating-nsm-label-recommendations": "Rekomendacijos",
 	"apihelp-bs-ratingarticle-store-summary": "Suteikia straipsnių įvertinimus",
-	"apihelp-bs-ratingarticlelike-store-summary": "Teikia straipsnių rekomendacijas"
+	"apihelp-bs-ratingarticlelike-store-summary": "Teikia straipsnių rekomendacijas",
+	"apihelp-bs-rating-store-summary": "Pateikia straipsnių įvertinimus"
 }
