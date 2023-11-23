@@ -33,5 +33,6 @@
 	"bs-rating-nsm-label-recommendations": "Anbefalinger",
 	"apihelp-bs-rating-tasks-summary": "Utfører felles oppgaver for utvidelsen Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Leverer vurderinger for artikler",
-	"apihelp-bs-ratingarticlelike-store-summary": "Leverer anbefalinger for artikler"
+	"apihelp-bs-ratingarticlelike-store-summary": "Leverer anbefalinger for artikler",
+	"apihelp-bs-rating-store-summary": "Leverer vurderinger for artikler"
 }
