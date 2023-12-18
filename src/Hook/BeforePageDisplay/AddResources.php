@@ -3,20 +3,30 @@
 namespace BlueSpice\Rating\Hook\BeforePageDisplay;
 
 use BlueSpice\Hook\BeforePageDisplay;
+use MediaWiki\MediaWikiServices;
 
 class AddResources extends BeforePageDisplay {
+
+	protected function skipProcessing() {
+		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
+		$enabledNamespaces = $config->get( 'RatingArticleEnabledNamespaces' );
+		if ( !in_array( $this->out->getTitle()->getNamespace(), $enabledNamespaces ) ) {
+			return true;
+		}
+
+		return false;
+	}
 
 	protected function doProcess() {
 		$this->out->addModuleStyles( 'ext.bluespice.rating.icons' );
 
-		$configs = $scripts = $styles = [];
+		$scripts = $styles = [];
 		$registry = $this->getServices()->getService( 'BSRatingRegistry' );
 		$configFactory = $this->getServices()->getService(
 			'BSRatingConfigFactory'
 		);
 		foreach ( $registry->getRegisterdTypeKeys() as $key ) {
 			$config = $configFactory->newFromType( $key );
-			$configs[$key] = $config->jsonSerialize();
 			$ratingConfigStyles = $config->get( 'ModuleStyles' );
 			if ( $ratingConfigStyles ) {
 				$styles = array_merge( $styles, $ratingConfigStyles );
@@ -37,13 +47,7 @@ class AddResources extends BeforePageDisplay {
 		if ( !empty( $styles ) ) {
 			$this->out->addModuleStyles( $styles );
 		}
-		if ( !empty( $configs ) ) {
-			$this->out->addJsConfigVars( 'BSRatingConfig', $configs );
-		}
-		$this->out->addJsConfigVars(
-			'BSRatingModules',
-			$scripts
-		);
+
 		return true;
 	}
 }
