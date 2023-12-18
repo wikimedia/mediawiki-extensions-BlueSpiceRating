@@ -23,7 +23,8 @@ bs.rating.uuid = 0;
 bs.rating.generateUniqueId = function() {
 	return "bsr-ui-" + ( ++bs.rating.uuid );
 };
-bs.rating.config = mw.config.get('BSRatingConfig', {});
+var config = require( './config.json' );
+bs.rating.config = config.ratingConfig;
 bs.rating.getUiID = function( $el ) {
 	if( $el.attr('id') && $el.attr('id').length > 0 ) {
 		return $el.attr('id');
@@ -85,6 +86,6 @@ bs.rating.init = function(){
 	});
 };
 
-mw.loader.using( mw.config.get('BSRatingModules', []) ).done( function() {
+mw.loader.using( config.ratingModules ).done( function() {
 	bs.rating.init();
 });

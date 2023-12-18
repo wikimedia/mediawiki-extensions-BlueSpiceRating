@@ -149,8 +149,12 @@
 			]
 		},
 		"ext.bluespice.rating": {
-			"scripts": [
-				"bluespice.rating.js"
+			"packageFiles": [
+				"bluespice.rating.js",
+				{
+					"name": "config.json",
+					"callback": "BlueSpice\\Rating\\ClientConfig::makeConfigJson"
+				}
 			],
 			"dependencies": [
 				"oojs-ui",
