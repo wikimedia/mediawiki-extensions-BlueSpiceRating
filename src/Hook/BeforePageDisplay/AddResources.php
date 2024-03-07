@@ -3,11 +3,16 @@
 namespace BlueSpice\Rating\Hook\BeforePageDisplay;
 
 use BlueSpice\Hook\BeforePageDisplay;
+use ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
 
 class AddResources extends BeforePageDisplay {
 
 	protected function skipProcessing() {
+		if ( ExtensionRegistry::getInstance()->isLoaded( 'BlueSpiceSocialRating' ) ) {
+			return false;
+		}
+
 		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
 		$enabledNamespaces = $config->get( 'RatingArticleEnabledNamespaces' );
 		if ( !in_array( $this->out->getTitle()->getNamespace(), $enabledNamespaces ) ) {
