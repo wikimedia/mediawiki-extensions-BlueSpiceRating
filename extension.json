@@ -275,12 +275,6 @@
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddRatingMigrateRatedCommentsScript::callback"
 		],
 		"BeforePageDisplay": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources::callback",
-		"ChameleonSkinTemplateOutputPageBeforeExec": [
-			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddArticleRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddArticleLikeRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddRating::callback",
-			"\\BlueSpice\\Rating\\Hook\\ChameleonSkinTemplateOutputPageBeforeExec\\AddRecommendationsGlobalAction::callback"
-		],
 		"BSMigrateSettingsFromDeviatingNames": "\\BlueSpice\\Rating\\Extension::onBSMigrateSettingsFromDeviatingNames",
 		"NamespaceManager::getMetaFields": "BlueSpice\\Rating\\Hook\\NamespaceManagerGetMetaFields\\RegisterMetaFields::callback",
 		"BSApiNamespaceStoreMakeData": "BlueSpice\\Rating\\Hook\\BSApiNamespaceStoreMakeData\\AddData::callback",
