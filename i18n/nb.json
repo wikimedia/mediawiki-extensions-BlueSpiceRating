@@ -1,7 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
-			"Jon Harald Søby"
+			"Jon Harald S\u00f8by"
 		]
 	},
 	"bs-rating-extension-description": "Gir et rangeringssystem",
@@ -13,13 +13,13 @@
 	"bs-rating-special-rating-heading": "Vurderinger",
 	"bs-rating-articlelike-ratingtext": "Anbefal ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Anbefalt ($1)",
-	"action-rating-viewspecialpage": "vise sider som er beskyttet med rettigheten «Rating-Viewspecialpage»",
-	"action-rating-read": "lese vurderinger på sider",
-	"action-rating-write": "stemme på sider",
+	"action-rating-viewspecialpage": "vise sider som er beskyttet med rettigheten \u00abRating-Viewspecialpage\u00bb",
+	"action-rating-read": "lese vurderinger p\u00e5 sider",
+	"action-rating-write": "stemme p\u00e5 sider",
 	"action-rating-archive": "fjerne stemmer fra sider",
-	"right-rating-viewspecialpage": "Vise sider som er beskyttet med rettigheten «Rating-Viewspecialpage»",
-	"right-rating-read": "Lese vurderinger på sider",
-	"right-rating-write": "Stemme på sider",
+	"right-rating-viewspecialpage": "Vise sider som er beskyttet med rettigheten \u00abRating-Viewspecialpage\u00bb",
+	"right-rating-read": "Lese vurderinger p\u00e5 sider",
+	"right-rating-write": "Stemme p\u00e5 sider",
 	"right-rating-archive": "Fjerne stemmer fra sider",
 	"bs-rating-special-recommendations-heading": "Anbefalinger",
 	"bs-rating-special-recommendations-label-recommendation": "Anbefalinger",
@@ -27,11 +27,11 @@
 	"bs-rating-specialrating-titleTitle": "Tittel",
 	"bs-rating-specialrating-titleRating": "Vurdering",
 	"bs-rating-specialrating-titleVotes": "Antall vurderinger",
-	"apihelp-bs-rating-tasks-description": "Utfører felles oppgaver for utvidelsen Rating",
+	"apihelp-bs-rating-tasks-description": "Utf\u00f8rer felles oppgaver for utvidelsen Rating",
 	"apihelp-bs-rating-store-description": "Leverer vurderinger for artikler",
 	"bs-rating-nsm-label": "Vurdering",
 	"bs-rating-nsm-label-recommendations": "Anbefalinger",
-	"apihelp-bs-rating-tasks-summary": "Utfører felles oppgaver for utvidelsen Rating",
+	"apihelp-bs-rating-tasks-summary": "Utf\u00f8rer felles oppgaver for utvidelsen Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Leverer vurderinger for artikler",
 	"apihelp-bs-ratingarticlelike-store-summary": "Leverer anbefalinger for artikler",
 	"apihelp-bs-rating-store-summary": "Leverer vurderinger for artikler"
