@@ -2,25 +2,29 @@
 
 namespace BlueSpice\Rating\Data\Item;
 
+use Config;
+use ContextSource;
+use IContextSource;
 use MediaWiki\MediaWikiServices;
 use MWStake\MediaWiki\Component\DataStore\Record as DataStoreRecord;
+use Wikimedia\Rdbms\IDatabase;
 
 abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataProvider {
 
-	/**
-	 *
-	 * @var \ContextSource
-	 */
+	/** @var ContextSource */
 	protected $context = null;
 
+	/** @var Config */
+	protected $config;
+
 	/**
-	 *
-	 * @param \Wikimedia\Rdbms\IDatabase $db
-	 * @param \IContextSource $context
+	 * @param IDatabase $db
+	 * @param IContextSource $context
 	 */
 	public function __construct( $db, $context ) {
-		$this->context = $context;
 		parent::__construct( $db );
+		$this->context = $context;
+		$this->config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
 	}
 
 	/**

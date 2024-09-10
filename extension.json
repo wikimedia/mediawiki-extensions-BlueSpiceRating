@@ -199,31 +199,6 @@
 				"bluespice.ratingarticlelike.css"
 			]
 		},
-		"ext.bluespice.specialRating": {
-			"scripts": "bluespice.specialRating.js",
-			"dependencies": [
-				"oojs-ui",
-				"ext.bluespice.extjs"
-			],
-			"messages": [
-				"bs-rating-specialrating-titleTitle",
-				"bs-rating-specialrating-titleRating",
-				"bs-rating-specialrating-titleVotes",
-				"bs-rating-specialrating-label-namespace"
-			]
-		},
-		"ext.bluespice.specialRecommendations": {
-			"scripts": "bluespice.specialRecommendations.js",
-			"dependencies": [
-				"oojs-ui",
-				"ext.bluespice.extjs"
-			],
-			"messages": [
-				"bs-rating-specialrating-titleTitle",
-				"bs-rating-specialrating-label-namespace",
-				"bs-rating-special-recommendations-label-recommendation"
-			]
-		},
 		"ext.bluespice.rating.icons": {
 			"styles": [
 				"bluespice.rating.icons.less"
@@ -242,6 +217,37 @@
 		"ext.bluespice.rating.discovery.styles": {
 			"styles": [
 				"bluespice.rating.discovery.styles.css"
+			]
+		},
+		"ext.bluespice.rating.specialRating": {
+			"scripts": [
+				"ext.bluespice.rating.specialRating.js",
+				"panel/SpecialRatingPanel.js"
+			],
+			"messages": [
+				"bs-rating-specialrating-label-namespace",
+				"bs-rating-specialrating-titleTitle",
+				"bs-rating-specialrating-titleRating",
+				"bs-rating-specialrating-titleVotes"
+			],
+			"dependencies": [
+				"oojs-ui",
+				"ext.oOJSPlus.data"
+			]
+		},
+		"ext.bluespice.rating.specialRecommendations": {
+			"scripts": [
+				"ext.bluespice.rating.specialRecommendations.js",
+				"panel/SpecialRecommendationsPanel.js"
+			],
+			"messages": [
+				"bs-rating-specialrating-titleTitle",
+				"bs-rating-specialrating-label-namespace",
+				"bs-rating-special-recommendations-label-recommendation"
+			],
+			"dependencies": [
+				"oojs-ui",
+				"ext.oOJSPlus.data"
 			]
 		}
 	},
