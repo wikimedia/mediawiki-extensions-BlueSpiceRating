@@ -2,20 +2,21 @@
 
 namespace BlueSpice\Rating\Data;
 
+use IContextSource;
 use MWStake\MediaWiki\Component\DataStore\IStore;
+use Wikimedia\Rdbms\LoadBalancer;
 
 class Store implements IStore {
 
-	/**
-	 *
-	 * @var \IContextSource
-	 */
-	protected $context = null;
+	/** @var IContextSource */
+	protected $context;
+
+	/** @var LoadBalancer */
+	protected $loadBalancer;
 
 	/**
-	 *
-	 * @param \IContextSource $context
-	 * @param \Wikimedia\Rdbms\LoadBalancer $loadBalancer
+	 * @param IContextSource $context
+	 * @param LoadBalancer $loadBalancer
 	 */
 	public function __construct( $context, $loadBalancer ) {
 		$this->context = $context;

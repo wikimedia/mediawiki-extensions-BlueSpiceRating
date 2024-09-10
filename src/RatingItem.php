@@ -36,6 +36,7 @@ use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\Store;
 use Html;
 use MediaWiki\MediaWikiServices;
+use Message;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 
