@@ -2,17 +2,29 @@
 
 namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
-use MediaWiki\MediaWikiServices;
+use IContextSource;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\Filter\Numeric;
 use MWStake\MediaWiki\Component\DataStore\Filter\StringValue;
 use MWStake\MediaWiki\Component\DataStore\FilterFinder;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
+use Wikimedia\Rdbms\IDatabase;
 
 class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvider {
 
+	/** @var array */
+	protected $recommendationsEnabledNamespaces = [];
+
 	/**
-	 *
+	 * @param IDatabase $db
+	 * @param IContextSource $context
+	 */
+	public function __construct( $db, $context ) {
+		parent::__construct( $db, $context );
+		$this->recommendationsEnabledNamespaces = $this->config->get( 'RatingArticleLikeEnabledNamespaces' );
+	}
+
+	/**
 	 * @param ReaderParams $params
 	 * @return Record[]
 	 */
@@ -52,6 +64,7 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 		$conds = [
 			'rat_reftype' => 'articlelike',
 			'page_id = rat_ref',
+			'page_namespace' => $this->recommendationsEnabledNamespaces
 		];
 		$schema = new Schema();
 		$fields = array_values( $schema->getFilterableFields() );
@@ -175,10 +188,8 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	 * @return \BlueSpice\Rating\RatingItem
 	 */
 	protected function makeRatingItem( $row ) {
-		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
-		$namespaces = $config->get( 'RatingArticleLikeEnabledNamespaces' );
 		$ns = $row->{Record::PAGENAMESPACE};
-		if ( !in_array( $ns, $namespaces ) ) {
+		if ( !in_array( $ns, $this->recommendationsEnabledNamespaces ) ) {
 			return null;
 		}
 		return parent::makeRatingItem( $row );
