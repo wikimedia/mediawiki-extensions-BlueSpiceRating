@@ -10,21 +10,19 @@
 
 bs.rating.ItemArticle = function( $el, type, data ) {
 	bs.rating.Item.call( this, $el, type, data );
-	var me = this;
-	me.makeStarRating();
-	me.makeNumVotes();
-	me.makeUserVoted();
-	me.getEl().append( me.$numVotes );
-	me.getEl().append( me.$userVoted );
-	var aUserVotes = me.getCurrentUserRatings();
-	if( aUserVotes.length > 0 ) {
-		me.$userVoted.attr(
-			'title',
-			mw.message( 'bs-rating-yourrating', aUserVotes[0][me.VALUE] )
-		);
-	}
-	if( me.userVoted() ) {
-		me.$userVoted.show();
+	const userVotes = this.getCurrentUserRatings();
+	const myRating = userVotes.length ? userVotes[0][this.VALUE] : 0;
+	this.makeStarRating( myRating );
+	this.makeNumVotes();
+	this.makeUserVoted();
+	this.getEl().append( this.$numVotes );
+	this.getEl().append( this.$userVoted );
+	this.$userVoted.attr(
+		'title',
+		mw.message( 'bs-rating-yourrating', myRating )
+	);
+	if( this.userVoted() ) {
+		this.$userVoted.show();
 	}
 };
 OO.inheritClass( bs.rating.ItemArticle, bs.rating.Item );
@@ -63,32 +61,32 @@ bs.rating.ItemArticle.prototype.reset = function( data ) {
 		);
 	}
 };
-bs.rating.ItemArticle.prototype.makeStarRating = function( data ) {
-	var me = this;
-	var $el = me.$el;
-	me.$starRating = $el.starRating({
+bs.rating.ItemArticle.prototype.makeStarRating = function( myRating ) {
+	var $el = this.$el;
+	this.$starRating = $el.starRating({
 		starSize: 14,
 		useFullStars: true,
-		disableAfterRate: false,
+		disableAfterRate: true,
 		strokeWidth: 9,
 		strokeColor: 'black',
-		readOnly: !me.data.get( 'usercanmodify', false ),
-		initialRating: me.getVoteAverage(),
+		readOnly: !this.data.get( 'usercanmodify', false ),
+		initialRating: this.getVoteAverage(),
+		myRating: myRating,
 		starGradient: {
 			start: '#93BFE2',
 			end: '#105694'
 		},
-		callback: function(currentRating, $el){
+		callback: ( currentRating, $el ) => {
 			$el.starRating( 'setReadOnly', true );
-			me.addLoadingMask( $el );
-			me.vote( currentRating ).done( function( result ) {
+			this.addLoadingMask( $el );
+			this.vote( currentRating ).done( ( result ) => {
 				if( !result.success ) {
-					currentRating = me.getVoteAverage();
+					currentRating = this.getVoteAverage();
 				}
 				$el.starRating( 'setReadOnly', false );
-				me.removeLoadingMask( $el );
+				this.removeLoadingMask( $el );
 				if( result.payload.data ) {
-					me.reset( result.payload.data );
+					this.reset( result.payload.data );
 				}
 			});
 		}

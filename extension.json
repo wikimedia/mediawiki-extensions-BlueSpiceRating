@@ -212,6 +212,10 @@
 		"ext.rating.starRatingSvg": {
 			"scripts": [
 				"star-rating-svg/src/jquery.star-rating-svg.js"
+			],
+			"messages": [
+				"bs-rating-star-rating-star-label",
+				"bs-rating-star-rating-star-selected-announce"
 			]
 		},
 		"ext.bluespice.rating.discovery.styles": {

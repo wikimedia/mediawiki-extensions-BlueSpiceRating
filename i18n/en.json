@@ -32,5 +32,7 @@
 	"bs-rating-nsm-label-recommendations": "Recommendations",
 	"apihelp-bs-rating-tasks-summary": "Executes common tasks for extension Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Delivers ratings for articles",
-	"apihelp-bs-ratingarticlelike-store-summary": "Delivers recommendations for articles"
+	"apihelp-bs-ratingarticlelike-store-summary": "Delivers recommendations for articles",
+	"bs-rating-star-rating-star-label": "Rating star $1",
+	"bs-rating-star-rating-star-selected-announce": "Rating star $1 selected"
 }
