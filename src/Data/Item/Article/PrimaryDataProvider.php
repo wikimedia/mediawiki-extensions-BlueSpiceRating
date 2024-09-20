@@ -31,6 +31,9 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	 */
 	public function makeData( $params ) {
 		$this->data = [];
+		if ( !$this->ratingEnabledNamespaces ) {
+			return [];
+		}
 
 		$fields = [
 			'rat_ref',
