@@ -8,32 +8,43 @@
 
 bs.rating.ItemArticleLike = function( $el, type, data ) {
 	bs.rating.Item.call( this, $el, type, data );
-	var me = this;
-	me.makeVoteButton();
-	me.makeNumVotes();
-	me.makeUserVoted();
+	this.makeVoteButton();
+	this.makeNumVotes();
+	this.makeUserVoted();
 
-	me.getEl().append( me.$voteButton );
-	me.getEl().append( me.$numVotes );
-	me.getEl().append( me.$userVoted );
+	this.getEl().append( this.$voteButton );
+	this.getEl().append( this.$numVotes );
+	this.getEl().append( this.$userVoted );
 
-	if( me.userVoted() ) {
-		me.$voteButton.addClass( 'uservoted' );
-		me.$numVotes.addClass( 'uservoted' );
-		me.$userVoted.show();
+	if ( this.userVoted() ) {
+		this.$voteButton.addClass( 'uservoted' );
+		this.$voteButton.attr( 'aria-pressed', 'true' );
+		this.$numVotes.addClass( 'uservoted' );
+		this.$userVoted.show();
+	} else {
+		this.$voteButton.attr( 'aria-pressed', 'false' );
 	}
-	$( me.getEl() ).on(
+
+	this.$voteButton.on( 'keydown', ( e ) => {
+		if ( e.key === 'Enter' || e.key === ' ' ) {
+			e.preventDefault();
+			e.stopPropagation();
+			this.$voteButton.click();
+		}
+	});
+
+	$( this.getEl() ).on(
 		"click",
 		".bs-rating-articlelike-button, .bs-rating-articlelike-numvotes",
-		function() {
-		if( !me.data.get( 'usercanmodify', false ) ) {
+		() => {
+		if( !this.data.get( 'usercanmodify', false ) ) {
 			return false;
 		}
-		me.addLoadingMask();
-		me.vote( me.userVoted() ? false : 1 ).done( function( result ) {
+		this.addLoadingMask();
+		this.vote( this.userVoted() ? false : 1 ).done( ( result ) => {
 			if( result.success === true ) {
-				me.reset( result.payload.data );
-				me.removeLoadingMask();
+				this.reset( result.payload.data );
+				this.removeLoadingMask();
 			}
 		});
 		return false;
@@ -54,25 +65,37 @@ bs.rating.ItemArticleLike.prototype.getData = function() {
 
 bs.rating.ItemArticleLike.prototype.reset = function( data ) {
 	bs.rating.ItemArticleLike.super.prototype.reset.apply( this, [data] );
-	var me = this;
 	this.getEl().find('.bs-rating-articlelike-numvotes').replaceWith(
-		me.makeNumVotes()
+		this.makeNumVotes()
 	);
-	if( me.userVoted() ) {
-		me.$voteButton.addClass( 'uservoted' );
-		me.$numVotes.addClass( 'uservoted' );
-		me.$userVoted.show();
+	if( this.userVoted() ) {
+		this.$voteButton.addClass( 'uservoted' );
+		this.$voteButton.attr( 'aria-pressed', 'true' );
+		this.$voteButton.attr( 'aria-label', mw.message( 'bs-rating-articlelike-uratingtextservoted', this.getVoteCount() ).plain() );
+		this.$numVotes.addClass( 'uservoted' );
+		this.$userVoted.show();
 	} else {
-		me.$voteButton.removeClass( 'uservoted' );
-		me.$numVotes.removeClass( 'uservoted' );
-		me.$userVoted.hide();
+		this.$voteButton.removeClass( 'uservoted' );
+		this.$voteButton.attr( 'aria-pressed', 'false' );
+		this.$voteButton.attr( 'aria-label', mw.message( 'bs-rating-articlelike-ratingtext', this.getVoteCount() ).plain() );
+		this.$numVotes.removeClass( 'uservoted' );
+		this.$userVoted.hide();
 	}
 };
 
 bs.rating.ItemArticleLike.prototype.makeVoteButton = function( data ) {
-	this.$voteButton = $(
-		'<span class="bs-rating-articlelike-button"></span>'
-	);
+	this.$voteButton = $('<button></button>').attr( {
+		'class': 'bs-rating-articlelike-button',
+		'role': 'button',
+		'aria-pressed': 'false',
+		'aria-label': mw.message(
+			this.userVoted()
+			? 'bs-rating-articlelike-uratingtextservoted'
+			: 'bs-rating-articlelike-ratingtext', this.getVoteCount()
+		).plain(),
+		'tabindex': '0'
+	} );
+
 	return this.$voteButton;
 };
 
