@@ -3,6 +3,10 @@
 	margin-right: 5px;
 	margin-left: 10px;
 }
+.bs-rating-articlelike-button {
+	background: none;
+	border: none;
+}
 .bs-rating-articlelike-button, .bs-rating-articlelike-numvotes {
 	display: inline-block;
 	cursor: pointer;
