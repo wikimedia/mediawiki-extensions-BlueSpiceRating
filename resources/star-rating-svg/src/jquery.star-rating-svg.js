@@ -32,6 +32,7 @@
     strokeWidth: 4,
     strokeColor: 'black',
     initialRating: 0,
+	myRating: 0,
     starSize: 40,
     callback: noop,
     onHover: noop,
@@ -70,13 +71,35 @@
       this.renderMarkup();
       this.addListeners();
       this.initRating();
+	  this.addKeyboardSupport();
     },
+
+	addKeyboardSupport: function() {
+		this.$el.attr( 'role', 'radiogroup' );
+        this.$stars.each( ( index, star ) => {
+            $( star ).attr( {
+                'role': 'radio',
+                'aria-label': mw.message( 'bs-rating-star-rating-star-label', index + 1 ).plain(),
+                'aria-checked': 'false',
+                'tabindex': '-1'
+            } );
+        } );
+
+		if ( this.settings.myRating ) {
+			this.$stars.eq( this.settings.myRating - 1 )
+				.attr( 'tabindex', '0' )
+				.attr( 'aria-checked', 'true' );
+		} else {
+			this.$stars.first().attr( 'tabindex', '0' );
+		}
+	},
 
     addListeners: function(){
       if( this.settings.readOnly ){ return; }
       this.$stars.on('mouseover', this.hoverRating.bind(this));
       this.$stars.on('mouseout', this.restoreState.bind(this));
       this.$stars.on('click', this.handleRating.bind(this));
+		this.$stars.on('keydown', this.handleKeyDown.bind(this));
     },
 
     // apply styles to hovered stars
@@ -87,11 +110,11 @@
     },
 
     // clicked on a rate, apply style and state
-    handleRating: function(e){
-      var index = this.getIndex(e);
+    handleRating: function(e, keyDown = false, offset = 0 ){
+      var index = this.getIndex(e) + offset;
       var rating = index + 1;
 
-      this.applyRating(rating, this.$el);
+      this.applyRating(rating, keyDown );
       this.executeCallback( rating, this.$el );
 
       if(this.settings.disableAfterRate){
@@ -99,12 +122,68 @@
       }
     },
 
-    applyRating: function(rating){
+	handleKeyDown: function( e ) {
+		const index = this.getIndex( e );
+		const $currentStar = this.$stars.eq( index );
+		switch( e.key ) {
+			case 'ArrowRight':
+				e.preventDefault();
+				e.stopPropagation();
+				// Next star
+				if ( index < this.settings.totalStars - 1 ) {
+					$currentStar.attr( 'tabindex', '-1' );
+					$currentStar.next().attr( 'tabindex', '0' ).focus();
+					this.handleRating( e, true, 1 );
+				}
+				break;
+			case 'ArrowLeft':
+				e.preventDefault();
+				e.stopPropagation();
+				// Previous star
+				if ( index > 0 ) {
+					$currentStar.attr( 'tabindex', '-1' );
+					$currentStar.prev().attr( 'tabindex', '0' ).focus();
+					this.handleRating( e, true, -1 );
+				}
+				break;
+			case 'Enter':
+			case ' ':
+				e.preventDefault();
+				e.stopPropagation();
+				// Select the current star
+				this.handleRating( e, true );
+				break;
+		}
+	},
+
+    applyRating: function(rating, keyDown = false){
       var index = rating - 1;
       // paint selected and remove hovered color
       this.paintStars(index, 'active');
       this._state.rating = index + 1;
+
+		if ( keyDown ) {
+			this.updateAriaAttributes( index );
+			this.updateLiveRegion( rating );
+		}
     },
+
+    updateAriaAttributes: function( index ) {
+		this.$stars.attr( 'aria-checked', 'false' );
+		this.$stars.eq( index ).attr( 'aria-checked', 'true' );
+	},
+
+	updateLiveRegion: function( rating ) {
+		// Announce the rating change
+		if ( !this.$liveRegion ) {
+		  this.$liveRegion = $( '<div>', {
+			'class': 'visually-hidden',
+			'aria-live': 'polite',
+			'role': 'status',
+		  } ).appendTo( this.$el );
+		}
+		this.$liveRegion.text( mw.message( 'bs-rating-star-rating-star-selected-announce', rating ).plain() );
+	},
 
     restoreState: function(e){
       var index = this.getIndex(e);
