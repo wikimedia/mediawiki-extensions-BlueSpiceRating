@@ -14,6 +14,8 @@
 	"bs-rating-special-rating-heading": "Heading for [[Special:Rating]] special page",
 	"bs-rating-articlelike-ratingtext": "Short label for the button that sets a recommendation when the user has not voted yet.\n* $1 - Count of all recommendations",
 	"bs-rating-articlelike-uratingtextservoted": "Short label for the button that removes the users recommendation.\n* $1 - Count of all recommendations",
+	"bs-rating-articlelike-ratingtext-title": "Title for the recommendation text.\n* $1 - Number of recommendations",
+	"bs-rating-articlelike-uservoted-title": "Title for the recommendation tick icon.",
 	"action-rating-viewspecialpage": "{{doc-action|rating-viewspecialpage}}",
 	"action-rating-read": "{{doc-action|rating-read}}",
 	"action-rating-write": "{{doc-action|rating-write}}",

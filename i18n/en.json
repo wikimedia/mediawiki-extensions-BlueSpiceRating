@@ -13,6 +13,8 @@
 	"bs-rating-special-rating-heading": "Ratings",
 	"bs-rating-articlelike-ratingtext": "Recommend ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Recommended ($1)",
+	"bs-rating-articlelike-ratingtext-title": "$1 {{PLURAL:$1|recommendation|recommendations}}",
+	"bs-rating-articlelike-uservoted-title": "Recommended by you",
 	"action-rating-viewspecialpage": "view pages which are protected with the \"Rating-Viewspecialpage\" right",
 	"action-rating-read": "read ratings on pages",
 	"action-rating-write": "vote on pages",
