@@ -11,6 +11,8 @@
 	"recommendations": "Recommendations",
 	"bs-rating-yourrating": "Your rating: $1",
 	"bs-rating-special-rating-heading": "Ratings",
+	"bs-rating-ratingvalue-title": "Rated $1 out of 5",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|rating|ratings}}",
 	"bs-rating-articlelike-ratingtext": "Recommend ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Recommended ($1)",
 	"action-rating-viewspecialpage": "view pages which are protected with the \"Rating-Viewspecialpage\" right",

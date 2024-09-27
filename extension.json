@@ -178,7 +178,9 @@
 				"ext.bluespice.ratingItem"
 			],
 			"messages": [
-				"bs-rating-yourrating"
+				"bs-rating-yourrating",
+				"bs-rating-ratingvalue-title",
+				"bs-rating-ratingcount-title"
 			]
 		},
 		"ext.bluespice.ratingItemArticleLike": {
