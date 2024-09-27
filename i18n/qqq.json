@@ -12,6 +12,8 @@
 	"recommendations": "Page title for special page [[Special:Recommendations]]",
 	"bs-rating-yourrating": "Label for the users rating value.\n* $1 - The users value. String or number",
 	"bs-rating-special-rating-heading": "Heading for [[Special:Rating]] special page",
+	"bs-rating-ratingvalue-title": "Title for the rating value.",
+	"bs-rating-ratingcount-title": "Title for the rating count.\n* $1 - Number of ratings",
 	"bs-rating-articlelike-ratingtext": "Short label for the button that sets a recommendation when the user has not voted yet.\n* $1 - Count of all recommendations",
 	"bs-rating-articlelike-uratingtextservoted": "Short label for the button that removes the users recommendation.\n* $1 - Count of all recommendations",
 	"action-rating-viewspecialpage": "{{doc-action|rating-viewspecialpage}}",

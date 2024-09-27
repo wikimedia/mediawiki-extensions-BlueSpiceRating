@@ -75,7 +75,13 @@
     },
 
 	addKeyboardSupport: function() {
-		this.$el.attr( 'role', 'radiogroup' );
+		if ( this.settings.readOnly ) {
+			this.$el.addClass( 'disabled' );
+			this.$el.attr( 'aria-disabled', 'true' );
+
+			return;
+		}
+
         this.$stars.each( ( index, star ) => {
             $( star ).attr( {
                 'role': 'radio',
