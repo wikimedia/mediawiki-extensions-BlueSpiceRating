@@ -1,69 +1,63 @@
-/**
- * Js for Rating extension
- *
- * @author     Patric Wirth
- * @package    BlueSpiceRating
- * @subpackage Rating
- * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
- */
-
-bs.rating.ItemArticle = function( $el, type, data ) {
+bs.rating.ItemArticle = function ( $el, type, data ) {
 	bs.rating.Item.call( this, $el, type, data );
+
 	const userVotes = this.getCurrentUserRatings();
-	const myRating = userVotes.length ? userVotes[0][this.VALUE] : 0;
-	this.makeStarRating( myRating );
-	this.makeNumVotes();
-	this.makeUserVoted();
-	this.getEl().append( this.$numVotes );
-	this.getEl().append( this.$userVoted );
-	this.$userVoted.attr(
-		'title',
-		mw.message( 'bs-rating-yourrating', myRating )
-	);
-	if( this.userVoted() ) {
-		this.$userVoted.show();
-	}
+	const myRating = userVotes.length ? userVotes[ 0 ][ this.VALUE ] : 0;
+
+	this.$starGroup = $( '<div>' ).attr( {
+		role: 'radiogroup',
+		class: 'bs-rating-article-stargroup',
+		title: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text()
+	} );
+
+	this.$starGroup.append( this.makeStarRating( myRating ) );
+	this.getEl().append( this.$starGroup );
+
+	this.getEl().append( this.makeNumVotes() );
+	this.getEl().append( this.makeUserVoted( myRating ) );
 };
+
 OO.inheritClass( bs.rating.ItemArticle, bs.rating.Item );
+
 bs.rating.register(
 	'article',
 	'\\BlueSpice\\Rating\\RatingItem\\Article',
 	bs.rating.ItemArticle
 );
-bs.rating.ItemArticle.prototype.getStarRating = function() {
+bs.rating.ItemArticle.prototype.getStarRating = function () {
 	return this.$starRating;
 };
-bs.rating.ItemArticle.prototype.getData = function() {
-	//well, thats a way to implement parrent calls ^^
-	var data = bs.rating.ItemArticle.super.prototype.getData.apply( this );
+
+bs.rating.ItemArticle.prototype.getData = function () {
+	const data = bs.rating.ItemArticle.super.prototype.getData.apply( this );
 	data.articleid = mw.config.get( 'wgArticleId', 0 );
 	return data;
 };
-bs.rating.ItemArticle.prototype.reset = function( data ) {
-	bs.rating.ItemArticle.super.prototype.reset.apply( this, [data] );
-	this.getEl().starRating(
-		'setRating',
-		this.getVoteAverage(),
-		false
-	);
-	if( this.userVoted() ) {
+
+bs.rating.ItemArticle.prototype.reset = function ( data ) {
+	bs.rating.ItemArticle.super.prototype.reset.apply( this, [ data ] );
+
+	this.$starGroup.starRating( 'setRating', this.getVoteAverage(), false );
+	this.$starGroup.attr( {
+		title: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text()
+	} );
+
+	if ( this.userVoted() ) {
 		this.$userVoted.show();
 	} else {
 		this.$userVoted.hide();
 	}
-	this.$numVotes.html('(' + this.getVoteCount() + ')');
-	var aUserVotes = this.getCurrentUserRatings();
-	if( aUserVotes.length > 0 ) {
-		this.$userVoted.attr(
-			'title',
-			mw.message( 'bs-rating-yourrating', aUserVotes[0][this.VALUE])
-		);
+
+	const userVotes = this.getCurrentUserRatings();
+	if ( userVotes.length > 0 ) {
+		this.$userVoted.attr( {
+			title: mw.message( 'bs-rating-yourrating', userVotes[ 0 ][ this.VALUE ] )
+		} );
 	}
 };
-bs.rating.ItemArticle.prototype.makeStarRating = function( myRating ) {
-	var $el = this.$el;
-	this.$starRating = $el.starRating({
+
+bs.rating.ItemArticle.prototype.makeStarRating = function ( myRating ) {
+	this.$starRating = this.$starGroup.starRating( {
 		starSize: 14,
 		useFullStars: true,
 		disableAfterRate: true,
@@ -80,32 +74,45 @@ bs.rating.ItemArticle.prototype.makeStarRating = function( myRating ) {
 			$el.starRating( 'setReadOnly', true );
 			this.addLoadingMask( $el );
 			this.vote( currentRating ).done( ( result ) => {
-				if( !result.success ) {
+				if ( !result.success ) {
 					currentRating = this.getVoteAverage();
 				}
 				$el.starRating( 'setReadOnly', false );
 				this.removeLoadingMask( $el );
-				if( result.payload.data ) {
+				if ( result.payload.data ) {
 					this.reset( result.payload.data );
 				}
-			});
+			} );
 		}
-	});
+	} );
+
+	return this.$starRating;
 };
 
-bs.rating.ItemArticle.prototype.makeNumVotes = function( data ) {
-	this.$numVotes = $(
-		'<span class="bs-rating-article-numvotes">('
-		+ this.getVoteCount()
-		+ ')</span>'
+bs.rating.ItemArticle.prototype.makeNumVotes = function () {
+	const $numVotes = $( '<span>' ).attr( {
+		class: 'bs-rating-article-numvotes',
+		title: mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text()
+	} ).html(
+		`(${this.getVoteCount()})`
 	);
-};
-bs.rating.ItemArticle.prototype.makeUserVoted = function( data ) {
-	this.$userVoted = $(
-		'<span class="bs-rating-article-uservoted"></span>'
-	).hide();
+
+	return $numVotes;
 };
 
-bs.rating.ItemArticle.prototype.setReadOnly = function( value ) {
-	this.$el.starRating( 'setReadOnly', value || true );
+bs.rating.ItemArticle.prototype.makeUserVoted = function ( myRating ) {
+	this.$userVoted = $( '<span>' ).attr( {
+		class: 'bs-rating-article-uservoted',
+		title: mw.message( 'bs-rating-yourrating', myRating )
+	} ).hide();
+
+	if ( this.userVoted() ) {
+		this.$userVoted.show();
+	}
+
+	return this.$userVoted;
+};
+
+bs.rating.ItemArticle.prototype.setReadOnly = function ( value ) {
+	this.$starGroup.starRating( 'setReadOnly', value || true );
 };
