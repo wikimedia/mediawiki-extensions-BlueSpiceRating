@@ -34,5 +34,7 @@
 	"bs-rating-nsm-label-recommendations": "המלצות",
 	"apihelp-bs-rating-tasks-summary": "מבצעת משימות נפוצות עבור ההרחבה Rating",
 	"apihelp-bs-ratingarticle-store-summary": "מוסרת דירוגים לערכים",
-	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים"
+	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים",
+	"bs-rating-star-rating-star-label": "כוכב דירוג מס׳ $1",
+	"bs-rating-star-rating-star-selected-announce": "נבחר כוכב דירוג מס׳ $1"
 }

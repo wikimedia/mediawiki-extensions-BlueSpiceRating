@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Amire80",
 			"Patric Wirth",
 			"Verdy p"
 		]
@@ -34,6 +35,6 @@
 	"apihelp-bs-rating-tasks-summary": "{{doc-apihelp-summary|bs-rating-tasks}}",
 	"apihelp-bs-ratingarticle-store-summary": "{{doc-apihelp-summary|bs-ratingarticle-store}}",
 	"apihelp-bs-ratingarticlelike-store-summary": "{{doc-apihelp-summary|bs-ratingarticlelike-store}}",
-	"bs-rating-star-rating-star-label": "Label for star rating star\nParameters:\n* $1 - star number",
+	"bs-rating-star-rating-star-label": "Label for star rating star. Parameters:\n* $1 - star number",
 	"bs-rating-star-rating-star-selected-announce": "Announcement for star rating star selected\nParameters:\n* $1 - star number"
 }
