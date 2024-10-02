@@ -34,5 +34,11 @@
 	"apihelp-bs-rating-tasks-summary": "Izvaja običajne naloge za razširitev Ocenjevanje",
 	"apihelp-bs-ratingarticle-store-summary": "Zagotavlja ocene za članke",
 	"apihelp-bs-ratingarticlelike-store-summary": "Zagotavlja priporočila za članke",
-	"apihelp-bs-rating-store-summary": "Zagotavlja ocene za članke"
+	"apihelp-bs-rating-store-summary": "Zagotavlja ocene za članke",
+	"bs-rating-ratingvalue-title": "Ocenjeno z $1 od 5",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|ocena|oceni|ocene|ocen}}",
+	"bs-rating-articlelike-ratingtext-title": "$1 {{PLURAL:$1|priporočilo|priporočili|priporočila|priporočil}}",
+	"bs-rating-articlelike-uservoted-title": "Vaše priporočilo",
+	"bs-rating-star-rating-star-label": "Ocenjevalna zvezdica $1",
+	"bs-rating-star-rating-star-selected-announce": "Ocenjevalna zvezdica $1 je izbrana"
 }

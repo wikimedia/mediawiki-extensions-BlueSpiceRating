@@ -36,5 +36,11 @@
 	"apihelp-bs-rating-tasks-summary": "מבצעת משימות נפוצות עבור ההרחבה Rating",
 	"apihelp-bs-ratingarticle-store-summary": "מוסרת דירוגים לערכים",
 	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים",
-	"apihelp-bs-rating-store-summary": "מוסרת דירוגים לערכים"
+	"apihelp-bs-rating-store-summary": "מוסרת דירוגים לערכים",
+	"bs-rating-ratingvalue-title": "מדורג $1 מתוך 5",
+	"bs-rating-ratingcount-title": "{{PLURAL:$1|דירוג אחד|$1 דירוגים}}",
+	"bs-rating-articlelike-ratingtext-title": "{{PLURAL:$1|המלצה אחת|$1 המלצות}}",
+	"bs-rating-articlelike-uservoted-title": "המלצת על זה",
+	"bs-rating-star-rating-star-label": "כוכב דירוג מס׳ $1",
+	"bs-rating-star-rating-star-selected-announce": "נבחר כוכב דירוג מס׳ $1"
 }
