@@ -20,5 +20,6 @@
 	"bs-rating-specialrating-titleTitle": "제목",
 	"bs-rating-specialrating-titleRating": "평가",
 	"bs-rating-nsm-label": "평가",
-	"bs-rating-nsm-label-recommendations": "권장"
+	"bs-rating-nsm-label-recommendations": "권장",
+	"bs-rating-articlelike-uservoted-title": "당신이 추천함"
 }

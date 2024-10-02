@@ -1,10 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
-			"Chrumps"
+			"Chrumps",
+			"Meeqoo"
 		]
 	},
 	"recommendations": "Rekomendacje",
 	"bs-rating-specialrating-titleTitle": "Tytuł",
-	"bs-rating-nsm-label-recommendations": "Rekomendacje"
+	"bs-rating-nsm-label-recommendations": "Rekomendacje",
+	"bs-rating-star-rating-star-label": "Gwiazdka oceny $1",
+	"bs-rating-star-rating-star-selected-announce": "Wybrano gwiazdkę oceny $1"
 }
