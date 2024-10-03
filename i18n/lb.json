@@ -1,13 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"rating": "Bewäertungen",
 	"recommendations": "Recommandatiounen",
 	"bs-rating-yourrating": "Är Bewäertung: $1",
 	"bs-rating-special-rating-heading": "Bewäertungen",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|Bewäertung|Bewäertungen}}",
 	"bs-rating-articlelike-uratingtextservoted": "Recommandéiert ($1)",
 	"action-rating-read": "Bewäertunge vu Säite liesen",
 	"bs-rating-special-recommendations-heading": "Recommandatiounen",
