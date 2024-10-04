@@ -7,7 +7,8 @@ bs.rating.ItemArticle = function ( $el, type, data ) {
 	this.$starGroup = $( '<div>' ).attr( {
 		role: 'radiogroup',
 		class: 'bs-rating-article-stargroup',
-		title: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text()
+		title: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text(),
+		ariaLabel: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text()
 	} );
 
 	this.$starGroup.append( this.makeStarRating( myRating ) );
