@@ -195,6 +195,7 @@
 				"bs-rating-articlelike-ratingtext",
 				"bs-rating-articlelike-uratingtextservoted",
 				"bs-rating-articlelike-ratingtext-title",
+				"bs-rating-articlelike-ratingtext-reader-title",
 				"bs-rating-articlelike-uservoted-title"
 			]
 		},

@@ -8,7 +8,6 @@ bs.rating.ItemArticleLike = function ( $el, type, data ) {
 
 	if ( !this.data.get( 'usercanmodify', false ) ) {
 		this.$voteButton.prop( 'disabled', true );
-		this.$voteButton.attr( 'aria-disabled', 'true' );
 	}
 
 	this.updateVoteButtonAccessibility();
@@ -21,14 +20,6 @@ bs.rating.ItemArticleLike = function ( $el, type, data ) {
 	if ( this.getVoteCount() > 0 ) {
 		this.$voteIcon.addClass( 'recommended' );
 	}
-
-	this.$voteButton.on( 'keydown', ( e ) => {
-		if ( e.key === 'Enter' || e.key === ' ' ) {
-			e.preventDefault();
-			e.stopPropagation();
-			this.$voteButton.trigger( 'click' );
-		}
-	} );
 
 	this.$voteButton.on( 'click', () => {
 		if ( !this.data.get( 'usercanmodify', false ) ) {
@@ -88,10 +79,7 @@ bs.rating.ItemArticleLike.prototype.updateVoteButtonAccessibility = function () 
 bs.rating.ItemArticleLike.prototype.makeVoteButton = function () {
 	this.$voteButton = $( '<button>' ).attr( {
 		class: 'bs-rating-articlelike-button',
-		title: mw.message( 'bs-rating-articlelike-ratingtext-title', this.getVoteCount() ).text(),
-		role: 'button',
-		'aria-pressed': 'false',
-		tabindex: '0'
+		title: mw.message( 'bs-rating-articlelike-ratingtext-title', this.getVoteCount() ).text()
 	} );
 
 	this.$voteButton.append( this.makeVoteIcon() );
@@ -109,16 +97,22 @@ bs.rating.ItemArticleLike.prototype.makeVoteIcon = function () {
 };
 
 bs.rating.ItemArticleLike.prototype.makeLabel = function () {
-	this.$label = $( '<span>' ).attr( {
-		class: 'bs-rating-articlelike-label'
-	} ).html(
-		mw.message(
+	let label;
+
+	if ( this.data.get( 'usercanmodify', false ) ) {
+		label = mw.message(
 			this.getVoteCount() > 0 ?
 				'bs-rating-articlelike-uratingtextservoted' :
 				'bs-rating-articlelike-ratingtext',
 			this.getVoteCount()
-		).parse()
-	);
+		).text();
+	} else {
+		label = mw.message( 'bs-rating-articlelike-ratingtext-reader-title', this.getVoteCount() ).text();
+	}
+
+	this.$label = $( '<span>' ).attr( {
+		class: 'bs-rating-articlelike-label'
+	} ).html( label );
 
 	return this.$label;
 };
