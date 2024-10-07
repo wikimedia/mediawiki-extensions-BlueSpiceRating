@@ -2,13 +2,15 @@
 	"@metadata": {
 		"authors": [
 			"DDPAT",
-			"Ice bulldog"
+			"Ice bulldog",
+			"Kareyac"
 		]
 	},
 	"recommendations": "Рекомендации",
 	"bs-rating-yourrating": "Ваша оценка: $1",
 	"bs-rating-articlelike-ratingtext": "Рекомендовать ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Рекомендуемые ($1)",
+	"bs-rating-articlelike-ratingtext-title": "$1 {{PLURAL:$1| рекомендация|рекомендации}}",
 	"right-rating-write": "Голоса на страницах",
 	"bs-rating-special-recommendations-heading": "Рекомендации",
 	"bs-rating-special-recommendations-label-recommendation": "Рекомендации",
