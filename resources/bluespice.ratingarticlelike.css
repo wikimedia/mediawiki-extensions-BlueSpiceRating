@@ -23,12 +23,13 @@
 	margin-right: 5px;
 }
 
+.bs-rating-articlelike-label,
 .bs-rating-articlelike-icon.recommended::after {
 	color: var(--link-fg);
 }
 
-.bs-rating-articlelike-label {
-	color: var(--link-fg);
+.bs-rating-articlelike-button:disabled .bs-rating-articlelike-label {
+	color: var(--content-fg-secondary);
 }
 
 .bs-rating-articlelike-uservoted::after{
