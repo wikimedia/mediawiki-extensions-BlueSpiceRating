@@ -11,6 +11,7 @@
 	"bs-rating-special-rating-heading": "Valutazioni",
 	"bs-rating-articlelike-ratingtext": "Consiglia ( $1 )",
 	"bs-rating-articlelike-uratingtextservoted": "Consigliato ( $1 )",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|Raccomandazione|Raccomandazioni}} ($1)",
 	"bs-rating-articlelike-uservoted-title": "Consigliato da te",
 	"action-rating-viewspecialpage": "vedere pagine protette con il diritto \"Rating-Viewspecialpage\"",
 	"right-rating-viewspecialpage": "Visualizza pagine protette con il diritto \"Rating-Viewspecialpage\"",
