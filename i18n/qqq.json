@@ -17,7 +17,6 @@
 	"bs-rating-ratingcount-title": "Title for the rating count.\n* $1 - Number of ratings",
 	"bs-rating-articlelike-ratingtext": "Short label for the button that sets a recommendation when the user has not voted yet.\n* $1 - Count of all recommendations",
 	"bs-rating-articlelike-uratingtextservoted": "Short label for the button that removes the users recommendation.\n* $1 - Count of all recommendations",
-	"bs-rating-articlelike-ratingtext-title": "Title for the recommendation text.\n* $1 - Number of recommendations",
 	"bs-rating-articlelike-ratingtext-reader-title": "Title for readers for the recommendation text.\n* $1 - Number of recommendations",
 	"bs-rating-articlelike-uservoted-title": "Title for the recommendation tick icon.",
 	"action-rating-viewspecialpage": "{{doc-action|rating-viewspecialpage}}",
