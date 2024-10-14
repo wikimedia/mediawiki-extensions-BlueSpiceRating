@@ -66,20 +66,16 @@ bs.rating.ItemArticleLike.prototype.reset = function ( data ) {
 };
 
 bs.rating.ItemArticleLike.prototype.updateVoteButtonAccessibility = function () {
-	this.$voteButton.attr( 'title', mw.message( 'bs-rating-articlelike-ratingtext-title', this.getVoteCount() ).text() );
 	if ( this.userVoted() ) {
 		this.$voteButton.attr( 'aria-pressed', 'true' );
-		this.$voteButton.attr( 'aria-label', mw.message( 'bs-rating-articlelike-uratingtextservoted', this.getVoteCount() ).text() );
 	} else {
 		this.$voteButton.attr( 'aria-pressed', 'false' );
-		this.$voteButton.attr( 'aria-label', mw.message( 'bs-rating-articlelike-ratingtext', this.getVoteCount() ).text() );
 	}
 };
 
 bs.rating.ItemArticleLike.prototype.makeVoteButton = function () {
 	this.$voteButton = $( '<button>' ).attr( {
-		class: 'bs-rating-articlelike-button',
-		title: mw.message( 'bs-rating-articlelike-ratingtext-title', this.getVoteCount() ).text()
+		class: 'bs-rating-articlelike-button'
 	} );
 
 	this.$voteButton.append( this.makeVoteIcon() );
@@ -120,7 +116,8 @@ bs.rating.ItemArticleLike.prototype.makeLabel = function () {
 bs.rating.ItemArticleLike.prototype.makeUserVoted = function () {
 	this.$userVoted = $( '<span>' ).attr( {
 		class: 'bs-rating-articlelike-uservoted',
-		title: mw.message( 'bs-rating-articlelike-uservoted-title' ).text()
+		title: mw.message( 'bs-rating-articlelike-uservoted-title' ).text(),
+		'aria-label': mw.message( 'bs-rating-articlelike-uservoted-title' ).text()
 	} ).hide();
 
 	return this.$userVoted;
