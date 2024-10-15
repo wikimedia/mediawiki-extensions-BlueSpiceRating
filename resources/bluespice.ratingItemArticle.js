@@ -94,6 +94,7 @@ bs.rating.ItemArticle.prototype.makeStarRating = function ( myRating ) {
 
 bs.rating.ItemArticle.prototype.makeNumVotes = function () {
 	const $numVotes = $( '<span>' ).attr( {
+		role: 'note',
 		class: 'bs-rating-article-numvotes',
 		title: mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text(),
 		'aria-label': mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text(),
