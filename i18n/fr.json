@@ -20,7 +20,6 @@
 	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|note|notes}}",
 	"bs-rating-articlelike-ratingtext": "Recommandé ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Recommandé ($1)",
-	"bs-rating-articlelike-ratingtext-title": "$1 {{PLURAL:$1|recommandation|recommandations}}",
 	"bs-rating-articlelike-uservoted-title": "Recommandé par vous",
 	"action-rating-viewspecialpage": "afficher les pages qui sont protégées avec le droit « Rating-Viewspecialpage »",
 	"action-rating-read": "lire les évaluations des pages",

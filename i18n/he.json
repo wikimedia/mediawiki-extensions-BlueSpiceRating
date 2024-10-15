@@ -17,7 +17,6 @@
 	"bs-rating-ratingcount-title": "{{PLURAL:$1|דירוג אחד|$1 דירוגים}}",
 	"bs-rating-articlelike-ratingtext": "להמליץ ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "הומלץ ($1)",
-	"bs-rating-articlelike-ratingtext-title": "{{PLURAL:$1|המלצה אחת|$1 המלצות}}",
 	"bs-rating-articlelike-uservoted-title": "המלצת על זה",
 	"action-rating-viewspecialpage": "להציג דפים המוגנים עם ההרשאה \"Rating-Viewspecialpage\".",
 	"action-rating-read": "לקרוא דירוגים של דפים",

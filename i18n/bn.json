@@ -7,7 +7,6 @@
 	},
 	"bs-rating-ratingvalue-title": "রেটিং $1আউট অফ 5",
 	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1| রেটিং|রেটিং}}",
-	"bs-rating-articlelike-ratingtext-title": "$1 {{PLURAL:$1| সুপারিশ|পরামর্শ}}",
 	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|সুপারিশ}} ($1টি)",
 	"bs-rating-articlelike-uservoted-title": "আপনার দ্বারা প্রস্তাবিত",
 	"bs-rating-specialrating-titleTitle": "শিরোনাম",

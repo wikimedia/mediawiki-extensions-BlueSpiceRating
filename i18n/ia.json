@@ -15,7 +15,6 @@
 	"bs-rating-ratingcount-title": "$1 evalutation{{PLURAL:$1||es}}",
 	"bs-rating-articlelike-ratingtext": "Recommendate ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Recommendate ($1)",
-	"bs-rating-articlelike-ratingtext-title": "$1 recommendation{{PLURAL:$1||es}}",
 	"bs-rating-articlelike-ratingtext-reader-title": "Recommendation{{PLURAL:$1||es}} ($1)",
 	"bs-rating-articlelike-uservoted-title": "Recommendate per te",
 	"action-rating-viewspecialpage": "vider paginas protegite con le derecto \"Rating-Viewspecialpage\"",
