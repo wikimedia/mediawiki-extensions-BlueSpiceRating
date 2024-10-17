@@ -3,6 +3,7 @@
 		"authors": [
 			"Mglaser",
 			"Mirzali",
+			"Mschlindwein",
 			"Osnard",
 			"Patric Wirth"
 		]
@@ -14,8 +15,12 @@
 	"recommendations": "Empfehlungen",
 	"bs-rating-yourrating": "Deine Bewertung: $1",
 	"bs-rating-special-rating-heading": "Bewertungen",
+	"bs-rating-ratingvalue-title": "Bewertet mit $1 von 5",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|Bewertung|Bewertungen}}",
 	"bs-rating-articlelike-ratingtext": "Empfehlen ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Empfohlen ($1)",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|Empfehlung|Empfehlungen}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "Von dir empfohlen",
 	"action-rating-viewspecialpage": "Seiten, die durch das \"Rating-Viewspecialpage\" Recht geschützt sind, aufzurufen",
 	"action-rating-read": "die Bewertungen von Artikeln zu lesen",
 	"action-rating-write": "Stimmen Sie auf den Seiten ab",
