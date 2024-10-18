@@ -42,5 +42,7 @@
 	"bs-rating-ratingvalue-title": "Bewertet mit $1 von 5",
 	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|Bewertung|Bewertungen}}",
 	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|Empfehlung|Empfehlungen}} ($1)",
-	"bs-rating-articlelike-uservoted-title": "Von dir empfohlen"
+	"bs-rating-articlelike-uservoted-title": "Von dir empfohlen",
+	"bs-rating-star-rating-star-label": "Bewertungsstern $1",
+	"bs-rating-star-rating-star-selected-announce": "Bewertungsstern $1 ausgewählt"
 }
