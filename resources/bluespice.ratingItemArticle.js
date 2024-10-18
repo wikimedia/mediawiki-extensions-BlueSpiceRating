@@ -44,18 +44,24 @@ bs.rating.ItemArticle.prototype.reset = function ( data ) {
 		'aria-label': mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text()
 	} );
 
+	const numVotesMessage = mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text();
+	this.$numVotes
+		.attr( 'title', numVotesMessage )
+		.find( '.visually-hidden' )
+		.text( numVotesMessage );
+
+	const userVotes = this.getCurrentUserRatings();
+	if ( userVotes.length > 0 ) {
+		const userVotedMessage = mw.message( 'bs-rating-yourrating', userVotes[ 0 ][ this.VALUE ] ).text();
+		this.$userVoted
+			.attr( 'title', userVotedMessage )
+			.find( '.visually-hidden' )
+			.text( userVotedMessage );
+	}
 	if ( this.userVoted() ) {
 		this.$userVoted.show();
 	} else {
 		this.$userVoted.hide();
-	}
-
-	const userVotes = this.getCurrentUserRatings();
-	if ( userVotes.length > 0 ) {
-		this.$userVoted.attr( {
-			title: mw.message( 'bs-rating-yourrating', userVotes[ 0 ][ this.VALUE ] ),
-			'aria-label': mw.message( 'bs-rating-yourrating', userVotes[ 0 ][ this.VALUE ] )
-		} );
 	}
 };
 
@@ -93,24 +99,35 @@ bs.rating.ItemArticle.prototype.makeStarRating = function ( myRating ) {
 };
 
 bs.rating.ItemArticle.prototype.makeNumVotes = function () {
-	const $numVotes = $( '<span>' ).attr( {
-		role: 'note',
-		class: 'bs-rating-article-numvotes',
-		title: mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text(),
-		'aria-label': mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text(),
-	} ).html(
-		`(${this.getVoteCount()})`
-	);
+	const numVotesMessage = mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text();
 
-	return $numVotes;
+	this.$numVotes = $( '<span>' )
+		.attr( {
+			class: 'bs-rating-article-numvotes',
+			title: numVotesMessage
+		} )
+		.append( `(${this.getVoteCount()})` )
+		.append( $( '<span>' )
+			.attr( 'class', 'visually-hidden' )
+			.text( numVotesMessage )
+		);
+
+	return this.$numVotes;
 };
 
 bs.rating.ItemArticle.prototype.makeUserVoted = function ( myRating ) {
-	this.$userVoted = $( '<span>' ).attr( {
-		class: 'bs-rating-article-uservoted',
-		title: mw.message( 'bs-rating-yourrating', myRating ),
-		'aria-label': mw.message( 'bs-rating-yourrating', myRating )
-	} ).hide();
+	const userVotedMessage = mw.message( 'bs-rating-yourrating', myRating ).text();
+
+	this.$userVoted = $( '<span>' )
+		.attr( {
+			class: 'bs-rating-article-uservoted',
+			title: userVotedMessage
+		} )
+		.append( $( '<span>' )
+			.attr( 'class', 'visually-hidden' )
+			.text( userVotedMessage )
+		)
+		.hide();
 
 	if ( this.userVoted() ) {
 		this.$userVoted.show();
