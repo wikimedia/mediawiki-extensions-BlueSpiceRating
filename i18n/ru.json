@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"DDPAT",
+			"Firapinch",
 			"Ice bulldog",
 			"Kareyac"
 		]
@@ -18,5 +19,6 @@
 	"bs-rating-specialrating-titleTitle": "Заголовок",
 	"bs-rating-specialrating-titleRating": "Рейтинг",
 	"bs-rating-specialrating-titleVotes": "Число рейтингов",
-	"bs-rating-nsm-label": "Рейтинг"
+	"bs-rating-nsm-label": "Рейтинг",
+	"bs-rating-articlelike-uservoted-title": "Рекомендовано вами"
 }

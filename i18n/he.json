@@ -42,5 +42,6 @@
 	"bs-rating-articlelike-ratingtext-title": "{{PLURAL:$1|המלצה אחת|$1 המלצות}}",
 	"bs-rating-articlelike-uservoted-title": "המלצת על זה",
 	"bs-rating-star-rating-star-label": "כוכב דירוג מס׳ $1",
-	"bs-rating-star-rating-star-selected-announce": "נבחר כוכב דירוג מס׳ $1"
+	"bs-rating-star-rating-star-selected-announce": "נבחר כוכב דירוג מס׳ $1",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|הצעה|הצעות}} ($1)"
 }
