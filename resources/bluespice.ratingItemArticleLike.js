@@ -114,11 +114,18 @@ bs.rating.ItemArticleLike.prototype.makeLabel = function () {
 };
 
 bs.rating.ItemArticleLike.prototype.makeUserVoted = function () {
-	this.$userVoted = $( '<span>' ).attr( {
-		class: 'bs-rating-articlelike-uservoted',
-		title: mw.message( 'bs-rating-articlelike-uservoted-title' ).text(),
-		'aria-label': mw.message( 'bs-rating-articlelike-uservoted-title' ).text()
-	} ).hide();
+	const userVotedMessage = mw.message( 'bs-rating-articlelike-uservoted-title' ).text();
+
+	this.$userVoted = $( '<span>' )
+		.attr( {
+			class: 'bs-rating-articlelike-uservoted',
+			title: userVotedMessage
+		} )
+		.append( $( '<span>' )
+			.attr( 'class', 'visually-hidden' )
+			.text( userVotedMessage )
+		)
+		.hide();
 
 	return this.$userVoted;
 };
