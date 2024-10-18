@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Robby"
+			"Robby",
+			"Volvox"
 		]
 	},
 	"rating": "Bewäertungen",
@@ -17,5 +18,6 @@
 	"bs-rating-specialrating-titleRating": "Bewäertung",
 	"bs-rating-specialrating-titleVotes": "Zuel vun de Bewäertungen",
 	"bs-rating-nsm-label": "Bewäertung",
-	"bs-rating-nsm-label-recommendations": "Recommandatiounen"
+	"bs-rating-nsm-label-recommendations": "Recommandatiounen",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|Bewäertung|Bewäertungen}}"
 }
