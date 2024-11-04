@@ -20,7 +20,7 @@
 	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|note|notes}}",
 	"bs-rating-articlelike-ratingtext": "Recommandé ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Recommandé ($1)",
-	"bs-rating-articlelike-ratingtext-title": "$1 {{PLURAL:$1|recommandation|recommandations}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "$1 {{PLURAL:$1|recommandation|recommandations}}",
 	"bs-rating-articlelike-uservoted-title": "Recommandé par vous",
 	"action-rating-viewspecialpage": "afficher les pages qui sont protégées avec le droit « Rating-Viewspecialpage »",
 	"action-rating-read": "lire les évaluations des pages",
@@ -43,5 +43,7 @@
 	"apihelp-bs-rating-tasks-summary": "Exécute les tâches courantes pour l’extension Évaluation",
 	"apihelp-bs-ratingarticle-store-summary": "Fournit des évaluations pour les articles",
 	"apihelp-bs-ratingarticlelike-store-summary": "Fournit des recommandations pour les articles",
-	"apihelp-bs-rating-store-summary": "Fournit des évaluations pour les articles"
+	"apihelp-bs-rating-store-summary": "Fournit des évaluations pour les articles",
+	"bs-rating-star-rating-star-label": "Étoile de notation $1",
+	"bs-rating-star-rating-star-selected-announce": "Étoile de notation $1 sélectionnée"
 }
