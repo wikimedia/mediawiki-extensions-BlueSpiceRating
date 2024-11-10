@@ -42,5 +42,8 @@
 	"apihelp-bs-rating-store-summary": "Fournit des évaluations pour les articles",
 	"bs-rating-ratingvalue-title": "Evalué $1 sur 5",
 	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|note|notes}}",
-	"bs-rating-articlelike-uservoted-title": "Recommandé par vous"
+	"bs-rating-articlelike-uservoted-title": "Recommandé par vous",
+	"bs-rating-articlelike-ratingtext-reader-title": "$1 {{PLURAL:$1|recommandation|recommandations}}",
+	"bs-rating-star-rating-star-label": "Étoile de notation $1",
+	"bs-rating-star-rating-star-selected-announce": "Étoile de notation $1 sélectionnée"
 }

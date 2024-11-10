@@ -39,5 +39,11 @@
 	"apihelp-bs-rating-tasks-summary": "執行擴充功能 Rating 的一般任務",
 	"apihelp-bs-ratingarticle-store-summary": "傳遞條目評分",
 	"apihelp-bs-ratingarticlelike-store-summary": "傳遞條目建議",
-	"apihelp-bs-rating-store-summary": "傳遞題目評分"
+	"apihelp-bs-rating-store-summary": "傳遞題目評分",
+	"bs-rating-ratingvalue-title": "評分為 $1（滿分 5 分）",
+	"bs-rating-ratingcount-title": "$1 個{{PLURAL:$1|評分}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|推薦}}（$1）",
+	"bs-rating-articlelike-uservoted-title": "您的推薦",
+	"bs-rating-star-rating-star-label": "評分星級 $1",
+	"bs-rating-star-rating-star-selected-announce": "已選評分星級 $1"
 }

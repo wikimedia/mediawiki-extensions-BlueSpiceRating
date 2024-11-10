@@ -6,10 +6,10 @@
 		]
 	},
 	"bs-rating-specialrating-titleTitle": "শিরোনাম",
-	"bs-rating-ratingvalue-title": "রেটিং $1আউট অফ 5",
-	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1| রেটিং|রেটিং}}",
+	"bs-rating-ratingvalue-title": "৫-এর মধ্যে $1 রেটকৃত",
+	"bs-rating-ratingcount-title": "$1টি {{PLURAL:$1|রেটিং}}",
 	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|সুপারিশ}} ($1টি)",
 	"bs-rating-articlelike-uservoted-title": "আপনার দ্বারা প্রস্তাবিত",
-	"bs-rating-star-rating-star-label": "রেটিং তারকা $1",
-	"bs-rating-star-rating-star-selected-announce": "রেটিং তারকা $1 নির্বাচন করা হয়েছে"
+	"bs-rating-star-rating-star-label": "$1 তারকা রেটিং",
+	"bs-rating-star-rating-star-selected-announce": "$1 তারকা রেটিং নির্বাচন করা হয়েছে"
 }
