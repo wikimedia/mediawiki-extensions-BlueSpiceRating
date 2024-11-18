@@ -13,8 +13,12 @@
 	"recommendations": "Aanbevelingen",
 	"bs-rating-yourrating": "Uw beoordeling: $1",
 	"bs-rating-special-rating-heading": "Beoordelingen",
+	"bs-rating-ratingvalue-title": "Beoordeeld met $1 van de 5",
+	"bs-rating-ratingcount-title": "$1 beoordeling{{PLURAL:$1||en}}",
 	"bs-rating-articlelike-ratingtext": "Aanbevolen ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "Aanbevolen ($1)",
+	"bs-rating-articlelike-ratingtext-reader-title": "Aanbeveling{{PLURAL:$1||en}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "Door u aanbevolen",
 	"action-rating-viewspecialpage": "pagina's beveiligd met het recht \"Rating-Viewspecialpage\" te bekijken",
 	"action-rating-read": "lees beoordelingen op pagina's",
 	"action-rating-write": "stemmen op pagina's",
@@ -36,5 +40,7 @@
 	"apihelp-bs-rating-tasks-summary": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Levert beoordelingen voor artikelen",
 	"apihelp-bs-ratingarticlelike-store-summary": "Levert aanbevelingen voor artikelen",
-	"apihelp-bs-rating-store-summary": "Levert beoordelingen voor artikelen"
+	"apihelp-bs-rating-store-summary": "Levert beoordelingen voor artikelen",
+	"bs-rating-star-rating-star-label": "Beoordelingsster $1",
+	"bs-rating-star-rating-star-selected-announce": "Beoordelingsster $1 geselecteerd"
 }
