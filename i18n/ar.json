@@ -1,6 +1,7 @@
 {
 	"@metadata": {
 		"authors": [
+			"Meno25",
 			"ديفيد"
 		]
 	},
@@ -34,5 +35,11 @@
 	"apihelp-bs-rating-tasks-summary": "ينفذ المهام المشتركة لتمديد التقييم",
 	"apihelp-bs-ratingarticle-store-summary": "يسلم تقييمات للمقالات",
 	"apihelp-bs-ratingarticlelike-store-summary": "يسلم توصيات للمقالات",
-	"apihelp-bs-rating-store-summary": "يسلم تقييمات للمقالات"
+	"apihelp-bs-rating-store-summary": "يسلم تقييمات للمقالات",
+	"bs-rating-ratingvalue-title": "تم تقييمه بـ $1 من أصل 5",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1| تقييم|تقييمات}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|توصية|توصيات}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "موصى به من قبلك",
+	"bs-rating-star-rating-star-label": "تقييم النجمة $1",
+	"bs-rating-star-rating-star-selected-announce": "تم اختيار نجمة التقييم $1"
 }

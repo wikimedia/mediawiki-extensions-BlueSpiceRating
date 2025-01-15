@@ -36,5 +36,11 @@
 	"apihelp-bs-rating-tasks-summary": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Levert beoordelingen voor artikelen",
 	"apihelp-bs-ratingarticlelike-store-summary": "Levert aanbevelingen voor artikelen",
-	"apihelp-bs-rating-store-summary": "Levert beoordelingen voor artikelen"
+	"apihelp-bs-rating-store-summary": "Levert beoordelingen voor artikelen",
+	"bs-rating-ratingvalue-title": "Beoordeeld met $1 van de 5",
+	"bs-rating-ratingcount-title": "$1 beoordeling{{PLURAL:$1||en}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "Aanbeveling{{PLURAL:$1||en}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "Door u aanbevolen",
+	"bs-rating-star-rating-star-label": "Beoordelingsster $1",
+	"bs-rating-star-rating-star-selected-announce": "Beoordelingsster $1 geselecteerd"
 }
