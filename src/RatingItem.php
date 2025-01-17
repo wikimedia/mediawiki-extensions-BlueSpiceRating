@@ -36,6 +36,7 @@ use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\Store;
 use Html;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use Message;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
@@ -148,16 +149,16 @@ class RatingItem implements \JsonSerializable {
 	 *
 	 * @param string $action
 	 * @param \User $user
-	 * @param \Title|null $title
+	 * @param Title|null $title
 	 * @return bool
 	 */
-	protected function checkPermission( $action, \User $user, \Title $title = null ) {
+	protected function checkPermission( $action, \User $user, Title $title = null ) {
 		$action = ucfirst( $action );
 		$permission = $this->getConfig()->get( "{$action}Permission" );
 		if ( !$permission ) {
 			return false;
 		}
-		if ( $title instanceof \Title ) {
+		if ( $title instanceof Title ) {
 			return MediaWikiServices::getInstance()
 				->getPermissionManager()
 				->userCan( $permission, $user, $title );
@@ -171,12 +172,12 @@ class RatingItem implements \JsonSerializable {
 	/**
 	 * @param \User $user
 	 * @param string $action
-	 * @param \Title|null $title
+	 * @param Title|null $title
 	 * @return \Status
 	 */
-	public function userCan( \User $user, $action = 'read', \Title $title = null ) {
+	public function userCan( \User $user, $action = 'read', Title $title = null ) {
 		$bTitleRequired = $this->getConfig()->get( 'PermissionTitleRequired' );
-		if ( $bTitleRequired && !$title instanceof \Title ) {
+		if ( $bTitleRequired && !$title instanceof Title ) {
 			return \Status::newFatal( "Title Required" );
 		}
 		if ( !$this->checkPermission( $action, $user, $title ) ) {
@@ -262,11 +263,11 @@ class RatingItem implements \JsonSerializable {
 	 * @param mixed $value use false to delete
 	 * @param \User|null $owner User, that the vote is related to
 	 * @param int $context context for multi value
-	 * @param \Title|null $title for permission check!
+	 * @param Title|null $title for permission check!
 	 * @return \Status
 	 */
 	public function vote( \User $user, $value, \User $owner = null, $context = 0,
-		\Title $title = null ) {
+		Title $title = null ) {
 		if ( !$owner instanceof \User ) {
 			$owner = $user;
 		}

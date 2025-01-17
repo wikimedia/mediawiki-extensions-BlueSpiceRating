@@ -5,8 +5,8 @@ namespace BlueSpice\Rating;
 use BsArticleHelper;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MWStake\MediaWiki\Component\CommonUserInterface\Component\Literal;
-use Title;
 
 class RecommendationsComponent extends Literal {
 

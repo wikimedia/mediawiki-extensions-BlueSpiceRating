@@ -3,6 +3,7 @@
 namespace BlueSpice\Rating\Tests;
 
 use BlueSpice\Tests\BSApiExtJSStoreTestBase;
+use MediaWiki\Title\Title;
 
 /**
  * @group Broken
@@ -50,7 +51,7 @@ class BSApiRatingStoreTest extends BSApiExtJSStoreTestBase {
 	}
 
 	public function addDBData() {
-		$oTitle = \Title::newFromId( 1 );
+		$oTitle = Title::newFromId( 1 );
 
 		$oUserSysop = self::$users['sysop']->getUser();
 		$oUserUploader = self::$users['uploader']->getUser();

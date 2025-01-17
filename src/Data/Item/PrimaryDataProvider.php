@@ -6,6 +6,7 @@ use Config;
 use ContextSource;
 use IContextSource;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 use MWStake\MediaWiki\Component\DataStore\Record as DataStoreRecord;
 use Wikimedia\Rdbms\IDatabase;
 
@@ -46,7 +47,7 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	 * @param \stdClass $row
 	 */
 	protected function appendRowToData( $row ) {
-		$title = \Title::newFromID( $row->page_id );
+		$title = Title::newFromID( $row->page_id );
 		if ( !$title ) {
 			return;
 		}

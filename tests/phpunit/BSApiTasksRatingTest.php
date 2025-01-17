@@ -3,6 +3,7 @@
 namespace BlueSpice\Rating\Tests;
 
 use BlueSpice\Tests\BSApiTasksTestBase;
+use MediaWiki\Title\Title;
 
 /**
  * @group Broken
@@ -75,7 +76,7 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 	 * @covers BlueSpice\Rating\Api\Task\Rating::task_reload
 	 */
 	public function testReload() {
-		$oTitle = \Title::newFromId( 1 );
+		$oTitle = Title::newFromId( 1 );
 		$iRef = $oTitle->getArticleID();
 
 		$aData = [
