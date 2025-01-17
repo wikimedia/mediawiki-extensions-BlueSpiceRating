@@ -7,6 +7,7 @@ use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\RatingItem\Article;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Title\Title;
 
 class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 
@@ -48,7 +49,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 		$userFactory = $this->services->getUserFactory();
 		foreach ( $this->data as $articleId => $ratings ) {
 			// article does not exists anymore => ignore ratings
-			$title = \Title::newFromID( (int)$articleId );
+			$title = Title::newFromID( (int)$articleId );
 			if ( !$title ) {
 				continue;
 			}
@@ -113,10 +114,10 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 
 	/**
 	 *
-	 * @param \Title $title
+	 * @param Title $title
 	 * @return article
 	 */
-	protected function makeRatingItem( \Title $title ) {
+	protected function makeRatingItem( Title $title ) {
 		$ratingItem = $this->getRatingFactory()->newFromObject( (object)[
 			Record::CONTEXT => 0,
 			Record::REFTYPE => 'article',

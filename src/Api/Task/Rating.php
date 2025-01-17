@@ -27,6 +27,7 @@
 namespace BlueSpice\Rating\Api\Task;
 
 use BlueSpice\Rating\Data\Record;
+use MediaWiki\Title\Title;
 
 /**
  * Api base class for simple tasks in BlueSpice
@@ -77,10 +78,10 @@ class Rating extends \BSApiTasksBase {
 			$taskData->{Record::VALUE} = false;
 		}
 		if ( !empty( $taskData->articleid ) ) {
-			$title = \Title::newFromID( $taskData->articleid );
+			$title = Title::newFromID( $taskData->articleid );
 		}
 		if ( !empty( $taskData->titletext ) ) {
-			$title = \Title::newFromText( $taskData->titletext );
+			$title = Title::newFromText( $taskData->titletext );
 		}
 
 		$status = $rating->vote(

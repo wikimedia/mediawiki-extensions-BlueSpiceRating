@@ -31,6 +31,7 @@ namespace BlueSpice\Rating\RatingItem;
 
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingItem;
+use MediaWiki\Title\Title;
 
 /**
  * Article class for Rating extension
@@ -42,11 +43,11 @@ class Article extends RatingItem {
 	protected $refType = 'article';
 
 	/**
-	 * Article from a \Title object
-	 * @param \Title $title
+	 * Article from a Title object
+	 * @param Title $title
 	 * @return Article
 	 */
-	public static function newFromTitle( \Title $title ) {
+	public static function newFromTitle( Title $title ) {
 		return static::newFromObject( (object)[
 			Record::REFTYPE => 'article',
 			Record::REF => $title->getArticleID(),
@@ -59,7 +60,7 @@ class Article extends RatingItem {
 		$status = $this->userCan(
 			\RequestContext::getMain()->getUser(),
 			'update',
-			\Title::newFromID( $this->getRef() )
+			Title::newFromID( $this->getRef() )
 		);
 		$data['usercanmodify'] = $status->isOK();
 		return $data;
@@ -68,12 +69,12 @@ class Article extends RatingItem {
 	/**
 	 * @param \User $user
 	 * @param string $action
-	 * @param \Title|null $title
+	 * @param Title|null $title
 	 * @return \Status
 	 */
-	public function userCan( \User $user, $action = 'read', \Title $title = null ) {
+	public function userCan( \User $user, $action = 'read', Title $title = null ) {
 		if ( !$title ) {
-			$title = \Title::newFromID( (int)$this->getRef() );
+			$title = Title::newFromID( (int)$this->getRef() );
 		}
 		return parent::userCan( $user, $action, $title );
 	}
