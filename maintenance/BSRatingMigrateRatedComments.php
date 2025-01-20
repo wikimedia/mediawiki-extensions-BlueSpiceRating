@@ -8,6 +8,7 @@ use BlueSpice\Rating\RatingFactory;
 use BlueSpice\Rating\RatingItem\Article;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 
 class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 

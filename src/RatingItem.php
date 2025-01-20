@@ -37,6 +37,7 @@ use BlueSpice\Rating\Data\Store;
 use Html;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 use Message;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\ReaderParams;
@@ -148,11 +149,11 @@ class RatingItem implements \JsonSerializable {
 	/**
 	 *
 	 * @param string $action
-	 * @param \User $user
+	 * @param User $user
 	 * @param Title|null $title
 	 * @return bool
 	 */
-	protected function checkPermission( $action, \User $user, Title $title = null ) {
+	protected function checkPermission( $action, User $user, Title $title = null ) {
 		$action = ucfirst( $action );
 		$permission = $this->getConfig()->get( "{$action}Permission" );
 		if ( !$permission ) {
@@ -170,12 +171,12 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
-	 * @param \User $user
+	 * @param User $user
 	 * @param string $action
 	 * @param Title|null $title
 	 * @return \Status
 	 */
-	public function userCan( \User $user, $action = 'read', Title $title = null ) {
+	public function userCan( User $user, $action = 'read', Title $title = null ) {
 		$bTitleRequired = $this->getConfig()->get( 'PermissionTitleRequired' );
 		if ( $bTitleRequired && !$title instanceof Title ) {
 			return \Status::newFatal( "Title Required" );
@@ -259,16 +260,16 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 * CRUD votes from the rating item. Use $value = false to delete
-	 * @param \User $user User, that initiated this action
+	 * @param User $user User, that initiated this action
 	 * @param mixed $value use false to delete
-	 * @param \User|null $owner User, that the vote is related to
+	 * @param User|null $owner User, that the vote is related to
 	 * @param int $context context for multi value
 	 * @param Title|null $title for permission check!
 	 * @return \Status
 	 */
-	public function vote( \User $user, $value, \User $owner = null, $context = 0,
+	public function vote( User $user, $value, User $owner = null, $context = 0,
 		Title $title = null ) {
-		if ( !$owner instanceof \User ) {
+		if ( !$owner instanceof User ) {
 			$owner = $user;
 		}
 		$status = $this->checkValue( $value, $context );
@@ -327,12 +328,12 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 *
-	 * @param \User $owner
+	 * @param User $owner
 	 * @param mixed $value
 	 * @param int $context
 	 * @return \Status
 	 */
-	protected function insertRating( \User $owner, $value, $context = 0 ) {
+	protected function insertRating( User $owner, $value, $context = 0 ) {
 		$status = \Status::newGood( $this );
 		$id = 0;
 		MediaWikiServices::getInstance()->getHookContainer()->run(
@@ -376,13 +377,13 @@ class RatingItem implements \JsonSerializable {
 
 	/**
 	 *
-	 * @param \User $owner
+	 * @param User $owner
 	 * @param mixed $value
 	 * @param Record[] $ratings
 	 * @param int $context
 	 * @return \Status
 	 */
-	protected function updateRating( \User $owner, $value, $ratings, $context = 0 ) {
+	protected function updateRating( User $owner, $value, $ratings, $context = 0 ) {
 		$status = \Status::newGood( $this );
 		MediaWikiServices::getInstance()->getHookContainer()->run(
 			'BlueSpiceRatingItemVoteSave',
@@ -423,12 +424,12 @@ class RatingItem implements \JsonSerializable {
 	}
 
 	/**
-	 * Deletes given \User rating or all ratings when no \User given
-	 * @param \User|null $user
+	 * Deletes given User rating or all ratings when no User given
+	 * @param User|null $user
 	 * @param int $context
 	 * @return bool
 	 */
-	protected function deleteRating( \User $user = null, $context = 0 ) {
+	protected function deleteRating( User $user = null, $context = 0 ) {
 		$ratings = $this->getRatingSet()->getRatings( $context );
 		if ( $user ) {
 			$ratings = $this->getRatingSet()->getUserRatings( $user, $ratings );
