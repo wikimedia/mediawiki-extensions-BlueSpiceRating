@@ -32,6 +32,7 @@ namespace BlueSpice\Rating\RatingItem;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingItem;
 use MediaWiki\Title\Title;
+use MediaWiki\User\User;
 
 /**
  * Article class for Rating extension
@@ -67,12 +68,12 @@ class Article extends RatingItem {
 	}
 
 	/**
-	 * @param \User $user
+	 * @param User $user
 	 * @param string $action
 	 * @param Title|null $title
 	 * @return \Status
 	 */
-	public function userCan( \User $user, $action = 'read', Title $title = null ) {
+	public function userCan( User $user, $action = 'read', Title $title = null ) {
 		if ( !$title ) {
 			$title = Title::newFromID( (int)$this->getRef() );
 		}

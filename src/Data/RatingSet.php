@@ -2,6 +2,7 @@
 
 namespace BlueSpice\Rating\Data;
 
+use MediaWiki\User\User;
 use MWStake\MediaWiki\Component\DataStore\ResultSet;
 
 class RatingSet extends ResultSet {
@@ -128,12 +129,12 @@ class RatingSet extends ResultSet {
 
 	/**
 	 * returns if the user has already rated
-	 * @param \User $user
+	 * @param User $user
 	 * @param Records[] $ratings
 	 * @param int $context
 	 * @return bool
 	 */
-	public function hasUserRated( \User $user, $ratings = false, $context = 0 ) {
+	public function hasUserRated( User $user, $ratings = false, $context = 0 ) {
 		return $this->getTotal(
 			$this->getUserRatings( $user, $ratings, $context )
 		) > 0;
@@ -141,12 +142,12 @@ class RatingSet extends ResultSet {
 
 	/**
 	 * Returns the users ratings
-	 * @param \User $user
+	 * @param User $user
 	 * @param Records[] $ratings
 	 * @param int $context
 	 * @return Records[]
 	 */
-	public function getUserRatings( \User $user, $ratings = false, $context = 0 ) {
+	public function getUserRatings( User $user, $ratings = false, $context = 0 ) {
 		if ( !$ratings ) {
 			$ratings = $this->getRatings( $context );
 		}
