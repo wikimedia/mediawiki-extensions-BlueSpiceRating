@@ -31,6 +31,7 @@ namespace BlueSpice\Rating\RatingItem;
 
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingItem;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 
@@ -59,7 +60,7 @@ class ArticleLike extends RatingItem {
 	public function jsonSerialize(): array {
 		$data = parent::jsonSerialize();
 		$status = $this->userCan(
-			\RequestContext::getMain()->getUser(),
+			RequestContext::getMain()->getUser(),
 			'update',
 			Title::newFromID( $this->getRef() )
 		);
