@@ -35,6 +35,7 @@ use BlueSpice\Rating\Data\RatingSet;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\Data\Store;
 use Html;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
@@ -80,7 +81,7 @@ class RatingItem implements \JsonSerializable {
 		// TODO: There is currently no way to filter by context!
 		$ratings = $this->getRatingSet()->getRatings();
 		$userRatings = $this->getRatingSet()->getUserRatings(
-			\RequestContext::getMain()->getUser(),
+			RequestContext::getMain()->getUser(),
 			$ratings
 		);
 
@@ -212,7 +213,7 @@ class RatingItem implements \JsonSerializable {
 			return \Status::newFatal( "Store class '$storeClass' not found" );
 		}
 		return new $storeClass(
-			new Context( \RequestContext::getMain(), $this->getConfig() ),
+			new Context( RequestContext::getMain(), $this->getConfig() ),
 			MediaWikiServices::getInstance()->getDBLoadBalancer()
 		);
 	}

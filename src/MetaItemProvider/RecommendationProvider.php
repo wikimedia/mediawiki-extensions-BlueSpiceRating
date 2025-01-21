@@ -4,9 +4,9 @@ namespace BlueSpice\Rating\MetaItemProvider;
 
 use BlueSpice\Discovery\IMetaItemProvider;
 use BlueSpice\Rating\RecommendationsComponent;
+use MediaWiki\Context\RequestContext;
 use MediaWiki\MediaWikiServices;
 use MWStake\MediaWiki\Component\CommonUserInterface\IComponent;
-use RequestContext;
 
 class RecommendationProvider implements IMetaItemProvider {
 
