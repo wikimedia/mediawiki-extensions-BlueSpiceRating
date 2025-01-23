@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item\ArticleLike;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\Filter\Numeric;
 use MWStake\MediaWiki\Component\DataStore\Filter\StringValue;

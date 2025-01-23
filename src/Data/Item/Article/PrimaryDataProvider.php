@@ -3,7 +3,7 @@
 namespace BlueSpice\Rating\Data\Item\Article;
 
 use BlueSpice\Rating\RatingItem;
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MWStake\MediaWiki\Component\DataStore\Filter;
 use MWStake\MediaWiki\Component\DataStore\Filter\Numeric;
 use MWStake\MediaWiki\Component\DataStore\Filter\StringValue;
