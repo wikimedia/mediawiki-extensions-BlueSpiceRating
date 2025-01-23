@@ -27,17 +27,19 @@
 
 namespace BlueSpice\Rating;
 
+use MediaWiki\Config\Config;
+
 /**
  * RatingConfig class for Rating extension
  * @package BlueSpiceFoundation
  */
-abstract class RatingConfig implements \JsonSerializable, \Config {
+abstract class RatingConfig implements \JsonSerializable, Config {
 	/** @var string */
 	protected $type = '';
 
 	/**
 	 *
-	 * @var \Config
+	 * @var Config
 	 */
 	protected $config = null;
 
@@ -49,7 +51,7 @@ abstract class RatingConfig implements \JsonSerializable, \Config {
 
 	/**
 	 *
-	 * @param \Config $config
+	 * @param Config $config
 	 * @param string $type
 	 * @param array $defaults
 	 */
