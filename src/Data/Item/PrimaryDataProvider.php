@@ -2,9 +2,9 @@
 
 namespace BlueSpice\Rating\Data\Item;
 
-use Config;
 use ContextSource;
 use IContextSource;
+use MediaWiki\Config\Config;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MWStake\MediaWiki\Component\DataStore\Record as DataStoreRecord;

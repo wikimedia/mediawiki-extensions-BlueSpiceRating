@@ -27,6 +27,7 @@
 
 namespace BlueSpice\Rating;
 
+use MediaWiki\Config\Config;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -39,7 +40,7 @@ class RatingRegistry {
 
 	/**
 	 *
-	 * @var \Config
+	 * @var Config
 	 */
 	protected $config = null;
 

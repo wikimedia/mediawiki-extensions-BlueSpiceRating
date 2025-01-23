@@ -27,6 +27,7 @@
  */
 namespace BlueSpice\Rating;
 
+use MediaWiki\Config\Config;
 use MediaWiki\MediaWikiServices;
 
 /**
@@ -37,14 +38,14 @@ class RatingConfigFactory {
 	/** @var array|null */
 	protected $ratingConfigs = null;
 
-	/** @var \Config */
+	/** @var Config */
 	protected $config = null;
 	/** @var \RatingRegistry */
 	protected $ratingRegistry = null;
 
 	/**
 	 * @param \RatingRegistry $ratingRegistry
-	 * @param \Config $config
+	 * @param Config $config
 	 */
 	public function __construct( $ratingRegistry, $config ) {
 		$this->ratingRegistry = $ratingRegistry;
