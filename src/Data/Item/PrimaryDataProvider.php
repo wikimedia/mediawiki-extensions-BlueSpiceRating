@@ -3,8 +3,8 @@
 namespace BlueSpice\Rating\Data\Item;
 
 use ContextSource;
-use IContextSource;
 use MediaWiki\Config\Config;
+use MediaWiki\Context\IContextSource;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MWStake\MediaWiki\Component\DataStore\Record as DataStoreRecord;

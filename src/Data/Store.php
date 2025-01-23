@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data;
 
-use IContextSource;
+use MediaWiki\Context\IContextSource;
 use MWStake\MediaWiki\Component\DataStore\IStore;
 use Wikimedia\Rdbms\LoadBalancer;
 
