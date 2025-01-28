@@ -3,7 +3,7 @@
 namespace BlueSpice\Rating\Special;
 
 use Html;
-use SpecialPage;
+use MediaWiki\SpecialPage\SpecialPage;
 
 class Rating extends SpecialPage {
 
