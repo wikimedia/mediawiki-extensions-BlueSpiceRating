@@ -32,6 +32,7 @@ namespace BlueSpice\Rating\RatingItem;
 use BlueSpice\Rating\Data\Record;
 use BlueSpice\Rating\RatingItem;
 use MediaWiki\Context\RequestContext;
+use MediaWiki\Status\Status;
 use MediaWiki\Title\Title;
 use MediaWiki\User\User;
 
@@ -72,7 +73,7 @@ class ArticleLike extends RatingItem {
 	 * @param User $user
 	 * @param string $action
 	 * @param Title|null $title
-	 * @return \Status
+	 * @return Status
 	 */
 	public function userCan( User $user, $action = 'read', Title $title = null ) {
 		if ( !$title ) {

@@ -3,6 +3,7 @@
 namespace BlueSpice\Rating\Privacy;
 
 use BlueSpice\Privacy\IPrivacyHandler;
+use MediaWiki\Status\Status;
 use MediaWiki\User\User;
 use Wikimedia\Rdbms\IDatabase;
 
@@ -25,7 +26,7 @@ class Handler implements IPrivacyHandler {
 	 *
 	 * @param string $oldUsername
 	 * @param string $newUsername
-	 * @return \Status
+	 * @return Status
 	 */
 	public function anonymize( $oldUsername, $newUsername ) {
 		$this->db->update(
@@ -33,14 +34,14 @@ class Handler implements IPrivacyHandler {
 			[ 'rat_userip' => $newUsername ],
 			[ 'rat_userip' => $oldUsername ]
 		);
-		return \Status::newGood();
+		return Status::newGood();
 	}
 
 	/**
 	 *
 	 * @param User $userToDelete
 	 * @param User $deletedUser
-	 * @return \Status
+	 * @return Status
 	 */
 	public function delete( User $userToDelete, User $deletedUser ) {
 		$this->anonymize( $userToDelete->getName(), $deletedUser->getName() );
@@ -51,7 +52,7 @@ class Handler implements IPrivacyHandler {
 			[ 'rat_userid' => $userToDelete->getId() ]
 		);
 
-		return \Status::newGood();
+		return Status::newGood();
 	}
 
 	/**
@@ -59,10 +60,10 @@ class Handler implements IPrivacyHandler {
 	 * @param array $types
 	 * @param string $format
 	 * @param User $user
-	 * @return \Status
+	 * @return Status
 	 */
 	public function exportData( array $types, $format, User $user ) {
 		// Where is Rating used?
-		return \Status::newGood( [] );
+		return Status::newGood( [] );
 	}
 }
