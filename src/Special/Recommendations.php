@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Special;
 
-use Html;
+use MediaWiki\Html\Html;
 use MediaWiki\SpecialPage\SpecialPage;
 
 class Recommendations extends SpecialPage {
