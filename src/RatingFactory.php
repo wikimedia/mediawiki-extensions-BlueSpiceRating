@@ -29,6 +29,7 @@ namespace BlueSpice\Rating;
 
 use BlueSpice\Rating\Data\Record;
 use MediaWiki\Config\Config;
+use MediaWiki\Status\Status;
 
 class RatingFactory {
 	/**
@@ -90,18 +91,18 @@ class RatingFactory {
 	 */
 	public function ensureBasicParams( \stdClass $data = null ) {
 		if ( $data === null ) {
-			return \Status::newFatal( 'No Data Given' );
+			return Status::newFatal( 'No Data Given' );
 		}
 		if ( empty( $data->{Record::REF} ) ) {
-			return \Status::newFatal( 'No reference Given' );
+			return Status::newFatal( 'No reference Given' );
 		}
 		if ( empty( $data->{Record::REFTYPE} ) ) {
-			return \Status::newFatal( 'No reference type Given' );
+			return Status::newFatal( 'No reference type Given' );
 		}
 		if ( empty( $data->{Record::SUBTYPE} ) ) {
 			$data->{Record::SUBTYPE} = 'default';
 		}
-		return \Status::newGood( $data );
+		return Status::newGood( $data );
 	}
 
 	/**
