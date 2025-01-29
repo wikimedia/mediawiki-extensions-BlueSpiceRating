@@ -27,6 +27,7 @@
 namespace BlueSpice\Rating\Api\Task;
 
 use BlueSpice\Rating\Data\Record;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\Title\Title;
 
 /**
@@ -101,7 +102,7 @@ class Rating extends \BSApiTasksBase {
 		}
 
 		$result->success = true;
-		$result->payload['data'] = \FormatJson::encode( $rating );
+		$result->payload['data'] = FormatJson::encode( $rating );
 
 		return $result;
 	}
@@ -125,7 +126,7 @@ class Rating extends \BSApiTasksBase {
 		$rating = $ratingFactory->newFromObject( $taskData );
 
 		$result->success = true;
-		$result->payload['data'] = \FormatJson::encode( $rating );
+		$result->payload['data'] = FormatJson::encode( $rating );
 
 		return $result;
 	}
