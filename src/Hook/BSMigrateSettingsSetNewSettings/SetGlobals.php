@@ -3,6 +3,7 @@
 namespace BlueSpice\Rating\Hook\BSMigrateSettingsSetNewSettings;
 
 use BlueSpice\Hook\BSMigrateSettingsSetNewSettings;
+use MediaWiki\Json\FormatJson;
 
 class SetGlobals extends BSMigrateSettingsSetNewSettings {
 
@@ -18,7 +19,7 @@ class SetGlobals extends BSMigrateSettingsSetNewSettings {
 	}
 
 	protected function doProcess() {
-		$GLOBALS["bsg{$this->newName}"] = \FormatJson::decode( $this->newValue, true );
+		$GLOBALS["bsg{$this->newName}"] = FormatJson::decode( $this->newValue, true );
 
 		$this->set = true;
 

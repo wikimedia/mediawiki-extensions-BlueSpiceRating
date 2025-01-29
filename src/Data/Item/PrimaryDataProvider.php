@@ -5,6 +5,7 @@ namespace BlueSpice\Rating\Data\Item;
 use ContextSource;
 use MediaWiki\Config\Config;
 use MediaWiki\Context\IContextSource;
+use MediaWiki\Json\FormatJson;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Title\Title;
 use MWStake\MediaWiki\Component\DataStore\Record as DataStoreRecord;
@@ -75,7 +76,7 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 			Record::REFTYPE => $row->{Record::REFTYPE},
 			Record::REF => $row->{Record::REF},
 			Record::SUBTYPE => $row->{Record::SUBTYPE},
-			Record::ITEM => \FormatJson::encode( $rating ),
+			Record::ITEM => FormatJson::encode( $rating ),
 			Record::CONTENT => $rating->getTag(),
 		];
 	}
