@@ -3,8 +3,8 @@
 namespace BlueSpice\Rating\Hook\BeforePageDisplay;
 
 use BlueSpice\Hook\BeforePageDisplay;
-use ExtensionRegistry;
 use MediaWiki\MediaWikiServices;
+use MediaWiki\Registration\ExtensionRegistry;
 
 class AddResources extends BeforePageDisplay {
 
