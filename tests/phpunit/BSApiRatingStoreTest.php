@@ -17,9 +17,6 @@ class BSApiRatingStoreTest extends BSApiExtJSStoreTestBase {
 	/** @inheritDoc */
 	protected $iFixtureTotal = 2;
 
-	/** @inheritDoc */
-	protected $tablesUsed = [ 'page', 'bs_rating' ];
-
 	protected function skipAssertTotal() {
 		return true;
 	}
