@@ -27,6 +27,7 @@
 namespace BlueSpice\Rating\Api\Task;
 
 use BlueSpice\Rating\Data\Record;
+use MediaWiki\Deferred\DeferredUpdates;
 use MediaWiki\Json\FormatJson;
 use MediaWiki\Title\Title;
 
@@ -98,7 +99,8 @@ class Rating extends \BSApiTasksBase {
 		}
 
 		if ( $title ) {
-			$title->invalidateCache();
+			$this->runTitleUpdates( $title );
+			$this->runUpdates( $title );
 		}
 
 		$result->success = true;
@@ -149,6 +151,18 @@ class Rating extends \BSApiTasksBase {
 		return parent::getParamDescription() + [
 
 		];
+	}
+
+	/**
+	 * @param Title $title
+	 * @return void
+	 */
+	private function runTitleUpdates( Title $title ) {
+		$wikiPage = $this->services->getWikiPageFactory()->newFromTitle( $title );
+		$wikiPage->doSecondaryDataUpdates( [
+			'triggeringUser' => $this->getUser(),
+			'defer' => DeferredUpdates::POSTSEND
+		] );
 	}
 
 }
