@@ -146,6 +146,9 @@
 		"ext.bluespice.rating.styles": {
 			"styles": [
 				"bluespice.rating.css"
+			],
+			"dependencies": [
+				"ext.rating.starRatingSvg.styles"
 			]
 		},
 		"ext.bluespice.rating": {
