@@ -80,6 +80,13 @@
 					"class": "\\BlueSpice\\Rating\\MetaItemProvider\\RatingProvider"
 				}
 			}
+		},
+		"BlueSpiceSMWConnector": {
+			"ExtraPropertyRegistry": {
+				"bsratingtotal": "BlueSpice\\Rating\\Property\\RatingTotalValueProvider::factory",
+				"bsratingaverage": "BlueSpice\\Rating\\Property\\RatingAverageValueProvider::factory",
+				"bsrecommendationstotal": "BlueSpice\\Rating\\Property\\RecommendationsTotalValueProvider::factory"
+			}
 		}
 	},
 	"ServiceWiringFiles": [

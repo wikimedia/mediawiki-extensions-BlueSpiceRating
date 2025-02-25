@@ -124,7 +124,12 @@ class RatingSet extends ResultSet {
 		if ( !$ratings ) {
 			$ratings = $this->getRatings( $context );
 		}
-		return $this->getSum( $ratings, $context ) / $this->getTotal( $ratings, $context );
+		$total = $this->getTotal( $ratings, $context );
+		if ( $total === 0 ) {
+			// Prevent division by zero
+			return 0;
+		}
+		return $this->getSum( $ratings, $context ) / $total;
 	}
 
 	/**
