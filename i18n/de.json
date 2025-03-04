@@ -5,7 +5,9 @@
 			"Mirzali",
 			"Mschlindwein",
 			"Osnard",
-			"Patric Wirth"
+			"Patric Wirth",
+			"GünniBusch",
+			"Justman10000"
 		]
 	},
 	"bs-rating-extension-description": "Stellt ein Bewertungssystem zur Verfügung.",
@@ -42,5 +44,11 @@
 	"apihelp-bs-ratingarticle-store-summary": "Liefert Bewertungen für Artikel",
 	"apihelp-bs-ratingarticlelike-store-summary": "Liefert Empfehlungen für Artikel",
 	"bs-rating-star-rating-star-label": "Bewertungsstern $1",
-	"bs-rating-star-rating-star-selected-announce": "Bewertungsstern $1 ausgewählt"
+	"bs-rating-star-rating-star-selected-announce": "Bewertungsstern $1 ausgewählt",
+	"bs-rating-sesp-rating-average": "Durchschnittliche Bewertung",
+	"bs-rating-sesp-rating-average-desc": "Die durchschnittliche Bewertung der Seite",
+	"bs-rating-sesp-rating-total": "Anzahl der Bewertungen",
+	"bs-rating-sesp-rating-total-desc": "Die Anzahl der Bewertungen für die Seite",
+	"bs-rating-sesp-recommendations-total": "Anzahl der Empfehlungen",
+	"bs-rating-sesp-recommendations-total-desc": "Die Anzahl der Empfehlungen für die Seite"
 }
