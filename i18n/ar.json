@@ -39,5 +39,11 @@
 	"apihelp-bs-ratingarticle-store-summary": "يسلم تقييمات للمقالات",
 	"apihelp-bs-ratingarticlelike-store-summary": "يسلم توصيات للمقالات",
 	"bs-rating-star-rating-star-label": "تقييم النجمة $1",
-	"bs-rating-star-rating-star-selected-announce": "تم اختيار نجمة التقييم $1"
+	"bs-rating-star-rating-star-selected-announce": "تم اختيار نجمة التقييم $1",
+	"bs-rating-sesp-rating-average": "التقييم المتوسط",
+	"bs-rating-sesp-rating-average-desc": "متوسط تقييم الصفحة",
+	"bs-rating-sesp-rating-total": "عدد التقييمات",
+	"bs-rating-sesp-rating-total-desc": "عدد التقييمات للصفحة",
+	"bs-rating-sesp-recommendations-total": "عدد التوصيات",
+	"bs-rating-sesp-recommendations-total-desc": "عدد التوصيات للصفحة"
 }
