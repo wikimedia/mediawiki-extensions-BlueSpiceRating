@@ -6,7 +6,8 @@
 			"Terio legale",
 			"Thibaut120094",
 			"Verdy p",
-			"Wladek92"
+			"Wladek92",
+			"JLTRY"
 		]
 	},
 	"bs-rating-extension-description": "Fournit un système d’évaluation",
@@ -43,5 +44,11 @@
 	"apihelp-bs-ratingarticle-store-summary": "Fournit des évaluations pour les articles",
 	"apihelp-bs-ratingarticlelike-store-summary": "Fournit des recommandations pour les articles",
 	"bs-rating-star-rating-star-label": "Étoile de notation $1",
-	"bs-rating-star-rating-star-selected-announce": "Étoile de notation $1 sélectionnée"
+	"bs-rating-star-rating-star-selected-announce": "Étoile de notation $1 sélectionnée",
+	"bs-rating-sesp-rating-average": "Évaluation moyenne",
+	"bs-rating-sesp-rating-average-desc": "La note moyenne de la page",
+	"bs-rating-sesp-rating-total": "Nombre d’évaluations",
+	"bs-rating-sesp-rating-total-desc": "Le nombre d’évaluations de cette page.",
+	"bs-rating-sesp-recommendations-total": "Nombre de recommandations",
+	"bs-rating-sesp-recommendations-total-desc": "Le nombre de recommandations pour la page"
 }
