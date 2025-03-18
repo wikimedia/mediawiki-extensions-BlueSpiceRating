@@ -32,8 +32,8 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 		$res = $this->getDB( DB_REPLICA )->select(
 			'bs_rating',
 			'*',
-			[ 'rat_reftype = "rcarticle"' ]
-
+			[ 'rat_reftype = "rcarticle"' ],
+			__METHOD__
 		);
 		foreach ( $res as $row ) {
 			$this->data[$row->rat_ref][] = $row;
