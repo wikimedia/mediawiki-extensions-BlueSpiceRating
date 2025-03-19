@@ -43,7 +43,8 @@ class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 		}
 		$b = $this->getDB( DB_PRIMARY )->delete(
 			'bs_rating',
-			[ 'rat_id' => $deleteEntries ]
+			[ 'rat_id' => $deleteEntries ],
+			__METHOD__
 		);
 		return true;
 	}
