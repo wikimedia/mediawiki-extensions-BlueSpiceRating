@@ -22,7 +22,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	protected function noDataToMigrate() {
-		return $this->getDB( DB_REPLICA )->tableExists( 'bs_rating' ) === false;
+		return $this->getDB( DB_REPLICA )->tableExists( 'bs_rating', __METHOD__ ) === false;
 	}
 
 	/** @var stdClass[][] */
