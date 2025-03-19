@@ -21,7 +21,11 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 	public function setUp(): void {
 		parent::setUp();
 		$oDBW = $this->db;
-		$oDBW->delete( 'bs_rating', [ 'rat_ref' => 1 ] );
+		$oDBW->delete(
+			'bs_rating',
+			[ 'rat_ref' => 1 ],
+			__METHOD__
+		);
 	}
 
 	/**
