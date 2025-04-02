@@ -1,13 +1,13 @@
 {
 	"@metadata": {
 		"authors": [
+			"GünniBusch",
+			"Justman10000",
 			"Mglaser",
 			"Mirzali",
 			"Mschlindwein",
 			"Osnard",
-			"Patric Wirth",
-			"GünniBusch",
-			"Justman10000"
+			"Patric Wirth"
 		]
 	},
 	"bs-rating-extension-description": "Stellt ein Bewertungssystem zur Verfügung.",
