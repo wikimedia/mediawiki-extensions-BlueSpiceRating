@@ -75,7 +75,7 @@ class ArticleLike extends RatingItem {
 	 * @param Title|null $title
 	 * @return Status
 	 */
-	public function userCan( User $user, $action = 'read', Title $title = null ) {
+	public function userCan( User $user, $action = 'read', ?Title $title = null ) {
 		if ( !$title ) {
 			$title = Title::newFromID( (int)$this->getRef() );
 		}
