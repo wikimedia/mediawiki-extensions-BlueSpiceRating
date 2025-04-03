@@ -47,7 +47,7 @@ class RatingRegistry {
 
 	/**
 	 *
-	 * @param type $config
+	 * @param Config $config
 	 */
 	public function __construct( $config ) {
 		$this->config = $config;

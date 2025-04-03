@@ -155,7 +155,7 @@ class RatingItem implements \JsonSerializable {
 	 * @param Title|null $title
 	 * @return bool
 	 */
-	protected function checkPermission( $action, User $user, Title $title = null ) {
+	protected function checkPermission( $action, User $user, ?Title $title = null ) {
 		$action = ucfirst( $action );
 		$permission = $this->getConfig()->get( "{$action}Permission" );
 		if ( !$permission ) {
@@ -178,7 +178,7 @@ class RatingItem implements \JsonSerializable {
 	 * @param Title|null $title
 	 * @return Status
 	 */
-	public function userCan( User $user, $action = 'read', Title $title = null ) {
+	public function userCan( User $user, $action = 'read', ?Title $title = null ) {
 		$bTitleRequired = $this->getConfig()->get( 'PermissionTitleRequired' );
 		if ( $bTitleRequired && !$title instanceof Title ) {
 			return Status::newFatal( "Title Required" );
@@ -269,8 +269,8 @@ class RatingItem implements \JsonSerializable {
 	 * @param Title|null $title for permission check!
 	 * @return Status
 	 */
-	public function vote( User $user, $value, User $owner = null, $context = 0,
-		Title $title = null ) {
+	public function vote( User $user, $value, ?User $owner = null, $context = 0,
+		?Title $title = null ) {
 		if ( !$owner instanceof User ) {
 			$owner = $user;
 		}
@@ -431,7 +431,7 @@ class RatingItem implements \JsonSerializable {
 	 * @param int $context
 	 * @return bool
 	 */
-	protected function deleteRating( User $user = null, $context = 0 ) {
+	protected function deleteRating( ?User $user = null, $context = 0 ) {
 		$ratings = $this->getRatingSet()->getRatings( $context );
 		if ( $user ) {
 			$ratings = $this->getRatingSet()->getUserRatings( $user, $ratings );
