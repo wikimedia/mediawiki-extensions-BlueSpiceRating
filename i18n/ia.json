@@ -40,5 +40,11 @@
 	"bs-rating-articlelike-ratingtext-reader-title": "Recommendation{{PLURAL:$1||es}} ($1)",
 	"bs-rating-articlelike-uservoted-title": "Recommendate per te",
 	"bs-rating-star-rating-star-label": "Stella de evalutation $1",
-	"bs-rating-star-rating-star-selected-announce": "Stella de evalutation $1 seligite"
+	"bs-rating-star-rating-star-selected-announce": "Stella de evalutation $1 seligite",
+	"bs-rating-sesp-rating-average": "Evalutation medie",
+	"bs-rating-sesp-rating-average-desc": "Le evalutation medie del pagina",
+	"bs-rating-sesp-rating-total": "Numero de evalutationes",
+	"bs-rating-sesp-rating-total-desc": "Le numero de evalutationes del pagina",
+	"bs-rating-sesp-recommendations-total": "Numero de recommendationes",
+	"bs-rating-sesp-recommendations-total-desc": "Le numero de recommendationes pro le pagina"
 }

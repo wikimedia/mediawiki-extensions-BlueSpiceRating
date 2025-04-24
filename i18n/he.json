@@ -43,5 +43,11 @@
 	"bs-rating-articlelike-uservoted-title": "המלצת על זה",
 	"bs-rating-star-rating-star-label": "כוכב דירוג מס׳ $1",
 	"bs-rating-star-rating-star-selected-announce": "נבחר כוכב דירוג מס׳ $1",
-	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|הצעה|הצעות}} ($1)"
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|הצעה|הצעות}} ($1)",
+	"bs-rating-sesp-rating-average": "דירוג ממוצע",
+	"bs-rating-sesp-rating-average-desc": "הדירוג הממוצע של הדף",
+	"bs-rating-sesp-rating-total": "מספר הדירוגים",
+	"bs-rating-sesp-rating-total-desc": "מספר הדירוגים של הדף הזה",
+	"bs-rating-sesp-recommendations-total": "מספר ההמלצות",
+	"bs-rating-sesp-recommendations-total-desc": "מספר ההמלצות עבור הדף"
 }

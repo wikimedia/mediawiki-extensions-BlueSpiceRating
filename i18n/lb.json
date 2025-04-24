@@ -19,5 +19,9 @@
 	"bs-rating-specialrating-titleVotes": "Zuel vun de Bewäertungen",
 	"bs-rating-nsm-label": "Bewäertung",
 	"bs-rating-nsm-label-recommendations": "Recommandatiounen",
-	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|Bewäertung|Bewäertungen}}"
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|Bewäertung|Bewäertungen}}",
+	"bs-rating-sesp-rating-average": "Duerchschnëttlech Bewäertung",
+	"bs-rating-sesp-rating-average-desc": "Déi duerchschnëttlech Bewäertung vun der Säit",
+	"bs-rating-sesp-rating-total": "Zuel vun de Bewäertungen",
+	"bs-rating-sesp-rating-total-desc": "D'Zuel vun de Bewäertunge vun der Säit"
 }

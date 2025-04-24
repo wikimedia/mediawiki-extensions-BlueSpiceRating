@@ -40,5 +40,11 @@
 	"apihelp-bs-ratingarticlelike-store-summary": "Delivers recommendations for articles",
 	"apihelp-bs-rating-store-summary": "Delivers ratings for articles",
 	"bs-rating-star-rating-star-label": "Rating star $1",
-	"bs-rating-star-rating-star-selected-announce": "Rating star $1 selected"
+	"bs-rating-star-rating-star-selected-announce": "Rating star $1 selected",
+	"bs-rating-sesp-rating-average": "Average rating",
+	"bs-rating-sesp-rating-average-desc": "The average rating of the page",
+	"bs-rating-sesp-rating-total": "Number of ratings",
+	"bs-rating-sesp-rating-total-desc": "The number of ratings for the page",
+	"bs-rating-sesp-recommendations-total": "Number of recommendations",
+	"bs-rating-sesp-recommendations-total-desc": "The number of recommendations for the page"
 }

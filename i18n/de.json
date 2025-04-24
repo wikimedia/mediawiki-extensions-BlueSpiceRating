@@ -1,6 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
+			"GünniBusch",
+			"Justman10000",
 			"Mglaser",
 			"Mirzali",
 			"Mschlindwein",
@@ -44,5 +46,11 @@
 	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|Empfehlung|Empfehlungen}} ($1)",
 	"bs-rating-articlelike-uservoted-title": "Von dir empfohlen",
 	"bs-rating-star-rating-star-label": "Bewertungsstern $1",
-	"bs-rating-star-rating-star-selected-announce": "Bewertungsstern $1 ausgewählt"
+	"bs-rating-star-rating-star-selected-announce": "Bewertungsstern $1 ausgewählt",
+	"bs-rating-sesp-rating-average": "Durchschnittliche Bewertung",
+	"bs-rating-sesp-rating-average-desc": "Die durchschnittliche Bewertung der Seite",
+	"bs-rating-sesp-rating-total": "Anzahl der Bewertungen",
+	"bs-rating-sesp-rating-total-desc": "Die Anzahl der Bewertungen für die Seite",
+	"bs-rating-sesp-recommendations-total": "Anzahl der Empfehlungen",
+	"bs-rating-sesp-recommendations-total-desc": "Die Anzahl der Empfehlungen für die Seite"
 }

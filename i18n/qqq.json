@@ -42,5 +42,11 @@
 	"apihelp-bs-ratingarticlelike-store-summary": "{{doc-apihelp-summary|bs-ratingarticlelike-store}}",
 	"apihelp-bs-rating-store-summary": "{{doc-apihelp-summary|bs-rating-store}}",
 	"bs-rating-star-rating-star-label": "Label for star rating star. Parameters:\n* $1 - star number",
-	"bs-rating-star-rating-star-selected-announce": "Announcement for star rating star selected\nParameters:\n* $1 - star number"
+	"bs-rating-star-rating-star-selected-announce": "Announcement for star rating star selected\nParameters:\n* $1 - star number",
+	"bs-rating-sesp-rating-average": "SESP label",
+	"bs-rating-sesp-rating-average-desc": "SESP description",
+	"bs-rating-sesp-rating-total": "SESP label",
+	"bs-rating-sesp-rating-total-desc": "SESP description",
+	"bs-rating-sesp-recommendations-total": "SESP label",
+	"bs-rating-sesp-recommendations-total-desc": "SESP description"
 }

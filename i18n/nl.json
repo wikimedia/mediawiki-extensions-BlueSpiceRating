@@ -42,5 +42,11 @@
 	"bs-rating-articlelike-ratingtext-reader-title": "Aanbeveling{{PLURAL:$1||en}} ($1)",
 	"bs-rating-articlelike-uservoted-title": "Door u aanbevolen",
 	"bs-rating-star-rating-star-label": "Beoordelingsster $1",
-	"bs-rating-star-rating-star-selected-announce": "Beoordelingsster $1 geselecteerd"
+	"bs-rating-star-rating-star-selected-announce": "Beoordelingsster $1 geselecteerd",
+	"bs-rating-sesp-rating-average": "Gemiddelde beoordeling",
+	"bs-rating-sesp-rating-average-desc": "De gemiddelde beoordeling van de pagina",
+	"bs-rating-sesp-rating-total": "Aantal beoordelingen",
+	"bs-rating-sesp-rating-total-desc": "Het aantal beoordelingen van de pagina",
+	"bs-rating-sesp-recommendations-total": "Aantal aanbevelingen",
+	"bs-rating-sesp-recommendations-total-desc": "Het aantal aanbevelingen voor de pagina"
 }
