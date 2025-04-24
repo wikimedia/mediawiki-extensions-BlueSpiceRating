@@ -8,8 +8,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"BlueSpice\\Rating\\": "src",
-			"BlueSpice\\Rating\\Tests\\": "tests/phpunit"
+			"BlueSpice\\Rating\\": "src"
 		}
 	},
 	"require-dev": {
