@@ -106,7 +106,7 @@ bs.rating.ItemArticle.prototype.makeNumVotes = function () {
 			class: 'bs-rating-article-numvotes',
 			title: numVotesMessage
 		} )
-		.append( `(${this.getVoteCount()})` )
+		.append( `(${ this.getVoteCount() })` )
 		.append( $( '<span>' )
 			.attr( 'class', 'visually-hidden' )
 			.text( numVotesMessage )

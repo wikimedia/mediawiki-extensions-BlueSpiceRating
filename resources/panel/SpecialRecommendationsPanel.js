@@ -37,43 +37,37 @@ ext.bluespice.rating.panel.SpecialRecommendationsPanel.prototype.setupGridConfig
 				headerText: mw.message( 'bs-rating-specialrating-label-namespace' ).plain(),
 				type: 'text',
 				sortable: true,
-				valueParser: ( value, row ) => {
-					return new OO.ui.HtmlSnippet( mw.html.element(
-						'a',
-						{
-							href: mw.util.getUrl( 'Special:AllPages', {
-								namespace: value
-							} )
-						},
-						row.page_namespace_text
-					) );
-				}
+				valueParser: ( value, row ) => new OO.ui.HtmlSnippet( mw.html.element(
+					'a',
+					{
+						href: mw.util.getUrl( 'Special:AllPages', {
+							namespace: value
+						} )
+					},
+					row.page_namespace_text
+				) )
 			},
 			page_title: { // eslint-disable-line camelcase
 				headerText: mw.message( 'bs-rating-specialrating-titleTitle' ).plain(),
 				type: 'text',
 				sortable: true,
 				filter: { type: 'text' },
-				valueParser: ( value, row ) => {
-					return new OO.ui.HtmlSnippet( mw.html.element(
-						'a',
-						{
-							href: row.page_namespace == bs.ns.NS_MAIN ? // eslint-disable-line eqeqeq
-								mw.util.getUrl( value ) :
-								mw.util.getUrl( `${row.page_namespace_text}:${value}` )
-						},
-						value
-					) );
-				}
+				valueParser: ( value, row ) => new OO.ui.HtmlSnippet( mw.html.element(
+					'a',
+					{
+						href: row.page_namespace == bs.ns.NS_MAIN ? // eslint-disable-line eqeqeq
+							mw.util.getUrl( value ) :
+							mw.util.getUrl( `${ row.page_namespace_text }:${ value }` )
+					},
+					value
+				) )
 			},
 			totalcount: {
 				headerText: mw.message( 'bs-rating-special-recommendations-label-recommendation' ).plain(),
 				type: 'text',
 				sortable: true,
 				filter: { type: 'text' },
-				valueParser: ( value, row ) => {
-					return new OO.ui.HtmlSnippet( row.content );
-				}
+				valueParser: ( value, row ) => new OO.ui.HtmlSnippet( row.content )
 			}
 		},
 		store: this.store,
@@ -95,7 +89,7 @@ ext.bluespice.rating.panel.SpecialRecommendationsPanel.prototype.setupGridConfig
 
 					const $tbody = $( '<tbody>' );
 					for ( const id in response ) {
-						if ( response.hasOwnProperty( id ) ) { // eslint-disable-line no-prototype-builtins
+						if ( response.hasOwnProperty( id ) ) {
 							const record = response[ id ];
 							$tbody.append( $( '<tr>' )
 								.append( $( '<td>' ).text( record.page_namespace_text ) )
@@ -107,7 +101,7 @@ ext.bluespice.rating.panel.SpecialRecommendationsPanel.prototype.setupGridConfig
 
 					$table.append( $thead, $tbody );
 
-					deferred.resolve( `<table>${$table.html()}</table>` );
+					deferred.resolve( `<table>${ $table.html() }</table>` );
 				} catch ( error ) {
 					deferred.reject( 'Failed to load data' );
 				}

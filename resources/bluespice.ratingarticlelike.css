@@ -6,18 +6,18 @@
 
 .bs-rating-articlelike-button {
 	background: none;
-	border: none;
+	border: none; /* stylelint-disable-line declaration-property-value-disallowed-list */
 }
 
 .bs-rating-articlelike-button:disabled {
-	cursor: not-allowed;
+	cursor: not-allowed; /* stylelint-disable-line plugin/no-unsupported-browser-features */
 }
 
 .bs-rating-articlelike-icon::after {
 	content: '\e9a9';
 	font-family: 'icomoon';
-	font-size: 13px;
-	color: var(--content-fg-secondary);
+	font-size: 13px; /* stylelint-disable-line declaration-property-unit-disallowed-list */
+	color: var( --content-fg-secondary );
 	display: inline-block;
 	font-weight: bold;
 	margin-right: 5px;
@@ -25,17 +25,17 @@
 
 .bs-rating-articlelike-label,
 .bs-rating-articlelike-icon.recommended::after {
-	color: var(--link-fg);
+	color: var( --link-fg );
 }
 
 .bs-rating-articlelike-button:disabled .bs-rating-articlelike-label {
-	color: var(--content-fg-secondary);
+	color: var( --content-fg-secondary );
 }
 
-.bs-rating-articlelike-uservoted::after{
+.bs-rating-articlelike-uservoted::after {
 	content: '\ea10';
 	font-family: 'icomoon';
-	font-size: 14px;
+	font-size: 14px; /* stylelint-disable-line declaration-property-unit-disallowed-list */
 	color: green;
 	padding-left: 5px;
 }

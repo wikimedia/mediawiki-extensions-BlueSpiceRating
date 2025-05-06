@@ -1,7 +1,7 @@
 ( ( $ ) => {
 
 	$( () => {
-		const $container = $( '#bs-rating-special-recommendations-container' ); // eslint-disable-line no-jquery/no-global-selector
+		const $container = $( '#bs-rating-special-recommendations-container' );
 		if ( $container.length === 0 ) {
 			return;
 		}
