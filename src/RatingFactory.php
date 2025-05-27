@@ -108,7 +108,7 @@ class RatingFactory {
 	/**
 	 * RatingItem from a set of data
 	 * @param \stdClass $data
-	 * @return \RatingItem
+	 * @return \RatingItem|null
 	 */
 	public function newFromObject( \stdClass $data ) {
 		$status = $this->ensureBasicParams( $data );

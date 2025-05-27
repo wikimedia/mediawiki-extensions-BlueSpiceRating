@@ -75,10 +75,13 @@ class RecommendationsTotalValueProvider extends PropertyValueProvider {
 	public function addAnnotation( $appFactory, $property, $semanticData ) {
 		$title = $semanticData->getSubject()->getTitle();
 		if ( $title === null ) {
-			return null;
+			return;
 		}
 		/** @var ArticleLike $recommendations */
 		$recommendations = $this->ratingFactory->newFromTitle( $title );
+		if ( !$recommendations instanceof ArticleLike ) {
+			return;
+		}
 		$total = $recommendations->getRatingSet()?->getTotal() ?? 0;
 		$semanticData->addPropertyObjectValue(
 			$property, new SMWDINumber( $total )
