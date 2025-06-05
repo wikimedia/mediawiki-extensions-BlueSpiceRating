@@ -2,7 +2,7 @@
 
 namespace BlueSpice\Rating\Data\Item\Article;
 
-use MWException;
+use LogicException;
 
 class Store extends \BlueSpice\Rating\Data\Store {
 
@@ -15,10 +15,9 @@ class Store extends \BlueSpice\Rating\Data\Store {
 	}
 
 	/**
-	 *
-	 * @throws MWException
+	 * @throws LogicException
 	 */
 	public function getWriter() {
-		throw new MWException( 'Write is not supported' );
+		throw new LogicException( 'Write is not supported' );
 	}
 }
