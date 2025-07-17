@@ -2,41 +2,78 @@
 
 namespace BlueSpice\Rating\Hook\BeforePageDisplay;
 
-use BlueSpice\Hook\BeforePageDisplay;
-use MediaWiki\MediaWikiServices;
+use BlueSpice\Rating\RatingConfigFactory;
+use BlueSpice\Rating\RatingRegistry;
+use MediaWiki\Config\ConfigFactory;
+use MediaWiki\Output\Hook\BeforePageDisplayHook;
+use MediaWiki\Output\OutputPage;
 use MediaWiki\Registration\ExtensionRegistry;
 
-class AddResources extends BeforePageDisplay {
+class AddResources implements BeforePageDisplayHook {
 
-	protected function skipProcessing() {
+	/** @var ConfigFactory */
+	private $configFactory;
+
+	/** @var RatingRegistry */
+	private $ratingRegistry;
+
+	/** @var RatingConfigFactory */
+	private $ratingConfigFactory;
+
+	/**
+	 * @param ConfigFactory $configFactory
+	 * @param RatingRegistry $ratingRegistry
+	 * @param RatingConfigFactory $ratingConfigFactory
+	 */
+	public function __construct(
+		ConfigFactory $configFactory, RatingRegistry $ratingRegistry, RatingConfigFactory $ratingConfigFactory
+	) {
+		$this->configFactory = $configFactory;
+		$this->ratingRegistry = $ratingRegistry;
+		$this->ratingConfigFactory = $ratingConfigFactory;
+	}
+
+	/**
+	 * @param OutputPage $out
+	 * @return bool
+	 */
+	protected function shouldSkipProcessing( OutputPage $out ): bool {
 		if ( ExtensionRegistry::getInstance()->isLoaded( 'BlueSpiceSocialRating' ) ) {
 			return false;
 		}
 
-		$title = $this->out->getTitle();
+		$title = $out->getTitle();
 		if ( !$title ) {
 			return true;
 		}
 
-		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
-		$enabledNamespaces = $config->get( 'RatingArticleEnabledNamespaces' );
-		if ( !in_array( $title->getNamespace(), $enabledNamespaces ) ) {
+		$config = $this->configFactory->makeConfig( 'bsg' );
+		$enabledRatingNamespaces = $config->get( 'RatingArticleEnabledNamespaces' );
+		$enabledRecommendNamespaces = $config->get( 'RatingArticleLikeEnabledNamespaces' );
+		$namespace = $title->getNamespace();
+		if (
+			!in_array( $namespace, $enabledRatingNamespaces ) &&
+			!in_array( $namespace, $enabledRecommendNamespaces )
+		) {
 			return true;
 		}
 
 		return false;
 	}
 
-	protected function doProcess() {
-		$this->out->addModuleStyles( 'ext.bluespice.rating.icons' );
+	/**
+	 * @inheritDoc
+	 */
+	public function onBeforePageDisplay( $out, $skin ): void {
+		if ( $this->shouldSkipProcessing( $out ) ) {
+			return;
+		}
+
+		$out->addModuleStyles( 'ext.bluespice.rating.icons' );
 
 		$scripts = $styles = [];
-		$registry = $this->getServices()->getService( 'BSRatingRegistry' );
-		$configFactory = $this->getServices()->getService(
-			'BSRatingConfigFactory'
-		);
-		foreach ( $registry->getRegisterdTypeKeys() as $key ) {
-			$config = $configFactory->newFromType( $key );
+		foreach ( $this->ratingRegistry->getRegisterdTypeKeys() as $key ) {
+			$config = $this->ratingConfigFactory->newFromType( $key );
 			$ratingConfigStyles = $config->get( 'ModuleStyles' );
 			if ( $ratingConfigStyles ) {
 				$styles = array_merge( $styles, $ratingConfigStyles );
@@ -52,12 +89,10 @@ class AddResources extends BeforePageDisplay {
 		$styles = array_values( array_unique( $styles ) );
 
 		if ( !empty( $scripts ) ) {
-			$this->out->addModules( $scripts );
+			$out->addModules( $scripts );
 		}
 		if ( !empty( $styles ) ) {
-			$this->out->addModuleStyles( $styles );
+			$out->addModuleStyles( $styles );
 		}
-
-		return true;
 	}
 }
