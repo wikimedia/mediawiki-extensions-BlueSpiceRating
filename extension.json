@@ -289,6 +289,10 @@
 		},
 		"writeNamespaceConfiguration": {
 			"class": "\\BlueSpice\\Rating\\Hook\\WriteNamespaceConfiguration"
+		},
+		"addResources": {
+			"class": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources",
+			"services": [ "ConfigFactory", "BSRatingRegistry", "BSRatingConfigFactory" ]
 		}
 	},
 	"Hooks": {
@@ -299,7 +303,7 @@
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddBSRatingRemoveDuplicateEntriesMaintenanceScript::callback",
 			"\\BlueSpice\\Rating\\Hook\\LoadExtensionSchemaUpdates\\AddRatingMigrateRatedCommentsScript::callback"
 		],
-		"BeforePageDisplay": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources::callback",
+		"BeforePageDisplay": "addResources",
 		"BSMigrateSettingsFromDeviatingNames": "\\BlueSpice\\Rating\\Extension::onBSMigrateSettingsFromDeviatingNames",
 		"NamespaceManager::getMetaFields": "BlueSpice\\Rating\\Hook\\NamespaceManagerGetMetaFields\\RegisterMetaFields::callback",
 		"BSApiNamespaceStoreMakeData": "BlueSpice\\Rating\\Hook\\BSApiNamespaceStoreMakeData\\AddData::callback",
