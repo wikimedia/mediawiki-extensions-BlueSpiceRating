@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Meno25",
+			"Mohammed Qays",
 			"ديفيد"
 		]
 	},
@@ -12,7 +13,7 @@
 	"recommendations": "توصيات",
 	"bs-rating-yourrating": "تقييمك: $1",
 	"bs-rating-special-rating-heading": "التقييمات",
-	"bs-rating-ratingvalue-title": "تم تقييمه بـ $1 من أصل 5",
+	"bs-rating-ratingvalue-title": "أُعطي تقيمًا $1 من أصل 5",
 	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1| تقييم|تقييمات}}",
 	"bs-rating-articlelike-ratingtext": "الموصى به ($1)",
 	"bs-rating-articlelike-uratingtextservoted": "الموصى به ($1)",
