@@ -15,7 +15,7 @@
 	"bs-rating-types-pagelike": "Seitenempfehlung",
 	"rating": "Bewertungen",
 	"recommendations": "Empfehlungen",
-	"bs-rating-yourrating": "Deine Bewertung: $1",
+	"bs-rating-yourrating": "{{#FORMAL:Deine|Ihre}} Bewertung: $1",
 	"bs-rating-special-rating-heading": "Bewertungen",
 	"bs-rating-ratingvalue-title": "Bewertet mit $1 von 5",
 	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|Bewertung|Bewertungen}}",
