@@ -1,0 +1,38 @@
+.bs-rating-article-star-group-cnt {
+	display: inline-flex;
+	margin-right: 0.5em;
+}
+
+/* Radio buttons invisible but focusable */
+.rating-star-radio-btn {
+	position: absolute;
+	opacity: 0;
+	width: 1px;
+	height: 1px;
+	margin: 0;
+}
+
+.rating-group-stars {
+	display: flex;
+	flex-direction: row;
+	justify-content: start;
+	gap: 0.25em;
+}
+
+.rating-star-item svg {
+	fill: #747474;
+}
+
+.rating-star-item.avg-highlight svg {
+	fill: gold;
+}
+
+.rating-star-item.cur-highlight svg {
+	fill: #3e5389;
+}
+
+/* Keybord focus frame */
+.rating-star-radio-btn:focus + label {
+	outline: 2px solid black;
+	outline-offset: 4px;
+}
