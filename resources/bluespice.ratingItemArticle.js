@@ -4,13 +4,11 @@ bs.rating.ItemArticle = function ( $el, type, data ) {
 	const userVotes = this.getCurrentUserRatings();
 	const myRating = userVotes.length ? userVotes[ 0 ][ this.VALUE ] : 0;
 
-	this.$starGroup = $( '<div>' ).attr( {
-		role: 'radiogroup',
-		class: 'bs-rating-article-stargroup',
-		title: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text(),
-		'aria-label': mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text()
-	} );
-
+	let rating = Number( myRating );
+	if ( isNaN( rating ) ) {
+		rating = 0;
+	}
+	this.$starGroup = $( '<div>' ).addClass( 'bs-rating-article-star-group-cnt' );
 	this.$starGroup.append( this.makeStarRating( myRating ) );
 	this.getEl().append( this.$starGroup );
 
@@ -38,10 +36,10 @@ bs.rating.ItemArticle.prototype.getData = function () {
 bs.rating.ItemArticle.prototype.reset = function ( data ) {
 	bs.rating.ItemArticle.super.prototype.reset.apply( this, [ data ] );
 
-	this.$starGroup.starRating( 'setRating', this.getVoteAverage(), false );
-	this.$starGroup.attr( {
-		title: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text(),
-		'aria-label': mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text()
+	const rating = this.getVoteAverage();
+	this.$starGroup.ratingGroup( 'updateRating', {
+		groupLabel: mw.message( 'bs-rating-ratingvalue-title', rating ).text(),
+		averageRating: rating
 	} );
 
 	const numVotesMessage = mw.message( 'bs-rating-ratingcount-title', this.getVoteCount() ).text();
@@ -66,27 +64,23 @@ bs.rating.ItemArticle.prototype.reset = function ( data ) {
 };
 
 bs.rating.ItemArticle.prototype.makeStarRating = function ( myRating ) {
-	this.$starRating = this.$starGroup.starRating( {
-		starSize: 14,
-		useFullStars: true,
-		disableAfterRate: true,
-		strokeWidth: 9,
-		strokeColor: 'black',
+	this.$starRating = this.$starGroup.ratingGroup( {
+		starName: mw.message( 'bs-rating-button-name', this.getVoteAverage() ).text(),
+		formId: 'bs-rating-article-form',
+		groupLabel: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text(),
+		averageRating: this.getVoteAverage(),
+		currentRating: myRating,
 		readOnly: !this.data.get( 'usercanmodify', false ),
-		initialRating: this.getVoteAverage(),
-		myRating: myRating,
-		starGradient: {
-			start: '#93BFE2',
-			end: '#105694'
-		},
-		callback: ( currentRating, $el ) => {
-			$el.starRating( 'setReadOnly', true );
+		callback: ( rating, $el ) => {
 			this.addLoadingMask( $el );
-			this.vote( currentRating ).done( ( result ) => {
+			this.vote( rating ).done( ( result ) => {
 				if ( !result.success ) {
-					currentRating = this.getVoteAverage();
+					rating = this.getVoteAverage();
 				}
-				$el.starRating( 'setReadOnly', false );
+				$el.ratingGroup( 'updateRating', {
+					groupLabel: mw.message( 'bs-rating-ratingvalue-title', rating ).text(),
+					averageRating: rating
+				} );
 				this.removeLoadingMask( $el );
 				if ( result.payload.data ) {
 					this.reset( result.payload.data );
@@ -94,7 +88,6 @@ bs.rating.ItemArticle.prototype.makeStarRating = function ( myRating ) {
 			} );
 		}
 	} );
-
 	return this.$starRating;
 };
 

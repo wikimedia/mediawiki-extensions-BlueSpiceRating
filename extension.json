@@ -221,16 +221,17 @@
 		},
 		"ext.rating.starRatingSvg.styles": {
 			"styles": [
-				"star-rating-svg/src/css/star-rating-svg.css"
+				"rating-group.css"
 			]
 		},
 		"ext.rating.starRatingSvg": {
 			"scripts": [
-				"star-rating-svg/src/jquery.star-rating-svg.js"
+				"rating-group.js"
 			],
 			"messages": [
 				"bs-rating-star-rating-star-label",
-				"bs-rating-star-rating-star-selected-announce"
+				"bs-rating-star-rating-star-selected-announce",
+				"bs-rating-button-name"
 			]
 		},
 		"ext.bluespice.rating.discovery.styles": {
