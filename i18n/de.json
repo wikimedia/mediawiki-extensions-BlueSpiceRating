@@ -52,5 +52,6 @@
 	"bs-rating-sesp-rating-total": "Anzahl der Bewertungen",
 	"bs-rating-sesp-rating-total-desc": "Die Anzahl der Bewertungen für die Seite",
 	"bs-rating-sesp-recommendations-total": "Anzahl der Empfehlungen",
-	"bs-rating-sesp-recommendations-total-desc": "Die Anzahl der Empfehlungen für die Seite"
+	"bs-rating-sesp-recommendations-total-desc": "Die Anzahl der Empfehlungen für die Seite",
+	"bs-rating-button-name": "Bewertung"
 }

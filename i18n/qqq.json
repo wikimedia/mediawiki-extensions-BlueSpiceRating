@@ -48,5 +48,6 @@
 	"bs-rating-sesp-rating-total": "SESP label",
 	"bs-rating-sesp-rating-total-desc": "SESP description",
 	"bs-rating-sesp-recommendations-total": "SESP label",
-	"bs-rating-sesp-recommendations-total-desc": "SESP description"
+	"bs-rating-sesp-recommendations-total-desc": "SESP description",
+	"bs-rating-button-name": "Name of input field in rating form"
 }
