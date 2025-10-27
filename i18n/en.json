@@ -44,5 +44,6 @@
 	"bs-rating-sesp-rating-total": "Number of ratings",
 	"bs-rating-sesp-rating-total-desc": "The number of ratings for the page",
 	"bs-rating-sesp-recommendations-total": "Number of recommendations",
-	"bs-rating-sesp-recommendations-total-desc": "The number of recommendations for the page"
+	"bs-rating-sesp-recommendations-total-desc": "The number of recommendations for the page",
+	"bs-rating-button-name": "Rating"
 }
