@@ -21,5 +21,6 @@
 	"bs-rating-nsm-label": "Valutazione",
 	"bs-rating-nsm-label-recommendations": "Consigli",
 	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|Raccomandazione|Raccomandazioni}} ($1)",
-	"bs-rating-articlelike-uservoted-title": "Consigliato da te"
+	"bs-rating-articlelike-uservoted-title": "Consigliato da te",
+	"bs-rating-button-name": "Valutazione"
 }
