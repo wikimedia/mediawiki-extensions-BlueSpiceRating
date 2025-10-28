@@ -44,5 +44,6 @@
 	"bs-rating-sesp-rating-total": "Número de avaliacións",
 	"bs-rating-sesp-rating-total-desc": "O número de avaliacións da páxina",
 	"bs-rating-sesp-recommendations-total": "Número de recomendacións",
-	"bs-rating-sesp-recommendations-total-desc": "O número de recomendacións da páxina"
+	"bs-rating-sesp-recommendations-total-desc": "O número de recomendacións da páxina",
+	"bs-rating-button-name": "Avaliación"
 }
