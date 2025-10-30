@@ -34,7 +34,7 @@ ext.bluespice.rating.panel.SpecialRatingPanel.prototype.setupGridConfig = functi
 		style: 'differentiate-rows',
 		columns: {
 			page_namespace: { // eslint-disable-line camelcase
-				headerText: mw.message( 'bs-rating-specialrating-label-namespace' ).plain(),
+				headerText: mw.message( 'bs-rating-specialrating-label-namespace' ).text(),
 				type: 'text',
 				sortable: true,
 				valueParser: ( value, row ) => new OO.ui.HtmlSnippet( mw.html.element(
@@ -48,7 +48,7 @@ ext.bluespice.rating.panel.SpecialRatingPanel.prototype.setupGridConfig = functi
 				) )
 			},
 			page_title: { // eslint-disable-line camelcase
-				headerText: mw.message( 'bs-rating-specialrating-titleTitle' ).plain(),
+				headerText: mw.message( 'bs-rating-specialrating-titleTitle' ).text(),
 				type: 'text',
 				sortable: true,
 				filter: { type: 'text' },
@@ -63,14 +63,14 @@ ext.bluespice.rating.panel.SpecialRatingPanel.prototype.setupGridConfig = functi
 				) )
 			},
 			average: {
-				headerText: mw.message( 'bs-rating-specialrating-titleRating' ).plain(),
+				headerText: mw.message( 'bs-rating-specialrating-titleRating' ).text(),
 				type: 'text',
 				sortable: true,
 				filter: { type: 'text' },
 				valueParser: ( value, row ) => new OO.ui.HtmlSnippet( row.content )
 			},
 			totalcount: {
-				headerText: mw.message( 'bs-rating-specialrating-titleVotes' ).plain(),
+				headerText: mw.message( 'bs-rating-specialrating-titleVotes' ).text(),
 				type: 'text',
 				sortable: true,
 				filter: { type: 'text' }

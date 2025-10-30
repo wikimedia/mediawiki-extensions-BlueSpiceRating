@@ -85,7 +85,7 @@
         this.$stars.each( ( index, star ) => {
             $( star ).attr( {
                 'role': 'radio',
-                'aria-label': mw.message( 'bs-rating-star-rating-star-label', index + 1 ).plain(),
+                'aria-label': mw.message( 'bs-rating-star-rating-star-label', index + 1 ).text(),
                 'aria-checked': 'false',
                 'tabindex': '-1'
             } );
@@ -188,7 +188,7 @@
 			'role': 'status',
 		  } ).appendTo( this.$el );
 		}
-		this.$liveRegion.text( mw.message( 'bs-rating-star-rating-star-selected-announce', rating ).plain() );
+		this.$liveRegion.text( mw.message( 'bs-rating-star-rating-star-selected-announce', rating ).text() );
 	},
 
     restoreState: function(e){
