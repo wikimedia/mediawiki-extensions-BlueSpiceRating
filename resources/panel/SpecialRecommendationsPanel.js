@@ -34,7 +34,7 @@ ext.bluespice.rating.panel.SpecialRecommendationsPanel.prototype.setupGridConfig
 		style: 'differentiate-rows',
 		columns: {
 			page_namespace: { // eslint-disable-line camelcase
-				headerText: mw.message( 'bs-rating-specialrating-label-namespace' ).plain(),
+				headerText: mw.message( 'bs-rating-specialrating-label-namespace' ).text(),
 				type: 'text',
 				sortable: true,
 				valueParser: ( value, row ) => new OO.ui.HtmlSnippet( mw.html.element(
@@ -48,7 +48,7 @@ ext.bluespice.rating.panel.SpecialRecommendationsPanel.prototype.setupGridConfig
 				) )
 			},
 			page_title: { // eslint-disable-line camelcase
-				headerText: mw.message( 'bs-rating-specialrating-titleTitle' ).plain(),
+				headerText: mw.message( 'bs-rating-specialrating-titleTitle' ).text(),
 				type: 'text',
 				sortable: true,
 				filter: { type: 'text' },
@@ -63,7 +63,7 @@ ext.bluespice.rating.panel.SpecialRecommendationsPanel.prototype.setupGridConfig
 				) )
 			},
 			totalcount: {
-				headerText: mw.message( 'bs-rating-special-recommendations-label-recommendation' ).plain(),
+				headerText: mw.message( 'bs-rating-special-recommendations-label-recommendation' ).text(),
 				type: 'text',
 				sortable: true,
 				filter: { type: 'text' },

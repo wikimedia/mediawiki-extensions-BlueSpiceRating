@@ -196,7 +196,7 @@
 					role: 'status'
 				} ).appendTo( this.$el );
 			}
-			this.$liveRegion.text( mw.message( 'bs-rating-star-rating-star-selected-announce', rating ).plain() );
+			this.$liveRegion.text( mw.message( 'bs-rating-star-rating-star-selected-announce', rating ).text() );
 		},
 		executeCallback: function ( rating ) {
 			const callback = this.options.callback;
