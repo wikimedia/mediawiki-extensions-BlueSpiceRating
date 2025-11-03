@@ -3,7 +3,8 @@
 		"authors": [
 			"Mainframe98",
 			"McDutchie",
-			"Romaine"
+			"Romaine",
+			"Siebrand"
 		]
 	},
 	"bs-rating-extension-description": "Voorziet in een beoordelingssysteem",
@@ -46,5 +47,6 @@
 	"bs-rating-sesp-rating-total": "Aantal beoordelingen",
 	"bs-rating-sesp-rating-total-desc": "Het aantal beoordelingen van de pagina",
 	"bs-rating-sesp-recommendations-total": "Aantal aanbevelingen",
-	"bs-rating-sesp-recommendations-total-desc": "Het aantal aanbevelingen voor de pagina"
+	"bs-rating-sesp-recommendations-total-desc": "Het aantal aanbevelingen voor de pagina",
+	"bs-rating-button-name": "Beoordeling"
 }
