@@ -3,7 +3,8 @@
 		"authors": [
 			"BaRaN6161 TURK",
 			"Hedda",
-			"Mirzali"
+			"Mirzali",
+			"Sakblue"
 		]
 	},
 	"bs-rating-extension-description": "Bir derecelendirme sistemi sağlar",
@@ -36,5 +37,6 @@
 	"apihelp-bs-rating-tasks-summary": "Derecelendirme uzantısı için genel görevleri yürütür",
 	"apihelp-bs-ratingarticle-store-summary": "Maddeler için derecelendirme sunar",
 	"apihelp-bs-ratingarticlelike-store-summary": "Maddeler için öneriler sunar",
-	"apihelp-bs-rating-store-summary": "Maddeler derecelendirmesi sunar"
+	"apihelp-bs-rating-store-summary": "Maddeler derecelendirmesi sunar",
+	"bs-rating-button-name": "Derecelendirme"
 }
