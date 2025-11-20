@@ -231,7 +231,10 @@
 			"messages": [
 				"bs-rating-star-rating-star-label",
 				"bs-rating-star-rating-star-selected-announce",
-				"bs-rating-button-name"
+				"bs-rating-button-name",
+				"bs-rating-ratingstar-label",
+				"bs-rating-article-star-group-desc",
+				"bs-rating-article-star-group-form-desc"
 			]
 		},
 		"ext.bluespice.rating.discovery.styles": {
