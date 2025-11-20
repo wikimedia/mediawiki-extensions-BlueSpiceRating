@@ -4,6 +4,8 @@ bs.rating.ItemArticle = function ( $el, type, data ) {
 	const userVotes = this.getCurrentUserRatings();
 	const myRating = userVotes.length ? userVotes[ 0 ][ this.VALUE ] : 0;
 
+	this.totalStars = 5;
+
 	let rating = Number( myRating );
 	if ( isNaN( rating ) ) {
 		rating = 0;
@@ -38,7 +40,7 @@ bs.rating.ItemArticle.prototype.reset = function ( data ) {
 
 	const rating = this.getVoteAverage();
 	this.$starGroup.ratingGroup( 'updateRating', {
-		groupLabel: mw.message( 'bs-rating-ratingvalue-title', rating ).text(),
+		groupLabel: mw.message( 'bs-rating-article-star-group-desc', rating, this.totalStars ).text(),
 		averageRating: rating
 	} );
 
@@ -65,9 +67,11 @@ bs.rating.ItemArticle.prototype.reset = function ( data ) {
 
 bs.rating.ItemArticle.prototype.makeStarRating = function ( myRating ) {
 	this.$starRating = this.$starGroup.ratingGroup( {
-		starName: mw.message( 'bs-rating-button-name', this.getVoteAverage() ).text(),
+		totalStars: this.totalStars,
+		starName: mw.message( 'bs-rating-button-name' ).text(),
 		formId: 'bs-rating-article-form',
-		groupLabel: mw.message( 'bs-rating-ratingvalue-title', this.getVoteAverage() ).text(),
+		groupLabel: mw.message( 'bs-rating-article-star-group-desc', this.getVoteAverage(), this.totalStars ).text(),
+		formDesc: mw.message( 'bs-rating-article-star-group-form-desc' ).text(),
 		averageRating: this.getVoteAverage(),
 		currentRating: myRating,
 		readOnly: !this.data.get( 'usercanmodify', false ),
@@ -78,7 +82,7 @@ bs.rating.ItemArticle.prototype.makeStarRating = function ( myRating ) {
 					rating = this.getVoteAverage();
 				}
 				$el.ratingGroup( 'updateRating', {
-					groupLabel: mw.message( 'bs-rating-ratingvalue-title', rating ).text(),
+					groupLabel: mw.message( 'bs-rating-article-star-group-desc', rating, this.totalStars ).text(),
 					averageRating: rating
 				} );
 				this.removeLoadingMask( $el );
