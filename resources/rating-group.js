@@ -8,6 +8,7 @@
 	const noop = function () {};
 	const defaultOptions = {
 		groupId: 'rating-form',
+		formDesc: 'Form descriptor',
 		groupLabel: 'Rating group',
 		groupClass: 'rating-group',
 		totalStars: 5,
@@ -117,7 +118,7 @@
 			if ( this.options.readOnly === false ) {
 				const $formGroup = $( '<form>' ).attr( {
 					id: this.options.groupId,
-					'aria-label': this.options.groupLabel,
+					'aria-label': this.options.groupLabel + ' ' + this.options.formDesc,
 					class: this.options.groupClass + ' rating-group-form'
 				} );
 				const $starGroup = $( '<div>' ).attr( {
@@ -143,6 +144,7 @@
 		renderStarItem: function ( starIndex, avgHightlight, checked ) {
 			const name = this.options.starName;
 			const size = this.options.starSize;
+			const starLabel = mw.message( 'bs-rating-ratingstar-label', starIndex, this.options.totalStars );
 
 			let checkedAttrib = '';
 			let checkedClass = '';
@@ -162,7 +164,7 @@
 			if ( this.options.readOnly === false ) {
 				item = '<div class="rating-star-item' + checkedClass + avgHightlightClass + '" id="rating-star-item-' + starIndex + '" style="width:' + size + ';  height:' + size + ';" data-index="' + starIndex + '">' +
 				'<input type="radio" class="rating-star-radio-btn" id="rating-star-input-' + starIndex + '" value="' + starIndex + '" name="' + name + '" ' + checkedAttrib + checkedAttr + '/>' +
-				'<label for="rating-star-' + starIndex + '">' +
+				'<label for="rating-star-' + starIndex + '" aria-label="' + starLabel + '">' +
 				this.getStarSvg( size ) +
 				'</label></div>';
 			} else {

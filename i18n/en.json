@@ -45,5 +45,9 @@
 	"bs-rating-sesp-rating-total-desc": "The number of ratings for the page",
 	"bs-rating-sesp-recommendations-total": "Number of recommendations",
 	"bs-rating-sesp-recommendations-total-desc": "The number of recommendations for the page",
-	"bs-rating-button-name": "Rating"
+	"bs-rating-button-name": "Rating",
+	"bs-rating-ratingstar-label": "$1 of $2  {{PLURAL:$1|star|stars}}",
+	"bs-rating-article-star-group-desc": "This page is rated with $1 out of $2 {{PLURAL:$1|star|stars}}.",
+	"bs-rating-article-star-group-form-desc": "Rate the content of this page."
+
 }

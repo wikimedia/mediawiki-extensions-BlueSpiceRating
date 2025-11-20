@@ -24,7 +24,7 @@
 }
 
 .rating-star-item.avg-highlight svg {
-	fill: gold;
+	fill: #b8860b;
 }
 
 .rating-star-item.cur-highlight svg {
