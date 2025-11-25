@@ -49,5 +49,8 @@
 	"bs-rating-sesp-rating-total-desc": "SESP description",
 	"bs-rating-sesp-recommendations-total": "SESP label",
 	"bs-rating-sesp-recommendations-total-desc": "SESP description",
-	"bs-rating-button-name": "Name of input field in rating form"
+	"bs-rating-button-name": "Name of input field in rating form",
+	"bs-rating-ratingstar-label": "Label for rating stars to announce the rating value of the star.\n* $1 - Rating value of this star\n* $1 - total number of stars",
+	"bs-rating-article-star-group-desc": "Description of a rating tool",
+	"bs-rating-article-star-group-form-desc": "Announce current rating of a page\n* $1 - Rating value of this star\n* $1 - total number of stars"
 }

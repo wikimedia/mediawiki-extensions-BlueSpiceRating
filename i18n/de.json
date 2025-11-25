@@ -53,5 +53,8 @@
 	"bs-rating-sesp-rating-total-desc": "Die Anzahl der Bewertungen für die Seite",
 	"bs-rating-sesp-recommendations-total": "Anzahl der Empfehlungen",
 	"bs-rating-sesp-recommendations-total-desc": "Die Anzahl der Empfehlungen für die Seite",
-	"bs-rating-button-name": "Bewertung"
+	"bs-rating-button-name": "Bewertung",
+	"bs-rating-ratingstar-label": "$1 von $2 {{PLURAL:$1|Stern|Sternen}}",
+	"bs-rating-article-star-group-desc": "Die Seite ist mit $1 von $2 {{PLURAL:$1|Stern|Sternen}} bewertet.",
+	"bs-rating-article-star-group-form-desc": "{{#FORMAL:Bewerte|Bewerten Sie}} den Inhalt dieser Seite."
 }
