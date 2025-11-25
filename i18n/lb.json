@@ -23,5 +23,8 @@
 	"bs-rating-sesp-rating-average": "Duerchschnëttlech Bewäertung",
 	"bs-rating-sesp-rating-average-desc": "Déi duerchschnëttlech Bewäertung vun der Säit",
 	"bs-rating-sesp-rating-total": "Zuel vun de Bewäertungen",
-	"bs-rating-sesp-rating-total-desc": "D'Zuel vun de Bewäertunge vun der Säit"
+	"bs-rating-sesp-rating-total-desc": "D'Zuel vun de Bewäertunge vun der Säit",
+	"bs-rating-ratingstar-label": "$1 vu(n) $2 {{PLURAL:$1|Stär|Stären}}",
+	"bs-rating-article-star-group-desc": "Dës Säit gouf mat $1 vu(n) $2 {{PLURAL:$1| Stär|Stäre}} bewäert.",
+	"bs-rating-article-star-group-form-desc": "Bewäert den Inhalt vun dëser Säit."
 }

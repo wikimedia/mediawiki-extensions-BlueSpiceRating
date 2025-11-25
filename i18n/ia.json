@@ -45,5 +45,8 @@
 	"bs-rating-sesp-rating-total-desc": "Le numero de evalutationes del pagina",
 	"bs-rating-sesp-recommendations-total": "Numero de recommendationes",
 	"bs-rating-sesp-recommendations-total-desc": "Le numero de recommendationes pro le pagina",
-	"bs-rating-button-name": "Evalutation"
+	"bs-rating-button-name": "Evalutation",
+	"bs-rating-ratingstar-label": "$1 de $2 stella{{PLURAL:$1||s}}",
+	"bs-rating-article-star-group-desc": "Iste pagina es evalutate con $1 ex $2 stella{{PLURAL:$1||s}}.",
+	"bs-rating-article-star-group-form-desc": "Evalutar le contento de iste pagina."
 }
