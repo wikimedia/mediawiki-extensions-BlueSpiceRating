@@ -49,5 +49,6 @@
 	"bs-rating-sesp-rating-total-desc": "عدد التقييمات للصفحة",
 	"bs-rating-sesp-recommendations-total": "عدد التوصيات",
 	"bs-rating-sesp-recommendations-total-desc": "عدد التوصيات للصفحة",
-	"bs-rating-button-name": "تقييم"
+	"bs-rating-button-name": "تقييم",
+	"bs-rating-article-star-group-form-desc": "قم بتقييم محتوى هذه الصفحة."
 }
