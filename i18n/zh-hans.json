@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"A Retired User",
+			"ExoHyper2026",
 			"Lakejason0",
 			"Ps2049",
 			"Vikarna",
@@ -36,5 +37,8 @@
 	"bs-rating-specialrating-titleRating": "评级",
 	"bs-rating-specialrating-titleVotes": "评分数量",
 	"bs-rating-nsm-label": "评分",
-	"bs-rating-nsm-label-recommendations": "推荐"
+	"bs-rating-nsm-label-recommendations": "推荐",
+	"bs-rating-ratingstar-label": "$1 星（共 $2 {{PLURAL:$1|星}}",
+	"bs-rating-article-star-group-desc": "本页面评分为 $1（满分 $2 星）{{PLURAL:$1|星}}。",
+	"bs-rating-article-star-group-form-desc": "请对本页面内容进行评分。"
 }
