@@ -29,12 +29,13 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	protected $data = [];
 
 	protected function readData() {
-		$res = $this->getDB( DB_REPLICA )->select(
-			'bs_rating',
-			'*',
-			[ 'rat_reftype = "rcarticle"' ],
-			__METHOD__
-		);
+		$res = $this->getDB( DB_REPLICA )->newSelectQueryBuilder()
+			->table( 'bs_rating' )
+			->fields( '*' )
+			->where( [ 'rat_reftype' => 'rcarticle' ] )
+			->caller( __METHOD__ )
+			->fetchResultSet();
+
 		foreach ( $res as $row ) {
 			$this->data[$row->rat_ref][] = $row;
 		}
