@@ -10,7 +10,7 @@
 		]
 	},
 	"bs-rating-extension-description": "提供評分系統",
-	"bs-rating-types-page": "頁面評級",
+	"bs-rating-types-page": "頁面評分",
 	"bs-rating-types-pagelike": "頁面建議",
 	"rating": "評分",
 	"recommendations": "建議",
@@ -34,7 +34,7 @@
 	"bs-rating-special-recommendations-label-recommendation": "建議",
 	"bs-rating-specialrating-label-namespace": "命名空間",
 	"bs-rating-specialrating-titleTitle": "標題",
-	"bs-rating-specialrating-titleRating": "評級",
+	"bs-rating-specialrating-titleRating": "評分",
 	"bs-rating-specialrating-titleVotes": "評分數字",
 	"apihelp-bs-rating-tasks-description": "執行擴充功能 Rating 的一般任務",
 	"apihelp-bs-rating-store-description": "傳遞題目評分",
