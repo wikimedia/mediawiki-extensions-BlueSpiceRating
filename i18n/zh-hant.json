@@ -10,7 +10,7 @@
 		]
 	},
 	"bs-rating-extension-description": "提供評分系統",
-	"bs-rating-types-page": "頁面評級",
+	"bs-rating-types-page": "頁面評分",
 	"bs-rating-types-pagelike": "頁面建議",
 	"rating": "評分",
 	"recommendations": "建議",
@@ -34,7 +34,7 @@
 	"bs-rating-special-recommendations-label-recommendation": "建議",
 	"bs-rating-specialrating-label-namespace": "命名空間",
 	"bs-rating-specialrating-titleTitle": "標題",
-	"bs-rating-specialrating-titleRating": "評級",
+	"bs-rating-specialrating-titleRating": "評分",
 	"bs-rating-specialrating-titleVotes": "評分數字",
 	"apihelp-bs-rating-store-summary": "傳遞題目評分",
 	"bs-rating-nsm-label": "評分",
@@ -43,5 +43,15 @@
 	"apihelp-bs-ratingarticle-store-summary": "傳遞條目評分",
 	"apihelp-bs-ratingarticlelike-store-summary": "傳遞條目建議",
 	"bs-rating-star-rating-star-label": "評分星級 $1",
-	"bs-rating-star-rating-star-selected-announce": "已選評分星級 $1"
+	"bs-rating-star-rating-star-selected-announce": "已選評分星級 $1",
+	"bs-rating-sesp-rating-average": "平均評分",
+	"bs-rating-sesp-rating-average-desc": "頁面的平均評分",
+	"bs-rating-sesp-rating-total": "評分數字",
+	"bs-rating-sesp-rating-total-desc": "此頁面的評分數字",
+	"bs-rating-sesp-recommendations-total": "推薦數量",
+	"bs-rating-sesp-recommendations-total-desc": "此頁面的推薦數量",
+	"bs-rating-button-name": "評分",
+	"bs-rating-ratingstar-label": "$1 顆星（共 $2 {{PLURAL:$1|顆星}}）",
+	"bs-rating-article-star-group-desc": "本頁面評分為 $1 顆星（共 $2 {{PLURAL:$1|顆星}}）。",
+	"bs-rating-article-star-group-form-desc": "此頁面內容的評分。"
 }
