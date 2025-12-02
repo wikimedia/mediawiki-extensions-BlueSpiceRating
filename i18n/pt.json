@@ -1,7 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
-			"Hamilton Abreu"
+			"Hamilton Abreu",
+			"Maria Manuela Silva"
 		]
 	},
 	"bs-rating-extension-description": "Fornece um sistema de avaliação",
@@ -34,5 +35,7 @@
 	"apihelp-bs-rating-tasks-summary": "Executa tarefas comuns, para a extensão Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Fornece avaliações de artigos",
 	"apihelp-bs-ratingarticlelike-store-summary": "Fornece recomendações de artigos",
-	"apihelp-bs-rating-store-summary": "Fornece avaliações de artigos"
+	"apihelp-bs-rating-store-summary": "Fornece avaliações de artigos",
+	"bs-rating-ratingstar-label": "$1 {{PLURAL:$1|estrela|estrelas}} de $2",
+	"bs-rating-article-star-group-desc": "Esta página está classificada com $1 {{PLURAL:$1| estrela|estrelas}} de $2."
 }
