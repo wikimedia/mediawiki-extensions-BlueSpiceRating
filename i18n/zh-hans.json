@@ -10,7 +10,8 @@
 			"Xiplus",
 			"予弦",
 			"神樂坂秀吉",
-			"ExoHyper2026"
+			"ExoHyper2026",
+			"Peterxy12"
 		]
 	},
 	"bs-rating-extension-description": "提供评分系统",
@@ -20,8 +21,12 @@
 	"recommendations": "推荐",
 	"bs-rating-yourrating": "您的评分：$1",
 	"bs-rating-special-rating-heading": "评级",
+	"bs-rating-ratingvalue-title": "评分为$1（满分5分）",
+	"bs-rating-ratingcount-title": "$1个{{PLURAL:$1|评分}}",
 	"bs-rating-articlelike-ratingtext": "建议（$1）",
 	"bs-rating-articlelike-uratingtextservoted": "已建议（$1）",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|推荐}}（$1）",
+	"bs-rating-articlelike-uservoted-title": "您的推荐",
 	"action-rating-viewspecialpage": "查看受“Rating-Viewspecialpage”权限保护的页面",
 	"action-rating-read": "查看页面上的评分",
 	"action-rating-write": "为页面投票",
@@ -37,5 +42,11 @@
 	"bs-rating-specialrating-titleRating": "评级",
 	"bs-rating-specialrating-titleVotes": "评分数量",
 	"bs-rating-nsm-label": "评分",
-	"bs-rating-nsm-label-recommendations": "推荐"
+	"bs-rating-nsm-label-recommendations": "推荐",
+	"apihelp-bs-rating-tasks-summary": "运行扩展Rating的一般任务",
+	"apihelp-bs-ratingarticle-store-summary": "传递条目评分",
+	"apihelp-bs-ratingarticlelike-store-summary": "传递条目建议",
+	"apihelp-bs-rating-store-summary": "传递题目评分",
+	"bs-rating-star-rating-star-label": "评分星级$1",
+	"bs-rating-star-rating-star-selected-announce": "已选评分星级$1"
 }
