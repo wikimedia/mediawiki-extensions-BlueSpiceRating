@@ -50,5 +50,7 @@
 	"bs-rating-sesp-recommendations-total": "عدد التوصيات",
 	"bs-rating-sesp-recommendations-total-desc": "عدد التوصيات للصفحة",
 	"bs-rating-button-name": "تقييم",
-	"bs-rating-article-star-group-form-desc": "قم بتقييم محتوى هذه الصفحة."
+	"bs-rating-article-star-group-form-desc": "قم بتقييم محتوى هذه الصفحة.",
+	"bs-rating-ratingstar-label": "$1 من $2 {{PLURAL:$1|نجمة|نجوم}}",
+	"bs-rating-article-star-group-desc": "تم تقييم هذه الصفحة بـ $1 من $2 {{PLURAL:$1|نجمة|نجوم}}."
 }
