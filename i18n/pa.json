@@ -4,7 +4,7 @@
 			"Cabal"
 		]
 	},
-	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|ਸਿਫ਼ਾਰਸ਼|ਸਿਫ਼ਾਰਸ਼ਾਂ}} ( $1 )",
 	"bs-rating-types-page": "ਵਰਕਾ ਦਰਜਾਬੰਦੀ",
-	"bs-rating-types-pagelike": "ਵਰਕਾ ਸਿਫ਼ਾਰਸ਼"
+	"bs-rating-types-pagelike": "ਵਰਕਾ ਸਿਫ਼ਾਰਸ਼",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|ਸਿਫ਼ਾਰਸ਼|ਸਿਫ਼ਾਰਸ਼ਾਂ}} ( $1 )"
 }
