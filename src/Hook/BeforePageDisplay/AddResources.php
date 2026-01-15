@@ -19,8 +19,13 @@ class AddResources extends BeforePageDisplay {
 		}
 
 		$config = MediaWikiServices::getInstance()->getConfigFactory()->makeConfig( 'bsg' );
-		$enabledNamespaces = $config->get( 'RatingArticleEnabledNamespaces' );
-		if ( !in_array( $title->getNamespace(), $enabledNamespaces ) ) {
+		$enabledRatingNamespaces = $config->get( 'RatingArticleEnabledNamespaces' );
+		$enabledRecommendNamespaces = $config->get( 'RatingArticleLikeEnabledNamespaces' );
+		$namespace = $title->getNamespace();
+		if (
+			!in_array( $namespace, $enabledRatingNamespaces ) &&
+			!in_array( $namespace, $enabledRecommendNamespaces )
+		) {
 			return true;
 		}
 
