@@ -297,6 +297,9 @@
 		"addResources": {
 			"class": "\\BlueSpice\\Rating\\Hook\\BeforePageDisplay\\AddResources",
 			"services": [ "ConfigFactory", "BSRatingRegistry", "BSRatingConfigFactory" ]
+		},
+		"addNamespaceProperties": {
+			"class": "\\BlueSpice\\Rating\\HookHandler\\NamespaceManagerCollectNamespaceProperties\\AddNamespaceProperties"
 		}
 	},
 	"Hooks": {
@@ -316,7 +319,9 @@
 		"GetDoubleUnderscoreIDs": "\\BlueSpice\\Rating\\Hook\\GetDoubleUnderscoreIDs\\AddNoRating::callback",
 		"BSMigrateSettingsSetNewSettings": "\\BlueSpice\\Rating\\Hook\\BSMigrateSettingsSetNewSettings\\SetGlobals::callback",
 		"UserMergeAccountFields": "\\BlueSpice\\Rating\\Hook\\UserMergeAccountFields\\MergeRatingDBFields::callback",
-		"MWStakeCommonUIRegisterSkinSlotComponents": "common-user-interface"
+		"MWStakeCommonUIRegisterSkinSlotComponents": "common-user-interface",
+		"NamespaceManagerCollectNamespaceProperties": "addNamespaceProperties"
+
 	},
 	"load_composer_autoloader": true,
 	"manifest_version": 2
