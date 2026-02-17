@@ -2,8 +2,8 @@
 	"@metadata": {
 		"authors": [
 			"Meno25",
-			"ديفيد",
-			"Mohammed Qays"
+			"Mohammed Qays",
+			"ديفيد"
 		]
 	},
 	"bs-rating-extension-description": "يوفر نظام تقييم",
@@ -47,5 +47,8 @@
 	"bs-rating-sesp-rating-total-desc": "عدد التقييمات للصفحة",
 	"bs-rating-sesp-recommendations-total": "عدد التوصيات",
 	"bs-rating-sesp-recommendations-total-desc": "عدد التوصيات للصفحة",
-	"bs-rating-button-name": "تقييم"
+	"bs-rating-button-name": "تقييم",
+	"bs-rating-ratingstar-label": "$1 من $2 {{PLURAL:$1|نجمة|نجوم}}",
+	"bs-rating-article-star-group-desc": "تم تقييم هذه الصفحة بـ $1 من $2 {{PLURAL:$1|نجمة|نجوم}}.",
+	"bs-rating-article-star-group-form-desc": "قم بتقييم محتوى هذه الصفحة."
 }

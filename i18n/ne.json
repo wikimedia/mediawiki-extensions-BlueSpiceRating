@@ -1,0 +1,10 @@
+{
+	"@metadata": {
+		"authors": [
+			"बडा काजी"
+		]
+	},
+	"bs-rating-ratingstar-label": "$2 मध्ये $1 {{PLURAL:$1|तारा|तारा}}",
+	"bs-rating-article-star-group-desc": "यो पृष्ठलाई $2 मध्ये $1 {{PLURAL:$1| तारा|तारा}} मूल्याङ्कन गरिएको छ।",
+	"bs-rating-article-star-group-form-desc": "यस पृष्ठको सामग्रीको मूल्याङ्कन गर्नुहोस्।"
+}

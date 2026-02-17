@@ -45,5 +45,8 @@
 	"bs-rating-sesp-rating-total-desc": "O número de avaliacións da páxina",
 	"bs-rating-sesp-recommendations-total": "Número de recomendacións",
 	"bs-rating-sesp-recommendations-total-desc": "O número de recomendacións da páxina",
-	"bs-rating-button-name": "Avaliación"
+	"bs-rating-button-name": "Avaliación",
+	"bs-rating-ratingstar-label": "$1 {{PLURAL:$1|estrela|estrelas}} de $2",
+	"bs-rating-article-star-group-desc": "Esta páxina ten unha avaliación {{PLURAL:$1|dunha estrela|de $1 estrelas}} sobre $2.",
+	"bs-rating-article-star-group-form-desc": "Valora o contido desta páxina."
 }
