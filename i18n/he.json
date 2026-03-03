@@ -3,7 +3,8 @@
 		"authors": [
 			"Amire80",
 			"Steeve815",
-			"Strayblues"
+			"Strayblues",
+			"Neriah"
 		]
 	},
 	"bs-rating-extension-description": "מספק מערכת דירוג",
@@ -46,5 +47,9 @@
 	"bs-rating-sesp-rating-total": "מספר הדירוגים",
 	"bs-rating-sesp-rating-total-desc": "מספר הדירוגים של הדף הזה",
 	"bs-rating-sesp-recommendations-total": "מספר ההמלצות",
-	"bs-rating-sesp-recommendations-total-desc": "מספר ההמלצות עבור הדף"
+	"bs-rating-sesp-recommendations-total-desc": "מספר ההמלצות עבור הדף",
+	"bs-rating-button-name": "דירוג",
+	"bs-rating-ratingstar-label": "$1 מתוך $2 {{PLURAL:$1|כוכב|כוכבים}}",
+	"bs-rating-article-star-group-desc": "הדף הזה מדורג עם $1 מתוך $2 {{PLURAL:$1|כוכב|כוכבים}}.",
+	"bs-rating-article-star-group-form-desc": "דירוג התוכן של הדף הזה."
 }
