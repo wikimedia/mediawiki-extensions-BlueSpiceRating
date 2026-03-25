@@ -1,6 +1,8 @@
 {
 	"@metadata": {
 		"authors": [
+			"Meno25",
+			"Mohammed Qays",
 			"ديفيد"
 		]
 	},
@@ -34,5 +36,21 @@
 	"apihelp-bs-rating-tasks-summary": "ينفذ المهام المشتركة لتمديد التقييم",
 	"apihelp-bs-ratingarticle-store-summary": "يسلم تقييمات للمقالات",
 	"apihelp-bs-ratingarticlelike-store-summary": "يسلم توصيات للمقالات",
-	"apihelp-bs-rating-store-summary": "يسلم تقييمات للمقالات"
+	"apihelp-bs-rating-store-summary": "يسلم تقييمات للمقالات",
+	"bs-rating-ratingvalue-title": "أُعطي تقيمًا $1 من أصل 5",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1| تقييم|تقييمات}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|توصية|توصيات}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "موصى به من قبلك",
+	"bs-rating-star-rating-star-label": "تقييم النجمة $1",
+	"bs-rating-star-rating-star-selected-announce": "تم اختيار نجمة التقييم $1",
+	"bs-rating-sesp-rating-average": "التقييم المتوسط",
+	"bs-rating-sesp-rating-average-desc": "متوسط تقييم الصفحة",
+	"bs-rating-sesp-rating-total": "عدد التقييمات",
+	"bs-rating-sesp-rating-total-desc": "عدد التقييمات للصفحة",
+	"bs-rating-sesp-recommendations-total": "عدد التوصيات",
+	"bs-rating-sesp-recommendations-total-desc": "عدد التوصيات للصفحة",
+	"bs-rating-button-name": "تقييم",
+	"bs-rating-ratingstar-label": "$1 من $2 {{PLURAL:$1|نجمة|نجوم}}",
+	"bs-rating-article-star-group-desc": "تم تقييم هذه الصفحة بـ $1 من $2 {{PLURAL:$1|نجمة|نجوم}}.",
+	"bs-rating-article-star-group-form-desc": "قم بتقييم محتوى هذه الصفحة."
 }

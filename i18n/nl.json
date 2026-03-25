@@ -3,7 +3,8 @@
 		"authors": [
 			"Mainframe98",
 			"McDutchie",
-			"Romaine"
+			"Romaine",
+			"Siebrand"
 		]
 	},
 	"action-rating-viewspecialpage": "pagina's beveiligd met het recht \"Rating-Viewspecialpage\" te bekijken",
@@ -36,5 +37,21 @@
 	"apihelp-bs-rating-tasks-summary": "Voert veelvoorkomende taken uit voor uitbreiding Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Levert beoordelingen voor artikelen",
 	"apihelp-bs-ratingarticlelike-store-summary": "Levert aanbevelingen voor artikelen",
-	"apihelp-bs-rating-store-summary": "Levert beoordelingen voor artikelen"
+	"apihelp-bs-rating-store-summary": "Levert beoordelingen voor artikelen",
+	"bs-rating-ratingvalue-title": "Beoordeeld met $1 van de 5",
+	"bs-rating-ratingcount-title": "$1 beoordeling{{PLURAL:$1||en}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "Aanbeveling{{PLURAL:$1||en}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "Door u aanbevolen",
+	"bs-rating-star-rating-star-label": "Beoordelingsster $1",
+	"bs-rating-star-rating-star-selected-announce": "Beoordelingsster $1 geselecteerd",
+	"bs-rating-sesp-rating-average": "Gemiddelde beoordeling",
+	"bs-rating-sesp-rating-average-desc": "De gemiddelde beoordeling van de pagina",
+	"bs-rating-sesp-rating-total": "Aantal beoordelingen",
+	"bs-rating-sesp-rating-total-desc": "Het aantal beoordelingen van de pagina",
+	"bs-rating-sesp-recommendations-total": "Aantal aanbevelingen",
+	"bs-rating-sesp-recommendations-total-desc": "Het aantal aanbevelingen voor de pagina",
+	"bs-rating-button-name": "Beoordeling",
+	"bs-rating-ratingstar-label": "$1 van $2 {{PLURAL:$1|ster|sterren}}",
+	"bs-rating-article-star-group-desc": "Deze pagina heeft een beoordeling van $1 van $2 {{PLURAL:$1|ster|sterren}}.",
+	"bs-rating-article-star-group-form-desc": "Beoordeel de inhoud van deze pagina."
 }

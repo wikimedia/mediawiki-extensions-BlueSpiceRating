@@ -2,6 +2,9 @@
 	"@metadata": {
 		"authors": [
 			"Gomoko",
+			"JLTRY",
+			"Mahabarata",
+			"Terio legale",
 			"Thibaut120094",
 			"Verdy p",
 			"Wladek92"
@@ -37,5 +40,17 @@
 	"apihelp-bs-rating-tasks-summary": "Exécute les tâches courantes pour l’extension Évaluation",
 	"apihelp-bs-ratingarticle-store-summary": "Fournit des évaluations pour les articles",
 	"apihelp-bs-ratingarticlelike-store-summary": "Fournit des recommandations pour les articles",
-	"apihelp-bs-rating-store-summary": "Fournit des évaluations pour les articles"
+	"apihelp-bs-rating-store-summary": "Fournit des évaluations pour les articles",
+	"bs-rating-ratingvalue-title": "Evalué $1 sur 5",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|note|notes}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "$1 {{PLURAL:$1|recommandation|recommandations}}",
+	"bs-rating-articlelike-uservoted-title": "Recommandé par vous",
+	"bs-rating-star-rating-star-label": "Étoile de notation $1",
+	"bs-rating-star-rating-star-selected-announce": "Étoile de notation $1 sélectionnée",
+	"bs-rating-sesp-rating-average": "Évaluation moyenne",
+	"bs-rating-sesp-rating-average-desc": "La note moyenne de la page",
+	"bs-rating-sesp-rating-total": "Nombre d’évaluations",
+	"bs-rating-sesp-rating-total-desc": "Le nombre d’évaluations de cette page.",
+	"bs-rating-sesp-recommendations-total": "Nombre de recommandations",
+	"bs-rating-sesp-recommendations-total-desc": "Le nombre de recommandations pour la page"
 }

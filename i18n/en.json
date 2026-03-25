@@ -34,5 +34,21 @@
 	"apihelp-bs-rating-tasks-summary": "Executes common tasks for extension Rating",
 	"apihelp-bs-ratingarticle-store-summary": "Delivers ratings for articles",
 	"apihelp-bs-ratingarticlelike-store-summary": "Delivers recommendations for articles",
-	"apihelp-bs-rating-store-summary": "Delivers ratings for articles"
+	"apihelp-bs-rating-store-summary": "Delivers ratings for articles",
+	"bs-rating-ratingvalue-title": "Rated $1 out of 5",
+	"bs-rating-ratingcount-title": "$1 {{PLURAL:$1|rating|ratings}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|Recommendation|Recommendations}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "Recommended by you",
+	"bs-rating-star-rating-star-label": "Rating star $1",
+	"bs-rating-star-rating-star-selected-announce": "Rating star $1 selected",
+	"bs-rating-sesp-rating-average": "Average rating",
+	"bs-rating-sesp-rating-average-desc": "The average rating of the page",
+	"bs-rating-sesp-rating-total": "Number of ratings",
+	"bs-rating-sesp-rating-total-desc": "The number of ratings for the page",
+	"bs-rating-sesp-recommendations-total": "Number of recommendations",
+	"bs-rating-sesp-recommendations-total-desc": "The number of recommendations for the page",
+	"bs-rating-button-name": "Rating",
+	"bs-rating-ratingstar-label": "$1 of $2  {{PLURAL:$1|star|stars}}",
+	"bs-rating-article-star-group-desc": "This page is rated with $1 out of $2 {{PLURAL:$1|star|stars}}.",
+	"bs-rating-article-star-group-form-desc": "Rate the content of this page."
 }

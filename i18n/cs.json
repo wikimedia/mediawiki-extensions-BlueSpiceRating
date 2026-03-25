@@ -1,0 +1,16 @@
+{
+	"@metadata": {
+		"authors": [
+			"Jrobicek"
+		]
+	},
+	"rating": "Hodnocení",
+	"recommendations": "Doporučení",
+	"bs-rating-special-rating-heading": "Hodnocení",
+	"action-rating-read": "číst hodnocení na stránkách",
+	"right-rating-read": "Čtení hodnocení na stránkách",
+	"bs-rating-special-recommendations-heading": "Doporučení",
+	"bs-rating-special-recommendations-label-recommendation": "Doporučení",
+	"bs-rating-specialrating-titleVotes": "Počet hodnocení",
+	"bs-rating-nsm-label-recommendations": "Doporučení"
+}

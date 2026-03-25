@@ -2,6 +2,7 @@
 	"@metadata": {
 		"authors": [
 			"Amire80",
+			"Neriah",
 			"Steeve815",
 			"Strayblues"
 		]
@@ -36,5 +37,21 @@
 	"apihelp-bs-rating-tasks-summary": "מבצעת משימות נפוצות עבור ההרחבה Rating",
 	"apihelp-bs-ratingarticle-store-summary": "מוסרת דירוגים לערכים",
 	"apihelp-bs-ratingarticlelike-store-summary": "מספק המלצות לערכים",
-	"apihelp-bs-rating-store-summary": "מוסרת דירוגים לערכים"
+	"apihelp-bs-rating-store-summary": "מוסרת דירוגים לערכים",
+	"bs-rating-ratingvalue-title": "מדורג $1 מתוך 5",
+	"bs-rating-ratingcount-title": "{{PLURAL:$1|דירוג אחד|$1 דירוגים}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|הצעה|הצעות}} ($1)",
+	"bs-rating-articlelike-uservoted-title": "המלצת על זה",
+	"bs-rating-star-rating-star-label": "כוכב דירוג מס׳ $1",
+	"bs-rating-star-rating-star-selected-announce": "נבחר כוכב דירוג מס׳ $1",
+	"bs-rating-sesp-rating-average": "דירוג ממוצע",
+	"bs-rating-sesp-rating-average-desc": "הדירוג הממוצע של הדף",
+	"bs-rating-sesp-rating-total": "מספר הדירוגים",
+	"bs-rating-sesp-rating-total-desc": "מספר הדירוגים של הדף הזה",
+	"bs-rating-sesp-recommendations-total": "מספר ההמלצות",
+	"bs-rating-sesp-recommendations-total-desc": "מספר ההמלצות עבור הדף",
+	"bs-rating-button-name": "דירוג",
+	"bs-rating-ratingstar-label": "$1 מתוך $2 {{PLURAL:$1|כוכב|כוכבים}}",
+	"bs-rating-article-star-group-desc": "הדף הזה מדורג עם $1 מתוך $2 {{PLURAL:$1|כוכב|כוכבים}}.",
+	"bs-rating-article-star-group-form-desc": "דירוג התוכן של הדף הזה."
 }

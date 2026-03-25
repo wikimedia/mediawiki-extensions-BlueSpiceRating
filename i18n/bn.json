@@ -1,8 +1,15 @@
 {
 	"@metadata": {
 		"authors": [
+			"San1joy23",
 			"আফতাবুজ্জামান"
 		]
 	},
-	"bs-rating-specialrating-titleTitle": "শিরোনাম"
+	"bs-rating-specialrating-titleTitle": "শিরোনাম",
+	"bs-rating-ratingvalue-title": "৫-এর মধ্যে $1 রেটকৃত",
+	"bs-rating-ratingcount-title": "$1টি {{PLURAL:$1|রেটিং}}",
+	"bs-rating-articlelike-ratingtext-reader-title": "{{PLURAL:$1|সুপারিশ}} ($1টি)",
+	"bs-rating-articlelike-uservoted-title": "আপনার দ্বারা প্রস্তাবিত",
+	"bs-rating-star-rating-star-label": "$1 তারকা রেটিং",
+	"bs-rating-star-rating-star-selected-announce": "$1 তারকা রেটিং নির্বাচন করা হয়েছে"
 }
