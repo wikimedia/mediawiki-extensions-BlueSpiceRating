@@ -48,5 +48,8 @@
 	"bs-rating-sesp-rating-total-desc": "Het aantal beoordelingen van de pagina",
 	"bs-rating-sesp-recommendations-total": "Aantal aanbevelingen",
 	"bs-rating-sesp-recommendations-total-desc": "Het aantal aanbevelingen voor de pagina",
-	"bs-rating-button-name": "Beoordeling"
+	"bs-rating-button-name": "Beoordeling",
+	"bs-rating-ratingstar-label": "$1 van $2 {{PLURAL:$1|ster|sterren}}",
+	"bs-rating-article-star-group-desc": "Deze pagina heeft een beoordeling van $1 van $2 {{PLURAL:$1|ster|sterren}}.",
+	"bs-rating-article-star-group-form-desc": "Beoordeel de inhoud van deze pagina."
 }
