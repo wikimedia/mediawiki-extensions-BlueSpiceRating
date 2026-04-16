@@ -8,7 +8,12 @@ use OOJSPlus\Special\OOJSGridSpecialPage;
 class Recommendations extends OOJSGridSpecialPage {
 
 	public function __construct() {
-		parent::__construct( 'Recommendations', 'rating-viewspecialpage', true );
+		parent::__construct( 'Recommendations' );
+	}
+
+	/** @inheritDoc */
+	public function getRestriction(): string {
+		return 'rating-viewspecialpage';
 	}
 
 	/**
