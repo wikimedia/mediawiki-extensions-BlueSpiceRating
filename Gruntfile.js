@@ -19,8 +19,7 @@ module.exports = function ( grunt ) {
 			all: [
 				'**/*.{css,less}',
 				'!node_modules/**',
-				'!vendor/**',
-				'!resources/star-rating-svg/**'
+				'!vendor/**'
 			]
 		},
 		banana: Object.assign(

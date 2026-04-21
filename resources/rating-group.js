@@ -1,3 +1,4 @@
+// Inspired by star-rating-svg (https://github.com/nashio/star-rating-svg)
 ( function ( $ ) {
 
 	'use strict';
