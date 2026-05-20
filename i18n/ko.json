@@ -46,5 +46,9 @@
 	"bs-rating-button-name": "평가",
 	"bs-rating-ratingstar-label": "{{PLURAL:$1|별}} $2개 중 $1개",
 	"bs-rating-article-star-group-desc": "이 문서는 {{PLURAL:$1|별}} $2개 중 $1개를 받았습니다.",
-	"bs-rating-article-star-group-form-desc": "이 문서의 내용을 평가합니다."
+	"bs-rating-article-star-group-form-desc": "이 문서의 내용을 평가합니다.",
+	"apihelp-bs-rating-store-summary": "문서에 대한 평점을 제공합니다",
+	"apihelp-bs-rating-tasks-summary": "확장 평점에 대한 일반적인 작업을 실행합니다",
+	"apihelp-bs-ratingarticle-store-summary": "문서에 대한 평점을 제공합니다",
+	"apihelp-bs-ratingarticlelike-store-summary": "문서에 대한 추천을 제공합니다"
 }
