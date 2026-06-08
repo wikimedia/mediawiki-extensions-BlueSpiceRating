@@ -48,14 +48,11 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 		);
 
 		$this->assertTrue( $oResponse->success, 'Vote task failed' );
-		$this->assertSelect(
-			'bs_rating',
-			[ 'rat_reftype', 'rat_userip', 'rat_value' ],
-			[ 'rat_ref' => $iRef ],
-			[
-				[ 'article', 'Apitestsysop', '3' ]
-			]
-		);
+		$this->newSelectQueryBuilder()
+			->select( [ 'rat_reftype', 'rat_userip', 'rat_value' ] )
+			->from( 'bs_rating' )
+			->where( [ 'rat_ref' => $iRef ] )
+			->assertRowValue( [ 'article', 'Apitestsysop', '3' ] );
 		$this->verifyResponse( $oResponse, 3 );
 
 		$aData['value'] = 4;
@@ -65,14 +62,11 @@ class BSApiTasksRatingTest extends BSApiTasksTestBase {
 		);
 
 		$this->assertTrue( $oResponse->success, 'Vote task failed' );
-		$this->assertSelect(
-			'bs_rating',
-			[ 'rat_value' ],
-			[ 'rat_ref' => $iRef ],
-			[
-				[ '4' ]
-			]
-		);
+		$this->newSelectQueryBuilder()
+			->select( 'rat_value' )
+			->from( 'bs_rating' )
+			->where( [ 'rat_ref' => $iRef ] )
+			->assertFieldValue( '4' );
 		$this->verifyResponse( $oResponse, 4 );
 	}
 
