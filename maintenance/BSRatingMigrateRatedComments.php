@@ -21,6 +21,9 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 		$this->services = MediaWikiServices::getInstance();
 	}
 
+	/**
+	 * @return bool
+	 */
 	protected function noDataToMigrate() {
 		return $this->getDB( DB_REPLICA )->tableExists( 'bs_rating', __METHOD__ ) === false;
 	}
@@ -41,6 +44,9 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 		}
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	protected function doDBUpdates() {
 		if ( $this->noDataToMigrate() ) {
 			$this->output( "bs_rating-migrateratedcomments -> No data to migrate\n" );
@@ -105,7 +111,6 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @param User $user
 	 * @param Article $ratingItem
 	 * @return bool
@@ -116,7 +121,6 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @param Title $title
 	 * @return article
 	 */
@@ -135,7 +139,6 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @return RatingFactory
 	 */
 	protected function getRatingFactory() {
@@ -143,7 +146,6 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @return User
 	 */
 	protected function getMaintenanceUser() {
@@ -152,7 +154,6 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function getUpdateKey() {

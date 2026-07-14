@@ -6,7 +6,6 @@ use MWStake\MediaWiki\Component\DataStore\FieldType;
 
 abstract class Schema extends \MWStake\MediaWiki\Component\DataStore\Schema {
 	/**
-	 *
 	 * @param Record[] $data
 	 */
 	public function __construct( $data ) {

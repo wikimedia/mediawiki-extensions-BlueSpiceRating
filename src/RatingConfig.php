@@ -1,29 +1,5 @@
 <?php
-/**
- * RatingConfig class for Rating extension
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
- * This file is part of BlueSpice MediaWiki
- * For further information visit https://bluespice.com
- *
- * @author     Patric Wirth
- * @package    BlueSpiceRating
- * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
- * @filesource
- */
+// phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 
 namespace BlueSpice\Rating;
 
@@ -38,19 +14,16 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	protected $type = '';
 
 	/**
-	 *
 	 * @var Config
 	 */
 	protected $config = null;
 
 	/**
-	 *
 	 * @var array
 	 */
 	protected $defaults = [];
 
 	/**
-	 *
 	 * @param Config $config
 	 * @param string $type
 	 * @param array $defaults
@@ -65,7 +38,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @param string $sOption
 	 * @return mixed|false
 	 */
@@ -79,7 +51,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getType() {
@@ -137,7 +108,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return array
 	 */
 	protected function addGetterDefaults() {
@@ -155,7 +125,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	abstract protected function get_TypeMsgKey();
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_StoreClass() {
@@ -163,7 +132,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_RatingSetClass() {
@@ -171,7 +139,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string[]
 	 */
 	protected function get_ModuleScripts() {
@@ -179,7 +146,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string[]
 	 */
 	protected function get_ModuleStyles() {
@@ -187,7 +153,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return mixed[]
 	 */
 	protected function get_AllowedValues() {
@@ -195,7 +160,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function get_UserCanRemoveVote() {
@@ -203,7 +167,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function get_MultiValue() {
@@ -211,7 +174,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_ReadPermission() {
@@ -219,7 +181,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_UpdatePermission() {
@@ -227,7 +188,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_DeletePermission() {
@@ -235,7 +195,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_DeleteOthersPermission() {
@@ -243,7 +202,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_UpdateOthersPermission() {
@@ -251,7 +209,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function get_PermissionTitleRequired() {
@@ -259,7 +216,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function get_IsAnonymous() {
@@ -267,7 +223,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_HTMLTag() {
@@ -275,7 +230,6 @@ abstract class RatingConfig implements \JsonSerializable, Config {
 	}
 
 	/**
-	 *
 	 * @return array
 	 */
 	protected function get_HTMLTagOptions() {

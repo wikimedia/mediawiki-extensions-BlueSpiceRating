@@ -6,7 +6,6 @@ use BlueSpice\Hook\LoadExtensionSchemaUpdates;
 
 class AddRatingDatabase extends LoadExtensionSchemaUpdates {
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function doProcess() {
@@ -34,7 +33,6 @@ class AddRatingDatabase extends LoadExtensionSchemaUpdates {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function getExtensionPath() {

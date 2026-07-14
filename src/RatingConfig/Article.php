@@ -1,29 +1,5 @@
 <?php
-/**
- * Article class for Rating extension
- *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation, version 3.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- *
- * You should have received a copy of the GNU General Public License along
- * with this program; if not, write to the Free Software Foundation, Inc.,
- * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
- *
- * This file is part of BlueSpice MediaWiki
- * For further information visit https://bluespice.com
- *
- * @author     Patric Wirth
- * @package    BlueSpiceRating
- * @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
- * @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
- * @filesource
- */
+// phpcs:disable MediaWiki.NamingConventions.LowerCamelFunctionsName.FunctionName
 
 namespace BlueSpice\Rating\RatingConfig;
 
@@ -35,13 +11,11 @@ use BlueSpice\Rating\RatingConfig;
  */
 class Article extends RatingConfig {
 	/**
-	 *
 	 * @var string
 	 */
 	protected $type = 'article';
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_RatingClass() {
@@ -49,7 +23,6 @@ class Article extends RatingConfig {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function get_TypeMsgKey() {
@@ -57,7 +30,6 @@ class Article extends RatingConfig {
 	}
 
 	/**
-	 *
 	 * @return string[]
 	 */
 	protected function get_ModuleScripts() {
@@ -70,7 +42,6 @@ class Article extends RatingConfig {
 	}
 
 	/**
-	 *
 	 * @return string[]
 	 */
 	protected function get_ModuleStyles() {
@@ -81,7 +52,6 @@ class Article extends RatingConfig {
 	}
 
 	/**
-	 *
 	 * @return int[]
 	 */
 	protected function get_AllowedValues() {
@@ -89,7 +59,6 @@ class Article extends RatingConfig {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function get_UserCanRemoveVote() {
@@ -97,7 +66,6 @@ class Article extends RatingConfig {
 	}
 
 	/**
-	 *
 	 * @return bool
 	 */
 	protected function get_PermissionTitleRequired() {
@@ -105,7 +73,6 @@ class Article extends RatingConfig {
 	}
 
 	/**
-	 *
 	 * @return array
 	 */
 	protected function get_HTMLTagOptions() {

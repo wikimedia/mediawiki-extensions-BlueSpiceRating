@@ -7,7 +7,6 @@ use MWStake\MediaWiki\Component\DataStore\ReaderParams;
 class Reader extends \BlueSpice\Rating\Data\Item\Reader {
 
 	/**
-	 *
 	 * @param ReaderParams $params
 	 * @return PrimaryDataProvider
 	 */
@@ -16,7 +15,6 @@ class Reader extends \BlueSpice\Rating\Data\Item\Reader {
 	}
 
 	/**
-	 *
 	 * @return SecondaryDataProvider
 	 */
 	protected function makeSecondaryDataProvider() {
@@ -24,7 +22,6 @@ class Reader extends \BlueSpice\Rating\Data\Item\Reader {
 	}
 
 	/**
-	 *
 	 * @return Schema
 	 */
 	public function getSchema() {

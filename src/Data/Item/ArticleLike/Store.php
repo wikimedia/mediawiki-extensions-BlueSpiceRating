@@ -7,7 +7,6 @@ use LogicException;
 class Store extends \BlueSpice\Rating\Data\Store {
 
 	/**
-	 *
 	 * @return Reader
 	 */
 	public function getReader() {

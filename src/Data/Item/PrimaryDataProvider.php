@@ -30,7 +30,6 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	}
 
 	/**
-	 *
 	 * @param \BlueSpice\Rating\RatingItem $rating
 	 * @return bool
 	 */
@@ -44,7 +43,6 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	}
 
 	/**
-	 *
 	 * @param \stdClass $row
 	 */
 	protected function appendRowToData( $row ) {
@@ -66,7 +64,6 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	}
 
 	/**
-	 *
 	 * @param \stdClass $row
 	 * @param \BlueSpice\Rating\RatingItem $rating
 	 * @return array
@@ -82,7 +79,6 @@ abstract class PrimaryDataProvider extends \BlueSpice\Rating\Data\PrimaryDataPro
 	}
 
 	/**
-	 *
 	 * @param \stdClass $row
 	 * @return \BlueSpice\Rating\RatingItem
 	 */

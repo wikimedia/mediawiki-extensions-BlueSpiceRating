@@ -11,7 +11,6 @@ use MWStake\MediaWiki\Component\CommonUserInterface\IComponent;
 class RecommendationProvider implements IMetaItemProvider {
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getName(): string {
@@ -19,7 +18,6 @@ class RecommendationProvider implements IMetaItemProvider {
 	}
 
 	/**
-	 *
 	 * @return IComponent
 	 */
 	public function getComponent(): IComponent {
