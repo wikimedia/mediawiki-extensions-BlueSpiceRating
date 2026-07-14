@@ -14,6 +14,9 @@ use SMWDINumber;
 
 class RecommendationsTotalValueProvider extends PropertyValueProvider {
 
+	/**
+	 * @inheritDoc
+	 */
 	public static function factory() {
 		return [ new static( MediaWikiServices::getInstance()->getService( 'BSRatingFactoryArticleLike' ) ) ];
 	}
@@ -27,7 +30,6 @@ class RecommendationsTotalValueProvider extends PropertyValueProvider {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getAliasMessageKey() {
@@ -35,7 +37,6 @@ class RecommendationsTotalValueProvider extends PropertyValueProvider {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getDescriptionMessageKey() {
@@ -43,7 +44,6 @@ class RecommendationsTotalValueProvider extends PropertyValueProvider {
 	}
 
 	/**
-	 *
 	 * @return int
 	 */
 	public function getType() {
@@ -51,7 +51,6 @@ class RecommendationsTotalValueProvider extends PropertyValueProvider {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getId() {
@@ -59,7 +58,6 @@ class RecommendationsTotalValueProvider extends PropertyValueProvider {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getLabel() {

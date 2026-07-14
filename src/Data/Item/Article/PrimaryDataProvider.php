@@ -61,7 +61,6 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	}
 
 	/**
-	 *
 	 * @param ReaderParams $params
 	 * @return array
 	 */
@@ -149,7 +148,6 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	}
 
 	/**
-	 *
 	 * @param ReaderParams $params
 	 * @return array
 	 */
@@ -177,7 +175,6 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	}
 
 	/**
-	 *
 	 * @param \stdClass $row
 	 * @param RatingItem $rating
 	 * @return array
@@ -192,7 +189,6 @@ class PrimaryDataProvider extends \BlueSpice\Rating\Data\Item\PrimaryDataProvide
 	}
 
 	/**
-	 *
 	 * @param \stdClass $row
 	 * @return RatingItem
 	 */

@@ -7,7 +7,6 @@ use MWStake\MediaWiki\Component\DataStore\DatabaseReader;
 
 abstract class Reader extends DatabaseReader {
 	/**
-	 *
 	 * @param \Wikimedia\Rdbms\LoadBalancer $loadBalancer
 	 * @param IContextSource|null $context
 	 */

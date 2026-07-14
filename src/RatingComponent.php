@@ -18,7 +18,6 @@ class RatingComponent extends Literal {
 	private $title = null;
 
 	/**
-	 *
 	 * @param Title $title
 	 * @param MediaWikiServices $services
 	 */
@@ -45,7 +44,6 @@ class RatingComponent extends Literal {
 	}
 
 	/**
-	 *
 	 * @param IContextSource $context
 	 * @return bool
 	 */
@@ -112,7 +110,6 @@ class RatingComponent extends Literal {
 	}
 
 	/**
-	 *
 	 * @inheritDoc
 	 */
 	public function getRequiredRLStyles(): array {

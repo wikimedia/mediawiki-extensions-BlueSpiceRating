@@ -7,6 +7,9 @@ use MediaWiki\Json\FormatJson;
 
 class SetGlobals extends BSMigrateSettingsSetNewSettings {
 
+	/**
+	 * @inheritDoc
+	 */
 	protected function skipProcessing() {
 		if ( !in_array( $this->newName, [
 			"RatingArticleEnabledNamespaces",
@@ -18,6 +21,9 @@ class SetGlobals extends BSMigrateSettingsSetNewSettings {
 		return false;
 	}
 
+	/**
+	 * @inheritDoc
+	 */
 	protected function doProcess() {
 		$GLOBALS["bsg{$this->newName}"] = FormatJson::decode( $this->newValue, true );
 

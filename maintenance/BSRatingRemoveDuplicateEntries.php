@@ -8,7 +8,6 @@ require_once "$IP/maintenance/Maintenance.php";
 class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 
 	/**
-	 *
 	 * @return true
 	 */
 	protected function doDBUpdates() {
@@ -50,7 +49,6 @@ class BSRatingRemoveDuplicateEntries extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function getUpdateKey() {
