@@ -12,7 +12,7 @@
 	margin: 0;
 }
 
-.rating-group-stars {
+.rating-group-stars { /* stylelint-disable-line plugin/no-unsupported-browser-features */
 	display: flex;
 	flex-direction: row;
 	justify-content: start;
