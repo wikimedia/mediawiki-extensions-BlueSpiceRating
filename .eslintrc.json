@@ -10,8 +10,8 @@
 		"ecmaVersion": 2017
 	},
 	"globals": {
-		"ext": "readonly",
 		"bs": "readonly",
+		"ext": "readonly",
 		"jQuery": "readonly",
 		"OOJSPlus": "readonly"
 	},
@@ -19,6 +19,7 @@
 		"es-x/no-async-functions": "off",
 		"max-len": "off",
 		"no-jquery/no-global-selector": "off",
-		"no-prototype-builtins": "off"
+		"no-prototype-builtins": "off",
+		"no-jquery/no-done-fail": "warn"
 	}
 }
