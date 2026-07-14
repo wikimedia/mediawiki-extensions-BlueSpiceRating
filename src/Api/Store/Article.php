@@ -8,6 +8,9 @@ use MediaWiki\Context\RequestContext;
 
 class Article extends \BlueSpice\Api\Store {
 
+	/**
+	 * @inheritDoc
+	 */
 	protected function makeDataStore() {
 		return new Store(
 			new Context( RequestContext::getMain(), $this->getConfig() ),

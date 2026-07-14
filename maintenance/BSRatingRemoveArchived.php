@@ -8,7 +8,6 @@ require_once "$IP/maintenance/Maintenance.php";
 class BSRatingRemoveArchived extends LoggedUpdateMaintenance {
 
 	/**
-	 *
 	 * @return true
 	 */
 	protected function doDBUpdates() {
@@ -22,7 +21,6 @@ class BSRatingRemoveArchived extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function getUpdateKey() {

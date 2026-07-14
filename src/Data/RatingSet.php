@@ -7,7 +7,6 @@ use MWStake\MediaWiki\Component\DataStore\ResultSet;
 
 class RatingSet extends ResultSet {
 	/**
-	 *
 	 * @param Records[] $records
 	 * @param int $total
 	 */
@@ -19,7 +18,6 @@ class RatingSet extends ResultSet {
 	}
 
 	/**
-	 *
 	 * @param Records[] $ratings
 	 * @param array $rules
 	 * @return Records[]

@@ -11,7 +11,6 @@ use SMWDINumber;
 class RatingTotalValueProvider extends RatingAverageValueProvider {
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getAliasMessageKey() {
@@ -19,7 +18,6 @@ class RatingTotalValueProvider extends RatingAverageValueProvider {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getDescriptionMessageKey() {
@@ -27,7 +25,6 @@ class RatingTotalValueProvider extends RatingAverageValueProvider {
 	}
 
 	/**
-	 *
 	 * @return int
 	 */
 	public function getType() {
@@ -35,7 +32,6 @@ class RatingTotalValueProvider extends RatingAverageValueProvider {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getId() {
@@ -43,7 +39,6 @@ class RatingTotalValueProvider extends RatingAverageValueProvider {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	public function getLabel() {

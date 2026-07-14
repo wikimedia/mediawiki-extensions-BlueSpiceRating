@@ -5,7 +5,6 @@ namespace BlueSpice\Rating\Data\Item\ArticleLike;
 class Store extends \BlueSpice\Rating\Data\Store {
 
 	/**
-	 *
 	 * @return Reader
 	 */
 	public function getReader() {
@@ -13,7 +12,6 @@ class Store extends \BlueSpice\Rating\Data\Store {
 	}
 
 	/**
-	 *
 	 * @throws \MWException
 	 */
 	public function getWriter() {
