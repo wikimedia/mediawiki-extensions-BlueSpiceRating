@@ -8,7 +8,6 @@ require_once "$IP/maintenance/Maintenance.php";
 class BSRatingSetDefaultSubType extends LoggedUpdateMaintenance {
 
 	/**
-	 *
 	 * @return true
 	 */
 	protected function doDBUpdates() {
@@ -23,7 +22,6 @@ class BSRatingSetDefaultSubType extends LoggedUpdateMaintenance {
 	}
 
 	/**
-	 *
 	 * @return string
 	 */
 	protected function getUpdateKey() {

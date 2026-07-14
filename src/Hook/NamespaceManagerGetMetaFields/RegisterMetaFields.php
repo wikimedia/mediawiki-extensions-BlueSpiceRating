@@ -6,6 +6,9 @@ use BlueSpice\NamespaceManager\Hook\NamespaceManagerGetMetaFields;
 
 class RegisterMetaFields extends NamespaceManagerGetMetaFields {
 
+	/**
+	 * @inheritDoc
+	 */
 	protected function doProcess() {
 		$this->metaFields[] = [
 			'name' => 'rating',

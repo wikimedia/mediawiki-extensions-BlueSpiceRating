@@ -24,7 +24,6 @@ class Store implements IStore {
 	}
 
 	/**
-	 *
 	 * @return Reader
 	 */
 	public function getReader() {
@@ -32,7 +31,6 @@ class Store implements IStore {
 	}
 
 	/**
-	 *
 	 * @return Writer
 	 */
 	public function getWriter() {

@@ -1,14 +1,3 @@
--- Database definition for Rating
---
--- Part of BlueSpice MediaWiki
---
--- @author     Patric Wirth
--- @package    BlueSpice_Extensions
--- @subpackage Rating
--- @copyright  Copyright (C) 2016 Hallo Welt! GmbH, All rights reserved.
--- @license    http://www.gnu.org/copyleft/gpl.html GPL-3.0-only
--- @filesource
-
 CREATE TABLE IF NOT EXISTS /*$wgDBprefix*/bs_rating (
 	rat_id			INT		(6)		unsigned	NOT NULL	AUTO_INCREMENT,
 	rat_reftype		VARCHAR	(13)				NOT NULL	DEFAULT 'article',
