@@ -1,0 +1,18 @@
+{
+	"@metadata": {
+		"authors": [
+			"شاه زمان پټان"
+		]
+	},
+	"bs-rating-extension-description": "د درجه‌بندۍ غوڼدال چمتو کوي",
+	"bs-rating-types-page": "د مخ درجه‌بندي",
+	"bs-rating-types-pagelike": "د مخ سپارښتنه",
+	"rating": "درجه‌بنديانې",
+	"recommendations": "سپارښتنې",
+	"bs-rating-yourrating": "ستاسو درجه‌بندي: $1",
+	"bs-rating-special-rating-heading": "درجه‌بنديانې",
+	"bs-rating-ratingvalue-title": "له ۵ څخه $1 ته درجه‌بندي شوی",
+	"bs-rating-ratingcount-title": "$1{{PLURAL:$1|درجه‌بندي|درجه‌بنديانې}}",
+	"bs-rating-articlelike-ratingtext": "سپارښتل‌ ($1)",
+	"bs-rating-articlelike-uratingtextservoted": "سپارښتل‌شوی ($1)"
+}
