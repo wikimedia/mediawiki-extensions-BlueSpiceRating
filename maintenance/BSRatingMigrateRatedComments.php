@@ -89,7 +89,7 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 				}
 				try {
 					$status = $ratingItem->vote(
-						$this->getMaintenanceUser(),
+						User::newSystemUser( User::MAINTENANCE_SCRIPT_USER, [ 'steal' => true ] ),
 						$rating->rat_value,
 						$user,
 						0,
@@ -143,14 +143,6 @@ class BSRatingMigrateRatedComments extends LoggedUpdateMaintenance {
 	 */
 	protected function getRatingFactory() {
 		return $this->services->getService( 'BSRatingFactory' );
-	}
-
-	/**
-	 * @return User
-	 */
-	protected function getMaintenanceUser() {
-		return $this->services->getService( 'BSUtilityFactory' )
-			->getMaintenanceUser()->getUser();
 	}
 
 	/**
